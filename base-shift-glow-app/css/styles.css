@@ -1,0 +1,541 @@
+/* ========================================
+   Base Shift Glow - Main Styles
+   ======================================== */
+
+:root {
+    /* Base 2 (Binary) - Red Theme */
+    --base2-color: #FF3B30;
+    --base2-glow: rgba(255, 59, 48, 0.8);
+    --base2-shadow: 0 0 40px rgba(255, 59, 48, 0.6);
+
+    /* Base 8 (Octal) - Orange Theme */
+    --base8-color: #FF9500;
+    --base8-glow: rgba(255, 149, 0, 0.8);
+    --base8-shadow: 0 0 40px rgba(255, 149, 0, 0.6);
+
+    /* Base 10 (Decimal) - Green Theme */
+    --base10-color: #4CAF50;
+    --base10-glow: rgba(76, 175, 80, 0.8);
+    --base10-shadow: 0 0 40px rgba(76, 175, 80, 0.6);
+
+    /* Base 16 (Hexadecimal) - Blue Theme */
+    --base16-color: #007AFF;
+    --base16-glow: rgba(0, 122, 255, 0.8);
+    --base16-shadow: 0 0 40px rgba(0, 122, 255, 0.6);
+
+    /* Animation Timings */
+    --transition-fast: 0.3s;
+    --transition-normal: 0.6s;
+    --transition-slow: 1.2s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ========================================
+   LMS Control Panel
+   ======================================== */
+
+.lms-panel {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+.panel-header h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.panel-header p {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.control-group select,
+.control-group input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color var(--transition-fast);
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.control-group input[type="range"] {
+    padding: 0;
+}
+
+#difficultyValue {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.problem-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.problem-info h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.problem-info p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.status-connected {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* ========================================
+   Smartphone Container (우측 하단 고정)
+   ======================================== */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.smartphone-frame {
+    width: 320px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 3px #2a2a2a,
+        inset 0 0 0 6px #1a1a1a;
+    position: relative;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d1b4e 100%);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.smartphone-button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: #0a0a0a;
+    border-radius: 50%;
+    border: 2px solid #333;
+}
+
+.screen-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    color: white;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   BASE SHIFT GLOW EFFECT - 핵심 부분
+   ======================================== */
+
+.glow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 280px;
+    position: relative;
+    overflow: visible;
+}
+
+.base-glow {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-core {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.base-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    transition: color var(--transition-normal);
+}
+
+.base-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Glow Rings - 진법에 따라 크기와 색상이 변함 */
+.glow-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid;
+    opacity: 0.6;
+    transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-1 {
+    width: 140px;
+    height: 140px;
+    animation: pulse-ring-1 3s ease-in-out infinite;
+}
+
+.ring-2 {
+    width: 160px;
+    height: 160px;
+    animation: pulse-ring-2 3s ease-in-out infinite 0.5s;
+}
+
+.ring-3 {
+    width: 180px;
+    height: 180px;
+    animation: pulse-ring-3 3s ease-in-out infinite 1s;
+}
+
+/* Particle System */
+.particle-system {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-float 4s ease-out infinite;
+}
+
+/* ========================================
+   BASE-SPECIFIC STYLES (진법별 스타일)
+   ======================================== */
+
+/* Base 2 - Binary (빨강, 사각형 형태) */
+.base-glow[data-base="2"] .glow-core {
+    background: linear-gradient(135deg, #FF3B30, #FF6B60);
+    border-radius: 20px; /* 둥근 사각형 */
+    transform: rotate(0deg);
+    box-shadow: var(--base2-shadow);
+}
+
+.base-glow[data-base="2"] .glow-ring {
+    border-color: var(--base2-color);
+    border-radius: 25px;
+    filter: drop-shadow(0 0 20px var(--base2-glow));
+}
+
+.base-glow[data-base="2"] .base-number {
+    color: white;
+}
+
+/* Base 8 - Octal (주황, 팔각형 형태) */
+.base-glow[data-base="8"] .glow-core {
+    background: linear-gradient(135deg, #FF9500, #FFC300);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: rotate(22.5deg);
+    box-shadow: var(--base8-shadow);
+    animation: morph-octagon 4s ease-in-out infinite;
+}
+
+.base-glow[data-base="8"] .glow-ring {
+    border-color: var(--base8-color);
+    filter: drop-shadow(0 0 20px var(--base8-glow));
+}
+
+.base-glow[data-base="8"] .base-number {
+    color: white;
+    transform: rotate(-22.5deg);
+}
+
+/* Base 10 - Decimal (녹색, 원형 - 기본) */
+.base-glow[data-base="10"] .glow-core {
+    background: linear-gradient(135deg, #4CAF50, #81C784);
+    border-radius: 50%;
+    box-shadow: var(--base10-shadow);
+}
+
+.base-glow[data-base="10"] .glow-ring {
+    border-color: var(--base10-color);
+    filter: drop-shadow(0 0 20px var(--base10-glow));
+}
+
+.base-glow[data-base="10"] .base-number {
+    color: white;
+}
+
+/* Base 16 - Hexadecimal (파랑, 육각형 형태) */
+.base-glow[data-base="16"] .glow-core {
+    background: linear-gradient(135deg, #007AFF, #5AC8FA);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+    border-radius: 0;
+    box-shadow: var(--base16-shadow);
+}
+
+.base-glow[data-base="16"] .glow-ring {
+    border-color: var(--base16-color);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+    border-radius: 0;
+    filter: drop-shadow(0 0 20px var(--base16-glow));
+}
+
+.base-glow[data-base="16"] .base-number {
+    color: white;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes pulse-ring-1 {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+}
+
+@keyframes pulse-ring-2 {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.2;
+    }
+}
+
+@keyframes pulse-ring-3 {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.1;
+    }
+}
+
+@keyframes morph-octagon {
+    0%, 100% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    50% {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    }
+}
+
+@keyframes particle-float {
+    0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   Problem Display
+   ======================================== */
+
+.problem-display {
+    padding: 20px;
+    color: white;
+}
+
+.problem-display h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.problem-text {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    backdrop-filter: blur(10px);
+}
+
+/* ========================================
+   Debug Panel
+   ======================================== */
+
+.debug-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    z-index: 1000;
+}
+
+.debug-panel h4 {
+    margin-bottom: 10px;
+    color: #00ff00;
+}
+
+.debug-panel p {
+    margin-bottom: 5px;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .lms-panel {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+    }
+
+    .smartphone-frame {
+        transform: scale(0.8);
+    }
+
+    .debug-panel {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        margin-top: 20px;
+    }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

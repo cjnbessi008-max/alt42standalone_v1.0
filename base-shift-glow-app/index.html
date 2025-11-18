@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base Shift Glow - LMS Integration Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- LMS Control Panel (시뮬레이션) -->
+    <div class="lms-panel">
+        <div class="panel-header">
+            <h1>🎓 LMS Control Panel</h1>
+            <p>Moodle 3.7 Integration Simulator</p>
+        </div>
+
+        <div class="control-group">
+            <label for="baseSelector">진법 선택 (Base):</label>
+            <select id="baseSelector">
+                <option value="2">2진법 (Binary)</option>
+                <option value="8">8진법 (Octal)</option>
+                <option value="10" selected>10진법 (Decimal)</option>
+                <option value="16">16진법 (Hexadecimal)</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="problemType">문제 유형:</label>
+            <select id="problemType">
+                <option value="basic">기본 연산</option>
+                <option value="conversion">진법 변환</option>
+                <option value="advanced">고급 문제</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="difficulty">난이도:</label>
+            <input type="range" id="difficulty" min="1" max="5" value="3">
+            <span id="difficultyValue">3</span>
+        </div>
+
+        <button id="loadProblem" class="btn-primary">문제 불러오기</button>
+
+        <div class="problem-info">
+            <h3>현재 문제 정보</h3>
+            <div id="problemData">
+                <p><strong>진법:</strong> <span id="currentBase">10</span></p>
+                <p><strong>문제:</strong> <span id="currentProblem">대기 중...</span></p>
+                <p><strong>상태:</strong> <span id="connectionStatus" class="status-connected">연결됨</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display (우측 하단) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="screen-header">
+                    <span class="time">14:23</span>
+                    <span class="status-icons">📶 🔋</span>
+                </div>
+
+                <div class="glow-container">
+                    <div id="baseGlow" class="base-glow" data-base="10">
+                        <div class="glow-core">
+                            <div class="base-number">10</div>
+                            <div class="base-label">진법</div>
+                        </div>
+                        <div class="glow-ring ring-1"></div>
+                        <div class="glow-ring ring-2"></div>
+                        <div class="glow-ring ring-3"></div>
+                        <div class="particle-system" id="particleSystem"></div>
+                    </div>
+                </div>
+
+                <div class="problem-display">
+                    <h2>문제</h2>
+                    <div id="mobileProblem" class="problem-text">
+                        문제를 불러오려면 왼쪽 패널에서 '문제 불러오기'를 클릭하세요.
+                    </div>
+                </div>
+            </div>
+            <div class="smartphone-button"></div>
+        </div>
+    </div>
+
+    <!-- Animation Stats (개발자용) -->
+    <div class="debug-panel">
+        <h4>Debug Info</h4>
+        <p>현재 Base: <span id="debugBase">10</span></p>
+        <p>색상: <span id="debugColor">#4CAF50</span></p>
+        <p>Glow 강도: <span id="debugIntensity">100%</span></p>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
