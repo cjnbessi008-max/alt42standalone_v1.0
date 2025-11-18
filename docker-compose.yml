@@ -1,0 +1,150 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: alt42_postgres
+    environment:
+      POSTGRES_DB: alt42_lms
+      POSTGRES_USER: alt42
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema/lms_integration.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - alt42_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alt42"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: alt42_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - alt42_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alt42_api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DATABASE_URL=postgresql://alt42:${DB_PASSWORD:-changeme}@postgres:5432/alt42_lms
+      - REDIS_URL=redis://redis:6379/0
+      - MOODLE_URL=${MOODLE_URL}
+      - MOODLE_WS_TOKEN=${MOODLE_WS_TOKEN}
+      - MOODLE_COURSE_ID=${MOODLE_COURSE_ID}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - ENVIRONMENT=production
+      - PYTHONPATH=/app/src
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - alt42_network
+    restart: unless-stopped
+
+  # Celery Worker
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alt42_celery_worker
+    command: celery -A scheduler.celery_tasks worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://alt42:${DB_PASSWORD:-changeme}@postgres:5432/alt42_lms
+      - REDIS_URL=redis://redis:6379/0
+      - MOODLE_URL=${MOODLE_URL}
+      - MOODLE_WS_TOKEN=${MOODLE_WS_TOKEN}
+      - MOODLE_COURSE_ID=${MOODLE_COURSE_ID}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - ENVIRONMENT=production
+      - PYTHONPATH=/app/src
+    volumes:
+      - ./src:/app/src
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - alt42_network
+    restart: unless-stopped
+
+  # Celery Beat (Scheduler)
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alt42_celery_beat
+    command: celery -A scheduler.celery_tasks beat --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql://alt42:${DB_PASSWORD:-changeme}@postgres:5432/alt42_lms
+      - REDIS_URL=redis://redis:6379/0
+      - ENVIRONMENT=production
+      - PYTHONPATH=/app/src
+    volumes:
+      - ./src:/app/src
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - alt42_network
+    restart: unless-stopped
+
+  # Optional: Flower (Celery monitoring)
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alt42_flower
+    command: celery -A scheduler.celery_tasks flower --port=5555
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - PYTHONPATH=/app/src
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - celery_worker
+    networks:
+      - alt42_network
+    restart: unless-stopped
+
+networks:
+  alt42_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
