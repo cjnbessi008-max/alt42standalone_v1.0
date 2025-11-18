@@ -1,0 +1,106 @@
+// Prisma Schema for LMS Roleplay Conversion System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  TEACHER
+  STUDENT
+  ADMIN
+}
+
+enum ProblemType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  SHORT_ANSWER
+  MATH
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  problems        Problem[]
+  studentProgress StudentProgress[]
+
+  @@index([email])
+}
+
+model Problem {
+  id          String      @id @default(uuid())
+  teacherId   String
+  subject     String      // e.g., "Math", "Science"
+  topic       String      // e.g., "Fractions", "Algebra"
+  difficulty  Difficulty  @default(MEDIUM)
+  question    String      @db.Text
+  type        ProblemType
+  options     Json?       // For multiple choice: ["A", "B", "C", "D"]
+  answer      String      @db.Text
+  explanation String?     @db.Text
+  metadata    Json?       // Additional metadata
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  teacher User    @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  stories Story[]
+
+  @@index([teacherId])
+  @@index([subject, topic])
+}
+
+model Story {
+  id             String   @id @default(uuid())
+  problemId      String
+  title          String
+  storyData      Json     // Complete story structure
+  theme          String   @default("realistic") // realistic, fantasy, scifi, etc.
+  generationTime Int      // milliseconds taken to generate
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  problem  Problem           @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  attempts StudentProgress[]
+
+  @@index([problemId])
+}
+
+model StudentProgress {
+  id          String   @id @default(uuid())
+  studentId   String
+  storyId     String
+  completed   Boolean  @default(false)
+  isCorrect   Boolean? // null if not completed
+  choicesMade Json     // Array of choice IDs made during playthrough
+  timeSpent   Int      @default(0) // seconds
+  attempts    Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  student User  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, storyId, createdAt])
+  @@index([studentId])
+  @@index([storyId])
+}
