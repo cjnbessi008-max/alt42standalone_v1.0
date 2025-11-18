@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnitude Wave Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h1>벡터 크기 시각화 (Magnitude Wave)</h1>
+
+            <div class="problem-info">
+                <h2>문제 정보</h2>
+                <div id="problem-content">
+                    <p>Moodle에서 문제를 불러오는 중...</p>
+                </div>
+            </div>
+
+            <div class="vector-input">
+                <h3>벡터 입력</h3>
+                <div class="input-group">
+                    <label for="vector-x">X 성분:</label>
+                    <input type="number" id="vector-x" value="3" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="vector-y">Y 성분:</label>
+                    <input type="number" id="vector-y" value="4" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="vector-z">Z 성분:</label>
+                    <input type="number" id="vector-z" value="0" step="0.1">
+                </div>
+                <button id="calculate-btn" class="btn-primary">크기 계산 및 시각화</button>
+
+                <div id="magnitude-display" class="magnitude-result">
+                    <strong>벡터 크기:</strong> <span id="magnitude-value">5.0</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <h3>파동 설정</h3>
+                <div class="input-group">
+                    <label for="wave-speed">파동 속도:</label>
+                    <input type="range" id="wave-speed" min="1" max="10" value="5" step="1">
+                    <span id="speed-value">5</span>
+                </div>
+                <div class="input-group">
+                    <label for="wave-frequency">주파수:</label>
+                    <input type="range" id="wave-frequency" min="1" max="5" value="2" step="0.5">
+                    <span id="frequency-value">2</span>
+                </div>
+                <button id="toggle-animation" class="btn-secondary">일시정지</button>
+            </div>
+        </div>
+
+        <!-- Smartphone Simulator (Right Bottom) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-header">
+                    <div class="camera"></div>
+                    <div class="speaker"></div>
+                </div>
+
+                <div class="smartphone-screen">
+                    <div class="app-header">
+                        <h2>Magnitude Wave</h2>
+                        <div class="app-status">
+                            <span class="status-dot"></span>
+                            <span>연결됨</span>
+                        </div>
+                    </div>
+
+                    <canvas id="wave-canvas" width="280" height="400"></canvas>
+
+                    <div class="wave-info">
+                        <div class="info-item">
+                            <span class="label">크기:</span>
+                            <span id="mobile-magnitude" class="value">5.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">진폭:</span>
+                            <span id="mobile-amplitude" class="value">50px</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="smartphone-footer">
+                    <div class="home-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/magnitude-wave.js"></script>
+    <script src="js/moodle-integration.js"></script>
+</body>
+</html>

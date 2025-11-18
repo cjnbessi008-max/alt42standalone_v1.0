@@ -1,0 +1,339 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Main Content Area */
+.main-content {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-right: 380px; /* Space for smartphone */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.main-content h1 {
+    color: #667eea;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.main-content h2 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.main-content h3 {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+/* Problem Info Section */
+.problem-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border-left: 4px solid #667eea;
+}
+
+#problem-content {
+    line-height: 1.6;
+}
+
+/* Vector Input Section */
+.vector-input {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-group label {
+    min-width: 120px;
+    font-weight: 600;
+    color: #555;
+}
+
+.input-group input[type="number"] {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.input-group input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.input-group input[type="range"] {
+    flex: 1;
+}
+
+.input-group span {
+    min-width: 40px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+/* Magnitude Display */
+.magnitude-result {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    font-size: 1.2em;
+}
+
+#magnitude-value {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+/* Controls Section */
+.controls {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Smartphone Container - Fixed to Right Bottom */
+.smartphone-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+/* Smartphone Design */
+.smartphone {
+    width: 320px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-header {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.camera {
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    border: 1px solid #555;
+}
+
+.speaker {
+    width: 50px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    border: 1px solid #555;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 560px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h2 {
+    font-size: 1.1em;
+    margin: 0;
+    color: white;
+}
+
+.app-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Canvas for Wave */
+#wave-canvas {
+    flex: 1;
+    background: #0a0a0a;
+    display: block;
+}
+
+/* Wave Info Section */
+.wave-info {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-item .label {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 600;
+}
+
+.info-item .value {
+    font-size: 1.1em;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.smartphone-footer {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-button {
+    width: 40px;
+    height: 40px;
+    background: #333;
+    border-radius: 50%;
+    border: 2px solid #555;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .smartphone-container {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin: 30px auto 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-content {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .smartphone {
+        transform: scale(0.85);
+    }
+
+    .input-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input-group label {
+        min-width: auto;
+    }
+
+    .input-group input[type="number"] {
+        width: 100%;
+    }
+}
