@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/missedquestionfeedback/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/missedquestionfeedback"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Concepts table: stores learning concepts -->
+    <TABLE NAME="missed_feedback_concepts" COMMENT="Learning concepts for missed question feedback">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Concept name (e.g., 'Fraction Addition')"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Concept description"/>
+        <FIELD NAME="category" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" COMMENT="Concept category"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idx_category" UNIQUE="false" FIELDS="category"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Misconceptions table: stores common misconceptions -->
+    <TABLE NAME="missed_feedback_misconceptions" COMMENT="Common misconceptions and their feedback">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Related concept ID"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Misconception name"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="What the misconception is"/>
+        <FIELD NAME="explanation" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Why this is wrong"/>
+        <FIELD NAME="correctunderstanding" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Correct understanding"/>
+        <FIELD NAME="remediationstrategy" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="How to fix this misconception"/>
+        <FIELD NAME="resourceurl" TYPE="char" LENGTH="512" NOTNULL="false" SEQUENCE="false" COMMENT="Link to learning resource"/>
+        <FIELD NAME="resourcetitle" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="Resource title"/>
+        <FIELD NAME="severity" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="1=minor, 2=moderate, 3=critical"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_concept" TYPE="foreign" FIELDS="conceptid" REFTABLE="missed_feedback_concepts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idx_conceptid" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="idx_severity" UNIQUE="false" FIELDS="severity"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Interactions table: tracks student feedback interactions -->
+    <TABLE NAME="missed_feedback_interactions" COMMENT="Tracks student interactions with missed question feedback">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Student user ID"/>
+        <FIELD NAME="questionattemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Question attempt ID"/>
+        <FIELD NAME="misconceptionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Misconception shown"/>
+        <FIELD NAME="quizattemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Quiz attempt ID"/>
+        <FIELD NAME="viewed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether feedback was viewed"/>
+        <FIELD NAME="timeviewed" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="When feedback was viewed"/>
+        <FIELD NAME="timespent" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Seconds spent on feedback"/>
+        <FIELD NAME="resourceclicked" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether resource link was clicked"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_user" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="fk_misconception" TYPE="foreign" FIELDS="misconceptionid" REFTABLE="missed_feedback_misconceptions" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idx_userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="idx_questionattempt" UNIQUE="false" FIELDS="questionattemptid"/>
+        <INDEX NAME="idx_quizattempt" UNIQUE="false" FIELDS="quizattemptid"/>
+        <INDEX NAME="idx_misconception" UNIQUE="false" FIELDS="misconceptionid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Question-misconception mapping table -->
+    <TABLE NAME="missed_feedback_qmapping" COMMENT="Maps question answers to misconceptions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Question ID"/>
+        <FIELD NAME="answerid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Specific answer ID (null = any wrong answer)"/>
+        <FIELD NAME="misconceptionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Misconception ID"/>
+        <FIELD NAME="priority" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Display priority if multiple matches"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="fk_misconception" TYPE="foreign" FIELDS="misconceptionid" REFTABLE="missed_feedback_misconceptions" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="idx_question" UNIQUE="false" FIELDS="questionid"/>
+        <INDEX NAME="idx_answer" UNIQUE="false" FIELDS="answerid"/>
+        <INDEX NAME="idx_qmisconception" UNIQUE="false" FIELDS="questionid,misconceptionid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

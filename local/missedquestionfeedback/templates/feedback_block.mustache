@@ -1,0 +1,147 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Template for displaying misconception feedback block
+
+    @template local_missedquestionfeedback/feedback_block
+}}
+<div class="missed-feedback-block {{severityclass}}" data-interaction-id="{{interactionid}}">
+    <div class="missed-feedback-header">
+        <h4 class="missed-feedback-title">{{title}}</h4>
+    </div>
+
+    <div class="missed-feedback-content">
+        <div class="missed-feedback-section concept-section">
+            <div class="section-label">{{conceptlabel}}</div>
+            <div class="concept-info">
+                <strong>{{conceptname}}</strong>
+                {{#conceptcategory}}
+                    <span class="concept-category badge badge-info">{{conceptcategory}}</span>
+                {{/conceptcategory}}
+            </div>
+        </div>
+
+        <div class="missed-feedback-section misconception-section">
+            <div class="section-label">{{misconceptionlabel}}</div>
+            <div class="misconception-name">{{misconceptionname}}</div>
+            <div class="misconception-explanation">{{{explanation}}}</div>
+        </div>
+
+        <div class="missed-feedback-section correct-section">
+            <div class="section-label">{{correctlabel}}</div>
+            <div class="correct-understanding">{{{correctunderstanding}}}</div>
+        </div>
+
+        {{#hasremediation}}
+        <div class="missed-feedback-section remediation-section">
+            <div class="section-label">{{remediationlabel}}</div>
+            <div class="remediation-strategy">{{{remediation}}}</div>
+        </div>
+        {{/hasremediation}}
+
+        {{#hasresource}}
+        <div class="missed-feedback-section resource-section">
+            <a href="{{resourceurl}}"
+               target="_blank"
+               class="btn btn-primary missed-feedback-resource"
+               data-interaction-id="{{interactionid}}">
+                {{resourcetitle}}
+            </a>
+        </div>
+        {{/hasresource}}
+    </div>
+</div>
+
+<style>
+.missed-feedback-block {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f9f9;
+}
+
+.missed-feedback-block.severity-critical {
+    border-color: #d9534f;
+    background-color: #fef5f5;
+}
+
+.missed-feedback-block.severity-moderate {
+    border-color: #f0ad4e;
+    background-color: #fffbf5;
+}
+
+.missed-feedback-block.severity-minor {
+    border-color: #5bc0de;
+    background-color: #f5f9fb;
+}
+
+.missed-feedback-header {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.missed-feedback-title {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.missed-feedback-section {
+    margin: 15px 0;
+}
+
+.section-label {
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.concept-info {
+    padding: 10px;
+    background-color: #e8f4f8;
+    border-radius: 4px;
+}
+
+.concept-category {
+    margin-left: 10px;
+}
+
+.misconception-name {
+    font-weight: 600;
+    color: #d9534f;
+    margin-bottom: 8px;
+}
+
+.misconception-explanation,
+.correct-understanding,
+.remediation-strategy {
+    line-height: 1.6;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.correct-understanding {
+    border-left: 4px solid #5cb85c;
+}
+
+.missed-feedback-resource {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .missed-feedback-block {
+        padding: 15px;
+    }
+}
+</style>
