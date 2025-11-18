@@ -1,0 +1,399 @@
+/**
+ * Styles for ASMR & Sound Effects plugin
+ *
+ * @package    local_asmr
+ * @copyright  2025 KAIST
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* ===== Player Container ===== */
+.asmr-player-controls {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Player Info ===== */
+.asmr-player-info {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.asmr-now-playing {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.asmr-sound-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212529;
+    display: block;
+    margin-top: 5px;
+}
+
+/* ===== Progress Bar ===== */
+.asmr-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.asmr-time-current,
+.asmr-time-total {
+    font-size: 12px;
+    color: #6c757d;
+    min-width: 45px;
+    font-family: monospace;
+}
+
+.asmr-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: height 0.2s;
+}
+
+.asmr-progress-bar:hover {
+    height: 8px;
+}
+
+.asmr-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #0d6efd 0%, #0dcaf0 100%);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.1s linear;
+    position: relative;
+}
+
+.asmr-progress-handle {
+    width: 12px;
+    height: 12px;
+    background: #0d6efd;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.asmr-progress-bar:hover .asmr-progress-handle {
+    opacity: 1;
+}
+
+/* ===== Main Controls ===== */
+.asmr-controls-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.asmr-btn {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #495057;
+}
+
+.asmr-btn:hover {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+    transform: scale(1.05);
+}
+
+.asmr-btn:active {
+    transform: scale(0.95);
+}
+
+.asmr-btn.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.asmr-btn-play,
+.asmr-btn-pause {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.asmr-btn-play:hover,
+.asmr-btn-pause:hover {
+    background: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+/* ===== Volume Control ===== */
+.asmr-volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    padding: 5px 12px;
+}
+
+.asmr-btn-volume {
+    border: none;
+    background: transparent;
+    width: auto;
+    height: auto;
+}
+
+.asmr-volume-slider {
+    width: 80px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e9ecef;
+    border-radius: 2px;
+    outline: none;
+}
+
+.asmr-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #0d6efd;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.asmr-volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: #0d6efd;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.asmr-volume-value {
+    font-size: 11px;
+    color: #6c757d;
+    min-width: 30px;
+}
+
+/* ===== Sound Library ===== */
+.asmr-sound-library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.asmr-sound-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.asmr-sound-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #0d6efd;
+}
+
+.asmr-sound-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #212529;
+}
+
+.asmr-sound-card-category {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.asmr-sound-card-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #adb5bd;
+}
+
+/* ===== Category Filters ===== */
+.asmr-categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.asmr-category-btn {
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    color: #495057;
+}
+
+.asmr-category-btn:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.asmr-category-btn.active {
+    background: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/* ===== Mini Player (Block) ===== */
+.block_asmr_player {
+    padding: 15px;
+}
+
+.asmr-mini-player {
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.asmr-mini-controls {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.asmr-mini-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.asmr-mini-btn:hover {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .asmr-player-controls {
+        padding: 15px;
+    }
+
+    .asmr-controls-main {
+        gap: 8px;
+    }
+
+    .asmr-btn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .asmr-btn-play,
+    .asmr-btn-pause {
+        width: 45px;
+        height: 45px;
+    }
+
+    .asmr-volume-control {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .asmr-sound-library {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        padding: 10px;
+    }
+}
+
+/* ===== Loading States ===== */
+.asmr-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0d6efd;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== Favorites ===== */
+.asmr-favorite-btn {
+    background: transparent;
+    border: none;
+    color: #ffc107;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.asmr-favorite-btn:hover {
+    transform: scale(1.2);
+}
+
+.asmr-favorite-btn.active {
+    color: #ff9800;
+}
+
+/* ===== Rating Stars ===== */
+.asmr-rating {
+    display: inline-flex;
+    gap: 2px;
+}
+
+.asmr-rating-star {
+    color: #ffc107;
+    font-size: 12px;
+}
+
+.asmr-rating-star.empty {
+    color: #dee2e6;
+}
