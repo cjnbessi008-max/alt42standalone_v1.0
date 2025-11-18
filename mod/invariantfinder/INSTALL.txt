@@ -1,0 +1,61 @@
+INVARIANT FINDER - QUICK INSTALLATION GUIDE
+===========================================
+
+Requirements:
+- Moodle 3.5 or higher (tested on 3.7)
+- PHP 7.1.9 or higher
+- MySQL 5.7 or higher
+
+Installation Steps:
+-------------------
+
+1. Copy the 'invariantfinder' folder to your Moodle installation:
+
+   cp -r invariantfinder /path/to/moodle/mod/
+
+2. Set proper permissions:
+
+   chmod -R 755 /path/to/moodle/mod/invariantfinder
+   chown -R www-data:www-data /path/to/moodle/mod/invariantfinder
+
+3. Login to Moodle as administrator and navigate to:
+
+   Site administration > Notifications
+
+   Or visit directly:
+
+   http://your-moodle-site/admin/index.php
+
+4. Follow the on-screen instructions to complete the installation.
+
+5. Verify installation:
+
+   Site administration > Plugins > Activity modules
+
+   You should see "Invariant Finder" in the list.
+
+Usage:
+------
+
+Teachers:
+1. Turn editing on in any course
+2. Add activity or resource > Invariant Finder
+3. Configure settings and save
+
+Students:
+1. Click on the Invariant Finder activity
+2. Use the slider to scale the shape
+3. Find invariants (properties that don't change)
+4. Click "Check Invariant" to verify
+5. Click "Submit Answer" when done
+
+For detailed documentation, see README.md
+
+Support:
+--------
+Check Moodle logs at: Site administration > Reports > Logs
+Check browser console for JavaScript errors
+Check PHP error logs
+
+Copyright 2025 KAIST Touch Math Academy
+License: GNU GPL v3 or later

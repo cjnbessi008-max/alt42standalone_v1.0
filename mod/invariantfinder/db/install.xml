@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/invariantfinder/db" VERSION="20250118" COMMENT="XMLDB file for Moodle mod/invariantfinder"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="invariantfinder" COMMENT="Stores the invariant finder activity instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course invariantfinder activity belongs to"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the activity"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of intro field"/>
+        <FIELD NAME="shape_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="triangle" SEQUENCE="false" COMMENT="Type of shape (triangle, rectangle, circle)"/>
+        <FIELD NAME="difficulty" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Difficulty level 1-5"/>
+        <FIELD NAME="show_hints" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Whether to show hints"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <TABLE NAME="invariantfinder_attempts" COMMENT="Stores student attempts at finding invariants">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="invariantfinder" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to invariantfinder table"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User who made the attempt"/>
+        <FIELD NAME="attempt_number" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="invariants_found" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of invariants found"/>
+        <FIELD NAME="scale_actions" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of times user scaled the shape"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Score achieved (0-100)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="invariantfinder" TYPE="foreign" FIELDS="invariantfinder" REFTABLE="invariantfinder" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="invariantfinder-userid" UNIQUE="false" FIELDS="invariantfinder, userid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="invariantfinder_interactions" COMMENT="Logs each interaction with the shape">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="attempt_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="action_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="scale, rotate, identify, etc."/>
+        <FIELD NAME="action_data" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data about the action"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="attempt_id" TYPE="foreign" FIELDS="attempt_id" REFTABLE="invariantfinder_attempts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="attempt_id-timestamp" UNIQUE="false" FIELDS="attempt_id, timestamp"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
