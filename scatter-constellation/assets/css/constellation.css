@@ -1,0 +1,269 @@
+/**
+ * Constellation Visualization Styles
+ * 별자리 시각화 스타일
+ */
+
+/* Constellation Point Styles */
+.constellation-point {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    box-shadow: 0 0 10px currentColor;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.constellation-point:hover {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px currentColor;
+    z-index: 10;
+}
+
+.constellation-point.selected {
+    animation: pulse-selected 1s ease-in-out infinite;
+    box-shadow: 0 0 30px currentColor;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes pulse-selected {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.5);
+    }
+}
+
+/* Constellation Line Styles */
+.constellation-line {
+    position: absolute;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--constellation-line) 50%,
+        transparent 100%
+    );
+    transform-origin: left center;
+    pointer-events: none;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Point Color Classes */
+.point-gold {
+    color: #ffd700;
+}
+
+.point-red {
+    color: #ff4444;
+}
+
+.point-green {
+    color: #44ff44;
+}
+
+.point-blue {
+    color: #4444ff;
+}
+
+.point-purple {
+    color: #9b59b6;
+}
+
+.point-cyan {
+    color: #00ffff;
+}
+
+/* Tooltip for points */
+.constellation-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.constellation-tooltip.visible {
+    opacity: 1;
+}
+
+.constellation-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid rgba(0, 0, 0, 0.9);
+}
+
+/* Constellation Groups */
+.constellation-group-1 { --group-color: #ff6b6b; }
+.constellation-group-2 { --group-color: #4ecdc4; }
+.constellation-group-3 { --group-color: #45b7d1; }
+.constellation-group-4 { --group-color: #f7b731; }
+.constellation-group-5 { --group-color: #5f27cd; }
+
+/* Legend */
+.constellation-legend {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    z-index: 100;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 5px currentColor;
+}
+
+/* Canvas Overlay Elements */
+.canvas-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* Shooting Star Effect */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px white;
+    animation: shoot 3s linear;
+}
+
+@keyframes shoot {
+    0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(300px) translateY(300px);
+        opacity: 0;
+    }
+}
+
+/* Difficulty Axis Labels */
+.axis-label {
+    position: absolute;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.axis-label.x-axis {
+    bottom: 5px;
+    right: 10px;
+}
+
+.axis-label.y-axis {
+    top: 50%;
+    left: 5px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+/* Grid Lines */
+.grid-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+/* Loading State */
+.constellation-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.constellation-loading::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffd700;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Empty State */
+.constellation-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.constellation-empty::before {
+    content: '⭐';
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}

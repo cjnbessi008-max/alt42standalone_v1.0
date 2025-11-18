@@ -1,0 +1,266 @@
+/**
+ * Virtual Smartphone Screen Styles
+ * 가상 스마트폰 화면 스타일 (우측 하단 고정)
+ */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    animation: slideInFromRight 0.8s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    width: 375px;
+    height: 667px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 2px #333,
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+    transform: scale(1.02);
+}
+
+/* Screen */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    flex-shrink: 0;
+}
+
+.time {
+    font-weight: 600;
+}
+
+.battery {
+    display: flex;
+    align-items: center;
+}
+
+.battery::before {
+    content: '🔋';
+    margin-right: 5px;
+}
+
+/* App Header */
+.app-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+.app-header h2 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 0;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Constellation Canvas */
+#constellation-canvas {
+    flex: 1;
+    width: 100%;
+    background: radial-gradient(ellipse at center, #1a1a3e 0%, #0a0a1e 100%);
+    cursor: crosshair;
+    position: relative;
+}
+
+/* Canvas Overlay - Stars effect */
+#constellation-canvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(1px 1px at 20% 30%, white, transparent),
+        radial-gradient(1px 1px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(1px 1px at 90% 60%, white, transparent);
+    background-size: 100px 100px;
+    animation: twinkleSlow 5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes twinkleSlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Problem Info Panel */
+.problem-info {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.problem-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #ffd700;
+}
+
+.problem-info::-webkit-scrollbar {
+    width: 6px;
+}
+
+.problem-info::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.problem-info::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+#selected-problem-details {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.problem-detail-item {
+    margin-bottom: 5px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.problem-detail-label {
+    color: #ffd700;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+/* Home Button */
+.home-button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.home-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 3px;
+}
+
+/* Responsive - Smaller screens */
+@media (max-width: 1200px) {
+    .smartphone-container {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .smartphone-frame {
+        width: 300px;
+        height: 533px;
+        border-radius: 30px;
+        padding: 12px;
+    }
+
+    .smartphone-screen {
+        border-radius: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 30px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 375px;
+    }
+}
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+    75% {
+        transform: translateY(-5px) rotate(-1deg);
+    }
+}
+
+.smartphone-container.floating {
+    animation: float 6s ease-in-out infinite;
+}

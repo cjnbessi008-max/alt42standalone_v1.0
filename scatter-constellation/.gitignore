@@ -1,0 +1,42 @@
+# Scatter Constellation - Git Ignore File
+
+# Configuration
+config.php
+.env
+
+# Database
+*.sql.gz
+*.sql.bak
+backups/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+error_log
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Vendor (if using Composer)
+vendor/
+
+# Node modules (if using npm)
+node_modules/
+
+# OS specific
+Thumbs.db
+.DS_Store
+
+# Session files
+sessions/
+*.sess
