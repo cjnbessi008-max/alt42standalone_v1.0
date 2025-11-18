@@ -1,0 +1,134 @@
+# Docker Compose Configuration for Standalone Moodle LMS Integration
+#
+# Services:
+# - frontend: React web application
+# - backend: FastAPI REST API
+# - mysql: MySQL 5.7 database (optional)
+#
+# Usage:
+#   docker-compose up -d        # Start all services
+#   docker-compose down         # Stop all services
+#   docker-compose logs -f      # View logs
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # Frontend Service (React)
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: moodle-integration-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:8000
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    volumes:
+      # Mount source code for development (comment out for production)
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    networks:
+      - moodle-integration-network
+    restart: unless-stopped
+
+  # ============================================================================
+  # Backend Service (FastAPI)
+  # ============================================================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: moodle-integration-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Moodle Configuration
+      - MOODLE_BASE_URL=${MOODLE_BASE_URL:-https://moodle.example.com}
+      - MOODLE_WS_TOKEN=${MOODLE_WS_TOKEN:-your_token_here}
+      - MOODLE_API_TIMEOUT=30
+
+      # Database Configuration (optional)
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-alt42_moodle_integration}
+      - DB_USER=${DB_USER:-alt42_app}
+      - DB_PASSWORD=${DB_PASSWORD:-secure_password}
+
+      # API Configuration
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_DEBUG=false
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:8000
+
+      # Application Configuration
+      - DEFAULT_LANGUAGE=ko
+      - LOG_LEVEL=INFO
+
+      # Feature Flags
+      - FEATURE_REVERSE_RECONSTRUCTION=true
+      - FEATURE_BATCH_PROCESSING=true
+      - FEATURE_DATABASE_PERSISTENCE=false
+    volumes:
+      # Mount source code for development (comment out for production)
+      - ./backend:/app
+      # Logs
+      - ./logs:/app/logs
+    depends_on:
+      - mysql
+    networks:
+      - moodle-integration-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================================================
+  # MySQL 5.7 Database (Optional)
+  # ============================================================================
+  mysql:
+    image: mysql:5.7
+    container_name: moodle-integration-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+      - MYSQL_DATABASE=${DB_NAME:-alt42_moodle_integration}
+      - MYSQL_USER=${DB_USER:-alt42_app}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-secure_password}
+    volumes:
+      # Persistent data
+      - mysql-data:/var/lib/mysql
+      # Initialize database with schema
+      - ./backend/database/moodle_integration_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    networks:
+      - moodle-integration-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# ============================================================================
+# Networks
+# ============================================================================
+networks:
+  moodle-integration-network:
+    driver: bridge
+    name: moodle-integration-network
+
+# ============================================================================
+# Volumes
+# ============================================================================
+volumes:
+  mysql-data:
+    name: moodle-integration-mysql-data
+    driver: local
