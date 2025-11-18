@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alt42 Demo - Log Graph with Area Color</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .feature-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-list h2 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .feature-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .chart-demo {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-demo h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #demoChart {
+            max-height: 350px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .info-box p {
+            color: #856404;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Alt42 LMS Integration</h1>
+        <p class="subtitle">Log Graph with Area Color - 데모</p>
+
+        <div class="feature-list">
+            <h2>주요 기능</h2>
+            <ul>
+                <li>로그 스케일 그래프에 Area Color 적용</li>
+                <li>Chart.js를 활용한 부드러운 애니메이션</li>
+                <li>실시간 데이터 업데이트 지원</li>
+                <li>Moodle 3.7 LMS와 완벽 연동</li>
+                <li>우측 하단 가상 스마트폰 화면</li>
+                <li>반응형 디자인 (모바일 지원)</li>
+            </ul>
+        </div>
+
+        <div class="chart-demo">
+            <h3>📊 Log Graph with Area Color (샘플)</h3>
+            <canvas id="demoChart"></canvas>
+        </div>
+
+        <div class="button-group">
+            <button onclick="addDataPoint()">데이터 추가</button>
+            <button onclick="resetChart()">차트 초기화</button>
+            <button onclick="toggleAreaColor()">Area Color 토글</button>
+            <button onclick="changeColor()">색상 변경</button>
+        </div>
+
+        <div class="info-box">
+            <p><strong>💡 사용 방법:</strong></p>
+            <p>• <code>index.html</code>에서 전체 기능을 확인하세요</p>
+            <p>• URL 파라미터: <code>?userid=1&courseid=2&problemid=10</code></p>
+            <p>• API 문서는 <code>README.md</code>를 참조하세요</p>
+        </div>
+    </div>
+
+    <script>
+        let chart;
+        let dataPoints = [];
+        let areaColorEnabled = true;
+        let currentColorIndex = 0;
+
+        const colors = [
+            { border: 'rgba(102, 126, 234, 1)', bg: 'rgba(102, 126, 234, 0.3)' },
+            { border: 'rgba(118, 75, 162, 1)', bg: 'rgba(118, 75, 162, 0.3)' },
+            { border: 'rgba(220, 53, 69, 1)', bg: 'rgba(220, 53, 69, 0.3)' },
+            { border: 'rgba(40, 167, 69, 1)', bg: 'rgba(40, 167, 69, 0.3)' },
+            { border: 'rgba(255, 193, 7, 1)', bg: 'rgba(255, 193, 7, 0.3)' }
+        ];
+
+        function generateSampleData() {
+            const data = [];
+            let value = 1;
+
+            for (let i = 0; i < 10; i++) {
+                value = value * (1 + Math.random() * 0.5);
+                data.push(Math.min(value, 100));
+            }
+
+            return data;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('demoChart');
+            dataPoints = generateSampleData();
+            const labels = dataPoints.map((_, i) => `${i * 5}분`);
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '학습 진행도 (로그 스케일)',
+                        data: dataPoints,
+                        borderColor: colors[0].border,
+                        backgroundColor: colors[0].bg,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBackgroundColor: colors[0].border,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: colors[0].border,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans KR', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return '진행도: ' + context.parsed.y.toFixed(2) + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: '진행도 (%)',
+                                font: { size: 14 }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toFixed(0) + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '시간 (분)',
+                                font: { size: 14 }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+        }
+
+        function addDataPoint() {
+            if (dataPoints.length >= 20) {
+                dataPoints.shift();
+            }
+
+            const lastValue = dataPoints[dataPoints.length - 1] || 1;
+            const newValue = Math.min(lastValue * (1 + Math.random() * 0.3), 100);
+
+            dataPoints.push(newValue);
+
+            chart.data.labels = dataPoints.map((_, i) => `${i * 5}분`);
+            chart.data.datasets[0].data = dataPoints;
+            chart.update();
+        }
+
+        function resetChart() {
+            dataPoints = generateSampleData();
+            chart.data.labels = dataPoints.map((_, i) => `${i * 5}분`);
+            chart.data.datasets[0].data = dataPoints;
+            chart.update();
+        }
+
+        function toggleAreaColor() {
+            areaColorEnabled = !areaColorEnabled;
+            chart.data.datasets[0].fill = areaColorEnabled;
+            chart.data.datasets[0].backgroundColor = areaColorEnabled
+                ? colors[currentColorIndex].bg
+                : 'transparent';
+            chart.update();
+        }
+
+        function changeColor() {
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+            chart.data.datasets[0].borderColor = colors[currentColorIndex].border;
+            chart.data.datasets[0].backgroundColor = areaColorEnabled
+                ? colors[currentColorIndex].bg
+                : 'transparent';
+            chart.data.datasets[0].pointBackgroundColor = colors[currentColorIndex].border;
+            chart.data.datasets[0].pointHoverBorderColor = colors[currentColorIndex].border;
+            chart.update();
+        }
+
+        // 페이지 로드 시 차트 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            console.log('Alt42 Demo Chart initialized with Area Color');
+        });
+    </script>
+</body>
+</html>
