@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/bestmoments/db" VERSION="20250118" COMMENT="XMLDB file for Moodle local/bestmoments"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- 추출된 최고의 사고 순간을 저장하는 메인 테이블 -->
+    <TABLE NAME="local_bestmoments_moments" COMMENT="Stores extracted best thinking moments">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="User ID from mdl_user"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="activitytype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type of activity (quiz, assignment, forum, etc)"/>
+        <FIELD NAME="activityid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="ID of the specific activity"/>
+        <FIELD NAME="momentdate" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix timestamp of the moment"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Overall thinking score (0-100)"/>
+        <FIELD NAME="efficiency_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Problem-solving efficiency score"/>
+        <FIELD NAME="creativity_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Creative approach score"/>
+        <FIELD NAME="improvement_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Improvement score"/>
+        <FIELD NAME="persistence_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Persistence score"/>
+        <FIELD NAME="collaboration_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Collaboration score"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Description of the thinking moment"/>
+        <FIELD NAME="context_data" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data with context information"/>
+        <FIELD NAME="is_featured" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Is this a featured moment?"/>
+        <FIELD NAME="teacher_comment" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Teacher's comment on this moment"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="momentdate" UNIQUE="false" FIELDS="momentdate"/>
+        <INDEX NAME="score" UNIQUE="false" FIELDS="score"/>
+        <INDEX NAME="activitytype" UNIQUE="false" FIELDS="activitytype"/>
+        <INDEX NAME="isfeatured" UNIQUE="false" FIELDS="is_featured"/>
+        <INDEX NAME="userid_momentdate" UNIQUE="false" FIELDS="userid, momentdate"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 활동별 상세 분석 점수 -->
+    <TABLE NAME="local_bestmoments_scores" COMMENT="Detailed analysis scores for activities">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="activitytype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activityid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Attempt ID if applicable"/>
+        <FIELD NAME="attempt_number" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="success_rate" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="creativity_indicators" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of creativity indicators"/>
+        <FIELD NAME="improvement_from_previous" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="attempts_before_success" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="collaboration_events" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="raw_data" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data from Moodle logs"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="activitytype_id" UNIQUE="false" FIELDS="activitytype, activityid"/>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid, courseid"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 분석된 활동 추적 (중복 분석 방지) -->
+    <TABLE NAME="local_bestmoments_activities" COMMENT="Tracks analyzed activities to prevent duplicate analysis">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="activitytype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activityid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="last_analyzed" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Unix timestamp of last analysis"/>
+        <FIELD NAME="analysis_count" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending" SEQUENCE="false" COMMENT="pending, analyzed, skipped"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="activitytype_id_user" UNIQUE="true" FIELDS="activitytype, activityid, userid"/>
+        <INDEX NAME="last_analyzed" UNIQUE="false" FIELDS="last_analyzed"/>
+        <INDEX NAME="status" UNIQUE="false" FIELDS="status"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 사용자 정의 설정 -->
+    <TABLE NAME="local_bestmoments_settings" COMMENT="Custom settings per course or user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="NULL for global settings"/>
+        <FIELD NAME="setting_name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="setting_value" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="setting_type" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="string" SEQUENCE="false" COMMENT="string, int, float, bool, json"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid_name" UNIQUE="true" FIELDS="courseid, setting_name"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 일일 분석 작업 로그 -->
+    <TABLE NAME="local_bestmoments_logs" COMMENT="Daily analysis job logs">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="job_date" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Date of analysis (Unix timestamp)"/>
+        <FIELD NAME="start_time" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="end_time" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="running" SEQUENCE="false" COMMENT="running, completed, failed"/>
+        <FIELD NAME="activities_analyzed" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="moments_extracted" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="error_message" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="execution_time" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Execution time in seconds"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="job_date" UNIQUE="false" FIELDS="job_date"/>
+        <INDEX NAME="status" UNIQUE="false" FIELDS="status"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>
