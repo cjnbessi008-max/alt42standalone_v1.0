@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratio Alive - 비율이 살아있는 수학</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 좌측: 문제 정보 및 컨트롤 패널 -->
+        <div class="left-panel">
+            <div class="header">
+                <h1>Ratio Alive</h1>
+                <p class="subtitle">비율이 살아 움직이며 일정함을 보여주는 앱</p>
+            </div>
+
+            <div class="problem-info" id="problemInfo">
+                <h2>문제 정보</h2>
+                <div class="loading">Moodle에서 문제 정보를 불러오는 중...</div>
+            </div>
+
+            <div class="controls">
+                <h3>도형 선택</h3>
+                <div class="shape-buttons">
+                    <button class="shape-btn active" data-shape="triangle">삼각형</button>
+                    <button class="shape-btn" data-shape="rectangle">직사각형</button>
+                    <button class="shape-btn" data-shape="pentagon">오각형</button>
+                </div>
+
+                <h3>비율 설정</h3>
+                <div class="ratio-controls">
+                    <label for="ratio1">비율 A:</label>
+                    <input type="range" id="ratio1" min="1" max="10" value="3" step="1">
+                    <span id="ratio1Value">3</span>
+
+                    <label for="ratio2">비율 B:</label>
+                    <input type="range" id="ratio2" min="1" max="10" value="4" step="1">
+                    <span id="ratio2Value">4</span>
+                </div>
+
+                <div class="ratio-display">
+                    <p>현재 비율: <strong id="currentRatio">3:4</strong></p>
+                    <p>백분율: <strong id="percentage">75%</strong></p>
+                </div>
+
+                <h3>애니메이션 제어</h3>
+                <div class="animation-controls">
+                    <button id="playBtn" class="control-btn">▶ 재생</button>
+                    <button id="pauseBtn" class="control-btn">⏸ 일시정지</button>
+                    <button id="resetBtn" class="control-btn">↻ 리셋</button>
+                </div>
+
+                <div class="speed-control">
+                    <label for="speed">속도:</label>
+                    <input type="range" id="speed" min="0.5" max="3" value="1" step="0.5">
+                    <span id="speedValue">1x</span>
+                </div>
+            </div>
+
+            <div class="answer-section">
+                <h3>답안 제출</h3>
+                <textarea id="answerText" rows="4" placeholder="관찰한 내용을 작성하세요..."></textarea>
+                <button id="submitBtn" class="submit-btn">제출</button>
+            </div>
+        </div>
+
+        <!-- 우측 하단: 가상 스마트폰 화면 -->
+        <div class="right-panel">
+            <div class="smartphone-frame">
+                <div class="smartphone-screen">
+                    <div class="screen-header">
+                        <div class="time">12:34</div>
+                        <div class="status-icons">
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <canvas id="ratioCanvas" width="340" height="500"></canvas>
+
+                        <div class="info-overlay">
+                            <div class="info-text" id="infoText">
+                                도형을 관찰하세요. 크기가 변해도 비율은 일정합니다!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screen-footer">
+                        <div class="home-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ratioAlive.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

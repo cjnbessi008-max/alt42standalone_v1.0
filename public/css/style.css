@@ -1,0 +1,385 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* 좌측 패널 */
+.left-panel {
+    flex: 1;
+    min-width: 400px;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #667eea;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.problem-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.problem-info h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.loading {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+}
+
+.controls {
+    margin-bottom: 30px;
+}
+
+.controls h3 {
+    color: #333;
+    margin: 20px 0 15px 0;
+    font-size: 1.2em;
+}
+
+.shape-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.shape-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.shape-btn:hover {
+    background: #f0f0ff;
+}
+
+.shape-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.ratio-controls {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.ratio-controls label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.ratio-controls label:first-child {
+    margin-top: 0;
+}
+
+.ratio-controls input[type="range"] {
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.ratio-controls span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.ratio-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.ratio-display p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.ratio-display strong {
+    font-size: 1.5em;
+}
+
+.animation-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.control-btn {
+    flex: 1;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.control-btn:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+#pauseBtn {
+    background: #FF9800;
+}
+
+#resetBtn {
+    background: #f44336;
+}
+
+.speed-control {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.speed-control label {
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+}
+
+.speed-control input[type="range"] {
+    width: calc(100% - 100px);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.speed-control span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.answer-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.answer-section h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#answerText {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* 우측 패널 - 가상 스마트폰 */
+.right-panel {
+    flex: 0 0 420px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.smartphone-frame {
+    width: 380px;
+    height: 760px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 0.9em;
+}
+
+.status-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.app-content {
+    flex: 1;
+    position: relative;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ratioCanvas {
+    display: block;
+    background: white;
+}
+
+.info-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+.info-text {
+    background: rgba(102, 126, 234, 0.95);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.95em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.screen-footer {
+    padding: 15px;
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.home-button {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.home-button:hover {
+    background: #f0f0f0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .right-panel {
+        flex: none;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-panel {
+        min-width: auto;
+    }
+
+    .smartphone-frame {
+        transform: scale(0.85);
+    }
+}
