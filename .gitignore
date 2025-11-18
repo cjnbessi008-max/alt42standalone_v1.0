@@ -1,0 +1,40 @@
+# Environment files
+config/.env
+.env
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
+
+# Storage
+storage/*
+!storage/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+
+# NPM
+node_modules/
+package-lock.json
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backup files
+*.bak
+*.backup
