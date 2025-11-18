@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIST Touch Math Academy - Trend Glow</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/trend-glow.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>KAIST Touch Math Academy</h1>
+            <p class="subtitle">LMS 연동 학습 추세 분석 시스템</p>
+        </header>
+
+        <main class="content">
+            <section class="control-panel">
+                <h2>LMS 데이터 제어</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="student-select">학생 선택:</label>
+                        <select id="student-select">
+                            <option value="1">김철수</option>
+                            <option value="2">이영희</option>
+                            <option value="3">박민수</option>
+                            <option value="4">정수진</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="module-select">학습 모듈:</label>
+                        <select id="module-select">
+                            <option value="addition">덧셈 학습</option>
+                            <option value="subtraction">뺄셈 학습</option>
+                            <option value="multiplication">곱셈 학습</option>
+                            <option value="fractions">분수 학습</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="glow-toggle" checked>
+                            Trend Glow 효과 활성화
+                        </label>
+                    </div>
+
+                    <button id="refresh-btn" class="btn-primary">데이터 새로고침</button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>현재 점수</h3>
+                        <p class="stat-value" id="current-score">--</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>추세</h3>
+                        <p class="stat-value" id="trend-direction">--</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>평균 점수</h3>
+                        <p class="stat-value" id="avg-score">--</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-panel">
+                <h2>시스템 정보</h2>
+                <div class="info-box">
+                    <p><strong>LMS:</strong> Moodle 3.7</p>
+                    <p><strong>Database:</strong> MySQL 5.7</p>
+                    <p><strong>PHP Version:</strong> 7.1.9</p>
+                    <p><strong>연결 상태:</strong> <span class="status-connected" id="connection-status">연결됨</span></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Virtual Smartphone Display (Lower Right) -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-header">
+                <span class="time">14:32</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <h3>학습 추세 분석</h3>
+                    <div class="glow-indicator" id="glow-indicator">
+                        <span class="glow-dot"></span>
+                        <span class="glow-text">Trend Glow 활성</span>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+                <div class="trend-info">
+                    <div class="trend-metric">
+                        <span class="metric-label">학습 속도</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="velocity-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="trend-metric">
+                        <span class="metric-label">개선도</span>
+                        <div class="metric-bar">
+                            <div class="metric-fill" id="improvement-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-problems" id="recent-problems">
+                    <h4>최근 문제</h4>
+                    <div class="problem-list">
+                        <!-- Problems will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="smartphone-footer">
+                <div class="home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/lms-integration.js"></script>
+    <script src="js/trend-visualization.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

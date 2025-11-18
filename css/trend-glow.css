@@ -1,0 +1,329 @@
+/* Trend Glow CSS - Visual Effects for Trend Lines */
+
+/* Glow Container */
+.trend-glow-active {
+    position: relative;
+}
+
+/* Glow Effect Keyframes */
+@keyframes trend-glow-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.8))
+                drop-shadow(0 0 16px rgba(102, 126, 234, 0.6))
+                drop-shadow(0 0 24px rgba(102, 126, 234, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(102, 126, 234, 1))
+                drop-shadow(0 0 24px rgba(102, 126, 234, 0.8))
+                drop-shadow(0 0 36px rgba(102, 126, 234, 0.6));
+    }
+}
+
+@keyframes trend-glow-pulse-positive {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.8))
+                drop-shadow(0 0 16px rgba(76, 175, 80, 0.6))
+                drop-shadow(0 0 24px rgba(76, 175, 80, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(76, 175, 80, 1))
+                drop-shadow(0 0 24px rgba(76, 175, 80, 0.8))
+                drop-shadow(0 0 36px rgba(76, 175, 80, 0.6));
+    }
+}
+
+@keyframes trend-glow-pulse-negative {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(244, 67, 54, 0.8))
+                drop-shadow(0 0 16px rgba(244, 67, 54, 0.6))
+                drop-shadow(0 0 24px rgba(244, 67, 54, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(244, 67, 54, 1))
+                drop-shadow(0 0 24px rgba(244, 67, 54, 0.8))
+                drop-shadow(0 0 36px rgba(244, 67, 54, 0.6));
+    }
+}
+
+/* Glow Classes */
+.trend-line-glow {
+    animation: trend-glow-pulse 2s ease-in-out infinite;
+}
+
+.trend-line-glow-positive {
+    animation: trend-glow-pulse-positive 2s ease-in-out infinite;
+}
+
+.trend-line-glow-negative {
+    animation: trend-glow-pulse-negative 2s ease-in-out infinite;
+}
+
+/* Shimmer Effect for Trend Lines */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.trend-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        transparent 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+}
+
+/* Gradient Glow Background */
+.glow-background {
+    position: relative;
+    overflow: hidden;
+}
+
+.glow-background::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(102, 126, 234, 0.1) 0%,
+        transparent 70%
+    );
+    animation: rotate-glow 10s linear infinite;
+}
+
+@keyframes rotate-glow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Point Glow for Chart Data Points */
+.point-glow {
+    position: relative;
+}
+
+.point-glow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(
+        circle,
+        rgba(102, 126, 234, 0.8) 0%,
+        rgba(102, 126, 234, 0.4) 50%,
+        transparent 100%
+    );
+    animation: pulse-point 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-point {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.5;
+    }
+}
+
+/* Trend Arrow Glow */
+.trend-arrow {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.trend-arrow.up {
+    color: #4caf50;
+    animation: arrow-glow-up 1.5s ease-in-out infinite;
+}
+
+.trend-arrow.down {
+    color: #f44336;
+    animation: arrow-glow-down 1.5s ease-in-out infinite;
+}
+
+.trend-arrow.neutral {
+    color: #ff9800;
+    animation: arrow-glow-neutral 1.5s ease-in-out infinite;
+}
+
+@keyframes arrow-glow-up {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(76, 175, 80, 0.8),
+                     0 0 20px rgba(76, 175, 80, 0.6);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(76, 175, 80, 1),
+                     0 0 30px rgba(76, 175, 80, 0.8);
+    }
+}
+
+@keyframes arrow-glow-down {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(244, 67, 54, 0.8),
+                     0 0 20px rgba(244, 67, 54, 0.6);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(244, 67, 54, 1),
+                     0 0 30px rgba(244, 67, 54, 0.8);
+    }
+}
+
+@keyframes arrow-glow-neutral {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 152, 0, 0.8),
+                     0 0 20px rgba(255, 152, 0, 0.6);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 152, 0, 1),
+                     0 0 30px rgba(255, 152, 0, 0.8);
+    }
+}
+
+/* Canvas Glow Filter (Applied via JavaScript) */
+.canvas-glow-filter {
+    filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.7));
+}
+
+/* Intensity Levels */
+.glow-intensity-low {
+    filter: drop-shadow(0 0 4px rgba(102, 126, 234, 0.4));
+}
+
+.glow-intensity-medium {
+    filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.6));
+}
+
+.glow-intensity-high {
+    filter: drop-shadow(0 0 16px rgba(102, 126, 234, 0.9));
+}
+
+/* Pulsing Border Effect */
+.glow-border {
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.glow-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+        45deg,
+        #667eea,
+        #764ba2,
+        #667eea
+    );
+    border-radius: inherit;
+    z-index: -1;
+    background-size: 300% 300%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Neon Glow Text */
+.neon-text {
+    color: #fff;
+    text-shadow:
+        0 0 5px rgba(102, 126, 234, 1),
+        0 0 10px rgba(102, 126, 234, 0.8),
+        0 0 20px rgba(102, 126, 234, 0.6),
+        0 0 40px rgba(102, 126, 234, 0.4);
+    animation: neon-flicker 1.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* Ripple Effect */
+.ripple-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.4);
+    transform: translate(-50%, -50%);
+    animation: ripple 2s infinite;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+/* Gradient Line Animation */
+.gradient-line {
+    background: linear-gradient(
+        90deg,
+        #667eea 0%,
+        #764ba2 50%,
+        #667eea 100%
+    );
+    background-size: 200% 100%;
+    animation: gradient-flow 3s linear infinite;
+}
+
+@keyframes gradient-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Glow Disabled State */
+.glow-disabled {
+    filter: none !important;
+    animation: none !important;
+}

@@ -1,0 +1,400 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-right: 380px; /* Space for smartphone */
+}
+
+/* Header */
+header {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Main Content */
+.content {
+    display: grid;
+    gap: 20px;
+}
+
+/* Control Panel */
+.control-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-group label {
+    font-weight: 600;
+    color: #555;
+}
+
+.control-group select {
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.control-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Stats Cards */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.stat-value {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Info Panel */
+.info-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-panel h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.info-box p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 1em;
+}
+
+.status-connected {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Smartphone Container (Lower Right) */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.smartphone {
+    width: 340px;
+    height: 680px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    color: white;
+    font-size: 0.85em;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+.smartphone-screen {
+    background: white;
+    border-radius: 25px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.smartphone-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.home-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* App Header in Smartphone */
+.app-header {
+    margin-bottom: 15px;
+}
+
+.app-header h3 {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.glow-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.glow-dot {
+    width: 10px;
+    height: 10px;
+    background: #4caf50;
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+}
+
+.glow-text {
+    font-weight: 600;
+}
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 220px;
+    margin-bottom: 20px;
+}
+
+/* Trend Info */
+.trend-info {
+    margin-bottom: 20px;
+}
+
+.trend-metric {
+    margin-bottom: 15px;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.metric-bar {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.5s ease;
+    border-radius: 5px;
+}
+
+/* Recent Problems */
+.recent-problems {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.recent-problems h4 {
+    color: #333;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.problem-item {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85em;
+}
+
+.problem-text {
+    color: #333;
+    font-weight: 600;
+}
+
+.problem-score {
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.problem-score.correct {
+    background: #4caf50;
+}
+
+.problem-score.incorrect {
+    background: #f44336;
+}
+
+/* Scrollbar for smartphone screen */
+.smartphone-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.smartphone-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+    }
+
+    .main-container {
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
