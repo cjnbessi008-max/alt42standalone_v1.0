@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/cognitiveloadtips/db" VERSION="20250118" COMMENT="XMLDB file for Cognitive Load Tips plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Cognitive load tips management -->
+    <TABLE NAME="local_clt_tips" COMMENT="Stores cognitive load minimization tips">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Tip title"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Tip content"/>
+        <FIELD NAME="category" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="breathing, focus, strategy, etc"/>
+        <FIELD NAME="difficulty_min" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Minimum difficulty level (1-5)"/>
+        <FIELD NAME="difficulty_max" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="5" SEQUENCE="false" COMMENT="Maximum difficulty level (1-5)"/>
+        <FIELD NAME="display_duration" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="10" SEQUENCE="false" COMMENT="Display duration in seconds"/>
+        <FIELD NAME="is_mandatory" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Must user read before continuing"/>
+        <FIELD NAME="language" TYPE="char" LENGTH="5" NOTNULL="true" DEFAULT="en" SEQUENCE="false" COMMENT="Language code (ko, en)"/>
+        <FIELD NAME="sortorder" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="difficulty_enabled" UNIQUE="false" FIELDS="difficulty_min, difficulty_max, enabled"/>
+        <INDEX NAME="language" UNIQUE="false" FIELDS="language"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Question difficulty mapping -->
+    <TABLE NAME="local_clt_question_difficulty" COMMENT="Maps Moodle questions to difficulty levels">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Moodle question ID"/>
+        <FIELD NAME="difficulty_level" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="3" SEQUENCE="false" COMMENT="Difficulty level 1-5"/>
+        <FIELD NAME="cognitive_complexity" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false" COMMENT="Cognitive complexity score"/>
+        <FIELD NAME="auto_calculated" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Was difficulty auto-calculated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid" TYPE="foreign-unique" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="difficulty_level" UNIQUE="false" FIELDS="difficulty_level"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- User tip interactions -->
+    <TABLE NAME="local_clt_user_interactions" COMMENT="Tracks user interactions with tips">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="tipid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="view_duration" TYPE="int" LENGTH="5" NOTNULL="false" SEQUENCE="false" COMMENT="How long user viewed tip (seconds)"/>
+        <FIELD NAME="was_helpful" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" COMMENT="User feedback: 1=helpful, 0=not helpful"/>
+        <FIELD NAME="skipped" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="tipid" TYPE="foreign" FIELDS="tipid" REFTABLE="local_clt_tips" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_question" UNIQUE="false" FIELDS="userid, questionid"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Settings per quiz -->
+    <TABLE NAME="local_clt_quiz_settings" COMMENT="Cognitive load tip settings per quiz">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="show_before_difficulty" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="4" SEQUENCE="false" COMMENT="Show tips before questions with this difficulty or higher"/>
+        <FIELD NAME="random_tip" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Show random tip or all tips"/>
+        <FIELD NAME="allow_skip" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="quizid" TYPE="foreign-unique" FIELDS="quizid" REFTABLE="quiz" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

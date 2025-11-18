@@ -1,0 +1,266 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Template for displaying cognitive load tips
+
+    @template local_cognitiveloadtips/tip_display
+}}
+<div class="cognitive-load-tips-overlay" id="clt-overlay-{{questionid}}" data-questionid="{{questionid}}" data-quizid="{{quizid}}">
+    <div class="cognitive-load-tips-modal">
+        <div class="clt-header">
+            <div class="clt-difficulty">
+                <span class="clt-difficulty-label">{{#str}}difficulty_level, local_cognitiveloadtips{{/str}}</span>
+                <span class="clt-difficulty-stars">{{{difficulty_stars}}}</span>
+            </div>
+            <h3 class="clt-title">{{#str}}tip_before_difficult_question, local_cognitiveloadtips{{/str}}</h3>
+        </div>
+
+        <div class="clt-content">
+            {{#tips}}
+            <div class="clt-tip" data-tipid="{{id}}" data-duration="{{duration}}" data-mandatory="{{is_mandatory}}">
+                <div class="clt-tip-header">
+                    <span class="clt-tip-icon">{{{icon}}}</span>
+                    <h4 class="clt-tip-title">{{title}}</h4>
+                    <span class="clt-tip-category">{{category_name}}</span>
+                </div>
+                <div class="clt-tip-body">
+                    <p>{{{content}}}</p>
+                </div>
+                {{#is_mandatory}}
+                <div class="clt-tip-timer">
+                    <div class="clt-progress-bar">
+                        <div class="clt-progress-fill" data-duration="{{duration}}"></div>
+                    </div>
+                    <span class="clt-timer-text">{{#str}}please_read_carefully, local_cognitiveloadtips{{/str}} (<span class="clt-countdown">{{duration}}</span>{{#str}}seconds, local_cognitiveloadtips{{/str}})</span>
+                </div>
+                {{/is_mandatory}}
+            </div>
+            {{/tips}}
+        </div>
+
+        <div class="clt-footer">
+            <div class="clt-feedback">
+                <p>{{#str}}was_this_helpful, local_cognitiveloadtips{{/str}}</p>
+                <button class="btn btn-sm clt-feedback-btn" data-helpful="1">
+                    👍 {{#str}}helpful, local_cognitiveloadtips{{/str}}
+                </button>
+                <button class="btn btn-sm clt-feedback-btn" data-helpful="0">
+                    👎 {{#str}}not_helpful, local_cognitiveloadtips{{/str}}
+                </button>
+            </div>
+            <div class="clt-actions">
+                {{#allowskip}}
+                <button class="btn btn-secondary clt-skip-btn">
+                    {{#str}}skip, local_cognitiveloadtips{{/str}}
+                </button>
+                {{/allowskip}}
+                <button class="btn btn-primary clt-continue-btn" id="clt-continue-btn" disabled>
+                    {{#str}}continue_to_question, local_cognitiveloadtips{{/str}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.cognitive-load-tips-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.cognitive-load-tips-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.clt-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 24px;
+    border-radius: 12px 12px 0 0;
+}
+
+.clt-difficulty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.clt-difficulty-stars {
+    color: #ffd700;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.clt-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.clt-content {
+    padding: 24px;
+}
+
+.clt-tip {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.clt-tip:last-child {
+    margin-bottom: 0;
+}
+
+.clt-tip-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.clt-tip-icon {
+    font-size: 28px;
+}
+
+.clt-tip-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    flex-grow: 1;
+    color: #333;
+}
+
+.clt-tip-category {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.clt-tip-body {
+    margin-left: 40px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.clt-tip-body p {
+    margin: 0;
+}
+
+.clt-tip-timer {
+    margin-top: 16px;
+    margin-left: 40px;
+}
+
+.clt-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.clt-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.clt-timer-text {
+    font-size: 13px;
+    color: #666;
+}
+
+.clt-countdown {
+    font-weight: 600;
+    color: #667eea;
+}
+
+.clt-footer {
+    padding: 20px 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.clt-feedback {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.clt-feedback p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.clt-feedback-btn {
+    margin: 0 4px;
+}
+
+.clt-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.clt-skip-btn,
+.clt-continue-btn {
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.clt-continue-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.clt-continue-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+</style>
