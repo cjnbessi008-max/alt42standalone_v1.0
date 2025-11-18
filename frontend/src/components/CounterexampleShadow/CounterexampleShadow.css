@@ -1,0 +1,14 @@
+.counterexample-shadow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.counterexample-shadow canvas {
+  border-radius: 4px;
+  background: white;
+}

@@ -1,0 +1,83 @@
+.virtual-phone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.virtual-phone-container:hover {
+  transform: scale(0.55);
+}
+
+.virtual-phone {
+  width: 375px;
+  height: 667px;
+  position: relative;
+}
+
+.phone-frame {
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 2px #333,
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 6px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.phone-notch::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .virtual-phone-container {
+    display: none;
+  }
+}
