@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: lms-tracker-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-lms_tracker}
+      MYSQL_USER: ${DB_USER:-lmsuser}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-lmspassword}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - lms-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lms-tracker-backend
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-lms_tracker}
+      - DB_USER=${DB_USER:-lmsuser}
+      - DB_PASSWORD=${DB_PASSWORD:-lmspassword}
+      - MOODLE_URL=${MOODLE_URL}
+      - MOODLE_TOKEN=${MOODLE_TOKEN}
+      - MOODLE_SERVICE=${MOODLE_SERVICE:-moodlemobile}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-3-5-sonnet-20241022}
+      - CLAUDE_MAX_TOKENS=${CLAUDE_MAX_TOKENS:-4096}
+      - CORS_ORIGIN=http://localhost:3000
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - lms-network
+    restart: unless-stopped
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lms-tracker-frontend
+    environment:
+      - VITE_API_BASE_URL=http://localhost:5000/api
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - lms-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  lms-network:
+    driver: bridge
