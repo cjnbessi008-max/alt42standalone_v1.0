@@ -1,0 +1,106 @@
+// Prisma Schema for Relation Thermo
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum RelationType {
+  SUBSET      // A ⊆ B
+  SUPERSET    // A ⊇ B
+  EQUAL       // A = B
+  DISJOINT    // A ∩ B = ∅
+  INTERSECT   // A ∩ B ≠ ∅
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String
+  role      Role       @default(STUDENT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  responses Response[]
+  progress  Progress[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Problem {
+  id           Int          @id @default(autoincrement())
+  title        String       @db.VarChar(255)
+  description  String?      @db.Text
+  setA         Json         // JSON array: [1, 2, 3]
+  setB         Json         // JSON array: [1, 2, 3, 4, 5]
+  relationType RelationType // Correct answer
+  difficulty   Int          @default(1) @db.TinyInt // 1-5
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  responses Response[]
+
+  @@index([difficulty])
+  @@index([isActive])
+  @@map("problems")
+}
+
+model Response {
+  id               Int          @id @default(autoincrement())
+  userId           Int
+  problemId        Int
+  selectedRelation RelationType
+  confidenceLevel  Int          @db.TinyInt // 0-100
+  isCorrect        Boolean
+  timeSpent        Int          // seconds
+  submittedAt      DateTime     @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([problemId])
+  @@index([submittedAt])
+  @@map("responses")
+}
+
+model Progress {
+  id                Int      @id @default(autoincrement())
+  userId            Int
+  totalProblems     Int      @default(0)
+  correctAnswers    Int      @default(0)
+  averageConfidence Float    @default(0)
+  totalTimeSpent    Int      @default(0)
+  lastActivityAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+  @@map("progress")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    Int
+  token     String   @unique @db.VarChar(500)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+  @@index([expiresAt])
+  @@map("sessions")
+}
