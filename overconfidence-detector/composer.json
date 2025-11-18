@@ -1,0 +1,34 @@
+{
+    "name": "kaist/overconfidence-detector",
+    "description": "Overconfidence Error Detection System for Moodle LMS",
+    "type": "project",
+    "keywords": ["moodle", "lms", "education", "overconfidence", "analytics"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KAIST Touch Math Academy",
+            "email": "contact@kaist.ac.kr"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.9",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "OverconfidenceDetector\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit tests",
+        "sync": "php cron/sync.php"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
