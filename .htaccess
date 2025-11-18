@@ -1,0 +1,84 @@
+# Operation Trail - Apache Configuration
+# PHP 7.1.9 compatible
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # HTTPS 리다이렉트 (프로덕션 환경)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # API 요청 처리
+    RewriteRule ^api/(.*)$ api/$1 [L]
+
+    # 정적 파일 캐싱
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresByType text/css "access plus 1 month"
+        ExpiresByType application/javascript "access plus 1 month"
+        ExpiresByType image/png "access plus 1 year"
+        ExpiresByType image/jpg "access plus 1 year"
+        ExpiresByType image/jpeg "access plus 1 year"
+        ExpiresByType image/gif "access plus 1 year"
+        ExpiresByType image/svg+xml "access plus 1 year"
+    </IfModule>
+</IfModule>
+
+# PHP 설정
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_flag display_errors On
+    php_flag display_startup_errors On
+    php_value error_reporting E_ALL
+</IfModule>
+
+# 보안 헤더
+<IfModule mod_headers.c>
+    # XSS 방어
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Clickjacking 방어
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # MIME 타입 스니핑 방지
+    Header set X-Content-Type-Options "nosniff"
+
+    # Referrer 정책
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # CORS (개발 환경 - 프로덕션에서는 특정 도메인으로 제한)
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# 디렉토리 인덱싱 방지
+Options -Indexes
+
+# 민감한 파일 접근 차단
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# .git 디렉토리 접근 차단
+<DirectoryMatch "\.git">
+    Order Allow,Deny
+    Deny from all
+</DirectoryMatch>
+
+# Gzip 압축
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# 기본 문서
+DirectoryIndex index.html index.php
+
+# 에러 페이지 (선택사항)
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
