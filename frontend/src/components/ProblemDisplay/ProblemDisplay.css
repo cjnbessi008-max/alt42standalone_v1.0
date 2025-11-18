@@ -1,0 +1,163 @@
+/**
+ * 문제 표시 컴포넌트 스타일
+ */
+
+.problem-display {
+  padding: 20px;
+  color: #fff;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.problem-header {
+  margin-bottom: 20px;
+}
+
+.problem-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.problem-description {
+  font-size: 14px;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.shapes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.shape-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shape-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #6495ED;
+}
+
+.shape-svg {
+  display: block;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.shape-info {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.info-label {
+  color: #888;
+  font-weight: 600;
+}
+
+.info-value {
+  color: #ddd;
+  font-family: monospace;
+}
+
+.answer-section {
+  margin-top: auto;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #fff;
+}
+
+.condition-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.condition-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.condition-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.condition-btn.active {
+  background: linear-gradient(135deg, #6495ED 0%, #4169E1 100%);
+  border-color: #6495ED;
+}
+
+.condition-desc {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.condition-btn.active .condition-desc {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.check-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff9f43 0%, #ff7e5f 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+}
+
+.check-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 159, 67, 0.4);
+}
+
+.check-btn:active {
+  transform: translateY(0);
+}
+
+.check-btn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

@@ -1,0 +1,178 @@
+/**
+ * 가상 스마트폰 스타일
+ */
+
+.virtual-smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.smartphone-frame {
+  width: 320px;
+  height: 640px;
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  border-radius: 40px;
+  padding: 12px;
+  position: relative;
+  border: 3px solid #3a3a3c;
+  transition: all 0.5s ease-in-out;
+}
+
+.smartphone-frame.warm-mode {
+  border-color: #ff9f43;
+  box-shadow: 0 0 30px rgba(255, 159, 67, 0.4);
+}
+
+/* 노치 (상단 카메라 영역) */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1c1c1e;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #000;
+  border-radius: 3px;
+}
+
+.notch-camera {
+  width: 10px;
+  height: 10px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+/* 화면 영역 */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen-content {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+  overflow-y: auto;
+  transition: background 0.8s ease-in-out;
+}
+
+/* Similarity Warm 효과 */
+.screen-content.warm-glow {
+  background: linear-gradient(
+    135deg,
+    #ff9f43 0%,
+    #ffb366 20%,
+    #ffd4a3 40%,
+    #fff5e6 60%,
+    #ffd4a3 80%,
+    #ffb366 100%
+  );
+  animation: warmPulse 2s ease-in-out infinite;
+}
+
+@keyframes warmPulse {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+/* 하단 홈 인디케이터 */
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* 측면 버튼 */
+.smartphone-buttons .power-button {
+  position: absolute;
+  right: -4px;
+  top: 120px;
+  width: 4px;
+  height: 60px;
+  background: #3a3a3c;
+  border-radius: 2px 0 0 2px;
+}
+
+.smartphone-buttons .volume-buttons {
+  position: absolute;
+  left: -4px;
+  top: 100px;
+}
+
+.smartphone-buttons .volume-up {
+  width: 4px;
+  height: 50px;
+  background: #3a3a3c;
+  border-radius: 2px 0 0 2px;
+  margin-bottom: 12px;
+}
+
+.smartphone-buttons .volume-down {
+  width: 4px;
+  height: 50px;
+  background: #3a3a3c;
+  border-radius: 2px 0 0 2px;
+}
+
+/* 스크롤바 스타일 */
+.screen-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.screen-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.screen-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.screen-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 반응형 - 작은 화면에서는 크기 축소 */
+@media (max-width: 768px) {
+  .virtual-smartphone-container {
+    bottom: 10px;
+    right: 10px;
+    transform: scale(0.7);
+    transform-origin: bottom right;
+  }
+}
+
+@media (max-width: 480px) {
+  .virtual-smartphone-container {
+    display: none; /* 매우 작은 화면에서는 숨김 */
+  }
+}
