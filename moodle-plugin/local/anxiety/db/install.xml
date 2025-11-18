@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/anxiety/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/anxiety"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_anxiety_metrics" COMMENT="Real-time anxiety metrics per student">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="response_time" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="click_count" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="error_count" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="time_on_task" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="navigation_back_count" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="anxiety_score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="anxiety_level" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="normal" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+        <INDEX NAME="anxiety_level" UNIQUE="false" FIELDS="anxiety_level"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_anxiety_sessions" COMMENT="Anxiety session aggregates">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_end" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="session_duration" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="avg_response_time" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="total_clicks" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="total_errors" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="avg_anxiety_score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="max_anxiety_score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="anxiety_peaks" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="session_start" UNIQUE="false" FIELDS="session_start"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_anxiety_alerts" COMMENT="Anxiety alert notifications">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="alert_type" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="anxiety_score" TYPE="number" LENGTH="5" NOTNULL="true" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="message" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="is_read" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="acknowledged_by" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="acknowledged_at" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="is_read" UNIQUE="false" FIELDS="is_read"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_anxiety_config" COMMENT="Anxiety detection configuration">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="mild_threshold" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="30.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="moderate_threshold" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="50.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="severe_threshold" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="70.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="enable_alerts" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="alert_frequency" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="300" SEQUENCE="false"/>
+        <FIELD NAME="weight_response_time" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.25" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="weight_error_rate" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.20" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="weight_click_frequency" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.15" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="weight_time_on_task" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.20" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="weight_navigation" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.10" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="weight_session_duration" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.10" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid" UNIQUE="true" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
