@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Breath - LMS 연동 앱</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 가상 스마트폰 화면 컨테이너 -->
+    <div class="smartphone-frame">
+        <div class="screen-content">
+            <div class="app-header">
+                <h1>LMS 학습 앱</h1>
+                <div class="status-bar">
+                    <span class="time">10:24</span>
+                    <span class="battery">🔋 85%</span>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- Infinity Breath 애니메이션 -->
+                <div class="infinity-breath-container">
+                    <div class="infinity-symbol">∞</div>
+                    <p class="animation-label">무한한 학습의 여정</p>
+                </div>
+
+                <!-- 문제 정보 표시 영역 -->
+                <div class="problem-info">
+                    <h2>현재 학습 모듈</h2>
+                    <div class="module-card">
+                        <div class="module-title">수학 - 무한수열</div>
+                        <div class="module-description">
+                            무한수열의 개념을 이해하고 극한값을 계산하는 방법을 학습합니다.
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                        <div class="progress-text">진행률: 65%</div>
+                    </div>
+                </div>
+
+                <!-- 학습 상태 -->
+                <div class="learning-status">
+                    <div class="status-item">
+                        <span class="status-icon">📚</span>
+                        <span class="status-text">학습 중</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-icon">✓</span>
+                        <span class="status-text">13/20 문제 완료</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-footer">
+                <button class="nav-button">홈</button>
+                <button class="nav-button active">학습</button>
+                <button class="nav-button">진행상황</button>
+                <button class="nav-button">설정</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
