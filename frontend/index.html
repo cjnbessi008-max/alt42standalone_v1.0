@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 Live Graph - Moodle Integration</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/live-graph.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <header>
+                <h1>📊 ALT42 Live Graph</h1>
+                <p>Moodle LMS 연동 실시간 데이터 시각화</p>
+            </header>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label for="quiz-select">퀴즈 선택:</label>
+                    <select id="quiz-select">
+                        <option value="">퀴즈를 선택하세요...</option>
+                        <!-- Dynamically populated from Moodle -->
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="user-select">학생 선택:</label>
+                    <select id="user-select">
+                        <option value="">전체 통계</option>
+                        <!-- Dynamically populated from Moodle -->
+                    </select>
+                </div>
+
+                <button id="refresh-btn" class="btn-primary">🔄 새로고침</button>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <div class="stat-label">총 시도 횟수</div>
+                    <div class="stat-value" id="total-attempts">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">평균 점수</div>
+                    <div class="stat-value" id="average-score">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">완료율</div>
+                    <div class="stat-value" id="completion-rate">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smartphone Container (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div class="screen-header">
+                        <span class="time">10:42</span>
+                        <div class="status-icons">
+                            <span>📶</span>
+                            <span>📡</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <h2>Live Graph</h2>
+                        <canvas id="live-graph-canvas"></canvas>
+
+                        <div class="graph-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #4CAF50;"></span>
+                                <span>점수 추이</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screen-footer">
+                        <div class="nav-bar">
+                            <div class="nav-btn active">📊</div>
+                            <div class="nav-btn">📈</div>
+                            <div class="nav-btn">⚙️</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/moodle-client.js"></script>
+    <script src="js/live-graph.js"></script>
+    <script src="js/smartphone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

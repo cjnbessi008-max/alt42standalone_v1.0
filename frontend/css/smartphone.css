@@ -1,0 +1,188 @@
+/**
+ * Smartphone UI Container
+ * 우측 하단 가상 스마트폰 화면
+ */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.smartphone-frame {
+    width: 320px;
+    height: 640px;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    border-radius: 40px;
+    padding: 12px;
+    position: relative;
+    box-shadow:
+        0 0 0 2px #4a4a4a,
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 35px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.time {
+    color: #1a1a1a;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.app-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.app-content h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #1a1a1a;
+    text-align: center;
+}
+
+.screen-footer {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 10px 20px 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.nav-btn.active {
+    background: rgba(76, 175, 80, 0.2);
+    transform: scale(1.1);
+}
+
+.smartphone-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Graph Legend */
+.graph-legend {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 12px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+/* Scrollbar styling for app content */
+.app-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.app-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.app-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: static;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Animation for smartphone appearance */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.smartphone-container {
+    animation: slideInFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
