@@ -1,0 +1,43 @@
+# Root Glow .gitignore
+
+# Environment files
+.env
+config/.env
+
+# Logs
+logs/
+*.log
+
+# PHP
+vendor/
+composer.lock
+
+# Database
+*.sql.backup
+database/backups/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# User uploads
+uploads/
+
+# Node modules (if using any build tools)
+node_modules/
+
+# Compiled files
+*.min.js
+*.min.css

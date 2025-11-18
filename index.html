@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Glow - 수학 학습 시스템</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/smartphone.css">
+    <link rel="stylesheet" href="src/css/glow-effects.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <header>
+            <h1>Root Glow 수학 학습 시스템</h1>
+            <p class="subtitle">LMS 연동 - 근 찾기 시각화</p>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2>문제 정보</h2>
+                <div id="problem-info">
+                    <p>LMS에서 문제를 불러오는 중...</p>
+                </div>
+
+                <div class="function-input">
+                    <label for="function-input">함수 입력:</label>
+                    <input type="text" id="function-input" placeholder="예: x^2 - 4" />
+                    <button id="solve-btn">근 찾기</button>
+                </div>
+
+                <div class="root-results">
+                    <h3>찾은 근:</h3>
+                    <div id="roots-list"></div>
+                </div>
+
+                <div class="settings">
+                    <h3>Glow 설정</h3>
+                    <label>
+                        Glow 강도:
+                        <input type="range" id="glow-intensity" min="1" max="10" value="5" />
+                        <span id="intensity-value">5</span>
+                    </label>
+                    <label>
+                        Glow 색상:
+                        <input type="color" id="glow-color" value="#00ffff" />
+                    </label>
+                    <label>
+                        <input type="checkbox" id="glow-enabled" checked />
+                        Root Glow 활성화
+                    </label>
+                </div>
+            </div>
+
+            <!-- Main Graph Display -->
+            <div class="graph-container">
+                <canvas id="main-graph"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display (Bottom Right) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="smartphone-header">
+                    <span class="time" id="phone-time">12:00</span>
+                    <div class="status-icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+
+                <div class="smartphone-content">
+                    <h3>근 찾기 문제</h3>
+                    <div id="phone-problem-display">
+                        <p>문제를 기다리는 중...</p>
+                    </div>
+
+                    <div class="phone-graph">
+                        <canvas id="phone-canvas"></canvas>
+                    </div>
+
+                    <div id="phone-roots-display"></div>
+                </div>
+
+                <div class="smartphone-footer">
+                    <button class="phone-btn">◀</button>
+                    <button class="phone-btn">●</button>
+                    <button class="phone-btn">■</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="hidden">
+        <div class="loading-spinner"></div>
+        <p>근을 계산하는 중...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="src/js/math-utils.js"></script>
+    <script src="src/js/root-finder.js"></script>
+    <script src="src/js/graph-renderer.js"></script>
+    <script src="src/js/glow-effects.js"></script>
+    <script src="src/js/smartphone-display.js"></script>
+    <script src="src/js/moodle-integration.js"></script>
+    <script src="src/js/app.js"></script>
+</body>
+</html>
