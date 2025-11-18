@@ -1,0 +1,213 @@
+/* Custom Styles for Prerequisite Checker */
+
+body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 8px;
+}
+
+.card-header {
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* Status badges */
+.badge-mastery-high {
+    background-color: #28a745;
+}
+
+.badge-mastery-medium {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-mastery-low {
+    background-color: #dc3545;
+}
+
+/* Progress bars */
+.progress {
+    height: 25px;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Result cards */
+.result-card {
+    border-left: 4px solid;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.result-card.ready {
+    border-left-color: #28a745;
+}
+
+.result-card.missing {
+    border-left-color: #dc3545;
+}
+
+.result-card.weak {
+    border-left-color: #ffc107;
+}
+
+/* Priority badges */
+.priority-high {
+    background-color: #dc3545;
+}
+
+.priority-medium {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.priority-low {
+    background-color: #17a2b8;
+}
+
+/* Importance badges */
+.importance-required {
+    background-color: #dc3545;
+}
+
+.importance-recommended {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.importance-optional {
+    background-color: #6c757d;
+}
+
+/* Concept tree */
+.concept-tree {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.concept-tree li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
+    border-radius: 4px;
+}
+
+.concept-tree li:hover {
+    background-color: #e9ecef;
+}
+
+/* Tables */
+.table thead th {
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,123,255,0.05);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+}
+
+/* Status indicators */
+.status-connected {
+    color: #28a745;
+}
+
+.status-disconnected {
+    color: #dc3545;
+}
+
+.status-warning {
+    color: #ffc107;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+/* Modal customizations */
+.modal-header {
+    border-radius: 8px 8px 0 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Alert boxes */
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}

@@ -1,0 +1,29 @@
+# Configuration files with sensitive data
+config/config.php
+
+# Logs
+logs/*.log
+logs/*
+
+# Cache
+cache/*
+!cache/.gitkeep
+
+# Vendor (if using Composer)
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
