@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: dmn-postgres
+    environment:
+      POSTGRES_DB: dmn_rest_routines
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/dmn-api/src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/dmn-api/src/db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - dmn-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # DMN REST API
+  dmn-api:
+    build:
+      context: ./backend/dmn-api
+      dockerfile: Dockerfile
+    container_name: dmn-api
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      API_KEY: ${API_KEY:-your-secure-api-key}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: dmn_rest_routines
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-postgres123}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      RATE_LIMIT_WINDOW_MS: 60000
+      RATE_LIMIT_MAX_REQUESTS: 100
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost}
+      CACHE_TTL_SECONDS: 300
+    volumes:
+      - ./backend/dmn-api/src:/app/src
+      - ./backend/dmn-api/logs:/app/logs
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - dmn-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy (Optional)
+  nginx:
+    image: nginx:alpine
+    container_name: dmn-nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - dmn-network
+    depends_on:
+      - dmn-api
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  dmn-network:
+    driver: bridge

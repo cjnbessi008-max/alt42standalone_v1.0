@@ -1,0 +1,205 @@
+/* DMN Rest Routine Modal Styles */
+
+.dmn-routine-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+}
+
+.dmn-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.dmn-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dmn-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.dmn-header h2 {
+    color: #2196F3;
+    margin: 0 0 10px 0;
+    font-size: 28px;
+}
+
+.dmn-subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 16px;
+}
+
+.dmn-routine-info {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dmn-routine-name {
+    color: #333;
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+.dmn-routine-desc {
+    color: #666;
+    margin: 0 0 15px 0;
+    line-height: 1.5;
+}
+
+.dmn-timer {
+    display: flex;
+    align-items: center;
+    color: #2196F3;
+    font-weight: 500;
+}
+
+.dmn-timer-icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.dmn-steps {
+    margin: 20px 0;
+}
+
+.dmn-step-list {
+    padding-left: 20px;
+}
+
+.dmn-step {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.dmn-feedback {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.dmn-feedback p {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.dmn-feedback-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dmn-feedback-star {
+    font-size: 32px;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.dmn-feedback-star:hover {
+    color: #FFD700;
+    transform: scale(1.2);
+}
+
+.dmn-feedback-star.selected {
+    color: #FFD700;
+}
+
+.dmn-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.dmn-actions .btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dmn-actions .btn-primary {
+    background: #2196F3;
+    color: white;
+}
+
+.dmn-actions .btn-primary:hover {
+    background: #1976D2;
+}
+
+.dmn-actions .btn-success {
+    background: #4CAF50;
+    color: white;
+}
+
+.dmn-actions .btn-success:hover {
+    background: #45a049;
+}
+
+.dmn-actions .btn-success.btn-pulse {
+    animation: pulse 1s infinite;
+}
+
+.dmn-actions .btn-secondary {
+    background: #999;
+    color: white;
+}
+
+.dmn-actions .btn-secondary:hover {
+    background: #777;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dmn-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .dmn-header h2 {
+        font-size: 24px;
+    }
+
+    .dmn-actions {
+        flex-direction: column;
+    }
+
+    .dmn-actions .btn {
+        width: 100%;
+    }
+}
