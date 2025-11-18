@@ -1,0 +1,159 @@
+.fluid-geometry-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.geometry-header {
+  padding: 1rem;
+  background: white;
+  border-bottom: 2px solid #e0e0e0;
+  text-align: center;
+}
+
+.geometry-header h3 {
+  font-size: 1.2rem;
+  color: #667eea;
+  margin-bottom: 0.3rem;
+}
+
+.geometry-header p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.geometry-canvas {
+  flex: 1;
+  display: block;
+  background: white;
+}
+
+.properties-panel {
+  padding: 1rem;
+  background: white;
+  border-top: 2px solid #e0e0e0;
+}
+
+.properties-panel h4 {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.property-item {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  padding: 0.8rem;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.property-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+}
+
+.property-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.property-value {
+  display: block;
+  font-size: 1.2rem;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.property-note {
+  background: #fff9e6;
+  border: 1px solid #ffd700;
+  border-radius: 8px;
+  padding: 0.6rem;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+}
+
+.control-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.8rem;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.control-btn {
+  padding: 0.8rem 1rem;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.control-btn:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.control-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.control-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+.control-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Animations for value changes */
+.property-value {
+  transition: all 0.3s ease;
+}
+
+@keyframes valueChange {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+    color: #764ba2;
+  }
+}

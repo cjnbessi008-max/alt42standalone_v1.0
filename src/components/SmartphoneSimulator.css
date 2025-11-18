@@ -1,0 +1,155 @@
+.smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.smartphone-device {
+  position: relative;
+  width: 360px;
+  height: 720px;
+}
+
+.phone-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #2d3436, #1e272e);
+  border-radius: 45px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 3px #000,
+    0 0 0 6px #333,
+    inset 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 30px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  background: #1a1a2e;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #1a1a2e;
+  border-radius: 3px;
+}
+
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 35px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-bar {
+  height: 44px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  padding-top: 8px;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.app-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.power-button {
+  position: absolute;
+  right: -3px;
+  top: 120px;
+  width: 3px;
+  height: 60px;
+  background: linear-gradient(90deg, #1e272e, #2d3436);
+  border-radius: 0 2px 2px 0;
+}
+
+.volume-button {
+  position: absolute;
+  left: -3px;
+  width: 3px;
+  height: 50px;
+  background: linear-gradient(270deg, #1e272e, #2d3436);
+  border-radius: 2px 0 0 2px;
+}
+
+.volume-up {
+  top: 100px;
+}
+
+.volume-down {
+  top: 170px;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+  .smartphone-container {
+    transform: scale(0.85);
+    transform-origin: bottom right;
+  }
+}
+
+@media (max-width: 1200px) {
+  .smartphone-container {
+    transform: scale(0.75);
+  }
+}
+
+@media (max-width: 1024px) {
+  .smartphone-container {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 2rem auto;
+    transform: scale(1);
+  }
+}
