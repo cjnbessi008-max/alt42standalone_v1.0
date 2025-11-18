@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학공식 암기앱 - Math Formula Memorizer</title>
+
+    <!-- KaTeX CSS for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+    <!-- Application CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/typography.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🧮 수학공식 암기앱</h1>
+            <p class="subtitle">타이포그래피 변형을 통한 효과적인 공식 암기</p>
+        </header>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-label">전체 공식</div>
+                <div class="stat-value" id="totalFormulas">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">연속 학습</div>
+                <div class="stat-value" id="studyStreak">0일</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">학습한 공식</div>
+                <div class="stat-value" id="totalStudied">0</div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Formula Display -->
+            <div class="formula-container">
+                <div class="formula-header">
+                    <h2 id="formulaName">공식 이름</h2>
+                    <button id="favoriteBtn" class="favorite-btn" title="즐겨찾기">☆</button>
+                </div>
+
+                <!-- Formula Display with Typography Animation -->
+                <div class="formula-display" id="formulaDisplay">
+                    <!-- KaTeX rendered formula will appear here -->
+                </div>
+
+                <!-- Formula Information -->
+                <div class="formula-info">
+                    <div class="info-row">
+                        <span class="info-label">분류:</span>
+                        <span id="formulaCategory">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">난이도:</span>
+                        <span id="formulaDifficulty">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">학년:</span>
+                        <span id="formulaGrade">-</span>
+                    </div>
+                    <div class="info-row full-width">
+                        <span class="info-label">설명:</span>
+                        <p id="formulaDescription">-</p>
+                    </div>
+                </div>
+
+                <!-- Progress Info -->
+                <div class="progress-info">
+                    <div class="progress-item">
+                        <span class="progress-label">숙련도:</span>
+                        <span id="masteryLevel" class="mastery-badge">입문</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">다음 복습:</span>
+                        <span id="nextReview">-</span>
+                    </div>
+                    <div class="progress-item">
+                        <span class="progress-label">정답률:</span>
+                        <span id="successRate">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <button id="prevBtn" class="btn btn-secondary">◀ 이전</button>
+                    <button id="nextBtn" class="btn btn-primary">다음 ▶</button>
+                    <button id="randomBtn" class="btn btn-secondary">🎲 랜덤</button>
+                </div>
+
+                <!-- Animation Control -->
+                <div class="animation-control">
+                    <button id="toggleAnimation" class="btn btn-animation">▶ 애니메이션 시작</button>
+                    <div class="speed-control">
+                        <label for="animationSpeed">속도:</label>
+                        <select id="animationSpeed" class="select">
+                            <option value="1000">빠름</option>
+                            <option value="2000">보통</option>
+                            <option value="3000" selected>느림</option>
+                            <option value="5000">매우 느림</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quality Rating -->
+                <div class="quality-rating">
+                    <h3>얼마나 잘 기억하나요?</h3>
+                    <div class="rating-buttons">
+                        <button id="quality0" class="btn-rating" data-quality="0">0<br><small>전혀</small></button>
+                        <button id="quality1" class="btn-rating" data-quality="1">1<br><small>어렵게</small></button>
+                        <button id="quality2" class="btn-rating" data-quality="2">2<br><small>힘들게</small></button>
+                        <button id="quality3" class="btn-rating" data-quality="3">3<br><small>보통</small></button>
+                        <button id="quality4" class="btn-rating" data-quality="4">4<br><small>쉽게</small></button>
+                        <button id="quality5" class="btn-rating" data-quality="5">5<br><small>완벽</small></button>
+                    </div>
+                </div>
+
+                <!-- Filter Options -->
+                <div class="filter-options">
+                    <h3>필터</h3>
+                    <div class="filter-buttons">
+                        <button id="filterAll" class="btn btn-filter active">전체</button>
+                        <button id="filterDue" class="btn btn-filter">복습 필요</button>
+                        <button id="filterFavorites" class="btn btn-filter">즐겨찾기</button>
+                    </div>
+
+                    <div class="category-filter">
+                        <label for="categorySelect">분류 선택:</label>
+                        <select id="categorySelect" class="select">
+                            <option value="all">전체</option>
+                            <option value="수체계">수체계</option>
+                            <option value="지수와로그">지수와로그</option>
+                            <option value="수열">수열</option>
+                            <option value="식의계산">식의계산</option>
+                            <option value="집합과명제">집합과명제</option>
+                            <option value="방정식">방정식</option>
+                            <option value="부등식">부등식</option>
+                            <option value="함수">함수</option>
+                            <option value="미분">미분</option>
+                            <option value="적분">적분</option>
+                            <option value="평면도형">평면도형</option>
+                            <option value="평면좌표">평면좌표</option>
+                            <option value="입체도형">입체도형</option>
+                            <option value="공간좌표">공간좌표</option>
+                            <option value="벡터">벡터</option>
+                            <option value="경우의수와확률">경우의수와확률</option>
+                            <option value="통계">통계</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Message -->
+        <div id="feedback" class="feedback"></div>
+
+        <!-- Error Message -->
+        <div id="error" class="error"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 수학공식 암기앱 | Typography-Enhanced Learning</p>
+        </footer>
+    </div>
+
+    <!-- KaTeX JS for math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+    <!-- Application JS -->
+    <script src="js/typography.js"></script>
+    <script src="js/spacedRepetition.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

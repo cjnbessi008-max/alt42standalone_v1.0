@@ -1,0 +1,77 @@
+{
+  "category": "벡터",
+  "formulas": [
+    {
+      "id": "vec-001",
+      "category": "벡터",
+      "subcategory": "벡터의 연산",
+      "name": "벡터의 덧셈",
+      "formula": "\\vec{a} + \\vec{b} = (a_1 + b_1, a_2 + b_2)",
+      "description": "두 벡터의 성분별 덧셈",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["벡터", "덧셈"],
+      "relatedFormulas": ["vec-002"]
+    },
+    {
+      "id": "vec-002",
+      "category": "벡터",
+      "subcategory": "벡터의 연산",
+      "name": "벡터의 스칼라곱",
+      "formula": "k\\vec{a} = (ka_1, ka_2)",
+      "description": "벡터와 스칼라의 곱",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["벡터", "스칼라곱"],
+      "relatedFormulas": ["vec-001"]
+    },
+    {
+      "id": "vec-003",
+      "category": "벡터",
+      "subcategory": "벡터의 크기",
+      "name": "벡터의 크기",
+      "formula": "|\\vec{a}| = \\sqrt{a_1^2 + a_2^2}",
+      "description": "2차원 벡터의 크기",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["벡터", "크기"],
+      "relatedFormulas": ["vec-004"]
+    },
+    {
+      "id": "vec-004",
+      "category": "벡터",
+      "subcategory": "내적",
+      "name": "벡터의 내적",
+      "formula": "\\vec{a} \\cdot \\vec{b} = a_1b_1 + a_2b_2 = |\\vec{a}||\\vec{b}|\\cos\\theta",
+      "description": "두 벡터의 내적 (θ는 두 벡터 사이의 각)",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["벡터", "내적"],
+      "relatedFormulas": ["vec-003"]
+    },
+    {
+      "id": "vec-005",
+      "category": "벡터",
+      "subcategory": "내적",
+      "name": "벡터의 수직 조건",
+      "formula": "\\vec{a} \\perp \\vec{b} \\Leftrightarrow \\vec{a} \\cdot \\vec{b} = 0",
+      "description": "두 벡터가 수직일 조건",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["벡터", "내적", "수직"],
+      "relatedFormulas": ["vec-004"]
+    },
+    {
+      "id": "vec-006",
+      "category": "벡터",
+      "subcategory": "직선의 방정식",
+      "name": "벡터를 이용한 직선의 방정식",
+      "formula": "\\vec{r} = \\vec{a} + t\\vec{d}",
+      "description": "점 a를 지나고 방향벡터가 d인 직선 (t는 매개변수)",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["벡터", "직선", "방정식"],
+      "relatedFormulas": []
+    }
+  ]
+}

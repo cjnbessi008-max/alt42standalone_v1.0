@@ -1,0 +1,77 @@
+{
+  "category": "평면좌표",
+  "formulas": [
+    {
+      "id": "coord-001",
+      "category": "평면좌표",
+      "subcategory": "두 점 사이의 거리",
+      "name": "두 점 사이의 거리",
+      "formula": "d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}",
+      "description": "평면 위의 두 점 (x₁, y₁), (x₂, y₂) 사이의 거리",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["좌표", "거리"],
+      "relatedFormulas": ["coord-002"]
+    },
+    {
+      "id": "coord-002",
+      "category": "평면좌표",
+      "subcategory": "중점",
+      "name": "중점의 좌표",
+      "formula": "M = \\left(\\frac{x_1+x_2}{2}, \\frac{y_1+y_2}{2}\\right)",
+      "description": "두 점을 잇는 선분의 중점",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["좌표", "중점"],
+      "relatedFormulas": ["coord-001"]
+    },
+    {
+      "id": "coord-003",
+      "category": "평면좌표",
+      "subcategory": "직선의 방정식",
+      "name": "직선의 방정식 (기울기-절편 형)",
+      "formula": "y = mx + b",
+      "description": "기울기 m, y절편 b인 직선의 방정식",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["직선", "방정식"],
+      "relatedFormulas": ["coord-004"]
+    },
+    {
+      "id": "coord-004",
+      "category": "평면좌표",
+      "subcategory": "직선의 방정식",
+      "name": "두 점을 지나는 직선",
+      "formula": "\\frac{y-y_1}{y_2-y_1} = \\frac{x-x_1}{x_2-x_1}",
+      "description": "두 점 (x₁, y₁), (x₂, y₂)를 지나는 직선의 방정식",
+      "difficulty": "중",
+      "grade": "중2",
+      "tags": ["직선", "방정식"],
+      "relatedFormulas": ["coord-003"]
+    },
+    {
+      "id": "coord-005",
+      "category": "평면좌표",
+      "subcategory": "원의 방정식",
+      "name": "원의 방정식 (중심-반지름 형)",
+      "formula": "(x-a)^2 + (y-b)^2 = r^2",
+      "description": "중심 (a, b), 반지름 r인 원의 방정식",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["원", "방정식"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "coord-006",
+      "category": "평면좌표",
+      "subcategory": "점과 직선 사이의 거리",
+      "name": "점과 직선 사이의 거리",
+      "formula": "d = \\frac{|ax_0 + by_0 + c|}{\\sqrt{a^2 + b^2}}",
+      "description": "점 (x₀, y₀)과 직선 ax+by+c=0 사이의 거리",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["거리", "직선"],
+      "relatedFormulas": []
+    }
+  ]
+}

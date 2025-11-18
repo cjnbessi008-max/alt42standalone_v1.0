@@ -1,0 +1,101 @@
+{
+  "category": "식의계산",
+  "formulas": [
+    {
+      "id": "exp-001",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "합차공식 (a²-b²)",
+      "formula": "a^2 - b^2 = (a+b)(a-b)",
+      "description": "제곱의 차 인수분해",
+      "difficulty": "쉬움",
+      "grade": "중3",
+      "tags": ["인수분해", "합차공식"],
+      "relatedFormulas": ["exp-002", "exp-003"]
+    },
+    {
+      "id": "exp-002",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "완전제곱식 (a+b)²",
+      "formula": "(a+b)^2 = a^2 + 2ab + b^2",
+      "description": "완전제곱식의 전개",
+      "difficulty": "쉬움",
+      "grade": "중3",
+      "tags": ["인수분해", "완전제곱식"],
+      "relatedFormulas": ["exp-001", "exp-003"]
+    },
+    {
+      "id": "exp-003",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "완전제곱식 (a-b)²",
+      "formula": "(a-b)^2 = a^2 - 2ab + b^2",
+      "description": "완전제곱식의 전개",
+      "difficulty": "쉬움",
+      "grade": "중3",
+      "tags": ["인수분해", "완전제곱식"],
+      "relatedFormulas": ["exp-001", "exp-002"]
+    },
+    {
+      "id": "exp-004",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "합의 세제곱",
+      "formula": "(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3",
+      "description": "세제곱의 전개",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["인수분해", "세제곱"],
+      "relatedFormulas": ["exp-005"]
+    },
+    {
+      "id": "exp-005",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "차의 세제곱",
+      "formula": "(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3",
+      "description": "세제곱의 전개",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["인수분해", "세제곱"],
+      "relatedFormulas": ["exp-004"]
+    },
+    {
+      "id": "exp-006",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "세제곱의 합",
+      "formula": "a^3 + b^3 = (a+b)(a^2-ab+b^2)",
+      "description": "세제곱의 합 인수분해",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["인수분해", "세제곱"],
+      "relatedFormulas": ["exp-007"]
+    },
+    {
+      "id": "exp-007",
+      "category": "식의계산",
+      "subcategory": "인수분해",
+      "name": "세제곱의 차",
+      "formula": "a^3 - b^3 = (a-b)(a^2+ab+b^2)",
+      "description": "세제곱의 차 인수분해",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["인수분해", "세제곱"],
+      "relatedFormulas": ["exp-006"]
+    },
+    {
+      "id": "exp-008",
+      "category": "식의계산",
+      "subcategory": "항등식",
+      "name": "이항정리",
+      "formula": "(a+b)^n = \\sum_{k=0}^{n} \\binom{n}{k} a^{n-k}b^k",
+      "description": "이항식의 n제곱 전개",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["이항정리", "조합"],
+      "relatedFormulas": []
+    }
+  ]
+}

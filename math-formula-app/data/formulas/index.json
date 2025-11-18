@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "totalFormulas": 0,
+  "categories": [
+    {
+      "id": "number-system",
+      "name": "수체계",
+      "file": "number-system.json",
+      "description": "자연수, 정수, 유리수, 실수, 복소수 관련 공식"
+    },
+    {
+      "id": "exponents-logs",
+      "name": "지수와로그",
+      "file": "exponents-logs.json",
+      "description": "지수법칙, 로그법칙, 지수함수, 로그함수"
+    },
+    {
+      "id": "sequences",
+      "name": "수열",
+      "file": "sequences.json",
+      "description": "등차수열, 등비수열, 계차수열, 수열의 합"
+    },
+    {
+      "id": "expressions",
+      "name": "식의계산",
+      "file": "expressions.json",
+      "description": "다항식, 인수분해, 항등식"
+    },
+    {
+      "id": "sets-logic",
+      "name": "집합과명제",
+      "file": "sets-logic.json",
+      "description": "집합의 연산, 명제, 조건과 진리집합"
+    },
+    {
+      "id": "equations",
+      "name": "방정식",
+      "file": "equations.json",
+      "description": "일차방정식, 이차방정식, 고차방정식, 연립방정식"
+    },
+    {
+      "id": "inequalities",
+      "name": "부등식",
+      "file": "inequalities.json",
+      "description": "일차부등식, 이차부등식, 부등식의 영역"
+    },
+    {
+      "id": "functions",
+      "name": "함수",
+      "file": "functions.json",
+      "description": "함수의 정의, 합성함수, 역함수, 유리함수, 무리함수"
+    },
+    {
+      "id": "calculus-diff",
+      "name": "미분",
+      "file": "calculus-diff.json",
+      "description": "미분계수, 도함수, 미분법, 미분의 활용"
+    },
+    {
+      "id": "calculus-int",
+      "name": "적분",
+      "file": "calculus-int.json",
+      "description": "부정적분, 정적분, 적분의 활용"
+    },
+    {
+      "id": "plane-geometry",
+      "name": "평면도형",
+      "file": "plane-geometry.json",
+      "description": "삼각형, 사각형, 원, 도형의 성질"
+    },
+    {
+      "id": "plane-coordinates",
+      "name": "평면좌표",
+      "file": "plane-coordinates.json",
+      "description": "직선의 방정식, 원의 방정식, 도형의 이동"
+    },
+    {
+      "id": "solid-geometry",
+      "name": "입체도형",
+      "file": "solid-geometry.json",
+      "description": "다면체, 회전체, 겉넓이와 부피"
+    },
+    {
+      "id": "space-coordinates",
+      "name": "공간좌표",
+      "file": "space-coordinates.json",
+      "description": "공간좌표, 공간도형의 방정식"
+    },
+    {
+      "id": "vectors",
+      "name": "벡터",
+      "file": "vectors.json",
+      "description": "벡터의 연산, 내적, 외적, 직선과 평면의 방정식"
+    },
+    {
+      "id": "probability-counting",
+      "name": "경우의수와확률",
+      "file": "probability-counting.json",
+      "description": "순열, 조합, 확률, 조건부확률"
+    },
+    {
+      "id": "statistics",
+      "name": "통계",
+      "file": "statistics.json",
+      "description": "평균, 분산, 표준편차, 상관관계"
+    }
+  ],
+  "lastUpdated": "2025-11-18"
+}

@@ -1,0 +1,173 @@
+{
+  "category": "평면도형",
+  "formulas": [
+    {
+      "id": "geo-001",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "삼각형의 넓이",
+      "formula": "S = \\frac{1}{2} \\times \\text{밑변} \\times \\text{높이} = \\frac{1}{2}bh",
+      "description": "삼각형의 넓이 공식",
+      "difficulty": "쉬움",
+      "grade": "초5",
+      "tags": ["삼각형", "넓이"],
+      "relatedFormulas": ["geo-002"]
+    },
+    {
+      "id": "geo-002",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "헤론의 공식",
+      "formula": "S = \\sqrt{s(s-a)(s-b)(s-c)}, \\quad s = \\frac{a+b+c}{2}",
+      "description": "세 변의 길이 a, b, c로 삼각형의 넓이 구하기",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["삼각형", "넓이", "헤론"],
+      "relatedFormulas": ["geo-001"]
+    },
+    {
+      "id": "geo-003",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "피타고라스 정리",
+      "formula": "a^2 + b^2 = c^2",
+      "description": "직각삼각형에서 빗변의 제곱은 다른 두 변의 제곱의 합",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["직각삼각형", "피타고라스"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "geo-004",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "사인 법칙",
+      "formula": "\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R",
+      "description": "삼각형의 변과 대각의 사인 비율 (R: 외접원의 반지름)",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["삼각형", "사인법칙"],
+      "relatedFormulas": ["geo-005"]
+    },
+    {
+      "id": "geo-005",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "코사인 법칙",
+      "formula": "a^2 = b^2 + c^2 - 2bc\\cos A",
+      "description": "삼각형의 세 변과 한 각의 관계",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["삼각형", "코사인법칙"],
+      "relatedFormulas": ["geo-004"]
+    },
+    {
+      "id": "geo-006",
+      "category": "평면도형",
+      "subcategory": "삼각형",
+      "name": "삼각형의 넓이 (사인)",
+      "formula": "S = \\frac{1}{2}ab\\sin C",
+      "description": "두 변과 그 사이각으로 넓이 구하기",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["삼각형", "넓이", "사인"],
+      "relatedFormulas": ["geo-001", "geo-002"]
+    },
+    {
+      "id": "geo-007",
+      "category": "평면도형",
+      "subcategory": "원",
+      "name": "원의 넓이",
+      "formula": "S = \\pi r^2",
+      "description": "반지름이 r인 원의 넓이",
+      "difficulty": "쉬움",
+      "grade": "초6",
+      "tags": ["원", "넓이"],
+      "relatedFormulas": ["geo-008"]
+    },
+    {
+      "id": "geo-008",
+      "category": "평면도형",
+      "subcategory": "원",
+      "name": "원의 둘레",
+      "formula": "C = 2\\pi r",
+      "description": "반지름이 r인 원의 둘레 (원주)",
+      "difficulty": "쉬움",
+      "grade": "초6",
+      "tags": ["원", "둘레", "원주"],
+      "relatedFormulas": ["geo-007"]
+    },
+    {
+      "id": "geo-009",
+      "category": "평면도형",
+      "subcategory": "원",
+      "name": "부채꼴의 호의 길이",
+      "formula": "l = r\\theta \\quad (\\theta \\text{는 라디안})",
+      "description": "반지름 r, 중심각 θ인 부채꼴의 호의 길이",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["원", "부채꼴", "호의 길이"],
+      "relatedFormulas": ["geo-010"]
+    },
+    {
+      "id": "geo-010",
+      "category": "평면도형",
+      "subcategory": "원",
+      "name": "부채꼴의 넓이",
+      "formula": "S = \\frac{1}{2}r^2\\theta = \\frac{1}{2}rl \\quad (\\theta \\text{는 라디안})",
+      "description": "반지름 r, 중심각 θ (또는 호의 길이 l)인 부채꼴의 넓이",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["원", "부채꼴", "넓이"],
+      "relatedFormulas": ["geo-009"]
+    },
+    {
+      "id": "geo-011",
+      "category": "평면도형",
+      "subcategory": "사각형",
+      "name": "직사각형의 넓이",
+      "formula": "S = \\text{가로} \\times \\text{세로} = ab",
+      "description": "직사각형의 넓이",
+      "difficulty": "쉬움",
+      "grade": "초3",
+      "tags": ["사각형", "직사각형", "넓이"],
+      "relatedFormulas": ["geo-012"]
+    },
+    {
+      "id": "geo-012",
+      "category": "평면도형",
+      "subcategory": "사각형",
+      "name": "평행사변형의 넓이",
+      "formula": "S = \\text{밑변} \\times \\text{높이} = bh",
+      "description": "평행사변형의 넓이",
+      "difficulty": "쉬움",
+      "grade": "초5",
+      "tags": ["사각형", "평행사변형", "넓이"],
+      "relatedFormulas": ["geo-013"]
+    },
+    {
+      "id": "geo-013",
+      "category": "평면도형",
+      "subcategory": "사각형",
+      "name": "사다리꼴의 넓이",
+      "formula": "S = \\frac{1}{2}(a+b)h",
+      "description": "윗변 a, 아랫변 b, 높이 h인 사다리꼴의 넓이",
+      "difficulty": "쉬움",
+      "grade": "초5",
+      "tags": ["사각형", "사다리꼴", "넓이"],
+      "relatedFormulas": ["geo-012"]
+    },
+    {
+      "id": "geo-014",
+      "category": "평면도형",
+      "subcategory": "사각형",
+      "name": "마름모의 넓이",
+      "formula": "S = \\frac{1}{2}d_1 d_2",
+      "description": "대각선의 길이가 d₁, d₂인 마름모의 넓이",
+      "difficulty": "쉬움",
+      "grade": "초6",
+      "tags": ["사각형", "마름모", "넓이"],
+      "relatedFormulas": []
+    }
+  ]
+}

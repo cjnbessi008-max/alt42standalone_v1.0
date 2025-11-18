@@ -1,0 +1,137 @@
+{
+  "category": "지수와로그",
+  "formulas": [
+    {
+      "id": "exp-log-001",
+      "category": "지수와로그",
+      "subcategory": "지수법칙",
+      "name": "지수법칙 - 곱셈",
+      "formula": "a^m \\cdot a^n = a^{m+n}",
+      "description": "같은 밑을 가진 거듭제곱의 곱셈",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["지수", "지수법칙"],
+      "relatedFormulas": ["exp-log-002", "exp-log-003"]
+    },
+    {
+      "id": "exp-log-002",
+      "category": "지수와로그",
+      "subcategory": "지수법칙",
+      "name": "지수법칙 - 나눗셈",
+      "formula": "\\frac{a^m}{a^n} = a^{m-n}",
+      "description": "같은 밑을 가진 거듭제곱의 나눗셈",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["지수", "지수법칙"],
+      "relatedFormulas": ["exp-log-001", "exp-log-003"]
+    },
+    {
+      "id": "exp-log-003",
+      "category": "지수와로그",
+      "subcategory": "지수법칙",
+      "name": "지수법칙 - 거듭제곱",
+      "formula": "(a^m)^n = a^{mn}",
+      "description": "거듭제곱의 거듭제곱",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["지수", "지수법칙"],
+      "relatedFormulas": ["exp-log-001", "exp-log-002"]
+    },
+    {
+      "id": "exp-log-004",
+      "category": "지수와로그",
+      "subcategory": "지수법칙",
+      "name": "지수법칙 - 곱의 거듭제곱",
+      "formula": "(ab)^n = a^n b^n",
+      "description": "곱의 거듭제곱",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["지수", "지수법칙"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "exp-log-005",
+      "category": "지수와로그",
+      "subcategory": "로그",
+      "name": "로그의 정의",
+      "formula": "a^x = b \\Leftrightarrow \\log_a b = x \\quad (a>0, a\\neq 1, b>0)",
+      "description": "로그의 정의 (지수와 로그의 관계)",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그"],
+      "relatedFormulas": ["exp-log-006"]
+    },
+    {
+      "id": "exp-log-006",
+      "category": "지수와로그",
+      "subcategory": "로그법칙",
+      "name": "로그의 곱셈 법칙",
+      "formula": "\\log_a(MN) = \\log_a M + \\log_a N",
+      "description": "곱셈을 로그로 표현",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그", "로그법칙"],
+      "relatedFormulas": ["exp-log-007", "exp-log-008"]
+    },
+    {
+      "id": "exp-log-007",
+      "category": "지수와로그",
+      "subcategory": "로그법칙",
+      "name": "로그의 나눗셈 법칙",
+      "formula": "\\log_a\\left(\\frac{M}{N}\\right) = \\log_a M - \\log_a N",
+      "description": "나눗셈을 로그로 표현",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그", "로그법칙"],
+      "relatedFormulas": ["exp-log-006", "exp-log-008"]
+    },
+    {
+      "id": "exp-log-008",
+      "category": "지수와로그",
+      "subcategory": "로그법칙",
+      "name": "로그의 거듭제곱 법칙",
+      "formula": "\\log_a M^k = k\\log_a M",
+      "description": "거듭제곱을 로그로 표현",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그", "로그법칙"],
+      "relatedFormulas": ["exp-log-006", "exp-log-007"]
+    },
+    {
+      "id": "exp-log-009",
+      "category": "지수와로그",
+      "subcategory": "로그법칙",
+      "name": "밑의 변환 공식",
+      "formula": "\\log_a b = \\frac{\\log_c b}{\\log_c a}",
+      "description": "로그의 밑을 변환",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그", "밑변환"],
+      "relatedFormulas": ["exp-log-010"]
+    },
+    {
+      "id": "exp-log-010",
+      "category": "지수와로그",
+      "subcategory": "로그법칙",
+      "name": "로그 역수 공식",
+      "formula": "\\log_a b = \\frac{1}{\\log_b a}",
+      "description": "로그의 밑과 진수를 바꾸면 역수",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["로그"],
+      "relatedFormulas": ["exp-log-009"]
+    },
+    {
+      "id": "exp-log-011",
+      "category": "지수와로그",
+      "subcategory": "자연로그",
+      "name": "자연로그",
+      "formula": "\\ln x = \\log_e x \\quad (e \\approx 2.71828...)",
+      "description": "밑이 e인 로그 (자연로그)",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["로그", "자연로그", "자연상수"],
+      "relatedFormulas": []
+    }
+  ]
+}

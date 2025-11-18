@@ -1,0 +1,125 @@
+{
+  "category": "수열",
+  "formulas": [
+    {
+      "id": "seq-001",
+      "category": "수열",
+      "subcategory": "등차수열",
+      "name": "등차수열의 일반항",
+      "formula": "a_n = a_1 + (n-1)d",
+      "description": "첫째항이 a₁이고 공차가 d인 등차수열의 n번째 항",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["수열", "등차수열"],
+      "relatedFormulas": ["seq-002"]
+    },
+    {
+      "id": "seq-002",
+      "category": "수열",
+      "subcategory": "등차수열",
+      "name": "등차수열의 합",
+      "formula": "S_n = \\frac{n(a_1 + a_n)}{2} = \\frac{n[2a_1 + (n-1)d]}{2}",
+      "description": "등차수열의 첫째항부터 n번째 항까지의 합",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["수열", "등차수열", "합"],
+      "relatedFormulas": ["seq-001"]
+    },
+    {
+      "id": "seq-003",
+      "category": "수열",
+      "subcategory": "등비수열",
+      "name": "등비수열의 일반항",
+      "formula": "a_n = a_1 \\cdot r^{n-1}",
+      "description": "첫째항이 a₁이고 공비가 r인 등비수열의 n번째 항",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["수열", "등비수열"],
+      "relatedFormulas": ["seq-004"]
+    },
+    {
+      "id": "seq-004",
+      "category": "수열",
+      "subcategory": "등비수열",
+      "name": "등비수열의 합",
+      "formula": "S_n = \\begin{cases} na_1 & (r=1) \\\\ \\frac{a_1(1-r^n)}{1-r} = \\frac{a_1(r^n-1)}{r-1} & (r \\neq 1) \\end{cases}",
+      "description": "등비수열의 첫째항부터 n번째 항까지의 합",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["수열", "등비수열", "합"],
+      "relatedFormulas": ["seq-003", "seq-005"]
+    },
+    {
+      "id": "seq-005",
+      "category": "수열",
+      "subcategory": "등비수열",
+      "name": "무한등비급수",
+      "formula": "\\sum_{n=1}^{\\infty} a_1 r^{n-1} = \\frac{a_1}{1-r} \\quad (|r| < 1)",
+      "description": "공비의 절댓값이 1보다 작을 때 무한등비급수의 합",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["수열", "등비수열", "무한급수"],
+      "relatedFormulas": ["seq-004"]
+    },
+    {
+      "id": "seq-006",
+      "category": "수열",
+      "subcategory": "수열의 합",
+      "name": "자연수의 합",
+      "formula": "\\sum_{k=1}^{n} k = \\frac{n(n+1)}{2}",
+      "description": "1부터 n까지 자연수의 합",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["수열", "합", "자연수"],
+      "relatedFormulas": ["seq-007", "seq-008"]
+    },
+    {
+      "id": "seq-007",
+      "category": "수열",
+      "subcategory": "수열의 합",
+      "name": "자연수 제곱의 합",
+      "formula": "\\sum_{k=1}^{n} k^2 = \\frac{n(n+1)(2n+1)}{6}",
+      "description": "1²+2²+3²+...+n²",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["수열", "합", "제곱"],
+      "relatedFormulas": ["seq-006", "seq-008"]
+    },
+    {
+      "id": "seq-008",
+      "category": "수열",
+      "subcategory": "수열의 합",
+      "name": "자연수 세제곱의 합",
+      "formula": "\\sum_{k=1}^{n} k^3 = \\left[\\frac{n(n+1)}{2}\\right]^2",
+      "description": "1³+2³+3³+...+n³",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["수열", "합", "세제곱"],
+      "relatedFormulas": ["seq-006", "seq-007"]
+    },
+    {
+      "id": "seq-009",
+      "category": "수열",
+      "subcategory": "계차수열",
+      "name": "계차수열의 일반항",
+      "formula": "a_n = a_1 + \\sum_{k=1}^{n-1} b_k",
+      "description": "수열 {aₙ}의 계차수열이 {bₙ}일 때 일반항",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["수열", "계차수열"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "seq-010",
+      "category": "수열",
+      "subcategory": "수학적 귀납법",
+      "name": "수학적 귀납법 원리",
+      "formula": "\\text{(1) } n=1 \\text{일 때 성립} \\quad \\text{(2) } n=k \\text{일 때 성립하면 } n=k+1 \\text{일 때도 성립}",
+      "description": "모든 자연수 n에 대해 명제가 성립함을 증명",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["수열", "증명", "귀납법"],
+      "relatedFormulas": []
+    }
+  ]
+}

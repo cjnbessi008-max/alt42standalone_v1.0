@@ -1,0 +1,65 @@
+{
+  "category": "수체계",
+  "formulas": [
+    {
+      "id": "num-001",
+      "category": "수체계",
+      "subcategory": "복소수",
+      "name": "허수 단위",
+      "formula": "i^2 = -1, \\quad i = \\sqrt{-1}",
+      "description": "허수 단위 i의 정의",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["복소수", "허수"],
+      "relatedFormulas": ["num-002"]
+    },
+    {
+      "id": "num-002",
+      "category": "수체계",
+      "subcategory": "복소수",
+      "name": "복소수의 사칙연산",
+      "formula": "(a+bi) \\pm (c+di) = (a\\pm c) + (b\\pm d)i",
+      "description": "복소수의 덧셈과 뺄셈",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["복소수"],
+      "relatedFormulas": ["num-001", "num-003"]
+    },
+    {
+      "id": "num-003",
+      "category": "수체계",
+      "subcategory": "복소수",
+      "name": "켤레복소수",
+      "formula": "z = a+bi \\Rightarrow \\bar{z} = a-bi",
+      "description": "복소수 z의 켤레복소수",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["복소수", "켤레"],
+      "relatedFormulas": ["num-004"]
+    },
+    {
+      "id": "num-004",
+      "category": "수체계",
+      "subcategory": "복소수",
+      "name": "복소수의 절댓값",
+      "formula": "|z| = |a+bi| = \\sqrt{a^2 + b^2}",
+      "description": "복소수의 절댓값 (원점으로부터의 거리)",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["복소수", "절댓값"],
+      "relatedFormulas": ["num-003"]
+    },
+    {
+      "id": "num-005",
+      "category": "수체계",
+      "subcategory": "유리수",
+      "name": "유리수의 정의",
+      "formula": "\\frac{p}{q} \\quad (p, q \\text{는 정수}, q \\neq 0)",
+      "description": "두 정수의 비로 나타낼 수 있는 수",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["유리수"],
+      "relatedFormulas": []
+    }
+  ]
+}

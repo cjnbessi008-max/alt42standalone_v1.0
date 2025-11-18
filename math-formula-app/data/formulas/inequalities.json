@@ -1,0 +1,77 @@
+{
+  "category": "부등식",
+  "formulas": [
+    {
+      "id": "ineq-001",
+      "category": "부등식",
+      "subcategory": "일차부등식",
+      "name": "일차부등식의 해",
+      "formula": "ax + b > 0 \\Rightarrow x > -\\frac{b}{a} \\quad (a > 0)",
+      "description": "일차부등식의 해 (a>0일 때)",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["부등식", "일차부등식"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "ineq-002",
+      "category": "부등식",
+      "subcategory": "이차부등식",
+      "name": "이차부등식의 해 (a>0, D>0)",
+      "formula": "ax^2 + bx + c > 0 \\Rightarrow x < \\alpha \\text{ 또는 } x > \\beta \\quad (\\alpha < \\beta)",
+      "description": "이차부등식의 해 (a>0, 두 근이 존재할 때)",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["부등식", "이차부등식"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "ineq-003",
+      "category": "부등식",
+      "subcategory": "절댓값 부등식",
+      "name": "절댓값 부등식 |x| < a",
+      "formula": "|x| < a \\Leftrightarrow -a < x < a \\quad (a > 0)",
+      "description": "절댓값이 a보다 작은 경우",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["부등식", "절댓값"],
+      "relatedFormulas": ["ineq-004"]
+    },
+    {
+      "id": "ineq-004",
+      "category": "부등식",
+      "subcategory": "절댓값 부등식",
+      "name": "절댓값 부등식 |x| > a",
+      "formula": "|x| > a \\Leftrightarrow x < -a \\text{ 또는 } x > a \\quad (a > 0)",
+      "description": "절댓값이 a보다 큰 경우",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["부등식", "절댓값"],
+      "relatedFormulas": ["ineq-003"]
+    },
+    {
+      "id": "ineq-005",
+      "category": "부등식",
+      "subcategory": "산술-기하 평균",
+      "name": "산술-기하 평균 부등식",
+      "formula": "\\frac{a+b}{2} \\geq \\sqrt{ab} \\quad (a, b \\geq 0)",
+      "description": "두 양수의 산술평균은 기하평균보다 크거나 같다 (등호는 a=b일 때)",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["부등식", "산술평균", "기하평균"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "ineq-006",
+      "category": "부등식",
+      "subcategory": "코시-슈바르츠 부등식",
+      "name": "코시-슈바르츠 부등식",
+      "formula": "(a^2+b^2)(c^2+d^2) \\geq (ac+bd)^2",
+      "description": "코시-슈바르츠 부등식 (등호는 ad=bc일 때)",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["부등식", "코시-슈바르츠"],
+      "relatedFormulas": []
+    }
+  ]
+}

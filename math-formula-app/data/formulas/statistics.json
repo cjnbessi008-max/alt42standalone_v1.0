@@ -1,0 +1,125 @@
+{
+  "category": "통계",
+  "formulas": [
+    {
+      "id": "stat-001",
+      "category": "통계",
+      "subcategory": "대푯값",
+      "name": "산술평균",
+      "formula": "\\bar{x} = \\frac{x_1 + x_2 + \\cdots + x_n}{n} = \\frac{1}{n}\\sum_{i=1}^{n} x_i",
+      "description": "n개 자료의 평균",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["통계", "평균"],
+      "relatedFormulas": ["stat-002"]
+    },
+    {
+      "id": "stat-002",
+      "category": "통계",
+      "subcategory": "대푯값",
+      "name": "가중평균",
+      "formula": "\\bar{x} = \\frac{w_1x_1 + w_2x_2 + \\cdots + w_nx_n}{w_1 + w_2 + \\cdots + w_n}",
+      "description": "각 자료에 가중치가 있을 때의 평균",
+      "difficulty": "중",
+      "grade": "중2",
+      "tags": ["통계", "평균", "가중평균"],
+      "relatedFormulas": ["stat-001"]
+    },
+    {
+      "id": "stat-003",
+      "category": "통계",
+      "subcategory": "산포도",
+      "name": "분산",
+      "formula": "\\sigma^2 = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2",
+      "description": "자료의 흩어진 정도 (편차의 제곱의 평균)",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["통계", "분산"],
+      "relatedFormulas": ["stat-004", "stat-005"]
+    },
+    {
+      "id": "stat-004",
+      "category": "통계",
+      "subcategory": "산포도",
+      "name": "표준편차",
+      "formula": "\\sigma = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2}",
+      "description": "분산의 양의 제곱근",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["통계", "표준편차"],
+      "relatedFormulas": ["stat-003", "stat-005"]
+    },
+    {
+      "id": "stat-005",
+      "category": "통계",
+      "subcategory": "산포도",
+      "name": "분산의 간편식",
+      "formula": "\\sigma^2 = \\frac{1}{n}\\sum_{i=1}^{n}x_i^2 - \\bar{x}^2",
+      "description": "분산을 쉽게 계산하는 공식 (자료의 제곱의 평균 - 평균의 제곱)",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["통계", "분산"],
+      "relatedFormulas": ["stat-003"]
+    },
+    {
+      "id": "stat-006",
+      "category": "통계",
+      "subcategory": "상관관계",
+      "name": "공분산",
+      "formula": "Cov(X,Y) = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})(y_i - \\bar{y})",
+      "description": "두 변량 X, Y의 상관 정도",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["통계", "공분산", "상관관계"],
+      "relatedFormulas": ["stat-007"]
+    },
+    {
+      "id": "stat-007",
+      "category": "통계",
+      "subcategory": "상관관계",
+      "name": "상관계수",
+      "formula": "r = \\frac{Cov(X,Y)}{\\sigma_X \\sigma_Y} = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2}\\sqrt{\\sum(y_i - \\bar{y})^2}}",
+      "description": "두 변량 사이의 선형 상관관계 (-1 ≤ r ≤ 1)",
+      "difficulty": "어려움",
+      "grade": "고1",
+      "tags": ["통계", "상관계수"],
+      "relatedFormulas": ["stat-006"]
+    },
+    {
+      "id": "stat-008",
+      "category": "통계",
+      "subcategory": "확률분포",
+      "name": "이항분포의 평균",
+      "formula": "E(X) = np",
+      "description": "이항분포 B(n, p)를 따르는 확률변수의 평균",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["통계", "이항분포", "평균"],
+      "relatedFormulas": ["stat-009"]
+    },
+    {
+      "id": "stat-009",
+      "category": "통계",
+      "subcategory": "확률분포",
+      "name": "이항분포의 분산",
+      "formula": "V(X) = np(1-p) = npq",
+      "description": "이항분포 B(n, p)를 따르는 확률변수의 분산 (q = 1-p)",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["통계", "이항분포", "분산"],
+      "relatedFormulas": ["stat-008"]
+    },
+    {
+      "id": "stat-010",
+      "category": "통계",
+      "subcategory": "확률분포",
+      "name": "정규분포",
+      "formula": "f(x) = \\frac{1}{\\sqrt{2\\pi}\\sigma}e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}",
+      "description": "평균 μ, 표준편차 σ인 정규분포의 확률밀도함수",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["통계", "정규분포"],
+      "relatedFormulas": []
+    }
+  ]
+}

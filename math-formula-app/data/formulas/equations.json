@@ -1,0 +1,101 @@
+{
+  "category": "방정식",
+  "formulas": [
+    {
+      "id": "eq-001",
+      "category": "방정식",
+      "subcategory": "이차방정식",
+      "name": "근의 공식",
+      "formula": "x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}",
+      "description": "이차방정식 ax²+bx+c=0의 해를 구하는 공식",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["이차방정식", "근", "판별식"],
+      "relatedFormulas": ["eq-002", "eq-003"]
+    },
+    {
+      "id": "eq-002",
+      "category": "방정식",
+      "subcategory": "이차방정식",
+      "name": "판별식",
+      "formula": "D = b^2 - 4ac",
+      "description": "이차방정식의 근의 개수와 성질을 판별. D>0: 서로 다른 두 실근, D=0: 중근, D<0: 허근",
+      "difficulty": "중",
+      "grade": "중3",
+      "tags": ["이차방정식", "판별식", "근의 개수"],
+      "relatedFormulas": ["eq-001", "eq-003"]
+    },
+    {
+      "id": "eq-003",
+      "category": "방정식",
+      "subcategory": "이차방정식",
+      "name": "근과 계수의 관계",
+      "formula": "\\alpha + \\beta = -\\frac{b}{a}, \\quad \\alpha\\beta = \\frac{c}{a}",
+      "description": "이차방정식 ax²+bx+c=0의 두 근 α, β의 합과 곱",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["이차방정식", "근과 계수"],
+      "relatedFormulas": ["eq-001", "eq-002"]
+    },
+    {
+      "id": "eq-004",
+      "category": "방정식",
+      "subcategory": "이차방정식",
+      "name": "완전제곱식",
+      "formula": "(x + p)^2 = x^2 + 2px + p^2",
+      "description": "이차식을 완전제곱식으로 변형",
+      "difficulty": "쉬움",
+      "grade": "중3",
+      "tags": ["완전제곱식", "인수분해"],
+      "relatedFormulas": ["exp-001"]
+    },
+    {
+      "id": "eq-005",
+      "category": "방정식",
+      "subcategory": "삼차방정식",
+      "name": "삼차방정식 근과 계수의 관계",
+      "formula": "\\alpha+\\beta+\\gamma=-\\frac{b}{a}, \\quad \\alpha\\beta+\\beta\\gamma+\\gamma\\alpha=\\frac{c}{a}, \\quad \\alpha\\beta\\gamma=-\\frac{d}{a}",
+      "description": "삼차방정식 ax³+bx²+cx+d=0의 세 근 α, β, γ의 관계",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["삼차방정식", "근과 계수"],
+      "relatedFormulas": ["eq-003"]
+    },
+    {
+      "id": "eq-006",
+      "category": "방정식",
+      "subcategory": "일차방정식",
+      "name": "일차방정식의 해",
+      "formula": "ax + b = 0 \\Rightarrow x = -\\frac{b}{a} \\quad (a \\neq 0)",
+      "description": "일차방정식의 해를 구하는 공식",
+      "difficulty": "쉬움",
+      "grade": "중1",
+      "tags": ["일차방정식"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "eq-007",
+      "category": "방정식",
+      "subcategory": "연립방정식",
+      "name": "연립일차방정식 해법 (대입법)",
+      "formula": "\\begin{cases} ax + by = e \\\\ cx + dy = f \\end{cases}",
+      "description": "두 일차방정식을 동시에 만족하는 해를 구함",
+      "difficulty": "중",
+      "grade": "중2",
+      "tags": ["연립방정식", "대입법"],
+      "relatedFormulas": ["eq-008"]
+    },
+    {
+      "id": "eq-008",
+      "category": "방정식",
+      "subcategory": "연립방정식",
+      "name": "크래머 공식",
+      "formula": "x = \\frac{\\begin{vmatrix} e & b \\\\ f & d \\end{vmatrix}}{\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}}, \\quad y = \\frac{\\begin{vmatrix} a & e \\\\ c & f \\end{vmatrix}}{\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}}",
+      "description": "행렬식을 이용한 연립방정식의 해",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["연립방정식", "행렬식", "크래머"],
+      "relatedFormulas": ["eq-007"]
+    }
+  ]
+}

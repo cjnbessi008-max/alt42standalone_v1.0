@@ -1,0 +1,53 @@
+{
+  "category": "공간좌표",
+  "formulas": [
+    {
+      "id": "space-001",
+      "category": "공간좌표",
+      "subcategory": "공간좌표",
+      "name": "공간에서 두 점 사이의 거리",
+      "formula": "d = \\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}",
+      "description": "공간 좌표계의 두 점 사이의 거리",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["공간좌표", "거리"],
+      "relatedFormulas": ["space-002"]
+    },
+    {
+      "id": "space-002",
+      "category": "공간좌표",
+      "subcategory": "공간좌표",
+      "name": "공간에서 중점의 좌표",
+      "formula": "M = \\left(\\frac{x_1+x_2}{2}, \\frac{y_1+y_2}{2}, \\frac{z_1+z_2}{2}\\right)",
+      "description": "공간 좌표계에서 두 점을 잇는 선분의 중점",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["공간좌표", "중점"],
+      "relatedFormulas": ["space-001"]
+    },
+    {
+      "id": "space-003",
+      "category": "공간좌표",
+      "subcategory": "구의 방정식",
+      "name": "구의 방정식",
+      "formula": "(x-a)^2 + (y-b)^2 + (z-c)^2 = r^2",
+      "description": "중심 (a, b, c), 반지름 r인 구의 방정식",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["공간좌표", "구", "방정식"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "space-004",
+      "category": "공간좌표",
+      "subcategory": "평면의 방정식",
+      "name": "평면의 방정식",
+      "formula": "ax + by + cz + d = 0",
+      "description": "공간에서 평면의 일반형 방정식",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["공간좌표", "평면", "방정식"],
+      "relatedFormulas": []
+    }
+  ]
+}

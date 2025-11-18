@@ -1,0 +1,149 @@
+{
+  "category": "경우의수와확률",
+  "formulas": [
+    {
+      "id": "prob-001",
+      "category": "경우의수와확률",
+      "subcategory": "경우의 수",
+      "name": "합의 법칙",
+      "formula": "m + n",
+      "description": "두 사건 A, B가 동시에 일어나지 않을 때, A 또는 B가 일어나는 경우의 수",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["경우의수"],
+      "relatedFormulas": ["prob-002"]
+    },
+    {
+      "id": "prob-002",
+      "category": "경우의수와확률",
+      "subcategory": "경우의 수",
+      "name": "곱의 법칙",
+      "formula": "m \\times n",
+      "description": "사건 A가 m가지, 각각에 대해 사건 B가 n가지 일어날 때 경우의 수",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["경우의수"],
+      "relatedFormulas": ["prob-001"]
+    },
+    {
+      "id": "prob-003",
+      "category": "경우의수와확률",
+      "subcategory": "순열",
+      "name": "순열",
+      "formula": "_nP_r = \\frac{n!}{(n-r)!} = n(n-1)(n-2)\\cdots(n-r+1)",
+      "description": "서로 다른 n개에서 r개를 택하여 일렬로 배열하는 경우의 수",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["순열", "경우의수"],
+      "relatedFormulas": ["prob-004", "prob-005"]
+    },
+    {
+      "id": "prob-004",
+      "category": "경우의수와확률",
+      "subcategory": "순열",
+      "name": "n!의 정의",
+      "formula": "n! = n \\times (n-1) \\times (n-2) \\times \\cdots \\times 2 \\times 1",
+      "description": "n 팩토리얼 (0! = 1)",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["팩토리얼"],
+      "relatedFormulas": ["prob-003"]
+    },
+    {
+      "id": "prob-005",
+      "category": "경우의수와확률",
+      "subcategory": "조합",
+      "name": "조합",
+      "formula": "_nC_r = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}",
+      "description": "서로 다른 n개에서 순서를 생각하지 않고 r개를 택하는 경우의 수",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["조합", "경우의수"],
+      "relatedFormulas": ["prob-003", "prob-006"]
+    },
+    {
+      "id": "prob-006",
+      "category": "경우의수와확률",
+      "subcategory": "조합",
+      "name": "조합의 성질",
+      "formula": "_nC_r = _nC_{n-r}, \\quad _nC_0 = _nC_n = 1",
+      "description": "조합의 대칭성과 특수한 경우",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["조합"],
+      "relatedFormulas": ["prob-005"]
+    },
+    {
+      "id": "prob-007",
+      "category": "경우의수와확률",
+      "subcategory": "확률",
+      "name": "확률의 정의",
+      "formula": "P(A) = \\frac{n(A)}{n(S)}",
+      "description": "사건 A가 일어날 확률 (전체 경우의 수 중 사건 A의 경우의 수)",
+      "difficulty": "쉬움",
+      "grade": "중2",
+      "tags": ["확률"],
+      "relatedFormulas": ["prob-008"]
+    },
+    {
+      "id": "prob-008",
+      "category": "경우의수와확률",
+      "subcategory": "확률",
+      "name": "확률의 덧셈정리",
+      "formula": "P(A \\cup B) = P(A) + P(B) - P(A \\cap B)",
+      "description": "두 사건 A, B의 합사건의 확률",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["확률", "덧셈정리"],
+      "relatedFormulas": ["prob-007", "prob-009"]
+    },
+    {
+      "id": "prob-009",
+      "category": "경우의수와확률",
+      "subcategory": "확률",
+      "name": "여사건의 확률",
+      "formula": "P(A^c) = 1 - P(A)",
+      "description": "사건 A가 일어나지 않을 확률",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["확률", "여사건"],
+      "relatedFormulas": ["prob-007"]
+    },
+    {
+      "id": "prob-010",
+      "category": "경우의수와확률",
+      "subcategory": "조건부 확률",
+      "name": "조건부 확률",
+      "formula": "P(A|B) = \\frac{P(A \\cap B)}{P(B)} \\quad (P(B) > 0)",
+      "description": "사건 B가 일어났을 때 사건 A가 일어날 확률",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["확률", "조건부확률"],
+      "relatedFormulas": ["prob-011"]
+    },
+    {
+      "id": "prob-011",
+      "category": "경우의수와확률",
+      "subcategory": "확률의 곱셈정리",
+      "name": "확률의 곱셈정리",
+      "formula": "P(A \\cap B) = P(B)P(A|B) = P(A)P(B|A)",
+      "description": "두 사건이 동시에 일어날 확률",
+      "difficulty": "어려움",
+      "grade": "고2",
+      "tags": ["확률", "곱셈정리"],
+      "relatedFormulas": ["prob-010", "prob-012"]
+    },
+    {
+      "id": "prob-012",
+      "category": "경우의수와확률",
+      "subcategory": "독립사건",
+      "name": "독립사건의 확률",
+      "formula": "P(A \\cap B) = P(A)P(B)",
+      "description": "두 사건 A, B가 독립일 때",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["확률", "독립사건"],
+      "relatedFormulas": ["prob-011"]
+    }
+  ]
+}

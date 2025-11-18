@@ -1,0 +1,387 @@
+/**
+ * Typography Styles
+ * Special styling for typography transformations
+ */
+
+/* KaTeX Override Styles */
+.formula-display .katex-html {
+    text-align: center;
+}
+
+.formula-display .katex {
+    font-size: inherit !important;
+}
+
+/* Typography Animation Classes */
+.typography-animate {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Font Variations */
+.font-sans {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-serif {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.font-mono {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.font-georgia {
+    font-family: Georgia, serif;
+}
+
+.font-verdana {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* Size Variations */
+.size-xs {
+    font-size: 1.5rem;
+}
+
+.size-sm {
+    font-size: 1.8rem;
+}
+
+.size-md {
+    font-size: 2.0rem;
+}
+
+.size-lg {
+    font-size: 2.5rem;
+}
+
+.size-xl {
+    font-size: 3.0rem;
+}
+
+/* Weight Variations */
+.weight-light {
+    font-weight: 300;
+}
+
+.weight-normal {
+    font-weight: 400;
+}
+
+.weight-medium {
+    font-weight: 500;
+}
+
+.weight-semibold {
+    font-weight: 600;
+}
+
+.weight-bold {
+    font-weight: 700;
+}
+
+/* Color Variations */
+.color-dark {
+    color: #2c3e50;
+}
+
+.color-blue {
+    color: #3498db;
+}
+
+.color-green {
+    color: #27ae60;
+}
+
+.color-red {
+    color: #e74c3c;
+}
+
+.color-purple {
+    color: #9b59b6;
+}
+
+.color-orange {
+    color: #e67e22;
+}
+
+/* Background Variations */
+.bg-light {
+    background-color: #ecf0f1;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.bg-cream {
+    background-color: #fef5e7;
+}
+
+.bg-lightblue {
+    background-color: #ebf5fb;
+}
+
+.bg-lightgreen {
+    background-color: #eafaf1;
+}
+
+/* Shadow Effects */
+.shadow-none {
+    text-shadow: none;
+}
+
+.shadow-sm {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.shadow-md {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.shadow-lg {
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+}
+
+.shadow-glow {
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+/* Transform Effects */
+.transform-none {
+    transform: none;
+}
+
+.transform-scale-up {
+    transform: scale(1.05);
+}
+
+.transform-scale-down {
+    transform: scale(0.95);
+}
+
+.transform-skew {
+    transform: skewX(-2deg);
+}
+
+/* Letter Spacing */
+.spacing-tight {
+    letter-spacing: -0.02em;
+}
+
+.spacing-normal {
+    letter-spacing: normal;
+}
+
+.spacing-wide {
+    letter-spacing: 0.05em;
+}
+
+.spacing-wider {
+    letter-spacing: 0.1em;
+}
+
+/* Line Height */
+.leading-tight {
+    line-height: 1.2;
+}
+
+.leading-normal {
+    line-height: 1.4;
+}
+
+.leading-relaxed {
+    line-height: 1.6;
+}
+
+.leading-loose {
+    line-height: 1.8;
+}
+
+/* Special Effects */
+.effect-gradient-text {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.effect-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(52, 152, 219, 0.5),
+                     0 0 10px rgba(52, 152, 219, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(52, 152, 219, 0.8),
+                     0 0 30px rgba(52, 152, 219, 0.5);
+    }
+}
+
+.effect-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Fade Transitions */
+.fade-enter {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.fade-exit {
+    animation: fadeOut 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+/* Slide Transitions */
+.slide-left {
+    animation: slideLeft 0.5s ease-out;
+}
+
+.slide-right {
+    animation: slideRight 0.5s ease-out;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Bounce Effect */
+.bounce-in {
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Rotate Effects */
+.rotate-gentle {
+    animation: rotateGentle 4s ease-in-out infinite;
+}
+
+@keyframes rotateGentle {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .formula-display {
+        border: 3px solid #000;
+        background: #fff;
+    }
+
+    .color-dark,
+    .color-blue,
+    .color-green,
+    .color-red,
+    .color-purple,
+    .color-orange {
+        color: #000;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .formula-display {
+        background: white !important;
+        color: black !important;
+        border: 2px solid black;
+        page-break-inside: avoid;
+    }
+
+    .formula-display * {
+        color: black !important;
+        background: white !important;
+        text-shadow: none !important;
+    }
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    .formula-display {
+        background: #2c3e50;
+        border-color: #34495e;
+    }
+}
+
+/* Accessibility - Respect motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .typography-animate,
+    .effect-glow,
+    .effect-pulse,
+    .fade-enter,
+    .fade-exit,
+    .slide-left,
+    .slide-right,
+    .bounce-in,
+    .rotate-gentle {
+        animation: none !important;
+        transition: none !important;
+    }
+}

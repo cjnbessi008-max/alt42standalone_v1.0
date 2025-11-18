@@ -1,0 +1,149 @@
+{
+  "category": "미분",
+  "formulas": [
+    {
+      "id": "diff-001",
+      "category": "미분",
+      "subcategory": "기본 미분공식",
+      "name": "상수의 미분",
+      "formula": "\\frac{d}{dx}(c) = 0",
+      "description": "상수를 미분하면 0",
+      "difficulty": "쉬움",
+      "grade": "고2",
+      "tags": ["미분", "도함수"],
+      "relatedFormulas": ["diff-002"]
+    },
+    {
+      "id": "diff-002",
+      "category": "미분",
+      "subcategory": "기본 미분공식",
+      "name": "거듭제곱의 미분",
+      "formula": "\\frac{d}{dx}(x^n) = nx^{n-1}",
+      "description": "x의 n제곱을 미분",
+      "difficulty": "쉬움",
+      "grade": "고2",
+      "tags": ["미분", "도함수", "거듭제곱"],
+      "relatedFormulas": ["diff-001", "diff-003"]
+    },
+    {
+      "id": "diff-003",
+      "category": "미분",
+      "subcategory": "미분 법칙",
+      "name": "합의 미분",
+      "formula": "\\frac{d}{dx}[f(x) + g(x)] = f'(x) + g'(x)",
+      "description": "두 함수의 합의 미분",
+      "difficulty": "쉬움",
+      "grade": "고2",
+      "tags": ["미분", "미분법칙"],
+      "relatedFormulas": ["diff-004", "diff-005"]
+    },
+    {
+      "id": "diff-004",
+      "category": "미분",
+      "subcategory": "미분 법칙",
+      "name": "곱의 미분",
+      "formula": "\\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)",
+      "description": "두 함수의 곱의 미분 (곱의 법칙)",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "곱의 미분"],
+      "relatedFormulas": ["diff-003", "diff-005"]
+    },
+    {
+      "id": "diff-005",
+      "category": "미분",
+      "subcategory": "미분 법칙",
+      "name": "몫의 미분",
+      "formula": "\\frac{d}{dx}\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}",
+      "description": "두 함수의 몫의 미분 (몫의 법칙)",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "몫의 미분"],
+      "relatedFormulas": ["diff-004"]
+    },
+    {
+      "id": "diff-006",
+      "category": "미분",
+      "subcategory": "미분 법칙",
+      "name": "합성함수의 미분 (연쇄법칙)",
+      "formula": "\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)",
+      "description": "합성함수의 미분 (체인 룰)",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "합성함수", "연쇄법칙"],
+      "relatedFormulas": ["diff-007"]
+    },
+    {
+      "id": "diff-007",
+      "category": "미분",
+      "subcategory": "삼각함수 미분",
+      "name": "사인 함수의 미분",
+      "formula": "\\frac{d}{dx}(\\sin x) = \\cos x",
+      "description": "sin x를 미분하면 cos x",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "삼각함수"],
+      "relatedFormulas": ["diff-008"]
+    },
+    {
+      "id": "diff-008",
+      "category": "미분",
+      "subcategory": "삼각함수 미분",
+      "name": "코사인 함수의 미분",
+      "formula": "\\frac{d}{dx}(\\cos x) = -\\sin x",
+      "description": "cos x를 미분하면 -sin x",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "삼각함수"],
+      "relatedFormulas": ["diff-007", "diff-009"]
+    },
+    {
+      "id": "diff-009",
+      "category": "미분",
+      "subcategory": "삼각함수 미분",
+      "name": "탄젠트 함수의 미분",
+      "formula": "\\frac{d}{dx}(\\tan x) = \\sec^2 x = \\frac{1}{\\cos^2 x}",
+      "description": "tan x를 미분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "삼각함수"],
+      "relatedFormulas": ["diff-007", "diff-008"]
+    },
+    {
+      "id": "diff-010",
+      "category": "미분",
+      "subcategory": "지수로그함수 미분",
+      "name": "지수함수의 미분",
+      "formula": "\\frac{d}{dx}(e^x) = e^x",
+      "description": "e^x를 미분하면 자기 자신",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "지수함수", "자연상수"],
+      "relatedFormulas": ["diff-011"]
+    },
+    {
+      "id": "diff-011",
+      "category": "미분",
+      "subcategory": "지수로그함수 미분",
+      "name": "자연로그 함수의 미분",
+      "formula": "\\frac{d}{dx}(\\ln x) = \\frac{1}{x}",
+      "description": "ln x를 미분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["미분", "로그함수", "자연로그"],
+      "relatedFormulas": ["diff-010"]
+    },
+    {
+      "id": "diff-012",
+      "category": "미분",
+      "subcategory": "미분의 활용",
+      "name": "평균값 정리",
+      "formula": "f'(c) = \\frac{f(b) - f(a)}{b - a}",
+      "description": "구간 [a,b]에서 연속이고 (a,b)에서 미분가능한 함수 f에 대해 f'(c) = 평균변화율을 만족하는 c가 존재",
+      "difficulty": "어려움",
+      "grade": "고3",
+      "tags": ["미분", "평균값 정리"],
+      "relatedFormulas": []
+    }
+  ]
+}

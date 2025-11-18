@@ -1,0 +1,173 @@
+{
+  "category": "적분",
+  "formulas": [
+    {
+      "id": "int-001",
+      "category": "적분",
+      "subcategory": "기본 적분공식",
+      "name": "거듭제곱의 적분",
+      "formula": "\\int x^n dx = \\frac{x^{n+1}}{n+1} + C \\quad (n \\neq -1)",
+      "description": "x의 n제곱을 적분",
+      "difficulty": "쉬움",
+      "grade": "고2",
+      "tags": ["적분", "부정적분"],
+      "relatedFormulas": ["int-002"]
+    },
+    {
+      "id": "int-002",
+      "category": "적분",
+      "subcategory": "기본 적분공식",
+      "name": "1/x의 적분",
+      "formula": "\\int \\frac{1}{x} dx = \\ln |x| + C",
+      "description": "1/x를 적분하면 자연로그",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "로그"],
+      "relatedFormulas": ["int-001"]
+    },
+    {
+      "id": "int-003",
+      "category": "적분",
+      "subcategory": "지수함수 적분",
+      "name": "지수함수의 적분",
+      "formula": "\\int e^x dx = e^x + C",
+      "description": "e^x를 적분하면 자기 자신",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "지수함수"],
+      "relatedFormulas": ["int-004"]
+    },
+    {
+      "id": "int-004",
+      "category": "적분",
+      "subcategory": "지수함수 적분",
+      "name": "일반 지수함수의 적분",
+      "formula": "\\int a^x dx = \\frac{a^x}{\\ln a} + C \\quad (a > 0, a \\neq 1)",
+      "description": "밑이 a인 지수함수의 적분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "지수함수"],
+      "relatedFormulas": ["int-003"]
+    },
+    {
+      "id": "int-005",
+      "category": "적분",
+      "subcategory": "삼각함수 적분",
+      "name": "사인 함수의 적분",
+      "formula": "\\int \\sin x dx = -\\cos x + C",
+      "description": "sin x를 적분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "삼각함수"],
+      "relatedFormulas": ["int-006"]
+    },
+    {
+      "id": "int-006",
+      "category": "적분",
+      "subcategory": "삼각함수 적분",
+      "name": "코사인 함수의 적분",
+      "formula": "\\int \\cos x dx = \\sin x + C",
+      "description": "cos x를 적분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "삼각함수"],
+      "relatedFormulas": ["int-005", "int-007"]
+    },
+    {
+      "id": "int-007",
+      "category": "적분",
+      "subcategory": "삼각함수 적분",
+      "name": "시컨트 제곱의 적분",
+      "formula": "\\int \\sec^2 x dx = \\tan x + C",
+      "description": "sec²x를 적분",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "삼각함수"],
+      "relatedFormulas": ["int-005", "int-006"]
+    },
+    {
+      "id": "int-008",
+      "category": "적분",
+      "subcategory": "정적분",
+      "name": "정적분의 정의",
+      "formula": "\\int_a^b f(x) dx = F(b) - F(a)",
+      "description": "정적분은 부정적분의 차 (미적분학의 기본정리)",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["정적분", "미적분학의 기본정리"],
+      "relatedFormulas": ["int-009"]
+    },
+    {
+      "id": "int-009",
+      "category": "적분",
+      "subcategory": "정적분의 성질",
+      "name": "정적분의 선형성",
+      "formula": "\\int_a^b [cf(x) + dg(x)] dx = c\\int_a^b f(x) dx + d\\int_a^b g(x) dx",
+      "description": "정적분의 선형성 성질",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["정적분", "선형성"],
+      "relatedFormulas": ["int-008"]
+    },
+    {
+      "id": "int-010",
+      "category": "적분",
+      "subcategory": "정적분의 성질",
+      "name": "정적분의 구간 분할",
+      "formula": "\\int_a^b f(x) dx = \\int_a^c f(x) dx + \\int_c^b f(x) dx",
+      "description": "정적분의 구간을 나누어 계산",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["정적분", "구간 분할"],
+      "relatedFormulas": ["int-008"]
+    },
+    {
+      "id": "int-011",
+      "category": "적분",
+      "subcategory": "부분적분",
+      "name": "부분적분 공식",
+      "formula": "\\int u dv = uv - \\int v du",
+      "description": "곱의 형태인 함수를 적분할 때 사용",
+      "difficulty": "어려움",
+      "grade": "고3",
+      "tags": ["적분", "부분적분"],
+      "relatedFormulas": ["int-012"]
+    },
+    {
+      "id": "int-012",
+      "category": "적분",
+      "subcategory": "치환적분",
+      "name": "치환적분 공식",
+      "formula": "\\int f(g(x))g'(x) dx = \\int f(u) du \\quad (u = g(x))",
+      "description": "변수를 치환하여 적분",
+      "difficulty": "어려움",
+      "grade": "고3",
+      "tags": ["적분", "치환적분"],
+      "relatedFormulas": ["int-011"]
+    },
+    {
+      "id": "int-013",
+      "category": "적분",
+      "subcategory": "적분의 활용",
+      "name": "넓이 계산",
+      "formula": "S = \\int_a^b |f(x) - g(x)| dx",
+      "description": "두 곡선 사이의 넓이를 정적분으로 계산",
+      "difficulty": "중",
+      "grade": "고2",
+      "tags": ["적분", "넓이"],
+      "relatedFormulas": ["int-014"]
+    },
+    {
+      "id": "int-014",
+      "category": "적분",
+      "subcategory": "적분의 활용",
+      "name": "부피 계산 (회전체)",
+      "formula": "V = \\pi \\int_a^b [f(x)]^2 dx",
+      "description": "x축 중심으로 회전한 회전체의 부피",
+      "difficulty": "어려움",
+      "grade": "고3",
+      "tags": ["적분", "부피", "회전체"],
+      "relatedFormulas": ["int-013"]
+    }
+  ]
+}

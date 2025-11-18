@@ -1,0 +1,77 @@
+{
+  "category": "집합과명제",
+  "formulas": [
+    {
+      "id": "set-001",
+      "category": "집합과명제",
+      "subcategory": "집합의 연산",
+      "name": "합집합",
+      "formula": "A \\cup B = \\{x \\mid x \\in A \\text{ 또는 } x \\in B\\}",
+      "description": "두 집합 A, B 중 적어도 하나에 속하는 원소의 집합",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["집합", "합집합"],
+      "relatedFormulas": ["set-002", "set-003"]
+    },
+    {
+      "id": "set-002",
+      "category": "집합과명제",
+      "subcategory": "집합의 연산",
+      "name": "교집합",
+      "formula": "A \\cap B = \\{x \\mid x \\in A \\text{ 그리고 } x \\in B\\}",
+      "description": "두 집합 A, B 모두에 속하는 원소의 집합",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["집합", "교집합"],
+      "relatedFormulas": ["set-001", "set-003"]
+    },
+    {
+      "id": "set-003",
+      "category": "집합과명제",
+      "subcategory": "집합의 연산",
+      "name": "차집합",
+      "formula": "A - B = \\{x \\mid x \\in A \\text{ 그리고 } x \\notin B\\}",
+      "description": "A에는 속하지만 B에는 속하지 않는 원소의 집합",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["집합", "차집합"],
+      "relatedFormulas": ["set-001", "set-002"]
+    },
+    {
+      "id": "set-004",
+      "category": "집합과명제",
+      "subcategory": "집합의 연산",
+      "name": "여집합",
+      "formula": "A^c = U - A",
+      "description": "전체집합 U에서 A를 뺀 집합",
+      "difficulty": "쉬움",
+      "grade": "고1",
+      "tags": ["집합", "여집합"],
+      "relatedFormulas": ["set-003"]
+    },
+    {
+      "id": "set-005",
+      "category": "집합과명제",
+      "subcategory": "집합의 연산 법칙",
+      "name": "드모르간의 법칙",
+      "formula": "(A \\cup B)^c = A^c \\cap B^c, \\quad (A \\cap B)^c = A^c \\cup B^c",
+      "description": "합집합과 교집합의 여집합",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["집합", "드모르간"],
+      "relatedFormulas": []
+    },
+    {
+      "id": "set-006",
+      "category": "집합과명제",
+      "subcategory": "명제",
+      "name": "대우",
+      "formula": "p \\Rightarrow q \\text{의 대우: } \\neg q \\Rightarrow \\neg p",
+      "description": "명제와 대우는 진리값이 같다",
+      "difficulty": "중",
+      "grade": "고1",
+      "tags": ["명제", "대우"],
+      "relatedFormulas": []
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Math Formula Schema",
+  "description": "Schema for math formula data structure",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the formula"
+    },
+    "category": {
+      "type": "string",
+      "description": "Main category (e.g., 대수학, 기하학, 미적분)",
+      "enum": [
+        "수체계",
+        "지수와로그",
+        "수열",
+        "식의계산",
+        "집합과명제",
+        "방정식",
+        "부등식",
+        "함수",
+        "미분",
+        "적분",
+        "평면도형",
+        "평면좌표",
+        "입체도형",
+        "공간좌표",
+        "벡터",
+        "경우의수와확률",
+        "통계"
+      ]
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "Subcategory within the main category"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the formula in Korean"
+    },
+    "formula": {
+      "type": "string",
+      "description": "LaTeX representation of the formula"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the formula and its usage"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["쉬움", "중", "어려움"]
+    },
+    "grade": {
+      "type": "string",
+      "description": "School grade level",
+      "enum": ["초5", "초6", "중1", "중2", "중3", "고1", "고2", "고3"]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional tags for categorization"
+    },
+    "relatedFormulas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of related formulas"
+    }
+  },
+  "required": ["id", "category", "name", "formula", "grade"]
+}
