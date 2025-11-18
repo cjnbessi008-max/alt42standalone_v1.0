@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: triangle-mirror-postgres
+    environment:
+      POSTGRES_DB: triangle_mirror
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - triangle-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: triangle-mirror-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - triangle-network
+
+  # Triangle Mirror Server
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: triangle-mirror-server
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: triangle_mirror
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - triangle-network
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  # Triangle Mirror Client
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: triangle-mirror-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - triangle-network
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+
+networks:
+  triangle-network:
+    driver: bridge
