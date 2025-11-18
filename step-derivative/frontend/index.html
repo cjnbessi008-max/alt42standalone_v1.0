@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Derivative - 단계별 미분 학습</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container (positioned at bottom-right) -->
+    <div id="smartphone-container" class="smartphone">
+        <div class="smartphone-frame">
+            <!-- Phone Header -->
+            <div class="phone-header">
+                <div class="status-bar">
+                    <span class="time" id="current-time">12:00</span>
+                    <div class="status-icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Screen -->
+            <div class="phone-screen">
+                <div id="app-container" class="app">
+                    <!-- App Header -->
+                    <header class="app-header">
+                        <button id="back-btn" class="icon-btn">◀</button>
+                        <h1 class="app-title">Step Derivative</h1>
+                        <button id="menu-btn" class="icon-btn">☰</button>
+                    </header>
+
+                    <!-- Loading State -->
+                    <div id="loading-screen" class="loading-screen">
+                        <div class="loader"></div>
+                        <p>문제를 불러오는 중...</p>
+                    </div>
+
+                    <!-- Problem Display -->
+                    <div id="problem-section" class="section hidden">
+                        <div class="problem-card">
+                            <h2>문제</h2>
+                            <div class="problem-expression" id="problem-expression">
+                                <!-- Expression will be inserted here -->
+                            </div>
+                            <div class="problem-info">
+                                <span class="difficulty-badge" id="difficulty-badge">기본</span>
+                                <span class="steps-count" id="steps-count">총 0단계</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steps Display -->
+                    <div id="steps-section" class="section hidden">
+                        <div class="steps-container" id="steps-container">
+                            <!-- Steps will be dynamically inserted here -->
+                        </div>
+
+                        <!-- Navigation Controls -->
+                        <div class="step-navigation">
+                            <button id="prev-step-btn" class="nav-btn" disabled>
+                                ◀ 이전 단계
+                            </button>
+                            <span class="step-indicator" id="step-indicator">1 / 5</span>
+                            <button id="next-step-btn" class="nav-btn">
+                                다음 단계 ▶
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Completion Screen -->
+                    <div id="completion-screen" class="completion-screen hidden">
+                        <div class="completion-icon">✓</div>
+                        <h2>완료!</h2>
+                        <p>모든 단계를 성공적으로 완료했습니다.</p>
+                        <div class="completion-stats">
+                            <div class="stat">
+                                <span class="stat-label">소요 시간</span>
+                                <span class="stat-value" id="time-spent">0:00</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">단계 수</span>
+                                <span class="stat-value" id="total-steps">0</span>
+                            </div>
+                        </div>
+                        <button id="restart-btn" class="primary-btn">다시 시작</button>
+                    </div>
+
+                    <!-- Error Screen -->
+                    <div id="error-screen" class="error-screen hidden">
+                        <div class="error-icon">⚠️</div>
+                        <h2>오류 발생</h2>
+                        <p id="error-message">문제를 불러올 수 없습니다.</p>
+                        <button id="retry-btn" class="primary-btn">다시 시도</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone Footer -->
+            <div class="phone-footer">
+                <button class="home-btn"></button>
+            </div>
+        </div>
+
+        <!-- Draggable Handle -->
+        <div class="drag-handle" id="drag-handle">⋮⋮</div>
+    </div>
+
+    <!-- Configuration (would normally come from Moodle) -->
+    <script>
+        // Configuration - these would normally be passed from Moodle
+        window.STEP_DERIVATIVE_CONFIG = {
+            apiUrl: 'http://localhost/step-derivative/backend/api/problem_handler.php',
+            moodleUserId: 1,
+            problemId: null, // Will be set from URL or Moodle
+            sessionToken: null
+        };
+
+        // Parse URL parameters (for standalone testing)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('problem_id')) {
+            window.STEP_DERIVATIVE_CONFIG.problemId = urlParams.get('problem_id');
+        }
+        if (urlParams.has('user_id')) {
+            window.STEP_DERIVATIVE_CONFIG.moodleUserId = urlParams.get('user_id');
+        }
+    </script>
+
+    <!-- App Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/drag.js"></script>
+</body>
+</html>
