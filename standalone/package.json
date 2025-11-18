@@ -1,0 +1,34 @@
+{
+  "name": "shape-guide-lines-generator",
+  "version": "1.0.0",
+  "description": "독립형 도형 보조선 자동 생성기 - PWA",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8080",
+    "start": "npm run dev",
+    "test": "echo \"No tests configured yet\" && exit 0"
+  },
+  "keywords": [
+    "pwa",
+    "geometry",
+    "education",
+    "shapes",
+    "parallel-lines",
+    "perpendicular-lines",
+    "canvas",
+    "offline-first"
+  ],
+  "author": "Shape Guide Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjnbessi008-max/alt42standalone_v1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/cjnbessi008-max/alt42standalone_v1.0/issues"
+  },
+  "homepage": "https://github.com/cjnbessi008-max/alt42standalone_v1.0#readme"
+}
