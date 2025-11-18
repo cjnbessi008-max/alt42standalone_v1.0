@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # MySQL Database (Moodle compatible)
+  mysql:
+    image: mysql:5.7
+    container_name: real-line-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodleuser
+      MYSQL_PASSWORD: moodlepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - real-line-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: real-line-backend
+    restart: unless-stopped
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: moodleuser
+      DB_PASSWORD: moodlepass
+      DB_NAME: moodle
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - real-line-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: real-line-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - real-line-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+networks:
+  real-line-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
