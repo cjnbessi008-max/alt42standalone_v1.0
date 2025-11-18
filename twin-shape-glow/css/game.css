@@ -1,0 +1,337 @@
+/**
+ * Twin Shape Glow - Game Styles
+ * Shape animations and interactions
+ */
+
+/* Shape Base Styles */
+.shape {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.shape svg {
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.shape:hover {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+.shape.active {
+    animation: pulse 1s ease-in-out infinite;
+    z-index: 100;
+}
+
+/* Glow Animation for Active Shape */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 20px currentColor) drop-shadow(0 0 40px currentColor);
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+        filter: drop-shadow(0 0 30px currentColor) drop-shadow(0 0 60px currentColor);
+    }
+}
+
+/* Matched Shapes Animation */
+.shape.matched {
+    animation: matchSuccess 0.6s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes matchSuccess {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5) rotate(360deg);
+        filter: drop-shadow(0 0 40px currentColor) brightness(1.5);
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+        filter: drop-shadow(0 0 20px currentColor);
+    }
+}
+
+/* Color Sync Animation */
+.shape.syncing {
+    animation: colorSync 1s ease-in-out;
+}
+
+@keyframes colorSync {
+    0%, 100% {
+        filter: brightness(1) saturate(1);
+    }
+    25% {
+        filter: brightness(1.5) saturate(1.5) hue-rotate(20deg);
+    }
+    50% {
+        filter: brightness(2) saturate(2) hue-rotate(0deg);
+    }
+    75% {
+        filter: brightness(1.5) saturate(1.5) hue-rotate(-20deg);
+    }
+}
+
+/* Wrong Match Animation */
+.shape.wrong {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-10px) rotate(-5deg);
+    }
+    75% {
+        transform: translateX(10px) rotate(5deg);
+    }
+}
+
+/* Hint Animation */
+.shape.hint {
+    animation: hintBlink 1s ease-in-out 3;
+}
+
+@keyframes hintBlink {
+    0%, 100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 10px #ffd700);
+    }
+    50% {
+        opacity: 0.5;
+        filter: drop-shadow(0 0 30px #ffd700);
+    }
+}
+
+/* Connection Line between Twin Shapes */
+.connection-line {
+    position: absolute;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent,
+        currentColor 20%,
+        currentColor 80%,
+        transparent
+    );
+    transform-origin: left center;
+    pointer-events: none;
+    z-index: 50;
+    animation: lineGrow 0.5s ease-out;
+}
+
+@keyframes lineGrow {
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+/* Particle Effects */
+.particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 1s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Game States */
+.game-canvas.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-canvas.loading::after {
+    content: "Loading...";
+    font-size: 1.5em;
+    color: white;
+    animation: fade 1s ease-in-out infinite;
+}
+
+@keyframes fade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* Completion Screen */
+.completion-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(102, 126, 234, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.completion-overlay h2 {
+    font-size: 2.5em;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.completion-overlay .stars {
+    font-size: 3em;
+    margin: 20px 0;
+    animation: starAppear 0.5s ease-out;
+}
+
+@keyframes starAppear {
+    from {
+        transform: scale(0) rotate(-180deg);
+    }
+    to {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.completion-stats {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.completion-stats p {
+    color: white;
+    font-size: 1.2em;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Shape Size Variations */
+.shape.small {
+    width: 50px;
+    height: 50px;
+}
+
+.shape.medium {
+    width: 70px;
+    height: 70px;
+}
+
+.shape.large {
+    width: 90px;
+    height: 90px;
+}
+
+/* Color Themes */
+.color-theme-1 { color: #3498db; }
+.color-theme-2 { color: #e74c3c; }
+.color-theme-3 { color: #2ecc71; }
+.color-theme-4 { color: #f39c12; }
+.color-theme-5 { color: #9b59b6; }
+.color-theme-6 { color: #1abc9c; }
+.color-theme-7 { color: #e67e22; }
+.color-theme-8 { color: #34495e; }
+
+/* Twin Glow Effect - Special animation when twins are near */
+.shape.twin-nearby {
+    animation: twinGlow 2s ease-in-out infinite;
+}
+
+@keyframes twinGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px currentColor);
+    }
+    50% {
+        filter: drop-shadow(0 0 25px currentColor) brightness(1.3);
+    }
+}
+
+/* Magnetic Effect - When shapes are close to their twin */
+.shape.magnetic {
+    transition: transform 0.2s ease-out;
+}
+
+/* Score Pop Animation */
+.score-pop {
+    position: absolute;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    animation: scorePop 1s ease-out forwards;
+    z-index: 999;
+}
+
+@keyframes scorePop {
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Difficulty Indicator */
+.difficulty-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+.difficulty-1 { border: 2px solid #2ecc71; }
+.difficulty-2 { border: 2px solid #f39c12; }
+.difficulty-3 { border: 2px solid #e74c3c; }
+.difficulty-4 { border: 2px solid #9b59b6; }
+.difficulty-5 { border: 2px solid #34495e; }
