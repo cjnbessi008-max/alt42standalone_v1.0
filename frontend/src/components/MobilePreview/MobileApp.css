@@ -1,0 +1,142 @@
+/**
+ * 모바일 앱 화면 스타일
+ */
+
+.mobile-app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* 상태바 */
+.mobile-app-status-bar {
+  height: 44px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-app-status-time {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-app-status-icons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 신호 강도 */
+.mobile-app-status-signal {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 12px;
+}
+
+.signal-bar {
+  width: 3px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1px;
+}
+
+.signal-bar:nth-child(1) {
+  height: 4px;
+}
+
+.signal-bar:nth-child(2) {
+  height: 6px;
+}
+
+.signal-bar:nth-child(3) {
+  height: 8px;
+}
+
+.signal-bar:nth-child(4) {
+  height: 10px;
+}
+
+/* WiFi */
+.mobile-app-status-wifi {
+  font-size: 10px;
+  filter: grayscale(1) brightness(2);
+}
+
+/* 배터리 */
+.mobile-app-status-battery {
+  width: 24px;
+  height: 11px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 3px;
+  position: relative;
+  padding: 2px;
+}
+
+.mobile-app-status-battery::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0 2px 2px 0;
+}
+
+.battery-level {
+  width: 70%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1px;
+}
+
+/* 앱 헤더 */
+.mobile-app-header {
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-app-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+}
+
+/* 콘텐츠 영역 */
+.mobile-app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* 스크롤바 스타일 */
+.mobile-app-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-app-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-app-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.mobile-app-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
