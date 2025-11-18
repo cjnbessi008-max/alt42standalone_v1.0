@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Existence Color - 근의 존재 시각화</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- MathJax for equation rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>🎨 Existence Color</h1>
+            <p class="subtitle">근의 존재 여부를 색감으로 판단하는 수학 학습 앱</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Panel: Controls -->
+            <div class="control-panel">
+                <div class="panel-section">
+                    <h2>방정식 입력</h2>
+                    <div class="equation-type-selector">
+                        <label>
+                            <input type="radio" name="eq-type" value="quadratic" checked>
+                            이차방정식
+                        </label>
+                        <label>
+                            <input type="radio" name="eq-type" value="cubic">
+                            삼차방정식
+                        </label>
+                    </div>
+
+                    <!-- Quadratic Equation Inputs -->
+                    <div id="quadratic-inputs" class="equation-inputs">
+                        <h3>ax² + bx + c = 0</h3>
+                        <div class="input-group">
+                            <label for="coef-a">a (x² 계수):</label>
+                            <input type="number" id="coef-a" value="1" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="coef-b">b (x 계수):</label>
+                            <input type="number" id="coef-b" value="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="coef-c">c (상수):</label>
+                            <input type="number" id="coef-c" value="-4" step="0.1">
+                        </div>
+                    </div>
+
+                    <!-- Cubic Equation Inputs -->
+                    <div id="cubic-inputs" class="equation-inputs hidden">
+                        <h3>ax³ + bx² + cx + d = 0</h3>
+                        <div class="input-group">
+                            <label for="cubic-a">a (x³ 계수):</label>
+                            <input type="number" id="cubic-a" value="1" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="cubic-b">b (x² 계수):</label>
+                            <input type="number" id="cubic-b" value="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="cubic-c">c (x 계수):</label>
+                            <input type="number" id="cubic-c" value="0" step="0.1">
+                        </div>
+                        <div class="input-group">
+                            <label for="cubic-d">d (상수):</label>
+                            <input type="number" id="cubic-d" value="-8" step="0.1">
+                        </div>
+                    </div>
+
+                    <button id="analyze-btn" class="btn-primary">분석하기</button>
+                </div>
+
+                <!-- Color Legend -->
+                <div class="panel-section">
+                    <h2>Existence Color 범례</h2>
+                    <div class="color-legend">
+                        <div class="legend-item">
+                            <div class="color-box" style="background: #4CAF50;"></div>
+                            <div class="legend-text">
+                                <strong>초록색</strong>
+                                <span>서로 다른 실근 2개</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="color-box" style="background: #2196F3;"></div>
+                            <div class="legend-text">
+                                <strong>파란색</strong>
+                                <span>중근 (실근 1개)</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="color-box" style="background: #9C27B0;"></div>
+                            <div class="legend-text">
+                                <strong>보라색</strong>
+                                <span>복소근 2개</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="color-box" style="background: #FF9800;"></div>
+                            <div class="legend-text">
+                                <strong>주황색</strong>
+                                <span>실근 3개</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="color-box" style="background: #F44336;"></div>
+                            <div class="legend-text">
+                                <strong>빨간색</strong>
+                                <span>실근 1개 + 복소근 2개</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Examples -->
+                <div class="panel-section">
+                    <h2>예제</h2>
+                    <button class="example-btn" data-type="quadratic" data-values="1,-5,6">x² - 5x + 6 = 0</button>
+                    <button class="example-btn" data-type="quadratic" data-values="1,-4,4">x² - 4x + 4 = 0</button>
+                    <button class="example-btn" data-type="quadratic" data-values="1,0,1">x² + 1 = 0</button>
+                    <button class="example-btn" data-type="cubic" data-values="1,0,0,-8">x³ - 8 = 0</button>
+                    <button class="example-btn" data-type="cubic" data-values="1,0,-4,0">x³ - 4x = 0</button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Virtual Smartphone -->
+            <div class="smartphone-container">
+                <div class="smartphone">
+                    <!-- Phone Status Bar -->
+                    <div class="status-bar">
+                        <span class="time">12:34</span>
+                        <div class="status-icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋 85%</span>
+                        </div>
+                    </div>
+
+                    <!-- Phone Screen Content -->
+                    <div class="screen-content">
+                        <div class="app-title">수학 학습 앱</div>
+
+                        <!-- Equation Display -->
+                        <div id="equation-display" class="equation-display">
+                            <div class="equation-card">
+                                <h3>방정식</h3>
+                                <div id="equation-latex" class="equation-latex">
+                                    $$x^2 - 4 = 0$$
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Existence Color Indicator -->
+                        <div id="existence-indicator" class="existence-indicator">
+                            <div class="indicator-header">Existence Color</div>
+                            <div id="color-display" class="color-display">
+                                <div class="color-circle" id="color-circle"></div>
+                                <div id="color-description" class="color-description">
+                                    분석 버튼을 눌러주세요
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Analysis Result -->
+                        <div id="result-panel" class="result-panel hidden">
+                            <h3>분석 결과</h3>
+                            <div id="discriminant-info" class="info-box"></div>
+                            <div id="roots-info" class="info-box"></div>
+                            <div id="roots-list" class="roots-list"></div>
+                        </div>
+
+                        <!-- Graph Display -->
+                        <div id="graph-container" class="graph-container hidden">
+                            <h3>그래프</h3>
+                            <canvas id="graph-canvas" width="320" height="240"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Phone Navigation Bar -->
+                    <div class="nav-bar">
+                        <div class="nav-button">◀</div>
+                        <div class="nav-button">⚫</div>
+                        <div class="nav-button">▢</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/math-engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
