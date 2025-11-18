@@ -1,0 +1,31 @@
+# Database Configuration
+config/database.php
+
+# Logs
+logs/
+*.log
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary Files
+*.tmp
+*.bak
+*.cache
+
+# Backup Files
+*.backup
+*.old
+
+# Environment Files
+.env
+.env.local
+
+# OS Files
+Thumbs.db
+desktop.ini

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riemann Sum Densify - Moodle Integration</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header>
+                <h1>Riemann Sum Visualization</h1>
+                <div class="problem-info">
+                    <span id="problemTitle">문제를 불러오는 중...</span>
+                </div>
+            </header>
+
+            <div class="control-panel">
+                <div class="function-display">
+                    <label>함수:</label>
+                    <span id="functionDisplay">f(x) = x²</span>
+                </div>
+
+                <div class="interval-display">
+                    <label>구간:</label>
+                    <span id="intervalDisplay">[0, 2]</span>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="subdivisions">분할 수 (n):</label>
+                        <input type="range" id="subdivisions" min="1" max="100" value="5" step="1">
+                        <span id="subdivisionsValue">5</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="riemannType">Riemann Sum 타입:</label>
+                        <select id="riemannType">
+                            <option value="left">좌측 합</option>
+                            <option value="right">우측 합</option>
+                            <option value="midpoint" selected>중점 합</option>
+                            <option value="trapezoid">사다리꼴</option>
+                        </select>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="densifyBtn" class="btn btn-primary">
+                            <span class="icon">▶</span> Densify 시작
+                        </button>
+                        <button id="resetBtn" class="btn btn-secondary">
+                            <span class="icon">↺</span> 초기화
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calculation-display">
+                    <div class="calc-item">
+                        <label>Riemann Sum:</label>
+                        <span id="riemannSum">0.000</span>
+                    </div>
+                    <div class="calc-item">
+                        <label>실제 적분값:</label>
+                        <span id="actualIntegral">2.667</span>
+                    </div>
+                    <div class="calc-item">
+                        <label>오차:</label>
+                        <span id="error">0.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Lower Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-header">
+                    <div class="camera"></div>
+                    <div class="speaker"></div>
+                </div>
+                <div class="smartphone-screen">
+                    <div class="app-header">
+                        <h3>Riemann Densify</h3>
+                        <div class="connection-status" id="connectionStatus">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Moodle 연결됨</span>
+                        </div>
+                    </div>
+
+                    <canvas id="riemannCanvas" width="350" height="400"></canvas>
+
+                    <div class="app-footer">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="densifyProgress"></div>
+                        </div>
+                        <div class="status-text" id="statusText">
+                            준비됨
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/riemann-calculator.js"></script>
+    <script src="js/canvas-renderer.js"></script>
+    <script src="js/moodle-api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
