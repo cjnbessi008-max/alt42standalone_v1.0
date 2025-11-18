@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.sql.backup
+*.db
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# Frontend specific
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# Backend specific
+backend/vendor/
+backend/.phpunit.cache/
+
+# Docker
+.docker/

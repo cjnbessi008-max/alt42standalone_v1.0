@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:5.7
+    container_name: termmotion_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: termmotion
+      MYSQL_USER: termmotion_user
+      MYSQL_PASSWORD: termmotion_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - termmotion_network
+
+  # PHP Backend
+  php:
+    image: php:7.1.9-apache
+    container_name: termmotion_php
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_NAME: termmotion
+      DB_USER: termmotion_user
+      DB_PASS: termmotion_pass
+    networks:
+      - termmotion_network
+    command: >
+      bash -c "docker-php-ext-install pdo pdo_mysql mysqli &&
+               a2enmod rewrite &&
+               apache2-foreground"
+
+  # Frontend (Development)
+  frontend:
+    image: node:18-alpine
+    container_name: termmotion_frontend
+    restart: always
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+    networks:
+      - termmotion_network
+
+volumes:
+  mysql_data:
+
+networks:
+  termmotion_network:
+    driver: bridge
