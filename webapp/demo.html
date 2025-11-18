@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Line Seq - Demo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <header>
+                <h1>3D 수열 시각화 - 데모</h1>
+                <p class="subtitle">수열 항 배열을 3D 느낌으로 표현</p>
+            </header>
+
+            <div class="sequence-info">
+                <div class="info-card">
+                    <h3>수열 정보</h3>
+                    <div id="sequence-data">
+                        <p><strong>유형:</strong> <span id="seq-type">피보나치</span></p>
+                        <p><strong>데이터:</strong> <span id="seq-values">1, 1, 2, 3, 5, 8, 13, 21, 34, 55</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="reset-view" class="btn btn-secondary">
+                    <span>🔄</span> 뷰 초기화
+                </button>
+                <button id="toggle-rotation" class="btn btn-primary">
+                    <span>🔁</span> 자동 회전
+                </button>
+                <button id="change-style" class="btn btn-info">
+                    <span>🎨</span> 스타일 변경
+                </button>
+                <button id="zoom-in" class="btn btn-success">
+                    <span>➕</span> 확대
+                </button>
+                <button id="zoom-out" class="btn btn-success">
+                    <span>➖</span> 축소
+                </button>
+            </div>
+
+            <div class="instructions">
+                <h3>사용 방법</h3>
+                <ul>
+                    <li>마우스 드래그: 시점 회전</li>
+                    <li>마우스 휠: 확대/축소</li>
+                    <li>자동 회전 버튼: 자동 회전 시작/중지</li>
+                </ul>
+            </div>
+
+            <div class="info-card" style="margin-top: 20px; background: #fff3cd; border: 2px solid #ffc107; padding: 20px; border-radius: 10px;">
+                <h3 style="color: #856404;">📦 Three.js 라이브러리 필요</h3>
+                <p style="color: #856404;">3D 시각화를 보려면 Three.js 라이브러리를 다운로드해야 합니다.</p>
+                <br>
+                <p><strong>다운로드 방법:</strong></p>
+                <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">cd webapp/lib
+wget https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js</pre>
+                <p style="margin-top: 10px;"><strong>또는 자동 설치 스크립트 실행:</strong></p>
+                <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">./setup.sh</pre>
+            </div>
+        </div>
+
+        <!-- Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen" id="smartphone-canvas-container">
+                    <div id="loading-indicator">
+                        <div class="spinner"></div>
+                        <p>3D 시각화 로딩 중...</p>
+                    </div>
+                </div>
+                <div class="smartphone-home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Library (CDN for demo) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+            onerror="handleThreeJsError()"></script>
+
+    <script>
+        // Handle Three.js load error
+        function handleThreeJsError() {
+            document.getElementById('loading-indicator').innerHTML = `
+                <div style="padding: 20px; text-align: center;">
+                    <p style="color: #ff6b6b; font-weight: bold;">⚠️ Three.js 로드 실패</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">CDN에서 Three.js를 로드할 수 없습니다.</p>
+                    <p style="font-size: 0.9em; margin-top: 10px;">인터넷 연결을 확인하거나<br>로컬에 다운로드해주세요.</p>
+                    <pre style="background: rgba(255,255,255,0.1); padding: 10px; margin-top: 15px; border-radius: 5px; font-size: 0.8em; text-align: left;">cd webapp/lib
+wget https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js</pre>
+                </div>
+            `;
+        }
+
+        // Wait for Three.js to load
+        let checkCount = 0;
+        const checkThreeJS = setInterval(() => {
+            checkCount++;
+
+            if (typeof THREE !== 'undefined') {
+                clearInterval(checkThreeJS);
+                loadApp();
+            } else if (checkCount > 20) {
+                clearInterval(checkThreeJS);
+                handleThreeJsError();
+            }
+        }, 100);
+
+        function loadApp() {
+            // Load main application scripts
+            const script1 = document.createElement('script');
+            script1.src = 'js/moodle-api.js';
+            document.body.appendChild(script1);
+
+            script1.onload = () => {
+                const script2 = document.createElement('script');
+                script2.src = 'js/3dlineseq.js';
+                document.body.appendChild(script2);
+
+                script2.onload = () => {
+                    // Initialize with demo data
+                    const demoData = {
+                        name: '피보나치 수열',
+                        type: 'fibonacci',
+                        style: 'spiral',
+                        values: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+                    };
+
+                    init3DLineSeq(demoData);
+                };
+            };
+        }
+    </script>
+</body>
+</html>
