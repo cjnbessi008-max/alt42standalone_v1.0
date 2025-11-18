@@ -1,0 +1,32 @@
+# Environment files
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Backup files
+*.bak
+*.backup
+*.sql.gz
+
+# Vendor dependencies (if using Composer)
+vendor/
+
+# User uploads
+uploads/
+public/uploads/

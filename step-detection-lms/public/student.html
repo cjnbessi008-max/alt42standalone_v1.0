@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 풀이 - Step Detection LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 수학 문제 풀이 시스템</h1>
+            <p class="subtitle">단계별로 차근차근 풀어보세요</p>
+        </header>
+
+        <!-- Problem Selection Screen -->
+        <div id="problemSelection" class="screen active">
+            <h2>문제 선택</h2>
+            <div class="filter-section">
+                <label>
+                    카테고리:
+                    <select id="categoryFilter">
+                        <option value="">전체</option>
+                        <option value="fractions">분수</option>
+                        <option value="equations">방정식</option>
+                        <option value="geometry">도형</option>
+                    </select>
+                </label>
+                <label>
+                    난이도:
+                    <select id="difficultyFilter">
+                        <option value="">전체</option>
+                        <option value="1">★ 쉬움</option>
+                        <option value="2">★★ 보통</option>
+                        <option value="3">★★★ 어려움</option>
+                        <option value="4">★★★★ 매우 어려움</option>
+                        <option value="5">★★★★★ 최고난이도</option>
+                    </select>
+                </label>
+            </div>
+            <div id="problemList" class="problem-list"></div>
+        </div>
+
+        <!-- Problem Solving Screen -->
+        <div id="problemSolving" class="screen">
+            <div class="problem-header">
+                <button id="backButton" class="btn-back">← 문제 목록으로</button>
+                <h2 id="problemTitle"></h2>
+                <div class="timer">
+                    <span class="timer-label">경과 시간:</span>
+                    <span id="totalTimer">00:00</span>
+                </div>
+            </div>
+
+            <div class="problem-content">
+                <div class="problem-description" id="problemDescription"></div>
+
+                <div class="progress-indicator">
+                    <div id="stepProgress"></div>
+                </div>
+
+                <div class="current-step">
+                    <h3 id="stepTitle"></h3>
+                    <p id="stepDescription"></p>
+
+                    <div class="step-timer">
+                        이 단계 소요 시간: <span id="stepTimer">00:00</span>
+                    </div>
+
+                    <div class="input-area" id="inputArea"></div>
+
+                    <div class="hint-section">
+                        <button id="hintButton" class="btn-hint">💡 힌트 보기</button>
+                        <div id="hintContent" class="hint-content hidden"></div>
+                    </div>
+
+                    <div class="feedback" id="feedback"></div>
+
+                    <div class="action-buttons">
+                        <button id="checkButton" class="btn-primary">답안 확인</button>
+                        <button id="nextButton" class="btn-primary hidden">다음 단계 →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="screen">
+            <div class="results-header">
+                <h2>🎉 풀이 완료!</h2>
+            </div>
+
+            <div class="results-content">
+                <div class="score-card">
+                    <div class="score-big" id="finalScore">100</div>
+                    <div class="score-label">점수</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalTime">0:00</div>
+                        <div class="stat-label">총 소요 시간</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="stepsCompleted">0/0</div>
+                        <div class="stat-label">완료 단계</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="hintsUsed">0</div>
+                        <div class="stat-label">힌트 사용</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="trustScore">100</div>
+                        <div class="stat-label">신뢰도 점수</div>
+                    </div>
+                </div>
+
+                <div id="detectionsSection" class="detections-section"></div>
+
+                <div class="action-buttons">
+                    <button id="reviewButton" class="btn-secondary">풀이 과정 복습</button>
+                    <button id="newProblemButton" class="btn-primary">새 문제 풀기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
