@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Perm-Comb Rhythm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>🎵 Perm-Comb Rhythm</h1>
+            <div class="stats-badge">
+                <span id="accuracy">0%</span>
+                <span class="label">정확도</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Problem Display -->
+            <section class="problem-section">
+                <div class="problem-type-badge" id="problemTypeBadge">
+                    <span id="problemTypeText">준비중...</span>
+                </div>
+
+                <div class="problem-display">
+                    <div class="problem-text">
+                        <span class="problem-n" id="problemN">5</span>개 중
+                        <span class="problem-r" id="problemR">3</span>개를 선택
+                    </div>
+                    <div class="problem-hint" id="problemHint">
+                        리듬을 보고 순열인지 조합인지 맞춰보세요!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rhythm Visualization -->
+            <section class="rhythm-section">
+                <div class="rhythm-container">
+                    <canvas id="rhythmCanvas" width="280" height="200"></canvas>
+                </div>
+                <div class="rhythm-controls">
+                    <button id="playButton" class="btn-play">▶ 리듬 재생</button>
+                </div>
+            </section>
+
+            <!-- Answer Input -->
+            <section class="answer-section">
+                <div class="answer-input-group">
+                    <label for="answerInput">답:</label>
+                    <input type="number" id="answerInput" placeholder="숫자 입력" min="1">
+                    <button id="submitButton" class="btn-submit">제출</button>
+                </div>
+            </section>
+
+            <!-- Feedback -->
+            <section class="feedback-section" id="feedbackSection" style="display: none;">
+                <div class="feedback-content" id="feedbackContent"></div>
+                <button id="nextButton" class="btn-next">다음 문제</button>
+            </section>
+        </main>
+
+        <!-- Footer Info -->
+        <footer class="app-footer">
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="color-box perm-color"></span>
+                    <span>순열 (Permutation)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="color-box comb-color"></span>
+                    <span>조합 (Combination)</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
