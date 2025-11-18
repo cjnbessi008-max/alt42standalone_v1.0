@@ -8,8 +8,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025111800;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2025011801;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2019052000;        // Requires Moodle 3.7
 $plugin->component = 'block_chancemood'; // Full name of the plugin (used for diagnostics)
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = 'v1.0';
+$plugin->release   = 'v1.1';             // Version 1.1 with recommendation system

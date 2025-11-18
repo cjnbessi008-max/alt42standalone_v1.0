@@ -34,3 +34,32 @@ $string['message_challenge'] = 'You are challenged. Keep trying!';
 $string['message_struggle'] = 'These are difficult. Review the basics!';
 $string['message_frustration'] = 'It is tough. Ask your teacher for help!';
 $string['message_neutral'] = 'Check your probability learning status.';
+
+// Recommendations
+$string['recommendations'] = 'Recommendations';
+$string['mood'] = 'Mood';
+$string['weak_areas'] = 'Weak Areas';
+$string['recommended_problems'] = 'Recommended Problems';
+$string['study_path'] = 'Study Path';
+$string['learning_resources'] = 'Learning Resources';
+$string['teacher_dashboard'] = 'Teacher Dashboard';
+$string['view_dashboard'] = 'View Teacher Dashboard';
+
+// Priority levels
+$string['priority_urgent'] = 'Urgent';
+$string['priority_high'] = 'High';
+$string['priority_medium'] = 'Medium';
+$string['priority_low'] = 'Low';
+
+// Problem types
+$string['type_basic_probability'] = 'Basic Probability';
+$string['type_conditional_probability'] = 'Conditional Probability';
+$string['type_combination'] = 'Combination';
+$string['type_permutation'] = 'Permutation';
+$string['type_compound_events'] = 'Compound Events';
+
+// Resources
+$string['resource_video'] = 'Video';
+$string['resource_tutorial'] = 'Tutorial';
+$string['resource_practice'] = 'Practice';
+$string['resource_comparison'] = 'Comparison';

@@ -34,3 +34,32 @@ $string['message_challenge'] = '도전하는 중이에요. 조금만 더 노력�
 $string['message_struggle'] = '어려운 문제들이네요. 기초부터 다시 복습해봐요!';
 $string['message_frustration'] = '힘들 수 있어요. 선생님께 도움을 요청해보세요!';
 $string['message_neutral'] = '경우의 수 학습 현황을 확인하세요.';
+
+// Recommendations
+$string['recommendations'] = '추천';
+$string['mood'] = '기분';
+$string['weak_areas'] = '약점 영역';
+$string['recommended_problems'] = '추천 문제';
+$string['study_path'] = '학습 경로';
+$string['learning_resources'] = '학습 자료';
+$string['teacher_dashboard'] = '교사 대시보드';
+$string['view_dashboard'] = '교사 대시보드 보기';
+
+// Priority levels
+$string['priority_urgent'] = '긴급';
+$string['priority_high'] = '높음';
+$string['priority_medium'] = '중간';
+$string['priority_low'] = '낮음';
+
+// Problem types
+$string['type_basic_probability'] = '기본 확률';
+$string['type_conditional_probability'] = '조건부 확률';
+$string['type_combination'] = '조합';
+$string['type_permutation'] = '순열';
+$string['type_compound_events'] = '복합 사건';
+
+// Resources
+$string['resource_video'] = '동영상';
+$string['resource_tutorial'] = '튜토리얼';
+$string['resource_practice'] = '연습 문제';
+$string['resource_comparison'] = '비교 학습';
