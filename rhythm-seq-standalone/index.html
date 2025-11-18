@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="리듬감 있게 배우는 수열 학습 앱">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rhythm Seq">
+
+    <title>🎵 Rhythm Seq - 리듬 수열 학습</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="js/app.js" as="script">
+
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🎵</div>
+            <h1>Rhythm Seq</h1>
+            <div class="loading-spinner"></div>
+            <p>리듬감 있는 수열의 세계로...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container hidden">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-logo">
+                    <span class="logo-icon">🎵</span>
+                    <span class="logo-text">Rhythm Seq</span>
+                </h1>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-value" id="total-score">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🔥</span>
+                        <span class="stat-value" id="streak-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-value" id="solved-count">0</span>
+                        <span class="stat-total">/ 15</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn" id="btn-achievements" title="업적">
+                    <span>🏅</span>
+                </button>
+                <button class="icon-btn" id="btn-settings" title="설정">
+                    <span>⚙️</span>
+                </button>
+                <button class="icon-btn" id="btn-info" title="도움말">
+                    <span>ℹ️</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Left Panel: Question Selection & Controls -->
+            <aside class="left-panel">
+
+                <!-- Category Filter -->
+                <section class="category-section">
+                    <h2>카테고리</h2>
+                    <div class="category-tabs" id="category-tabs">
+                        <button class="category-tab active" data-category="all">
+                            <span class="tab-icon">📚</span>
+                            <span class="tab-text">전체</span>
+                        </button>
+                        <button class="category-tab" data-category="arithmetic">
+                            <span class="tab-icon">➕</span>
+                            <span class="tab-text">등차</span>
+                        </button>
+                        <button class="category-tab" data-category="geometric">
+                            <span class="tab-icon">✖️</span>
+                            <span class="tab-text">등비</span>
+                        </button>
+                        <button class="category-tab" data-category="special">
+                            <span class="tab-icon">✨</span>
+                            <span class="tab-text">특수</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Question List -->
+                <section class="questions-section">
+                    <h2>문제 선택</h2>
+                    <div class="questions-list" id="questions-list">
+                        <!-- Questions will be dynamically loaded -->
+                    </div>
+                </section>
+
+                <!-- Animation Controls -->
+                <section class="controls-section">
+                    <h2>컨트롤</h2>
+
+                    <div class="control-group">
+                        <label for="speed-control">
+                            <span>속도</span>
+                            <span id="speed-label">중간</span>
+                        </label>
+                        <input type="range" id="speed-control" min="1" max="10" value="5" step="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="sound-toggle" checked>
+                            <span>소리 효과</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="auto-play-toggle">
+                            <span>자동 재생</span>
+                        </label>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button class="btn btn-primary" id="btn-play" disabled>
+                            <span>▶️</span> 시작
+                        </button>
+                        <button class="btn btn-warning" id="btn-pause" disabled>
+                            <span>⏸️</span> 일시정지
+                        </button>
+                        <button class="btn btn-secondary" id="btn-reset" disabled>
+                            <span>🔄</span> 초기화
+                        </button>
+                    </div>
+                </section>
+
+            </aside>
+
+            <!-- Center: Smartphone Display -->
+            <section class="center-panel">
+
+                <!-- Smartphone Container -->
+                <div class="smartphone-wrapper">
+                    <div class="smartphone">
+                        <!-- Phone Frame -->
+                        <div class="phone-notch"></div>
+                        <div class="phone-camera"></div>
+
+                        <!-- Phone Screen -->
+                        <div class="phone-screen">
+
+                            <!-- Status Bar -->
+                            <div class="status-bar">
+                                <div class="status-left">
+                                    <span class="time" id="current-time">12:00</span>
+                                </div>
+                                <div class="status-right">
+                                    <span class="status-icon">📶</span>
+                                    <span class="status-icon">🔋</span>
+                                </div>
+                            </div>
+
+                            <!-- App Content -->
+                            <div class="phone-content">
+
+                                <!-- Question Display -->
+                                <div class="question-display" id="question-display">
+                                    <div class="question-placeholder">
+                                        <div class="placeholder-icon">🎯</div>
+                                        <h3>문제를 선택하세요</h3>
+                                        <p>왼쪽에서 문제를 선택하면<br>여기에 수열이 표시됩니다</p>
+                                    </div>
+                                </div>
+
+                                <!-- Animation Stage -->
+                                <div class="animation-stage" id="animation-stage">
+                                    <canvas id="animation-canvas"></canvas>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progress-fill"></div>
+                                    </div>
+                                    <div class="progress-text" id="progress-text">0 / 0</div>
+                                </div>
+
+                                <!-- Answer Section -->
+                                <div class="answer-section hidden" id="answer-section">
+                                    <div class="answer-prompt">
+                                        <p id="question-prompt">다음에 올 숫자는?</p>
+                                        <div class="answer-input-group">
+                                            <input type="number" id="answer-input" placeholder="답을 입력하세요">
+                                            <button class="btn btn-success" id="btn-submit-answer">확인</button>
+                                        </div>
+                                        <button class="btn-link" id="btn-hint">💡 힌트 보기</button>
+                                    </div>
+
+                                    <div class="answer-feedback hidden" id="answer-feedback">
+                                        <!-- Feedback will be shown here -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Bottom Navigation -->
+                            <div class="bottom-nav">
+                                <button class="nav-btn" data-action="home">
+                                    <span>🏠</span>
+                                </button>
+                                <button class="nav-btn" data-action="back">
+                                    <span>◀️</span>
+                                </button>
+                                <button class="nav-btn" data-action="menu">
+                                    <span>☰</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <!-- Home Button -->
+                        <div class="phone-home-button"></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Panel: Info & Statistics -->
+            <aside class="right-panel">
+
+                <!-- Current Question Info -->
+                <section class="info-section">
+                    <h2>문제 정보</h2>
+                    <div class="info-content" id="question-info">
+                        <div class="info-placeholder">
+                            문제를 선택하면<br>상세 정보가 표시됩니다
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Learning Tips -->
+                <section class="tips-section">
+                    <h2>💡 학습 팁</h2>
+                    <div class="tips-content">
+                        <div class="tip-item">
+                            <strong>등차수열</strong>
+                            <p>일정한 수를 계속 더하거나 빼는 수열입니다.</p>
+                        </div>
+                        <div class="tip-item">
+                            <strong>등비수열</strong>
+                            <p>일정한 수를 계속 곱하거나 나누는 수열입니다.</p>
+                        </div>
+                        <div class="tip-item">
+                            <strong>패턴 찾기</strong>
+                            <p>앞뒤 숫자의 관계를 파악해보세요!</p>
+                        </div>
+                    </div>
+                </section>
+
+            </aside>
+
+        </main>
+
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Achievements Modal -->
+    <div class="modal hidden" id="achievements-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏅 업적</h2>
+                <button class="modal-close" data-modal="achievements-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="achievements-list">
+                <!-- Achievements will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal hidden" id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ 설정</h2>
+                <button class="modal-close" data-modal="settings-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>테마</label>
+                    <select id="theme-select">
+                        <option value="default">기본</option>
+                        <option value="dark">다크</option>
+                        <option value="colorful">컬러풀</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>애니메이션 스타일</label>
+                    <select id="animation-style">
+                        <option value="wave">웨이브</option>
+                        <option value="bounce">바운스</option>
+                        <option value="spiral">스파이럴</option>
+                        <option value="random">랜덤</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <button class="btn btn-danger" id="btn-reset-progress">진행상황 초기화</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div class="modal hidden" id="info-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>ℹ️ 도움말</h2>
+                <button class="modal-close" data-modal="info-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Rhythm Seq란?</h3>
+                <p>리듬감 있는 애니메이션으로 수열을 학습하는 웹 앱입니다.</p>
+
+                <h3>사용 방법</h3>
+                <ol>
+                    <li>왼쪽에서 문제를 선택합니다</li>
+                    <li>▶️ 시작 버튼을 눌러 애니메이션을 봅니다</li>
+                    <li>패턴을 파악하고 답을 입력합니다</li>
+                    <li>정답을 맞추면 점수를 획득합니다!</li>
+                </ol>
+
+                <h3>기능</h3>
+                <ul>
+                    <li>🎵 리듬감 있는 애니메이션</li>
+                    <li>🔊 음향 효과</li>
+                    <li>⭐ 점수 및 업적 시스템</li>
+                    <li>💡 힌트 제공</li>
+                    <li>📱 오프라인 지원 (PWA)</li>
+                </ul>
+
+                <div class="version-info">
+                    <small>Version 2.0.0 - Standalone Edition</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            });
+        }
+    </script>
+</body>
+</html>
