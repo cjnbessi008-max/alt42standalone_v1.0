@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trig Flow Integrator - 삼각함수 적분 시각화</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <!-- 가상 스마트폰 컨테이너 -->
+    <div class="smartphone-container fade-in">
+        <!-- 스마트폰 노치 -->
+        <div class="smartphone-notch">
+            <div class="notch-camera"></div>
+        </div>
+
+        <!-- 스마트폰 화면 -->
+        <div class="smartphone-screen">
+            <!-- 앱 헤더 -->
+            <div class="app-header">
+                <h1>Trig Flow Integrator</h1>
+                <p>삼각함수 적분 시각화</p>
+            </div>
+
+            <!-- 앱 본문 -->
+            <div class="app-body">
+                <!-- 문제 카드 -->
+                <div class="problem-card">
+                    <div class="problem-title">📊 현재 함수</div>
+                    <div class="problem-description" id="functionDisplay">
+                        f(x) = sin(x)
+                    </div>
+                    <div class="info-panel" id="integralDisplay">
+                        <strong>적분:</strong>
+                        ∫ sin(x) dx = -cos(x) + C
+                    </div>
+                </div>
+
+                <!-- 시각화 캔버스 -->
+                <div class="canvas-container">
+                    <canvas id="visualizationCanvas"></canvas>
+                </div>
+
+                <!-- 함수 선택 -->
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">함수 선택</label>
+                        <div class="function-selector">
+                            <button class="function-btn active" data-function="sin">sin(x)</button>
+                            <button class="function-btn" data-function="cos">cos(x)</button>
+                            <button class="function-btn" data-function="tan">tan(x)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 매개변수 조절 -->
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">진폭 (a)</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderA" min="-3" max="3" step="0.1" value="1">
+                            <span class="slider-value" id="valueA">1.0</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">주파수 (b)</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderB" min="0.1" max="3" step="0.1" value="1">
+                            <span class="slider-value" id="valueB">1.0</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">위상 이동 (c)</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderC" min="-3" max="3" step="0.1" value="0">
+                            <span class="slider-value" id="valueC">0.0</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">수직 이동 (d)</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderD" min="-3" max="3" step="0.1" value="0">
+                            <span class="slider-value" id="valueD">0.0</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">적분 상수 (C)</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderIntC" min="-3" max="3" step="0.1" value="0">
+                            <span class="slider-value" id="valueIntC">0.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 표시 옵션 -->
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">표시 옵션</label>
+                        <div class="control-row" style="justify-content: space-between;">
+                            <span>원함수 표시</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggleOriginal" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="control-row" style="justify-content: space-between; margin-top: 10px;">
+                            <span>적분함수 표시</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggleIntegral" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="control-row" style="justify-content: space-between; margin-top: 10px;">
+                            <span>면적 표시</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggleArea" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="control-row" style="justify-content: space-between; margin-top: 10px;">
+                            <span>그리드 표시</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="toggleGrid" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 애니메이션 컨트롤 -->
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">애니메이션</label>
+                        <div class="control-row">
+                            <button class="btn btn-success" id="btnAnimate">▶ 애니메이션 시작</button>
+                            <button class="btn btn-secondary" id="btnReset">↻ 리셋</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">애니메이션 속도</label>
+                        <div class="control-row">
+                            <input type="range" class="slider" id="sliderSpeed" min="0.005" max="0.05" step="0.005" value="0.02">
+                            <span class="slider-value" id="valueSpeed">1x</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 정적분 계산 -->
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">정적분 계산</label>
+                        <div class="control-row">
+                            <input type="number" class="slider" id="integralFrom" placeholder="시작 (π)" value="-3.14" step="0.1" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                            <span style="padding: 0 5px;">~</span>
+                            <input type="number" class="slider" id="integralTo" placeholder="끝 (π)" value="3.14" step="0.1" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <button class="btn btn-primary" id="btnCalculate" style="margin-top: 10px; width: 100%;">면적 계산</button>
+                        <div class="info-panel" id="areaResult" style="margin-top: 10px; display: none;">
+                            <strong>정적분 결과:</strong>
+                            <div id="areaValue">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/trig-integrator.js"></script>
+    <script src="js/visualization.js"></script>
+    <script>
+        // 앱 초기화
+        const integrator = new TrigIntegrator();
+        const visualizer = new TrigVisualizer('visualizationCanvas', integrator);
+
+        // 디스플레이 업데이트
+        function updateDisplay() {
+            const info = integrator.getInfo();
+            document.getElementById('functionDisplay').textContent = `f(x) = ${info.functionString}`;
+            document.getElementById('integralDisplay').innerHTML = `<strong>적분:</strong> ${info.integralString}`;
+        }
+
+        // 함수 선택
+        document.querySelectorAll('.function-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.function-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const funcType = this.dataset.function;
+                integrator.setFunction(funcType);
+                visualizer.draw();
+                updateDisplay();
+            });
+        });
+
+        // 슬라이더 이벤트
+        const sliders = [
+            { id: 'sliderA', param: 'a', display: 'valueA' },
+            { id: 'sliderB', param: 'b', display: 'valueB' },
+            { id: 'sliderC', param: 'c', display: 'valueC' },
+            { id: 'sliderD', param: 'd', display: 'valueD' },
+            { id: 'sliderIntC', param: 'C', display: 'valueIntC' }
+        ];
+
+        sliders.forEach(({ id, param, display }) => {
+            const slider = document.getElementById(id);
+            const valueDisplay = document.getElementById(display);
+
+            slider.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                valueDisplay.textContent = value.toFixed(1);
+                integrator.setParameter(param, value);
+                visualizer.draw();
+                updateDisplay();
+            });
+        });
+
+        // 속도 슬라이더
+        document.getElementById('sliderSpeed').addEventListener('input', function() {
+            const speed = parseFloat(this.value);
+            const speedMultiplier = speed / 0.02;
+            document.getElementById('valueSpeed').textContent = speedMultiplier.toFixed(1) + 'x';
+            visualizer.updateConfig({ animationSpeed: speed });
+        });
+
+        // 토글 스위치
+        document.getElementById('toggleOriginal').addEventListener('change', function() {
+            visualizer.updateConfig({ showOriginal: this.checked });
+        });
+
+        document.getElementById('toggleIntegral').addEventListener('change', function() {
+            visualizer.updateConfig({ showIntegral: this.checked });
+        });
+
+        document.getElementById('toggleArea').addEventListener('change', function() {
+            visualizer.updateConfig({ showArea: this.checked });
+        });
+
+        document.getElementById('toggleGrid').addEventListener('change', function() {
+            visualizer.updateConfig({ showGrid: this.checked });
+        });
+
+        // 애니메이션 버튼
+        document.getElementById('btnAnimate').addEventListener('click', function() {
+            if (visualizer.animation.running) {
+                visualizer.stopAnimation();
+                this.textContent = '▶ 애니메이션 시작';
+                this.classList.remove('btn-danger');
+                this.classList.add('btn-success');
+            } else {
+                visualizer.startAnimation();
+                this.textContent = '■ 정지';
+                this.classList.remove('btn-success');
+                this.classList.add('btn-danger');
+            }
+        });
+
+        document.getElementById('btnReset').addEventListener('click', function() {
+            visualizer.resetAnimation();
+            const animateBtn = document.getElementById('btnAnimate');
+            animateBtn.textContent = '▶ 애니메이션 시작';
+            animateBtn.classList.remove('btn-danger');
+            animateBtn.classList.add('btn-success');
+        });
+
+        // 정적분 계산
+        document.getElementById('btnCalculate').addEventListener('click', function() {
+            const from = parseFloat(document.getElementById('integralFrom').value);
+            const to = parseFloat(document.getElementById('integralTo').value);
+
+            if (isNaN(from) || isNaN(to)) {
+                alert('올바른 숫자를 입력하세요.');
+                return;
+            }
+
+            const area = integrator.definiteIntegral(from, to);
+            document.getElementById('areaValue').textContent = `∫${from.toFixed(2)}${to.toFixed(2)} f(x)dx = ${area.toFixed(4)}`;
+            document.getElementById('areaResult').style.display = 'block';
+        });
+
+        // 초기 그리기
+        visualizer.draw();
+        updateDisplay();
+    </script>
+</body>
+</html>
