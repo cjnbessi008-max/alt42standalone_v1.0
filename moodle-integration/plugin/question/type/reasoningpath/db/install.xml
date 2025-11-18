@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="question/type/reasoningpath/db" VERSION="20250118" COMMENT="XMLDB file for Moodle question/type/reasoningpath">
+  <TABLES>
+
+    <!-- Main question configuration table -->
+    <TABLE NAME="qtype_reasoningpath" COMMENT="Stores configuration for reasoning path questions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to question.id"/>
+        <FIELD NAME="min_steps_required" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="3" SEQUENCE="false" COMMENT="Minimum number of reasoning steps required"/>
+        <FIELD NAME="expected_steps" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of expected solution steps"/>
+        <FIELD NAME="grading_rubric" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON grading criteria and weights"/>
+        <FIELD NAME="allow_multiple_methods" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Allow different solution approaches"/>
+        <FIELD NAME="enable_ai_grading" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Use AI for automated grading"/>
+        <FIELD NAME="completeness_weight" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="40" DECIMALS="5" SEQUENCE="false" COMMENT="Weight for completeness score (%)"/>
+        <FIELD NAME="coherence_weight" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="30" DECIMALS="5" SEQUENCE="false"/>
+        <FIELD NAME="method_weight" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="20" DECIMALS="5" SEQUENCE="false"/>
+        <FIELD NAME="clarity_weight" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="10" DECIMALS="5" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Student reasoning steps table -->
+    <TABLE NAME="qtype_reasoningpath_steps" COMMENT="Stores individual reasoning steps from student attempts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionattemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to question_attempts.id"/>
+        <FIELD NAME="step_number" TYPE="int" LENGTH="3" NOTNULL="true" SEQUENCE="false" COMMENT="Order of this step in the solution"/>
+        <FIELD NAME="step_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="calculation" SEQUENCE="false" COMMENT="Type: calculation, explanation, assumption, conclusion"/>
+        <FIELD NAME="step_description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Student's explanation of this step"/>
+        <FIELD NAME="step_content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The actual work/calculation"/>
+        <FIELD NAME="mathematical_expression" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="LaTeX or MathML representation"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" COMMENT="1=correct, 0=incorrect, NULL=not graded"/>
+        <FIELD NAME="partial_credit" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="5" SEQUENCE="false" COMMENT="Partial credit for this step (0-1)"/>
+        <FIELD NAME="reasoning_quality_score" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="5" SEQUENCE="false" COMMENT="Quality score for reasoning (0-1)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionattemptid" TYPE="foreign" FIELDS="questionattemptid" REFTABLE="question_attempts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="step_number" UNIQUE="false" FIELDS="step_number"/>
+        <INDEX NAME="qa_stepnum" UNIQUE="false" FIELDS="questionattemptid, step_number" COMMENT="Composite index for efficient retrieval"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- AI analysis results table -->
+    <TABLE NAME="qtype_reasoningpath_analysis" COMMENT="Stores AI grading analysis results">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionattemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="completeness_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" DECIMALS="5" SEQUENCE="false" COMMENT="Score for reasoning completeness (0-100)"/>
+        <FIELD NAME="logical_coherence_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" DECIMALS="5" SEQUENCE="false"/>
+        <FIELD NAME="method_appropriateness_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" DECIMALS="5" SEQUENCE="false"/>
+        <FIELD NAME="clarity_score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" DECIMALS="5" SEQUENCE="false"/>
+        <FIELD NAME="final_grade" TYPE="number" LENGTH="10" NOTNULL="true" DECIMALS="5" SEQUENCE="false" COMMENT="Final calculated grade (0-100)"/>
+        <FIELD NAME="ai_feedback" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Feedback generated by AI"/>
+        <FIELD NAME="ai_model_used" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" COMMENT="Which AI model was used"/>
+        <FIELD NAME="analysis_metadata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON metadata about the analysis"/>
+        <FIELD NAME="graded_by" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="ai" SEQUENCE="false" COMMENT="ai or teacher_override"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionattemptid" TYPE="foreign-unique" FIELDS="questionattemptid" REFTABLE="question_attempts" REFFIELDS="id" COMMENT="One analysis per attempt"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Cache table for AI responses (cost optimization) -->
+    <TABLE NAME="qtype_reasoningpath_cache" COMMENT="Caches AI analysis for similar reasoning paths">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="steps_hash" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="SHA256 hash of normalized steps"/>
+        <FIELD NAME="analysis_result" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Cached AI analysis result"/>
+        <FIELD NAME="hit_count" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Number of times this cache was used"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timeexpires" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Cache expiration timestamp"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="questionid_hash" UNIQUE="true" FIELDS="questionid, steps_hash" COMMENT="Unique cache per question and step pattern"/>
+        <INDEX NAME="timeexpires" UNIQUE="false" FIELDS="timeexpires" COMMENT="For cache cleanup"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>

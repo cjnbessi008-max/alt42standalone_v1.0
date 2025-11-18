@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  analyzer:
+    build: .
+    container_name: reasoning-path-analyzer
+    ports:
+      - "8000:8000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ANALYSIS_API_KEY=${ANALYSIS_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./main.py:/app/main.py
+    restart: unless-stopped
+    networks:
+      - moodle-network
+
+networks:
+  moodle-network:
+    external: true
+    # Create with: docker network create moodle-network
