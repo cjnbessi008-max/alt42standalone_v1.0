@@ -1,0 +1,190 @@
+/* 스마트폰 뷰포트 - 우측 하단 고정 */
+.smartphone-viewport {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(150%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+    width: 360px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 12px;
+    box-shadow:
+        0 0 0 2px #333,
+        0 0 0 6px #1a1a1a,
+        0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* 상단 노치 */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* 스마트폰 화면 */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 앱 헤더 */
+.app-header {
+    padding: 35px 20px 15px;
+    background: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.app-header h2 {
+    color: white;
+    font-size: 1.3em;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Venn 다이어그램 컨테이너 */
+.venn-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+#venn-canvas {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/* 설명 텍스트 */
+.explanation {
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    text-align: center;
+}
+
+.explanation p {
+    color: white;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* 인터랙션 컨트롤 */
+.interaction-controls {
+    padding: 15px 20px 20px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.control-group label {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.control-group label:hover {
+    opacity: 0.8;
+}
+
+.control-group input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* 애니메이션 컨트롤 */
+.animation-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.animation-controls button {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.9em;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+}
+
+.animation-controls button:hover {
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .smartphone-viewport {
+        transform: scale(0.8);
+        transform-origin: bottom right;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone-viewport {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+        transform: scale(1);
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+}
+
+/* 드래그 가능하게 만들기 (선택적) */
+.smartphone-viewport.draggable {
+    cursor: move;
+}
+
+.smartphone-viewport.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+}

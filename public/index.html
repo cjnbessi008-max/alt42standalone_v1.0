@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn Glow - 집합 학습 앱</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <!-- 메인 화면 (교사용 또는 PC 화면) -->
+    <div class="main-container">
+        <header>
+            <h1>Venn Glow</h1>
+            <p>집합을 빛나는 원으로 배워요</p>
+        </header>
+
+        <main>
+            <div class="info-panel">
+                <h2>현재 문제</h2>
+                <p id="question-text">문제를 불러오는 중...</p>
+
+                <div class="problem-info">
+                    <div class="set-info">
+                        <h3>집합 A</h3>
+                        <p id="set-a-display"></p>
+                    </div>
+                    <div class="set-info">
+                        <h3>집합 B</h3>
+                        <p id="set-b-display"></p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="btn-new-problem">새 문제</button>
+                    <button id="btn-sample-problem">샘플 문제</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 우측 하단 스마트폰 뷰포트 -->
+    <div class="smartphone-viewport">
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <!-- 스마트폰 화면 헤더 -->
+                <div class="app-header">
+                    <h2>Venn Glow</h2>
+                </div>
+
+                <!-- Venn 다이어그램 캔버스 -->
+                <div class="venn-container">
+                    <canvas id="venn-canvas"></canvas>
+                </div>
+
+                <!-- 설명 텍스트 -->
+                <div class="explanation">
+                    <p id="explanation-text">집합의 교집합을 확인해보세요</p>
+                </div>
+
+                <!-- 인터랙션 컨트롤 -->
+                <div class="interaction-controls">
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="show-union" checked>
+                            합집합 보기
+                        </label>
+                        <label>
+                            <input type="checkbox" id="show-intersection" checked>
+                            교집합 강조
+                        </label>
+                    </div>
+
+                    <div class="animation-controls">
+                        <button id="btn-animate">애니메이션 재생</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/venn-glow.js"></script>
+    <script src="js/smartphone-viewport.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
