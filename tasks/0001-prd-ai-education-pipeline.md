@@ -153,6 +153,10 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - System MUST categorize rules by type (validation, calculation, progression, feedback)
 - System MUST handle conditional logic (if-then-else scenarios)
 - System MUST support mathematical operations and comparisons
+- **Feedback rules MUST use empathetic, encouraging tone instead of pressuring language**
+  - Wrong answers: Show understanding, provide emotional support, encourage retry
+  - Correct answers: Celebrate achievement with positive reinforcement
+  - Partial progress: Acknowledge effort and guide toward solution
 
 **FR-2.2: Complexity Assessment**
 - System MUST evaluate rule complexity using defined metrics:
@@ -245,6 +249,11 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - System MUST include responsive design (mobile, tablet, desktop)
 - System MUST generate accessible HTML (ARIA labels, keyboard navigation)
 - System MUST include loading states and error handling
+- **Feedback components MUST display empathetic, encouraging messages**
+  - Use warm colors (soft greens for correct, warm yellows for partial, gentle oranges for incorrect)
+  - Include supportive icons (heart, thumbs up, encouragement emojis)
+  - Show growth mindset language ("You're learning!", "Almost there!", "Great effort!")
+  - Avoid negative words ("wrong", "incorrect", "failed") - use alternatives ("not quite", "let's try again", "getting closer")
 
 **FR-5.4: Form Generation** (Priority 1)
 - System MUST generate dynamic forms based on data requirements
@@ -687,6 +696,22 @@ Examples: [few-shot examples for consistency]
 - Offer suggestions for fixing issues
 - Allow partial saves (checkpoint progress)
 - Provide "retry" and "get help" options
+
+**Student Feedback UX (Empathetic Approach)**:
+- **Wrong Answer Feedback**:
+  - Use empathetic language: "That's okay! Learning takes practice 💪"
+  - Acknowledge effort: "I can see you tried hard on this one!"
+  - Provide gentle guidance: "Let's think about this together..."
+  - Encourage retry: "Want to give it another try?"
+  - Show progress: "You've solved 7 problems today - you're doing great!"
+- **Correct Answer Feedback**:
+  - Celebrate success: "Amazing work! 🎉"
+  - Reinforce learning: "You really understand this concept!"
+  - Build confidence: "I knew you could do it!"
+- **Partial Progress Feedback**:
+  - Recognize steps taken: "You're on the right track!"
+  - Guide next steps: "Try looking at the denominator..."
+  - Maintain motivation: "You're getting closer!"
 
 ### 7.5 Security Considerations
 
@@ -1204,7 +1229,55 @@ export const FractionVisualizer: React.FC<FractionVisualizerProps> = ({
 };
 ```
 
-### Appendix D: Security Checklist
+### Appendix D: Empathetic Feedback Message Examples
+
+**Comparison: Pressuring vs. Empathetic Feedback**
+
+| Situation | ❌ Pressuring (Avoid) | ✅ Empathetic (Use) |
+|-----------|----------------------|---------------------|
+| Wrong answer on first try | "Wrong! Try harder." | "That's okay! Let's try this together 🤗" |
+| Multiple wrong answers | "Still wrong. Pay attention!" | "I can see this is challenging. You're building your skills! 💪" |
+| Close but not correct | "Not quite right." | "You're so close! You've got this! ⭐" |
+| Correct after several tries | "Finally correct." | "Yes! Your persistence paid off! 🎉" |
+| Correct on first try | "Correct." | "Wow! You really understand this! Amazing! 🌟" |
+| Giving up/frustrated | "Don't give up." | "It's okay to take a break. You've already learned so much today! 💚" |
+
+**Korean Message Library (한국어 공감형 메시지)**
+
+**Wrong Answer Messages (오답 메시지)**:
+- "괜찮아요! 실수는 배움의 과정이에요 🌱"
+- "이 문제가 어려운가봐요. 함께 다시 생각해볼까요?"
+- "열심히 노력하는 모습이 보여요! 계속 해봐요 💪"
+- "조금 더 생각해보면 답을 찾을 수 있을 거예요!"
+- "틀려도 괜찮아요. 배우는 중이니까요! 😊"
+
+**Correct Answer Messages (정답 메시지)**:
+- "정말 잘했어요! 👏 완벽해요!"
+- "와! 정말 똑똑한데요? 🌟"
+- "이해를 정말 잘했네요! 자랑스러워요! 🎉"
+- "맞았어요! 멋진 실력이에요! ⭐"
+- "완벽해요! 이 개념을 정말 잘 이해했네요! 💯"
+
+**Encouragement Messages (격려 메시지)**:
+- "거의 다 왔어요! 조금만 더! 🚀"
+- "이 부분까지는 완벽해요!"
+- "좋은 시도예요! 이런 식으로 생각하는 거 맞아요 💡"
+- "열심히 하고 있네요! 계속 해봐요!"
+- "오늘 벌써 {n}개나 풀었어요. 대단해요! 🏆"
+
+**Technical Implementation Notes**:
+- Messages should rotate to avoid repetition
+- Can be personalized based on:
+  - Student's name
+  - Time of day (morning/afternoon)
+  - Number of attempts
+  - Recent success rate
+  - Overall progress
+- Use positive emojis consistently (avoid sad/negative emojis)
+- Keep messages concise (1-2 sentences max)
+- Match reading level to student's grade
+
+### Appendix E: Security Checklist
 
 **Code Generation Security**:
 - [ ] Static analysis for SQL injection patterns
