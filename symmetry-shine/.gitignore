@@ -1,0 +1,41 @@
+# Symmetry Shine - Git Ignore
+
+# Configuration files with sensitive data
+api/config.php
+
+# Logs
+*.log
+logs/
+error.log
+access.log
+
+# Database
+*.sql.gz
+*.sqlite
+database/backups/
+
+# PHP
+vendor/
+composer.lock
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.cache
+
+# User uploads (if any)
+uploads/
+files/

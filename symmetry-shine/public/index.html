@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symmetry Shine - 함수 대칭성 시각화</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="main-content">
+        <h1>Symmetry Shine - 함수의 대칭성 학습</h1>
+        <div id="status">Moodle LMS 연결 대기중...</div>
+    </div>
+
+    <!-- Virtual Smartphone Display (Bottom Right Corner) -->
+    <div id="virtual-phone">
+        <div class="phone-frame">
+            <div class="phone-screen">
+                <div class="phone-header">
+                    <span class="time">12:34</span>
+                    <span class="battery">100%</span>
+                </div>
+
+                <div class="phone-content">
+                    <div id="problem-title">함수 대칭성 문제</div>
+                    <div id="problem-description">문제를 불러오는 중...</div>
+
+                    <!-- Canvas for Function Graphing -->
+                    <canvas id="function-canvas" width="320" height="400"></canvas>
+
+                    <!-- Symmetry Controls -->
+                    <div class="controls">
+                        <button id="show-symmetry" class="btn-primary">대칭축 표시</button>
+                        <button id="shine-effect" class="btn-shine">빛선 효과</button>
+                        <button id="next-problem" class="btn-secondary">다음 문제</button>
+                    </div>
+
+                    <!-- Answer Input -->
+                    <div class="answer-section">
+                        <label for="symmetry-axis">대칭축: x = </label>
+                        <input type="number" id="symmetry-axis" step="0.1" placeholder="0">
+                        <button id="submit-answer" class="btn-submit">제출</button>
+                    </div>
+
+                    <div id="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
