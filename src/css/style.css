@@ -247,6 +247,381 @@ header h1 {
     }
 }
 
+/* Problem Selector & New UI Elements */
+.problem-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Problem Card */
+.problem-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.problem-card h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.problem-meta {
+    margin: 10px 0;
+}
+
+.problem-function {
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.badge-쉬움 {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-보통 {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.badge-어려움 {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.badge-category {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-success {
+    background: #4caf50;
+    color: white;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: #667eea;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Filter Controls */
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-controls select {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    background: white;
+    cursor: pointer;
+}
+
+.filter-controls select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Problem Grid */
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.problem-item {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.problem-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+}
+
+.problem-item.completed {
+    background: #e8f5e9;
+    border-color: #4caf50;
+}
+
+.problem-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.problem-item-header h4 {
+    color: #333;
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.completed-icon {
+    font-size: 1.5em;
+}
+
+.problem-item-meta {
+    margin: 10px 0;
+}
+
+.problem-item-function {
+    font-family: 'Courier New', monospace;
+    background: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+.problem-item-attempts {
+    font-size: 0.85em;
+    color: #666;
+    margin: 5px 0;
+}
+
+.load-problem-btn {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.load-problem-btn:hover {
+    background: #5568d3;
+}
+
+.no-results {
+    text-align: center;
+    color: #999;
+    padding: 40px;
+}
+
+/* Evaluation Result */
+.evaluation-result {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #667eea;
+}
+
+.evaluation-result.correct {
+    background: #e8f5e9;
+    border-left-color: #4caf50;
+}
+
+.evaluation-result.incorrect {
+    background: #fff3e0;
+    border-left-color: #ff9800;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.result-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.score {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.result-details {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* PWA Install Prompt */
+.install-prompt {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.install-prompt.hidden {
+    display: none;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.install-prompt-content {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+}
+
+.install-prompt-content h3 {
+    margin: 0 0 10px 0;
+    color: #667eea;
+}
+
+.install-prompt-content p {
+    margin: 0 0 15px 0;
+    color: #666;
+}
+
+.install-prompt-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 10px;
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .problem-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -258,5 +633,28 @@ header h1 {
 
     header h1 {
         font-size: 1.8em;
+    }
+
+    .problem-selector {
+        flex-direction: column;
+    }
+
+    .problem-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .install-prompt {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .install-prompt-content {
+        max-width: none;
     }
 }

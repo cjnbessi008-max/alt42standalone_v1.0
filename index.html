@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="수학 함수의 근을 시각적으로 찾고 학습하는 독립형 웹 애플리케이션">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Root Glow">
+
     <title>Root Glow - 수학 학습 시스템</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/assets/icon-192x192.png">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/smartphone.css">
     <link rel="stylesheet" href="src/css/glow-effects.css">
@@ -13,15 +28,20 @@
     <div class="main-container">
         <header>
             <h1>Root Glow 수학 학습 시스템</h1>
-            <p class="subtitle">LMS 연동 - 근 찾기 시각화</p>
+            <p class="subtitle">독립형 웹앱 - 근 찾기 시각화 ✨</p>
         </header>
 
         <div class="content-wrapper">
             <!-- Control Panel -->
             <div class="control-panel">
-                <h2>문제 정보</h2>
+                <h2>문제 선택</h2>
+                <div class="problem-selector">
+                    <button id="random-problem-btn" class="action-btn">🎲 랜덤 문제</button>
+                    <button id="problem-list-btn" class="action-btn">📋 문제 목록</button>
+                </div>
+
                 <div id="problem-info">
-                    <p>LMS에서 문제를 불러오는 중...</p>
+                    <p>문제를 선택하거나 직접 함수를 입력하세요</p>
                 </div>
 
                 <div class="function-input">
@@ -100,13 +120,65 @@
         <p>근을 계산하는 중...</p>
     </div>
 
+    <!-- PWA Install Prompt -->
+    <div id="install-prompt" class="install-prompt hidden">
+        <div class="install-prompt-content">
+            <h3>📱 앱 설치</h3>
+            <p>Root Glow를 홈 화면에 추가하여 더 편리하게 사용하세요!</p>
+            <div class="install-prompt-buttons">
+                <button id="install-btn" class="btn-primary">설치</button>
+                <button id="dismiss-install-btn" class="btn-secondary">나중에</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem List Modal -->
+    <div id="problem-list-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>문제 목록</h2>
+                <button id="close-modal-btn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-controls">
+                    <select id="difficulty-filter">
+                        <option value="">모든 난이도</option>
+                        <option value="쉬움">쉬움</option>
+                        <option value="보통">보통</option>
+                        <option value="어려움">어려움</option>
+                    </select>
+                    <select id="category-filter">
+                        <option value="">모든 카테고리</option>
+                    </select>
+                </div>
+                <div id="problem-list-container"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="src/js/math-utils.js"></script>
     <script src="src/js/root-finder.js"></script>
     <script src="src/js/graph-renderer.js"></script>
     <script src="src/js/glow-effects.js"></script>
     <script src="src/js/smartphone-display.js"></script>
-    <script src="src/js/moodle-integration.js"></script>
-    <script src="src/js/app.js"></script>
+    <script src="src/js/problem-database.js"></script>
+    <script src="src/js/standalone-storage.js"></script>
+    <script src="src/js/app-standalone.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.error('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
