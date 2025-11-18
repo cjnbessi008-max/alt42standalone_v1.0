@@ -1,0 +1,53 @@
+# Metaphor Log - Git Ignore
+
+# Configuration files with sensitive data
+api/config.php
+
+# Database files
+*.sql.backup
+*.sql.gz
+
+# Logs
+*.log
+logs/
+error_log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+cache/
+*.cache
+
+# Uploads
+uploads/
+user_data/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Node modules (if using build tools)
+node_modules/
+
+# Composer (if using PHP dependencies)
+vendor/
+
+# Build files
+dist/
+build/

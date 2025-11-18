@@ -1,0 +1,167 @@
+/**
+ * Virtual Smartphone Frame CSS
+ * Displays app in bottom-right corner in a realistic phone frame
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+/* Smartphone Container - Bottom Right Position */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideInFromRight 0.6s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    width: 375px;
+    height: 667px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 8px #2a2a2a,
+        0 0 0 10px #1a1a1a,
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+/* Phone Notch (Top) */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* Phone Speaker */
+.phone-speaker {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    z-index: 11;
+}
+
+/* Phone Screen */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none; /* Firefox */
+}
+
+.phone-screen::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+/* Phone Home Button */
+.phone-home-button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+    }
+
+    body {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .smartphone-frame {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 40px);
+        max-height: 667px;
+    }
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Hover effects */
+.smartphone-frame:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}

@@ -1,0 +1,269 @@
+/**
+ * Metaphor Log App Content Styles
+ * Styles for the logarithm visualization interface
+ */
+
+/* App Header */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.difficulty-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Problem Section */
+.problem-section {
+    padding: 20px;
+    background: white;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.problem-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2d3748;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.problem-description {
+    font-size: 14px;
+    color: #718096;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Visualization Section */
+.visualization-section {
+    padding: 15px;
+    margin: 10px;
+}
+
+#metaphorCanvas {
+    width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Metaphor Controls */
+.metaphor-controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.metaphor-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 10px 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.metaphor-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.metaphor-btn.active {
+    background: #764ba2;
+    color: white;
+    border-color: #764ba2;
+}
+
+/* Answer Section */
+.answer-section {
+    padding: 15px 20px;
+    margin: 10px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.answer-section label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+#answerInput {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#answerInput:focus {
+    border-color: #667eea;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Feedback Section */
+.feedback-section {
+    margin: 10px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feedback-section.correct {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+}
+
+.feedback-section.incorrect {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    color: white;
+}
+
+.feedback-message {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Navigation Section */
+.navigation-section {
+    padding: 15px 20px;
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    flex: 1;
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #2d3748;
+}
+
+.nav-btn:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Canvas hover effect */
+#metaphorCanvas {
+    cursor: crosshair;
+}
+
+/* Hint tooltip */
+.hint-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    z-index: 100;
+    pointer-events: none;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Success celebration */
+@keyframes celebrate {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+.celebrate {
+    animation: celebrate 0.5s ease;
+}

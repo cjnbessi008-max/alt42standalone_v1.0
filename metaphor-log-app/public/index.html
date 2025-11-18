@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metaphor Log - 로그 시각화 학습 앱</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/metaphor-log.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Frame (Bottom Right) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- Phone hardware elements -->
+            <div class="phone-notch"></div>
+            <div class="phone-speaker"></div>
+
+            <!-- Phone screen content -->
+            <div class="phone-screen">
+                <!-- App Header -->
+                <header class="app-header">
+                    <h1>🌳 Metaphor Log</h1>
+                    <div class="difficulty-badge" id="difficultyBadge">중급</div>
+                </header>
+
+                <!-- Problem Display -->
+                <section class="problem-section">
+                    <div class="problem-text" id="problemText">
+                        문제를 불러오는 중...
+                    </div>
+                    <div class="problem-description" id="problemDescription"></div>
+                </section>
+
+                <!-- Visualization Canvas -->
+                <section class="visualization-section">
+                    <canvas id="metaphorCanvas" width="335" height="300"></canvas>
+                    <div class="metaphor-controls">
+                        <button class="metaphor-btn" data-metaphor="tree">🌳 나무</button>
+                        <button class="metaphor-btn" data-metaphor="stairs">🪜 계단</button>
+                        <button class="metaphor-btn" data-metaphor="magnify">🔍 확대</button>
+                        <button class="metaphor-btn" data-metaphor="blocks">🧱 블록</button>
+                    </div>
+                </section>
+
+                <!-- Answer Input -->
+                <section class="answer-section">
+                    <label for="answerInput">답:</label>
+                    <input type="number" id="answerInput" step="0.01" placeholder="답을 입력하세요">
+                    <button id="submitBtn" class="submit-btn">제출</button>
+                </section>
+
+                <!-- Feedback Display -->
+                <section class="feedback-section" id="feedbackSection" style="display: none;">
+                    <div class="feedback-message" id="feedbackMessage"></div>
+                </section>
+
+                <!-- Navigation -->
+                <section class="navigation-section">
+                    <button id="newProblemBtn" class="nav-btn">새 문제</button>
+                    <button id="hintBtn" class="nav-btn">힌트</button>
+                </section>
+            </div>
+
+            <!-- Phone home button -->
+            <div class="phone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- Hidden data attributes for Moodle integration -->
+    <div id="moodleData"
+         data-user-id="1"
+         data-question-id=""
+         style="display: none;">
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/metaphor-log.js"></script>
+    <script src="js/moodle-integration.js"></script>
+    <script>
+        // Initialize app on load
+        document.addEventListener('DOMContentLoaded', function() {
+            MetaphorLog.init();
+        });
+    </script>
+</body>
+</html>
