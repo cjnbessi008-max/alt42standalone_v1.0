@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 Asymptote Reveal Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .screenshot-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 60px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .demo-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 ALT42 Asymptote Reveal</h1>
+            <p class="tagline">점근선이 천천히 나타나는 교육용 수학 시각화 앱</p>
+        </header>
+
+        <section class="demo-section">
+            <h2>✨ 주요 기능</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">점근선 애니메이션</div>
+                    <p>점근선이 중앙에서 양쪽으로 천천히 그려지는 시각 효과로 학습 집중도 향상</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-title">Moodle 연동</div>
+                    <p>Moodle 3.7 퀴즈 시스템과 자동 통합, 문제 정보 실시간 동기화</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">모바일 최적화</div>
+                    <p>터치 제스처 지원, 반응형 디자인, 가상 스마트폰 화면</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Canvas 렌더링</div>
+                    <p>고성능 Canvas API로 부드러운 그래프 그리기, 60fps 애니메이션</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">React + TypeScript</div>
+                    <p>모던 웹 기술 스택으로 안정적이고 확장 가능한 구조</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <div class="feature-title">교육 최적화</div>
+                    <p>점진적 공개 방식으로 학생들의 이해도 향상</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>🛠 기술 스택</h2>
+            <div class="tech-stack">
+                <span class="tech-badge">React 18</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Canvas API</span>
+                <span class="tech-badge">PHP 7.1.9</span>
+                <span class="tech-badge">MySQL 5.7</span>
+                <span class="tech-badge">Moodle 3.7</span>
+                <span class="tech-badge">CSS3 Animations</span>
+                <span class="tech-badge">Touch Events</span>
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>🚀 빠른 시작</h2>
+
+            <h3>1. 저장소 클론</h3>
+            <div class="code-block">
+git clone https://github.com/your-repo/alt42standalone_v1.0.git
+cd alt42standalone_v1.0
+            </div>
+
+            <h3>2. 백엔드 설정</h3>
+            <div class="code-block">
+# MySQL 데이터베이스 생성
+mysql -u root -p < backend/sql/create_tables.sql
+
+# 설정 파일 복사
+cd backend/config
+cp config.example.php config.php
+            </div>
+
+            <h3>3. 프론트엔드 실행</h3>
+            <div class="code-block">
+cd frontend
+npm install
+npm start
+            </div>
+
+            <h3>4. 브라우저에서 확인</h3>
+            <div class="code-block">
+http://localhost:3000
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>📖 사용 예시</h2>
+
+            <h3>Moodle 퀴즈 연동</h3>
+            <div class="code-block">
+<!-- Moodle 페이지에 iframe 삽입 -->
+&lt;iframe
+  src="http://alt42.local?quiz_id=123"
+  width="100%"
+  height="800"
+  frameborder="0"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <h3>API 호출</h3>
+            <div class="code-block">
+// 문제 데이터 가져오기
+fetch('http://localhost/alt42/backend/api/get-problem.php?quiz_id=1')
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// 응답 예시
+{
+  "success": true,
+  "data": {
+    "function": "1/x",
+    "asymptotes": {
+      "vertical": [0],
+      "horizontal": [0]
+    }
+  }
+}
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>🎬 데모 화면</h2>
+            <div class="screenshot-placeholder">
+                📸 여기에 실제 앱 스크린샷이 표시됩니다
+                <br><br>
+                실행하려면 위의 "빠른 시작" 단계를 따라주세요
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>📚 문서</h2>
+            <p>더 자세한 내용은 다음 문서를 참조하세요:</p>
+            <ul style="margin-top: 15px; line-height: 2;">
+                <li><a href="docs/INSTALLATION.md" style="color: white; text-decoration: underline;">설치 가이드</a></li>
+                <li><a href="docs/MOODLE_INTEGRATION.md" style="color: white; text-decoration: underline;">Moodle 연동 가이드</a></li>
+                <li><a href="docs/USER_GUIDE.md" style="color: white; text-decoration: underline;">사용자 가이드</a></li>
+            </ul>
+        </section>
+
+        <section class="demo-section" style="text-align: center;">
+            <h2>🎯 시작하기</h2>
+            <p style="margin-bottom: 30px;">지금 바로 ALT42를 사용해보세요!</p>
+            <a href="#" class="btn" onclick="alert('프로젝트를 클론하고 npm start를 실행하세요!'); return false;">
+                데모 시작하기
+            </a>
+            <a href="https://github.com/your-repo/alt42standalone_v1.0" class="btn btn-secondary">
+                GitHub에서 보기
+            </a>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 ALT42 Standalone v1.0 | Powered by Canvas API & React</p>
+            <p style="margin-top: 10px;">Moodle 3.7 | PHP 7.1.9 | MySQL 5.7</p>
+        </footer>
+    </div>
+</body>
+</html>

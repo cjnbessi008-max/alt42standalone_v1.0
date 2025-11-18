@@ -1,0 +1,106 @@
+/**
+ * 가상 스마트폰 프레임 스타일
+ * 우측 하단 고정 배치
+ */
+
+.phone-frame-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.phone-frame {
+  width: 360px;
+  height: 720px;
+  background: linear-gradient(145deg, #2c3e50, #34495e);
+  border-radius: 40px;
+  padding: 15px;
+  position: relative;
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* 노치 (상단 카메라 영역) */
+.phone-notch {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 25px;
+  background: #1a1a1a;
+  border-radius: 0 0 15px 15px;
+  z-index: 10;
+}
+
+/* 화면 영역 */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 홈 버튼 (하단) */
+.phone-home-button {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* 반응형: 작은 화면에서는 크기 축소 */
+@media (max-width: 1440px) {
+  .phone-frame {
+    width: 300px;
+    height: 600px;
+    border-radius: 35px;
+    padding: 12px;
+  }
+
+  .phone-notch {
+    width: 120px;
+    height: 20px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .phone-screen {
+    border-radius: 25px;
+  }
+}
+
+/* 아주 작은 화면에서는 숨김 */
+@media (max-width: 1024px) {
+  .phone-frame-wrapper {
+    display: none;
+  }
+}
+
+/* 애니메이션: 등장 효과 */
+@keyframes phoneSlideIn {
+  from {
+    transform: translateX(100%) translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+.phone-frame-wrapper {
+  animation: phoneSlideIn 0.6s ease-out;
+}
