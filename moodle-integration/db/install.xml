@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/thinkroutine_consistency/db" VERSION="20251118" COMMENT="XMLDB file for Moodle blocks/thinkroutine_consistency"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Thinking Routine Patterns Table -->
+    <TABLE NAME="block_trc_patterns" COMMENT="Stores defined thinking routine patterns">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Pattern name (e.g., 'Problem Decomposition', 'Visual Representation')"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Detailed description of the thinking routine"/>
+        <FIELD NAME="category" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Category: problem_solving, reasoning, visualization, metacognition"/>
+        <FIELD NAME="expected_steps" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of expected steps in the routine"/>
+        <FIELD NAME="weight" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="1.0" SEQUENCE="false" DECIMALS="2" COMMENT="Weight for consistency score calculation"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="category" UNIQUE="false" FIELDS="category"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Student Activity Tracking Table -->
+    <TABLE NAME="block_trc_activities" COMMENT="Tracks student activities and actions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course module ID"/>
+        <FIELD NAME="activitytype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type of activity (quiz, assignment, forum, etc.)"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Specific action taken"/>
+        <FIELD NAME="actiondata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data about the action"/>
+        <FIELD NAME="patternid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Matched thinking routine pattern"/>
+        <FIELD NAME="sequence_order" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Order in the activity sequence"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="patternid" TYPE="foreign" FIELDS="patternid" REFTABLE="block_trc_patterns" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid,courseid"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Consistency Score Table -->
+    <TABLE NAME="block_trc_scores" COMMENT="Stores calculated consistency scores">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="patternid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.0" SEQUENCE="false" DECIMALS="2" COMMENT="Consistency score (0-100)"/>
+        <FIELD NAME="frequency" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="How many times pattern was used"/>
+        <FIELD NAME="adherence_rate" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.0" SEQUENCE="false" DECIMALS="2" COMMENT="How well the pattern was followed (0-100)"/>
+        <FIELD NAME="consistency_index" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.0" SEQUENCE="false" DECIMALS="2" COMMENT="How consistently pattern is used (0-100)"/>
+        <FIELD NAME="period_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start of calculation period"/>
+        <FIELD NAME="period_end" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="End of calculation period"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="patternid" TYPE="foreign" FIELDS="patternid" REFTABLE="block_trc_patterns" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid,courseid"/>
+        <INDEX NAME="userid_pattern" UNIQUE="false" FIELDS="userid,patternid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Session Analytics Table -->
+    <TABLE NAME="block_trc_sessions" COMMENT="Tracks learning sessions and their patterns">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_end" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="total_actions" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="patterns_used" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of pattern IDs used in session"/>
+        <FIELD NAME="session_score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0.0" SEQUENCE="false" DECIMALS="2" COMMENT="Overall consistency score for session"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid,courseid"/>
+        <INDEX NAME="session_start" UNIQUE="false" FIELDS="session_start"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

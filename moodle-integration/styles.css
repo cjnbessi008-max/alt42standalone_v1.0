@@ -1,0 +1,139 @@
+/**
+ * Styles for Thinking Routine Consistency block
+ *
+ * @package    block_thinkroutine_consistency
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Overall score display */
+.block_thinkroutine_consistency .trc-overall-score {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.block_thinkroutine_consistency .trc-overall-score h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.block_thinkroutine_consistency .trc-score-circle {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 8px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.block_thinkroutine_consistency .trc-score-circle.bg-success {
+    background-color: #28a745;
+    border-color: #1e7e34;
+}
+
+.block_thinkroutine_consistency .trc-score-circle.bg-info {
+    background-color: #17a2b8;
+    border-color: #117a8b;
+}
+
+.block_thinkroutine_consistency .trc-score-circle.bg-warning {
+    background-color: #ffc107;
+    border-color: #d39e00;
+}
+
+.block_thinkroutine_consistency .trc-score-circle.bg-danger {
+    background-color: #dc3545;
+    border-color: #bd2130;
+}
+
+.block_thinkroutine_consistency .score-value {
+    font-size: 1.5em;
+}
+
+.block_thinkroutine_consistency .score-max {
+    font-size: 0.5em;
+    opacity: 0.8;
+}
+
+/* Pattern scores */
+.block_thinkroutine_consistency .trc-pattern-scores {
+    margin-top: 20px;
+}
+
+.block_thinkroutine_consistency .trc-pattern-scores h4 {
+    font-size: 1em;
+    margin: 15px 0 10px 0;
+    color: #333;
+}
+
+.block_thinkroutine_consistency .trc-pattern-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.block_thinkroutine_consistency .pattern-header {
+    margin-bottom: 8px;
+}
+
+.block_thinkroutine_consistency .pattern-category {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.block_thinkroutine_consistency .pattern-metrics {
+    margin-top: 5px;
+    color: #666;
+    font-size: 0.85em;
+}
+
+.block_thinkroutine_consistency .progress {
+    height: 25px;
+    margin: 5px 0;
+}
+
+.block_thinkroutine_consistency .progress-bar {
+    line-height: 25px;
+    font-size: 0.9em;
+}
+
+/* Actions */
+.block_thinkroutine_consistency .trc-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.block_thinkroutine_consistency .trc-actions .btn {
+    width: 100%;
+}
+
+/* Detailed view page */
+.path-blocks-thinkroutine_consistency .alert-info h3 {
+    margin: 10px 0;
+}
+
+.path-blocks-thinkroutine_consistency .generaltable {
+    margin-top: 20px;
+}
+
+.path-blocks-thinkroutine_consistency .generaltable td {
+    vertical-align: middle;
+}
+
+.path-blocks-thinkroutine_consistency .generaltable small {
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
