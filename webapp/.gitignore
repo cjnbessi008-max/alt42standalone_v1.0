@@ -1,0 +1,18 @@
+# Root level gitignore for webapp
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Backend
+backend/__pycache__/
+backend/venv/
+backend/.env
+backend/.env.local
+backend/.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
