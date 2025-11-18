@@ -1,0 +1,61 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# PHP
+vendor/
+composer.lock
+
+# Cache
+cache/
+tmp/
+temp/
+
+# Uploads
+uploads/
+files/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Database dumps
+*.sql.gz
+*.sql.bak
+database/backups/
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# Build files
+dist/
+build/
+
+# Test files
+phpunit.xml
+.phpunit.result.cache
+tests/_output/
