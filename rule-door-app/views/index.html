@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Door - Moodle Integration</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header>
+                <h1>Rule Door - LMS Integration</h1>
+                <div class="header-info">
+                    <span id="student-name">Student: Loading...</span>
+                    <span id="quiz-name">Quiz: Loading...</span>
+                </div>
+            </header>
+
+            <!-- Quiz Question Area -->
+            <div class="quiz-area">
+                <div class="question-container" id="question-container">
+                    <h2>Question</h2>
+                    <div id="question-content">
+                        <!-- Question content from Moodle will be loaded here -->
+                        <p>Loading question...</p>
+                    </div>
+
+                    <!-- Answer Input Area -->
+                    <div class="answer-input">
+                        <h3>Your Answer:</h3>
+                        <textarea id="answer-input" rows="4" placeholder="Enter your answer here..."></textarea>
+                        <button id="check-answer-btn" class="btn btn-primary">Check Answer</button>
+                        <button id="submit-answer-btn" class="btn btn-success" disabled>Submit Answer</button>
+                    </div>
+
+                    <!-- Feedback Area -->
+                    <div id="feedback-area" class="feedback-area hidden">
+                        <div class="feedback-content">
+                            <p id="feedback-message"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rule Information -->
+            <div class="rule-info">
+                <h3>Current Rule</h3>
+                <div id="rule-details">
+                    <p><strong>Rule Name:</strong> <span id="rule-name">Loading...</span></p>
+                    <p><strong>Type:</strong> <span id="rule-type">Loading...</span></p>
+                    <p><strong>Description:</strong> <span id="rule-description">Loading...</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-screen">
+                    <div class="smartphone-header">
+                        <div class="time">12:00</div>
+                        <div class="status-icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <h2 class="app-title">Rule Door</h2>
+
+                        <!-- Door Visualization -->
+                        <div class="door-container">
+                            <div id="door" class="door closed">
+                                <div class="door-left">
+                                    <div class="door-handle"></div>
+                                    <div class="door-window"></div>
+                                </div>
+                                <div class="door-right">
+                                    <div class="door-handle"></div>
+                                    <div class="door-window"></div>
+                                </div>
+                            </div>
+
+                            <div class="door-frame"></div>
+                        </div>
+
+                        <!-- Door Status Display -->
+                        <div class="door-status">
+                            <div id="door-status-indicator" class="status-indicator status-closed">
+                                <span class="status-icon">🚪</span>
+                                <span id="door-status-text">CLOSED</span>
+                            </div>
+
+                            <div class="status-reason">
+                                <p id="door-reason">Waiting for answer check...</p>
+                            </div>
+                        </div>
+
+                        <!-- Rule Type Badge -->
+                        <div class="rule-badge">
+                            <span id="rule-badge-text">Duplicate Not Allowed</span>
+                        </div>
+
+                        <!-- Statistics -->
+                        <div class="statistics">
+                            <div class="stat-item">
+                                <span class="stat-label">Attempts:</span>
+                                <span id="stat-attempts" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Duplicates:</span>
+                                <span id="stat-duplicates" class="stat-value">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Correct:</span>
+                                <span id="stat-correct" class="stat-value">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/door.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
