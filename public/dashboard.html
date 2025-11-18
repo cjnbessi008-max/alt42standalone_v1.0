@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교사 대시보드 - Focus Tracking LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .student-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .student-item {
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .student-item:hover {
+            background-color: #f9fafb;
+            border-color: var(--primary-color);
+        }
+
+        .student-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .student-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .activity-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 12px;
+            border-left: 3px solid var(--primary-color);
+            background: #f9fafb;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .activity-user {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .activity-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .chart-container {
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">📊 교사 대시보드</div>
+            <div class="user-info">
+                <span id="teacher-name"></span>
+                <button class="btn btn-secondary" onclick="logout()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Overview Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-students">0</div>
+                <div class="stat-label">총 학생 수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-sessions">0</div>
+                <div class="stat-label">총 학습 세션</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-final-score">0</div>
+                <div class="stat-label">평균 최종 점수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-focus-score">0</div>
+                <div class="stat-label">평균 집중도</div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Students List -->
+            <div class="card">
+                <h3 class="card-title">학생 목록</h3>
+                <div id="students-list" class="student-list">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <h3 class="card-title">최근 활동</h3>
+                <div id="recent-activity" class="activity-list">
+                    <div class="loading"><div class="spinner"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Difficulty Analysis -->
+        <div class="card">
+            <h3 class="card-title">난이도별 성과 분석</h3>
+            <div id="difficulty-table-container">
+                <table id="difficulty-table">
+                    <thead>
+                        <tr>
+                            <th>난이도</th>
+                            <th>시도 횟수</th>
+                            <th>정답 횟수</th>
+                            <th>정답률</th>
+                            <th>평균 점수</th>
+                            <th>평균 소요 시간</th>
+                            <th>평균 집중도</th>
+                        </tr>
+                    </thead>
+                    <tbody id="difficulty-tbody">
+                        <tr><td colspan="7" class="text-center">로딩 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Student Detail Modal (Simple) -->
+        <div id="student-detail" class="card hidden">
+            <div class="flex-between mb-20">
+                <h3 class="card-title" id="detail-student-name">학생 상세</h3>
+                <button class="btn btn-secondary" onclick="closeStudentDetail()">닫기</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="detail-sessions">0</div>
+                    <div class="stat-label">총 세션</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="detail-avg-score">0</div>
+                    <div class="stat-label">평균 점수</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="detail-avg-focus">0</div>
+                    <div class="stat-label">평균 집중도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="detail-total-time">0분</div>
+                    <div class="stat-label">총 학습 시간</div>
+                </div>
+            </div>
+
+            <h4 class="mt-20 mb-20">난이도별 분석</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>난이도</th>
+                        <th>시도</th>
+                        <th>정답률</th>
+                        <th>평균 점수</th>
+                        <th>평균 집중도</th>
+                    </tr>
+                </thead>
+                <tbody id="detail-difficulty-tbody">
+                    <tr><td colspan="5" class="text-center">데이터 없음</td></tr>
+                </tbody>
+            </table>
+
+            <h4 class="mt-20 mb-20">최근 세션</h4>
+            <div id="detail-recent-sessions">
+                <p class="text-center">로딩 중...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

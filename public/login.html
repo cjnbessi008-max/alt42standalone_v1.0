@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - Focus Tracking LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-title">Focus Tracking LMS</div>
+            <div class="login-subtitle">고난도 집중도 추적 학습 시스템</div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('login')">로그인</div>
+                <div class="tab" onclick="switchTab('register')">회원가입</div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-tab" class="tab-content active">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">사용자명</label>
+                        <input type="text" class="form-control" id="login-username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="login-password" required>
+                    </div>
+
+                    <div id="login-error" class="alert alert-danger hidden"></div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">로그인</button>
+                </form>
+
+                <div style="margin-top: 20px; text-align: center; color: #6b7280; font-size: 14px;">
+                    <p><strong>테스트 계정:</strong></p>
+                    <p>학생: student1 / password123</p>
+                    <p>교사: teacher1 / password123</p>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-tab" class="tab-content">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label class="form-label">사용자명</label>
+                        <input type="text" class="form-control" id="register-username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="register-email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">이름</label>
+                        <input type="text" class="form-control" id="register-fullname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="register-password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">학년 (학생만)</label>
+                        <input type="number" class="form-control" id="register-grade" min="1" max="12">
+                    </div>
+
+                    <div id="register-error" class="alert alert-danger hidden"></div>
+                    <div id="register-success" class="alert alert-success hidden"></div>
+
+                    <button type="submit" class="btn btn-success" style="width: 100%;">회원가입</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        // Login Form
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+
+            try {
+                const response = await fetch(API_BASE + '/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'login',
+                        username,
+                        password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Store token and user info
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    // Redirect based on role
+                    if (data.user.role === 'teacher' || data.user.role === 'admin') {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    errorEl.textContent = data.message || '로그인 실패';
+                    errorEl.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorEl.textContent = '서버 오류가 발생했습니다.';
+                errorEl.classList.remove('hidden');
+            }
+        });
+
+        // Register Form
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const full_name = document.getElementById('register-fullname').value;
+            const password = document.getElementById('register-password').value;
+            const grade_level = document.getElementById('register-grade').value || null;
+
+            const errorEl = document.getElementById('register-error');
+            const successEl = document.getElementById('register-success');
+
+            try {
+                const response = await fetch(API_BASE + '/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'register',
+                        username,
+                        email,
+                        full_name,
+                        password,
+                        grade_level
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    successEl.textContent = '회원가입 성공! 로그인 해주세요.';
+                    successEl.classList.remove('hidden');
+                    errorEl.classList.add('hidden');
+
+                    // Clear form
+                    document.getElementById('register-form').reset();
+
+                    // Switch to login tab after 2 seconds
+                    setTimeout(() => {
+                        switchTab('login');
+                    }, 2000);
+                } else {
+                    errorEl.textContent = data.message || '회원가입 실패';
+                    errorEl.classList.remove('hidden');
+                    successEl.classList.add('hidden');
+                }
+            } catch (error) {
+                errorEl.textContent = '서버 오류가 발생했습니다.';
+                errorEl.classList.remove('hidden');
+                successEl.classList.add('hidden');
+            }
+        });
+
+        // Check if already logged in
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.role === 'teacher' || user.role === 'admin') {
+                window.location.href = 'dashboard.html';
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

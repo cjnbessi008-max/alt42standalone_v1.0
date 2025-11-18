@@ -1,0 +1,45 @@
+# Logs
+logs/
+*.log
+
+# Database
+*.sql.gz
+*.sql.backup
+
+# Config files with secrets
+public/api/config.php
+config/config.php
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node modules (if using build tools)
+node_modules/
+npm-debug.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Docker volumes
+mysql_data/
+
+# Backups
+backups/
+*.bak

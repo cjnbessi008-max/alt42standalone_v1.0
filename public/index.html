@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습 - Focus Tracking LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">📚 Focus LMS</div>
+            <div class="user-info">
+                <span id="user-name"></span>
+                <button class="btn btn-secondary" onclick="logout()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Focus Metrics Panel (Fixed) -->
+        <div class="metrics-panel" id="metrics-panel" style="display: none;">
+            <div class="card-title">실시간 집중도</div>
+            <div class="metric-item">
+                <span class="metric-label">집중도 점수</span>
+                <span class="metric-value" id="attention-score">0</span>
+            </div>
+            <div class="metric-bar">
+                <div class="metric-bar-fill" id="attention-bar" style="width: 0%"></div>
+            </div>
+
+            <div class="metric-item">
+                <span class="metric-label">활동 비율</span>
+                <span class="metric-value" id="activity-ratio">0%</span>
+            </div>
+
+            <div class="metric-item">
+                <span class="metric-label">상호작용 횟수</span>
+                <span class="metric-value" id="interaction-count">0</span>
+            </div>
+
+            <div class="metric-item">
+                <span class="metric-label">학습 시간</span>
+                <span class="metric-value" id="session-time">0:00</span>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen">
+            <div class="card">
+                <h2 class="card-title text-center">학습 세션 시작하기</h2>
+
+                <div class="form-group">
+                    <label class="form-label">난이도를 선택하세요</label>
+                    <div class="difficulty-selector">
+                        <div class="difficulty-btn" onclick="selectDifficulty(1)">
+                            <span class="difficulty-level">1</span>
+                            <div class="difficulty-label">쉬움</div>
+                        </div>
+                        <div class="difficulty-btn" onclick="selectDifficulty(2)">
+                            <span class="difficulty-level">2</span>
+                            <div class="difficulty-label">기본</div>
+                        </div>
+                        <div class="difficulty-btn" onclick="selectDifficulty(3)">
+                            <span class="difficulty-level">3</span>
+                            <div class="difficulty-label">중급</div>
+                        </div>
+                        <div class="difficulty-btn active" onclick="selectDifficulty(4)">
+                            <span class="difficulty-level">4</span>
+                            <div class="difficulty-label">고급</div>
+                        </div>
+                        <div class="difficulty-btn" onclick="selectDifficulty(5)">
+                            <span class="difficulty-level">5</span>
+                            <div class="difficulty-label">최고난도</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>💡 고난도 집중도 추적</strong><br>
+                    높은 난이도를 선택하면 더 많은 점수를 얻을 수 있지만, 집중도를 안정적으로 유지해야 합니다.
+                </div>
+
+                <button class="btn btn-primary btn-lg" onclick="startSession()" style="width: 100%; padding: 15px; font-size: 18px;">
+                    🚀 학습 시작
+                </button>
+            </div>
+
+            <!-- My Statistics -->
+            <div class="card" id="user-stats">
+                <h2 class="card-title">나의 학습 통계</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-sessions">0</div>
+                        <div class="stat-label">총 학습 세션</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avg-score">0</div>
+                        <div class="stat-label">평균 점수</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avg-focus">0</div>
+                        <div class="stat-label">평균 집중도</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Screen -->
+        <div id="learning-screen" class="hidden">
+            <!-- Timer -->
+            <div class="timer" id="timer">00:00</div>
+
+            <!-- Problem Display -->
+            <div class="card">
+                <div class="problem-meta">
+                    <span class="badge badge-primary" id="problem-difficulty">난이도: 4</span>
+                    <span class="badge badge-warning" id="problem-number">문제 1</span>
+                </div>
+
+                <div id="problem-loading" class="loading">
+                    <div class="spinner"></div>
+                </div>
+
+                <div id="problem-content" class="hidden">
+                    <h3 class="problem-title" id="problem-title"></h3>
+                    <div class="problem-description" id="problem-description"></div>
+
+                    <div class="answer-section">
+                        <div id="answer-input"></div>
+                    </div>
+
+                    <div id="result-panel" class="hidden"></div>
+
+                    <div class="flex-between mt-20">
+                        <button class="btn btn-secondary" id="hint-btn" onclick="showHint()">
+                            💡 힌트 보기
+                        </button>
+                        <div class="gap-10 flex">
+                            <button class="btn btn-primary" id="submit-btn" onclick="submitAnswer()">
+                                ✅ 제출하기
+                            </button>
+                            <button class="btn btn-success hidden" id="next-btn" onclick="loadNextProblem()">
+                                ➡️ 다음 문제
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="hint-panel" class="hidden alert alert-info mt-20"></div>
+                </div>
+            </div>
+
+            <div class="flex-between mt-20">
+                <button class="btn btn-danger" onclick="endSession()">세션 종료</button>
+                <div>
+                    <span class="badge badge-success">정답: <span id="correct-count">0</span></span>
+                    <span class="badge badge-danger">오답: <span id="incorrect-count">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden">
+            <div class="card">
+                <h2 class="card-title text-center">학습 세션 완료!</h2>
+
+                <div class="score-display">
+                    <div class="progress-circle">
+                        <svg width="150" height="150">
+                            <circle class="progress-circle-bg" cx="75" cy="75" r="60"></circle>
+                            <circle class="progress-circle-fill" id="score-circle" cx="75" cy="75" r="60"
+                                    stroke-dasharray="377" stroke-dashoffset="377"></circle>
+                        </svg>
+                        <div class="progress-text" id="final-score-text">0</div>
+                    </div>
+                    <div class="score-label" id="performance-rating">평가 중...</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="result-focus-score">0</div>
+                        <div class="stat-label">집중도 점수</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="result-stability-score">0</div>
+                        <div class="stat-label">안정성 점수</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="result-accuracy">0%</div>
+                        <div class="stat-label">정답률</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="result-duration">0분</div>
+                        <div class="stat-label">학습 시간</div>
+                    </div>
+                </div>
+
+                <div id="feedback-container"></div>
+
+                <div class="flex gap-10 mt-20">
+                    <button class="btn btn-primary" onclick="location.reload()" style="flex: 1;">
+                        🔄 새 세션 시작
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewHistory()" style="flex: 1;">
+                        📊 기록 보기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/focus-tracker.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
