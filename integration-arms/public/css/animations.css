@@ -1,0 +1,423 @@
+/**
+ * Animation Styles
+ * Robot arms and formula transformation animations
+ */
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+    }
+}
+
+@keyframes robotArmMove {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+}
+
+@keyframes formulaTransform {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+.bounce {
+    animation: bounce 1s ease;
+}
+
+.pulse {
+    animation: pulse 1s ease infinite;
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+.rotate {
+    animation: rotate 2s linear infinite;
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Robot Arm Animation States */
+.robot-arm {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.robot-arm.grabbing {
+    animation: robotArmMove 0.6s ease-in-out;
+}
+
+.robot-arm.pulling {
+    transform: translateX(-20px);
+    transition: transform 1s ease-out;
+}
+
+.robot-arm.releasing {
+    transform: translateX(0);
+    transition: transform 0.5s ease-in;
+}
+
+/* Formula Animation States */
+.formula {
+    transition: all 0.5s ease;
+}
+
+.formula.transforming {
+    animation: formulaTransform 1.5s ease forwards;
+}
+
+.formula.highlight {
+    color: var(--secondary-color);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+/* Feedback Animations */
+.feedback-box {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.feedback-box.correct {
+    animation: slideInRight 0.5s ease forwards, pulse 0.5s ease 0.5s;
+}
+
+.feedback-box.incorrect {
+    animation: slideInRight 0.5s ease forwards, shake 0.5s ease 0.5s;
+}
+
+/* Button Interactions */
+.btn.clicked {
+    animation: pulse 0.3s ease;
+}
+
+.option-btn {
+    transition: all 0.2s ease;
+}
+
+.option-btn:active {
+    transform: scale(0.95);
+}
+
+.option-btn.selected {
+    animation: bounce 0.5s ease;
+}
+
+/* Progress Bar Animation */
+.progress-fill {
+    transition: width 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.progress-fill.updating {
+    animation: pulse 0.5s ease;
+}
+
+/* Modal Animations */
+.modal {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.modal.closing {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.modal-content {
+    animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Hint Animation */
+#hint-text {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Loading States */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(33, 150, 243, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+/* Canvas Animation Helpers */
+.canvas-element {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.canvas-element.visible {
+    opacity: 1;
+}
+
+/* Success/Error Overlays */
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(76, 175, 80, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease forwards, fadeOut 0.5s ease 1.5s forwards;
+}
+
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(244, 67, 54, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease forwards, shake 0.5s ease 0.3s, fadeOut 0.5s ease 1.5s forwards;
+}
+
+/* Math Formula Animations */
+.math-term {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.math-term.highlight {
+    color: var(--secondary-color);
+    transform: scale(1.2);
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+}
+
+.math-term.moving {
+    position: relative;
+    animation: formulaTransform 1s ease forwards;
+}
+
+/* Interactive Elements */
+.interactive {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.interactive:active {
+    transform: translateY(0);
+}
+
+/* Confetti Animation (for success) */
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--secondary-color);
+    animation: confetti-fall 3s linear forwards;
+    pointer-events: none;
+}
+
+/* Responsive Animation Performance */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* GPU Acceleration */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Smooth Transitions */
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-slow {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Delayed Animations */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Animation Duration Utilities */
+.duration-fast { animation-duration: 0.2s; }
+.duration-normal { animation-duration: 0.5s; }
+.duration-slow { animation-duration: 1s; }
+
+/* Easing Functions */
+.ease-in { animation-timing-function: ease-in; }
+.ease-out { animation-timing-function: ease-out; }
+.ease-in-out { animation-timing-function: ease-in-out; }
+.ease-bounce { animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }

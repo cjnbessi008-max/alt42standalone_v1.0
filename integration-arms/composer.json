@@ -1,0 +1,30 @@
+{
+    "name": "kaist/integration-arms",
+    "description": "Interactive learning app for integration by parts with robotic arms visualization",
+    "type": "project",
+    "keywords": ["education", "mathematics", "integration", "moodle", "learning"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KAIST Touch Math Academy",
+            "email": "support@touchmath.kaist.ac.kr"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.9",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IntegrationArms\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit tests/"
+    }
+}
