@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Breeze - 연립부등식 해 영역 시각화</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+
+    <!-- Meta -->
+    <meta name="description" content="연립부등식의 해 영역을 Zone-based energy로 시각화하는 교육용 웹 앱">
+    <meta name="author" content="KAIST Touch Math Academy">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <p>Zone Breeze 로딩 중...</p>
+    </div>
+
+    <!-- Main Content Area (Hidden initially) -->
+    <div id="main-content" class="main-content hidden">
+        <!-- Problem Info Panel -->
+        <div class="problem-panel">
+            <h1 id="problem-title">연립부등식 문제</h1>
+            <p id="problem-description" class="problem-description"></p>
+
+            <div class="inequalities-display">
+                <h3>부등식 목록:</h3>
+                <ul id="inequalities-list"></ul>
+            </div>
+
+            <div class="controls">
+                <button id="btn-solve" class="btn btn-primary">해 영역 표시</button>
+                <button id="btn-reset" class="btn btn-secondary">초기화</button>
+                <button id="btn-submit" class="btn btn-success">제출</button>
+            </div>
+
+            <div class="info-panel">
+                <h3>Zone Energy 설명</h3>
+                <div class="energy-legend">
+                    <div class="legend-item">
+                        <span class="color-box high-energy"></span>
+                        <span>High Energy: 모든 조건을 강하게 만족</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box medium-energy"></span>
+                        <span>Medium Energy: 조건을 만족하는 경계 근처</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box low-energy"></span>
+                        <span>Low Energy: 일부 조건만 만족</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smartphone Screen Container (Bottom Right) -->
+    <div id="smartphone-container" class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- Smartphone Header -->
+            <div class="smartphone-header">
+                <div class="notch"></div>
+                <div class="camera"></div>
+                <div class="speaker"></div>
+            </div>
+
+            <!-- Smartphone Screen -->
+            <div class="smartphone-screen">
+                <div class="screen-header">
+                    <h2>Zone Breeze</h2>
+                    <div class="screen-controls">
+                        <button id="btn-zoom-in" class="icon-btn" title="확대">+</button>
+                        <button id="btn-zoom-out" class="icon-btn" title="축소">-</button>
+                        <button id="btn-center" class="icon-btn" title="중앙">⊙</button>
+                    </div>
+                </div>
+
+                <!-- Canvas for visualization -->
+                <canvas id="visualization-canvas" class="visualization-canvas"></canvas>
+
+                <!-- Hover Info Display -->
+                <div id="hover-info" class="hover-info hidden">
+                    <p><strong>좌표:</strong> (<span id="hover-x">0</span>, <span id="hover-y">0</span>)</p>
+                    <p><strong>Energy:</strong> <span id="hover-energy">0%</span></p>
+                    <p id="hover-status"></p>
+                </div>
+
+                <!-- Statistics Display -->
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <span class="stat-label">해 영역 면적:</span>
+                        <span id="solution-area" class="stat-value">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">꼭짓점 수:</span>
+                        <span id="vertex-count" class="stat-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smartphone Footer (Home button) -->
+            <div class="smartphone-footer">
+                <div class="home-button"></div>
+            </div>
+        </div>
+
+        <!-- Drag Handle -->
+        <div class="drag-handle" title="위치 이동">⋮⋮</div>
+    </div>
+
+    <!-- Modal for messages -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 id="modal-title">알림</h2>
+            <p id="modal-message"></p>
+            <button id="modal-ok" class="btn btn-primary">확인</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/inequality.js"></script>
+    <script src="js/visualizer.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Initialize app when DOM is ready -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get activity_id and user_id from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const activityId = urlParams.get('activity_id') || 1;
+            const userId = urlParams.get('user_id') || 0;
+
+            // Initialize the app
+            if (typeof ZoneBreezeApp !== 'undefined') {
+                ZoneBreezeApp.init(activityId, userId);
+            }
+        });
+    </script>
+</body>
+</html>
