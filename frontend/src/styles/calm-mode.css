@@ -1,0 +1,395 @@
+/**
+ * Calm Mode - 푸른색 안정 모드 스타일
+ * 뇌 과열 시 자동으로 활성화되는 차분한 UI
+ */
+
+/* 기본 테마 변수 */
+:root {
+  --normal-bg: #ffffff;
+  --normal-text: #333333;
+  --normal-primary: #007bff;
+  --normal-border: #dee2e6;
+  --normal-shadow: rgba(0, 0, 0, 0.1);
+
+  /* 안정 모드 테마 변수 */
+  --calm-bg-primary: #e3f2fd;
+  --calm-bg-secondary: #bbdefb;
+  --calm-bg-tertiary: #90caf9;
+  --calm-text-primary: #1e3a5f;
+  --calm-text-secondary: #2c5282;
+  --calm-accent: #64b5f6;
+  --calm-border: #90caf9;
+  --calm-shadow: rgba(33, 150, 243, 0.15);
+
+  /* 전환 속도 */
+  --calm-transition-duration: 1.5s;
+}
+
+/* 안정 모드가 활성화된 상태 */
+body.calm-mode {
+  background: linear-gradient(135deg, var(--calm-bg-primary) 0%, var(--calm-bg-secondary) 100%);
+  color: var(--calm-text-primary);
+  transition: all var(--calm-transition-duration) ease-in-out;
+}
+
+/* 컨테이너 스타일 */
+body.calm-mode .container,
+body.calm-mode .content-area {
+  background: var(--calm-bg-primary);
+  border: 1px solid var(--calm-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--calm-shadow);
+  padding: 24px;
+  transition: all var(--calm-transition-duration) ease-in-out;
+}
+
+/* 텍스트 스타일 */
+body.calm-mode h1,
+body.calm-mode h2,
+body.calm-mode h3,
+body.calm-mode h4,
+body.calm-mode h5,
+body.calm-mode h6 {
+  color: var(--calm-text-secondary);
+  font-weight: 500;
+  transition: color var(--calm-transition-duration) ease-in-out;
+}
+
+body.calm-mode p,
+body.calm-mode span,
+body.calm-mode div {
+  color: var(--calm-text-primary);
+  line-height: 1.8;
+  transition: color var(--calm-transition-duration) ease-in-out;
+}
+
+/* 버튼 스타일 */
+body.calm-mode button,
+body.calm-mode .btn {
+  background: var(--calm-accent);
+  color: white;
+  border: 2px solid var(--calm-accent);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--calm-shadow);
+}
+
+body.calm-mode button:hover,
+body.calm-mode .btn:hover {
+  background: var(--calm-bg-tertiary);
+  border-color: var(--calm-bg-tertiary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--calm-shadow);
+}
+
+body.calm-mode button:active,
+body.calm-mode .btn:active {
+  transform: translateY(0);
+}
+
+body.calm-mode button:disabled,
+body.calm-mode .btn:disabled {
+  background: var(--calm-bg-secondary);
+  border-color: var(--calm-border);
+  color: var(--calm-text-secondary);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 입력 필드 스타일 */
+body.calm-mode input,
+body.calm-mode textarea,
+body.calm-mode select {
+  background: white;
+  border: 2px solid var(--calm-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--calm-text-primary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+body.calm-mode input:focus,
+body.calm-mode textarea:focus,
+body.calm-mode select:focus {
+  outline: none;
+  border-color: var(--calm-accent);
+  box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
+}
+
+/* 카드 스타일 */
+body.calm-mode .card {
+  background: white;
+  border: 2px solid var(--calm-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px var(--calm-shadow);
+  transition: all var(--calm-transition-duration) ease-in-out;
+}
+
+body.calm-mode .card:hover {
+  box-shadow: 0 4px 16px var(--calm-shadow);
+  transform: translateY(-2px);
+}
+
+/* 링크 스타일 */
+body.calm-mode a {
+  color: var(--calm-accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+body.calm-mode a:hover {
+  color: var(--calm-bg-tertiary);
+  text-decoration: underline;
+}
+
+/* 경고/알림 배너 */
+body.calm-mode .alert {
+  background: var(--calm-bg-secondary);
+  border-left: 4px solid var(--calm-accent);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* 네비게이션 바 */
+body.calm-mode nav,
+body.calm-mode .navbar {
+  background: var(--calm-bg-secondary);
+  border-bottom: 2px solid var(--calm-border);
+  box-shadow: 0 2px 8px var(--calm-shadow);
+  transition: all var(--calm-transition-duration) ease-in-out;
+}
+
+/* 사이드바 */
+body.calm-mode .sidebar {
+  background: var(--calm-bg-primary);
+  border-right: 2px solid var(--calm-border);
+  transition: all var(--calm-transition-duration) ease-in-out;
+}
+
+/* 테이블 스타일 */
+body.calm-mode table {
+  background: white;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--calm-shadow);
+}
+
+body.calm-mode th {
+  background: var(--calm-bg-secondary);
+  color: var(--calm-text-secondary);
+  padding: 12px 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+body.calm-mode td {
+  background: white;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--calm-border);
+  color: var(--calm-text-primary);
+}
+
+body.calm-mode tr:hover td {
+  background: var(--calm-bg-primary);
+}
+
+/* 모달/오버레이 */
+body.calm-mode .modal-overlay {
+  background: rgba(30, 58, 95, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+body.calm-mode .modal {
+  background: var(--calm-bg-primary);
+  border: 2px solid var(--calm-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px var(--calm-shadow);
+}
+
+/* 프로그레스 바 */
+body.calm-mode .progress {
+  background: var(--calm-bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 12px;
+}
+
+body.calm-mode .progress-bar {
+  background: linear-gradient(90deg, var(--calm-accent) 0%, var(--calm-bg-tertiary) 100%);
+  transition: width 0.5s ease;
+}
+
+/* 애니메이션 감소 */
+body.calm-mode * {
+  animation-duration: 0.5s !important;
+  animation-timing-function: ease-in-out !important;
+}
+
+/* 스크롤바 스타일 (WebKit 기반 브라우저) */
+body.calm-mode ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+body.calm-mode ::-webkit-scrollbar-track {
+  background: var(--calm-bg-primary);
+}
+
+body.calm-mode ::-webkit-scrollbar-thumb {
+  background: var(--calm-border);
+  border-radius: 6px;
+}
+
+body.calm-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--calm-accent);
+}
+
+/* 안정 모드 전환 애니메이션 */
+@keyframes calmModeActivate {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body.calm-mode-activating {
+  animation: calmModeActivate var(--calm-transition-duration) ease-in-out;
+}
+
+/* 안정 모드 알림 배너 */
+.calm-mode-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--calm-bg-secondary) 0%, var(--calm-accent) 100%);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px var(--calm-shadow);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.calm-mode-banner-icon {
+  font-size: 24px;
+}
+
+.calm-mode-banner-text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.calm-mode-banner-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 16px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.calm-mode-banner-close:hover {
+  opacity: 1;
+}
+
+/* 접근성: 사용자가 애니메이션을 선호하지 않는 경우 */
+@media (prefers-reduced-motion: reduce) {
+  body.calm-mode * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --calm-bg-primary: #1a2332;
+    --calm-bg-secondary: #2d3e52;
+    --calm-bg-tertiary: #3d5470;
+    --calm-text-primary: #b3d4fc;
+    --calm-text-secondary: #90c2ff;
+    --calm-accent: #5c9fff;
+    --calm-border: #3d5470;
+    --calm-shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  body.calm-mode .card,
+  body.calm-mode table td {
+    background: #233142;
+  }
+
+  body.calm-mode input,
+  body.calm-mode textarea,
+  body.calm-mode select {
+    background: #233142;
+    color: var(--calm-text-primary);
+  }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  body.calm-mode .container,
+  body.calm-mode .content-area {
+    padding: 16px;
+  }
+
+  body.calm-mode .card {
+    padding: 16px;
+  }
+
+  body.calm-mode button,
+  body.calm-mode .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .calm-mode-banner {
+    left: 10px;
+    right: 10px;
+    transform: none;
+    padding: 12px 20px;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

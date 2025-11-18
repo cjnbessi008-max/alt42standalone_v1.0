@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 for Moodle
+  mysql:
+    image: mysql:5.7
+    container_name: calm-mode-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodlepassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - calm-mode-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Moodle 3.7 with PHP 7.1.9
+  moodle:
+    image: moodlehq/moodle-php-apache:7.1
+    container_name: calm-mode-moodle
+    environment:
+      MOODLE_DATABASE_TYPE: mysqli
+      MOODLE_DATABASE_HOST: mysql
+      MOODLE_DATABASE_NAME: moodle
+      MOODLE_DATABASE_USER: moodle
+      MOODLE_DATABASE_PASSWORD: moodlepassword
+      MOODLE_DATABASE_PORT: 3306
+    ports:
+      - "8080:80"
+    volumes:
+      - moodle_data:/var/www/html
+      - moodle_moodledata:/var/moodledata
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - calm-mode-network
+
+  # Backend Service (Node.js)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: calm-mode-backend
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      MOODLE_DB_HOST: mysql
+      MOODLE_DB_PORT: 3306
+      MOODLE_DB_USER: moodle
+      MOODLE_DB_PASSWORD: moodlepassword
+      MOODLE_DB_NAME: moodle
+      MOODLE_URL: http://moodle
+      MOODLE_WS_TOKEN: ${MOODLE_WS_TOKEN}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/src:/app/src
+    depends_on:
+      - mysql
+      - moodle
+    networks:
+      - calm-mode-network
+    restart: unless-stopped
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: calm-mode-frontend
+    environment:
+      REACT_APP_WS_URL: ws://localhost:3000
+      REACT_APP_API_URL: http://localhost:3000/api
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+    networks:
+      - calm-mode-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  moodle_data:
+  moodle_moodledata:
+
+networks:
+  calm-mode-network:
+    driver: bridge

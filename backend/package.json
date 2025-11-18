@@ -1,0 +1,38 @@
+{
+  "name": "calm-mode-backend",
+  "version": "1.0.0",
+  "description": "Calm Mode Integration Service - Moodle LMS와 뇌 과열 감지, 안정 모드 통합 백엔드",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest",
+    "lint": "eslint src/**/*.js"
+  },
+  "keywords": [
+    "moodle",
+    "lms",
+    "brain-monitoring",
+    "calm-mode",
+    "education"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
