@@ -1,0 +1,354 @@
+/**
+ * 워밍업 문제 추천 컴포넌트 스타일
+ */
+
+.warmup-recommender {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.warmup-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.warmup-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.warmup-header .subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}
+
+/* 로딩 스피너 */
+.loading-spinner {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 에러 메시지 */
+.error-message {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  color: #c33;
+}
+
+.error-message .retry-button {
+  margin-left: 10px;
+  padding: 5px 15px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message .retry-button:hover {
+  background-color: #c0392b;
+}
+
+/* 추천 정보 */
+.recommendation-info {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.info-badge {
+  background-color: #e8f4f8;
+  border-radius: 8px;
+  padding: 10px 15px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.info-badge.confidence {
+  background-color: #fef5e7;
+}
+
+.info-badge .label {
+  font-weight: bold;
+  color: #34495e;
+  margin-right: 8px;
+}
+
+.info-badge .value {
+  color: #2980b9;
+}
+
+/* 문제 카드 */
+.problem-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+.problem-header {
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.problem-header h2 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.problem-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge.subject {
+  background-color: #3498db;
+  color: white;
+}
+
+.badge.difficulty {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.badge.type {
+  background-color: #9b59b6;
+  color: white;
+}
+
+.badge.time {
+  background-color: #f39c12;
+  color: white;
+}
+
+.problem-content {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #2c3e50;
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  white-space: pre-wrap;
+}
+
+/* 답안 입력 폼 */
+.answer-form {
+  margin-top: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #34495e;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.submit-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* 결과 컨테이너 */
+.result-container {
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 10px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-container.correct {
+  background-color: #d5f4e6;
+  border: 2px solid #2ecc71;
+}
+
+.result-container.incorrect {
+  background-color: #fadbd8;
+  border: 2px solid #e74c3c;
+}
+
+.result-message h3 {
+  margin: 0 0 15px;
+  font-size: 1.5rem;
+}
+
+.result-container.correct .result-message h3 {
+  color: #27ae60;
+}
+
+.result-container.incorrect .result-message h3 {
+  color: #c0392b;
+}
+
+.result-details {
+  margin: 20px 0;
+}
+
+.correct-answer {
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.explanation {
+  padding: 15px;
+  background-color: white;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.explanation p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
+
+.lms-sync-status {
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  color: #155724;
+  font-size: 0.9rem;
+}
+
+.next-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.next-button:hover {
+  background-color: #27ae60;
+}
+
+/* 태그 */
+.problem-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.tag {
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .warmup-recommender {
+    padding: 10px;
+  }
+
+  .warmup-header h1 {
+    font-size: 2rem;
+  }
+
+  .problem-card {
+    padding: 20px;
+  }
+
+  .problem-content {
+    font-size: 1.1rem;
+  }
+
+  .recommendation-info {
+    flex-direction: column;
+  }
+
+  .info-badge {
+    min-width: 100%;
+  }
+}
