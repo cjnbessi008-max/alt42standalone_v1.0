@@ -1,0 +1,38 @@
+# Incorrect Solutions Comparison System
+# Root Apache Configuration
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # API Routes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.*)$ api/index.php [QSA,L]
+
+    # Frontend Routes (serve from public directory)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [QSA,L]
+</IfModule>
+
+# Security
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect config and database files
+<FilesMatch "(\.env|\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# PHP Configuration
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_flag display_errors Off
+</IfModule>

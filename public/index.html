@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>풀이 비교 학습 시스템 | Incorrect Solutions Comparison</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-brain"></i> 풀이 비교 학습</h1>
+                <p class="subtitle">올바른 풀이와 잘못된 풀이를 비교하며 학습하세요</p>
+            </div>
+            <div class="user-info" id="userInfo">
+                <span id="userName">학생</span>
+                <button class="btn-stats" id="btnStats">
+                    <i class="fas fa-chart-bar"></i> 통계
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Problem Selection -->
+            <section class="problem-selection" id="problemSelection">
+                <div class="card">
+                    <h2><i class="fas fa-list"></i> 문제 선택</h2>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label>과목:</label>
+                            <select id="subjectFilter">
+                                <option value="">전체</option>
+                                <option value="mathematics" selected>수학</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>난이도:</label>
+                            <select id="difficultyFilter">
+                                <option value="">전체</option>
+                                <option value="easy">쉬움</option>
+                                <option value="medium" selected>보통</option>
+                                <option value="hard">어려움</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>학년:</label>
+                            <select id="gradeFilter">
+                                <option value="">전체</option>
+                                <option value="초등 3학년">초등 3학년</option>
+                                <option value="초등 4학년">초등 4학년</option>
+                                <option value="초등 5학년">초등 5학년</option>
+                                <option value="초등 6학년">초등 6학년</option>
+                                <option value="중등 1학년">중등 1학년</option>
+                                <option value="중등 2학년">중등 2학년</option>
+                                <option value="중등 3학년">중등 3학년</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" id="btnStartRandom">
+                            <i class="fas fa-random"></i> 랜덤 문제 시작
+                        </button>
+                        <button class="btn btn-secondary" id="btnSelectProblem">
+                            <i class="fas fa-search"></i> 문제 목록 보기
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem Display -->
+            <section class="problem-display hidden" id="problemDisplay">
+                <div class="card">
+                    <div class="problem-header">
+                        <div>
+                            <h2 id="problemTitle">문제 제목</h2>
+                            <div class="problem-meta">
+                                <span class="badge" id="problemSubject">수학</span>
+                                <span class="badge" id="problemDifficulty">보통</span>
+                                <span class="badge" id="problemGrade">초등 3학년</span>
+                            </div>
+                        </div>
+                        <button class="btn-close" id="btnCloseProblem">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="problem-content">
+                        <p id="problemDescription">문제 설명이 여기에 표시됩니다.</p>
+                        <div id="problemData" class="problem-data"></div>
+                    </div>
+                    <div class="timer-display">
+                        <i class="fas fa-clock"></i>
+                        <span id="timer">00:00</span>
+                    </div>
+                </div>
+
+                <!-- Solution Comparison -->
+                <div class="solutions-container">
+                    <h3 class="section-title">
+                        <i class="fas fa-balance-scale"></i>
+                        두 풀이 중 올바른 풀이를 선택하세요
+                    </h3>
+
+                    <div class="solutions-grid">
+                        <!-- Solution A -->
+                        <div class="solution-card" id="solutionA" data-solution-id="">
+                            <div class="solution-header">
+                                <h4>풀이 A</h4>
+                            </div>
+                            <div class="solution-content">
+                                <div class="solution-steps" id="stepsA"></div>
+                                <div class="solution-answer">
+                                    <strong>최종 답:</strong>
+                                    <span id="answerA"></span>
+                                </div>
+                            </div>
+                            <button class="btn btn-select" data-solution="a">
+                                <i class="fas fa-check-circle"></i> 이 풀이가 맞습니다
+                            </button>
+                        </div>
+
+                        <!-- Solution B -->
+                        <div class="solution-card" id="solutionB" data-solution-id="">
+                            <div class="solution-header">
+                                <h4>풀이 B</h4>
+                            </div>
+                            <div class="solution-content">
+                                <div class="solution-steps" id="stepsB"></div>
+                                <div class="solution-answer">
+                                    <strong>최종 답:</strong>
+                                    <span id="answerB"></span>
+                                </div>
+                            </button>
+                            <button class="btn btn-select" data-solution="b">
+                                <i class="fas fa-check-circle"></i> 이 풀이가 맞습니다
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div class="feedback-section hidden" id="feedbackSection">
+                    <div class="card feedback-card">
+                        <div class="feedback-icon" id="feedbackIcon"></div>
+                        <h3 id="feedbackTitle">피드백</h3>
+                        <p id="feedbackMessage">피드백 메시지</p>
+                        <div id="feedbackDetails" class="feedback-details"></div>
+                        <button class="btn btn-primary" id="btnNext">
+                            <i class="fas fa-arrow-right"></i> 다음 문제
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Modal -->
+            <div class="modal hidden" id="statsModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-chart-line"></i> 나의 학습 통계</h2>
+                        <button class="btn-close" id="btnCloseStats">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="stats-grid" id="statsGrid">
+                            <!-- Stats will be populated here -->
+                        </div>
+                        <div class="recent-attempts" id="recentAttempts">
+                            <h3>최근 시도</h3>
+                            <div id="attemptsTable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Incorrect Solutions Comparison System | KAIST Touch Math Academy</p>
+        </footer>
+    </div>
+
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
