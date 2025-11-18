@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Sequence App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .app-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .app-header h1 {
+            font-size: 24px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .score-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sequence-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: 150px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .sequence-numbers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .number-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .number-item.glow {
+            animation: glowPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .number-item.question {
+            background: rgba(255, 255, 255, 0.3);
+            font-size: 36px;
+        }
+
+        .sequence-info {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy {
+            background: #10b981;
+        }
+
+        .difficulty-medium {
+            background: #f59e0b;
+        }
+
+        .difficulty-hard {
+            background: #ef4444;
+        }
+
+        .timer {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .answer-area {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 24px;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        .feedback.success {
+            background: rgba(16, 185, 129, 0.3);
+            border: 2px solid #10b981;
+        }
+
+        .feedback.error {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid #ef4444;
+        }
+
+        .hint-box {
+            background: rgba(251, 191, 36, 0.3);
+            border: 2px solid #fbbf24;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .no-problem {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .no-problem h2 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <h1>✨ Glow Sequence ✨</h1>
+            <div class="score-display">
+                <div class="score-item">
+                    <div class="score-label">점수</div>
+                    <div class="score-value" id="current-score">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">문제</div>
+                    <div class="score-value" id="problem-count">0/0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">정답률</div>
+                    <div class="score-value" id="accuracy">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div id="no-problem-message" class="no-problem">
+                <h2>문제를 불러와주세요</h2>
+                <p>메인 화면에서 사용자를 로드하고<br>문제 불러오기 버튼을 클릭해주세요.</p>
+            </div>
+
+            <div id="game-content" style="display: none; width: 100%;">
+                <div class="sequence-display">
+                    <div class="sequence-numbers" id="sequence-numbers">
+                        <!-- Numbers will be inserted here dynamically -->
+                    </div>
+                    <div class="sequence-info">
+                        <span class="difficulty-badge" id="difficulty-badge">쉬움</span>
+                        <div class="timer" id="timer">시간: 60초</div>
+                    </div>
+                </div>
+
+                <div class="answer-area">
+                    <input type="number" id="answer-input" class="answer-input" placeholder="정답을 입력하세요">
+                    <div class="button-group">
+                        <button id="submit-btn" class="btn btn-primary">제출</button>
+                        <button id="hint-btn" class="btn btn-secondary">힌트</button>
+                        <button id="next-btn" class="btn btn-secondary" style="display: none;">다음 문제</button>
+                    </div>
+                    <div id="hint-box" class="hint-box">
+                        <strong>💡 힌트:</strong> <span id="hint-text"></span>
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/glow-animation.js"></script>
+    <script>
+        let currentStudent = null;
+        let problems = [];
+        let currentProblemIndex = 0;
+        let currentProblem = null;
+        let timeRemaining = 0;
+        let timerInterval = null;
+        let startTime = null;
+        let hintUsed = false;
+        let correctCount = 0;
+        let totalAttempts = 0;
+
+        // Listen for messages from parent
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'USER_LOADED') {
+                currentStudent = {
+                    id: event.data.student_id,
+                    username: event.data.username
+                };
+            } else if (event.data.type === 'PROBLEMS_LOADED') {
+                problems = event.data.problems;
+                currentProblemIndex = 0;
+                correctCount = 0;
+                totalAttempts = 0;
+                loadProblem();
+            }
+        });
+
+        function loadProblem() {
+            if (currentProblemIndex >= problems.length) {
+                showFeedback('모든 문제를 완료했습니다! 🎉', 'success');
+                document.getElementById('game-content').style.display = 'none';
+                document.getElementById('no-problem-message').innerHTML = '<h2>🎊 축하합니다!</h2><p>모든 문제를 완료했습니다.</p>';
+                document.getElementById('no-problem-message').style.display = 'block';
+                return;
+            }
+
+            currentProblem = problems[currentProblemIndex];
+            hintUsed = false;
+            startTime = Date.now();
+
+            // Update UI
+            document.getElementById('no-problem-message').style.display = 'none';
+            document.getElementById('game-content').style.display = 'block';
+            document.getElementById('problem-count').textContent = `${currentProblemIndex + 1}/${problems.length}`;
+
+            // Display sequence
+            displaySequence(currentProblem);
+
+            // Reset input and buttons
+            document.getElementById('answer-input').value = '';
+            document.getElementById('answer-input').disabled = false;
+            document.getElementById('submit-btn').style.display = 'inline-block';
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('hint-box').style.display = 'none';
+            document.getElementById('feedback').style.display = 'none';
+
+            // Start timer
+            timeRemaining = currentProblem.time_limit_seconds;
+            updateTimer();
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimer();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function displaySequence(problem) {
+            const container = document.getElementById('sequence-numbers');
+            container.innerHTML = '';
+
+            const pattern = problem.sequence_pattern.split(',');
+            pattern.forEach((num, index) => {
+                const item = document.createElement('div');
+                item.className = 'number-item';
+
+                if (num.trim() === '?') {
+                    item.className += ' question';
+                    item.textContent = '?';
+                } else {
+                    item.textContent = num.trim();
+                    item.className += ' glow';
+                    item.style.color = problem.glow_color_primary;
+                    item.style.animationDelay = `${index * 0.2}s`;
+                }
+
+                container.appendChild(item);
+            });
+
+            // Update difficulty badge
+            const badge = document.getElementById('difficulty-badge');
+            badge.textContent = {
+                'easy': '쉬움',
+                'medium': '보통',
+                'hard': '어려움'
+            }[problem.difficulty_level];
+            badge.className = `difficulty-badge difficulty-${problem.difficulty_level}`;
+        }
+
+        function updateTimer() {
+            document.getElementById('timer').textContent = `⏱️ 시간: ${timeRemaining}초`;
+        }
+
+        function handleTimeout() {
+            showFeedback('시간이 초과되었습니다! ⏰', 'error');
+            document.getElementById('answer-input').disabled = true;
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        // Submit answer
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const answer = document.getElementById('answer-input').value.trim();
+            if (!answer) {
+                alert('답을 입력해주세요.');
+                return;
+            }
+
+            if (!currentStudent) {
+                alert('먼저 사용자를 로드해주세요.');
+                return;
+            }
+
+            const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+
+            try {
+                const response = await fetch('../api/submit_answer.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        student_id: currentStudent.id,
+                        sequence_id: currentProblem.id,
+                        answer: answer,
+                        time_spent: timeSpent,
+                        hint_used: hintUsed
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    const result = data.data;
+                    totalAttempts++;
+
+                    if (result.is_correct) {
+                        correctCount++;
+                        showFeedback(result.feedback + ` (+${result.score_earned}점)`, 'success');
+                        updateScore(result.score_earned);
+
+                        // Clear timer
+                        if (timerInterval) clearInterval(timerInterval);
+
+                        // Show next button
+                        document.getElementById('submit-btn').style.display = 'none';
+                        document.getElementById('next-btn').style.display = 'inline-block';
+                    } else {
+                        showFeedback(result.feedback, 'error');
+                        if (!result.can_retry) {
+                            document.getElementById('submit-btn').disabled = true;
+                            document.getElementById('next-btn').style.display = 'inline-block';
+                            if (timerInterval) clearInterval(timerInterval);
+                        }
+                    }
+
+                    updateAccuracy();
+
+                    // Notify parent
+                    window.parent.postMessage({ type: 'ANSWER_SUBMITTED' }, '*');
+                } else {
+                    alert('오류: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                alert('답안 제출 중 오류가 발생했습니다.');
+            }
+        });
+
+        // Show hint
+        document.getElementById('hint-btn').addEventListener('click', () => {
+            hintUsed = true;
+            document.getElementById('hint-text').textContent = currentProblem.hint_text;
+            document.getElementById('hint-box').style.display = 'block';
+        });
+
+        // Next problem
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentProblemIndex++;
+            loadProblem();
+        });
+
+        // Enter key to submit
+        document.getElementById('answer-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-btn').click();
+            }
+        });
+
+        function showFeedback(message, type) {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = message;
+            feedback.className = `feedback ${type}`;
+            feedback.style.display = 'block';
+        }
+
+        function updateScore(points) {
+            const scoreEl = document.getElementById('current-score');
+            const currentScore = parseInt(scoreEl.textContent) || 0;
+            scoreEl.textContent = currentScore + points;
+        }
+
+        function updateAccuracy() {
+            const accuracy = totalAttempts > 0 ? Math.round((correctCount / totalAttempts) * 100) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+    </script>
+</body>
+</html>
