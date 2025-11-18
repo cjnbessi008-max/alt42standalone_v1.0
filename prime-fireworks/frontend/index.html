@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Fireworks - 소수 분해 학습 앱</title>
+    <link rel="stylesheet" href="styles/smartphone.css">
+    <link rel="stylesheet" href="styles/fireworks.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div id="main-container">
+        <h1 class="page-title">Prime Fireworks</h1>
+        <p class="page-subtitle">소수 분해를 폭죽처럼 배워보세요!</p>
+    </div>
+
+    <!-- 가상 스마트폰 화면 (우측 하단) -->
+    <div id="smartphone-frame" class="smartphone">
+        <!-- 스마트폰 헤더 -->
+        <div class="smartphone-header">
+            <div class="status-bar">
+                <span class="time" id="current-time">10:30</span>
+                <span class="icons">
+                    <span class="icon-signal">📶</span>
+                    <span class="icon-battery">🔋</span>
+                </span>
+            </div>
+            <div class="app-header">
+                <h2>🎆 Prime Fireworks</h2>
+                <button id="close-btn" class="btn-close">×</button>
+            </div>
+        </div>
+
+        <!-- 앱 콘텐츠 -->
+        <div class="smartphone-content" id="app-content">
+            <!-- 로딩 화면 -->
+            <div id="loading-screen" class="screen active">
+                <div class="loading-spinner"></div>
+                <p>문제를 불러오는 중...</p>
+            </div>
+
+            <!-- 문제 화면 -->
+            <div id="problem-screen" class="screen">
+                <div class="problem-info">
+                    <div class="difficulty-badge" id="difficulty-badge">중간</div>
+                    <h3 class="problem-title" id="problem-title">60을 소수의 곱으로 나타내세요</h3>
+                    <p class="problem-hint" id="problem-hint">작은 소수부터 차례대로 나누어보세요</p>
+                </div>
+
+                <!-- 폭죽 캔버스 -->
+                <div class="canvas-container">
+                    <canvas id="fireworks-canvas" width="350" height="400"></canvas>
+                    <div class="number-display" id="number-display">60</div>
+                </div>
+
+                <!-- 답안 입력 -->
+                <div class="answer-section">
+                    <label class="answer-label">소수 인수들:</label>
+                    <div class="answer-input-container" id="answer-inputs">
+                        <!-- 동적으로 생성됨 -->
+                    </div>
+                    <button id="add-factor-btn" class="btn-add">+ 인수 추가</button>
+                </div>
+
+                <!-- 컨트롤 버튼 -->
+                <div class="controls">
+                    <button id="reset-btn" class="btn btn-secondary">다시하기</button>
+                    <button id="submit-btn" class="btn btn-primary">제출하기</button>
+                </div>
+
+                <!-- 타이머 -->
+                <div class="timer" id="timer">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="time-display">0:00</span>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div id="result-screen" class="screen">
+                <div class="result-container">
+                    <div class="result-icon" id="result-icon">🎉</div>
+                    <h3 class="result-title" id="result-title">정답입니다!</h3>
+                    <p class="result-message" id="result-message">완벽한 소수 분해입니다!</p>
+
+                    <div class="result-details">
+                        <div class="detail-item">
+                            <span class="detail-label">점수:</span>
+                            <span class="detail-value" id="score-value">100</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">소요 시간:</span>
+                            <span class="detail-value" id="time-value">1:23</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">정답:</span>
+                            <span class="detail-value" id="answer-value">2 × 2 × 3 × 5</span>
+                        </div>
+                    </div>
+
+                    <button id="next-problem-btn" class="btn btn-primary btn-large">다음 문제</button>
+                </div>
+            </div>
+
+            <!-- 진도 화면 -->
+            <div id="progress-screen" class="screen">
+                <div class="progress-container">
+                    <h3>학습 진도</h3>
+                    <div class="progress-stats">
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-problems">0</div>
+                            <div class="stat-label">전체 문제</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="completed-problems">0</div>
+                            <div class="stat-label">완료</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="correct-rate">0%</div>
+                            <div class="stat-label">정답률</div>
+                        </div>
+                        <div class="stat-card highlight">
+                            <div class="stat-value" id="fireworks-count">0</div>
+                            <div class="stat-label">🎆 폭죽</div>
+                        </div>
+                    </div>
+                    <button id="start-learning-btn" class="btn btn-primary btn-large">학습 시작</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 스마트폰 하단 버튼 -->
+        <div class="smartphone-footer">
+            <button class="nav-btn" data-screen="problem">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">문제</span>
+            </button>
+            <button class="nav-btn" data-screen="progress">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">진도</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="components/api.js"></script>
+    <script src="components/fireworks.js"></script>
+    <script src="components/app.js"></script>
+</body>
+</html>
