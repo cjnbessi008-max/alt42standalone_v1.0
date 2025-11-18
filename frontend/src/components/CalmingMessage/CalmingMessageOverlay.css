@@ -1,0 +1,229 @@
+/**
+ * Calming Message Overlay Styles
+ * Styling for the calming message modal and animations
+ */
+
+/* ========== Overlay Container ========== */
+.calming-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.overlay-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ========== Message Container ========== */
+.message-container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 480px;
+  width: 90%;
+  animation: slideUp 0.4s ease-out;
+}
+
+/* ========== Message Text ========== */
+.calming-message-text {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 24px 0;
+  color: #333333;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+
+/* ========== Continue Button ========== */
+.continue-button {
+  background: linear-gradient(135deg, #42a5f5 0%, #478ed1 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(66, 165, 245, 0.3);
+}
+
+.continue-button:hover {
+  background: linear-gradient(135deg, #1e88e5 0%, #1976d2 100%);
+  box-shadow: 0 6px 16px rgba(66, 165, 245, 0.4);
+  transform: translateY(-2px);
+}
+
+.continue-button:focus {
+  outline: 3px solid #42a5f5;
+  outline-offset: 3px;
+}
+
+.continue-button:active {
+  transform: translateY(0);
+}
+
+/* ========== Feedback Section ========== */
+.feedback-section {
+  margin-top: 24px;
+}
+
+.feedback-question {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.feedback-button {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.feedback-button.helpful {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-color: #4caf50;
+}
+
+.feedback-button.helpful:hover {
+  background: #c8e6c9;
+  transform: scale(1.05);
+}
+
+.feedback-button.not-helpful {
+  background: #ffebee;
+  color: #c62828;
+  border-color: #ef5350;
+}
+
+.feedback-button.not-helpful:hover {
+  background: #ffcdd2;
+  transform: scale(1.05);
+}
+
+/* ========== Accessibility ========== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ========== Animations ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .message-container {
+    padding: 36px 28px;
+    max-width: 90%;
+  }
+
+  .calming-message-text {
+    font-size: 18px;
+  }
+
+  .continue-button {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+
+  .feedback-buttons {
+    flex-direction: column;
+  }
+
+  .feedback-button {
+    width: 100%;
+  }
+}
+
+/* ========== Dark Mode Support ========== */
+@media (prefers-color-scheme: dark) {
+  .message-container {
+    background: #1e1e1e;
+    color: #ffffff;
+  }
+
+  .calming-message-text {
+    color: #e0e0e0;
+  }
+
+  .feedback-question {
+    color: #bdbdbd;
+  }
+}
+
+/* ========== High Contrast Mode ========== */
+@media (prefers-contrast: high) {
+  .continue-button {
+    border: 2px solid #000000;
+  }
+
+  .overlay-background {
+    background: rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  .calming-message-overlay,
+  .message-container,
+  .continue-button,
+  .feedback-button {
+    animation: none;
+    transition: none;
+  }
+}
