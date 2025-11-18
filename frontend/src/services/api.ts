@@ -10,6 +10,68 @@ const apiClient = axios.create({
   },
 })
 
+// Add token to requests
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+// Authentication APIs
+export const login = async (username: string, password: string) => {
+  const formData = new FormData()
+  formData.append('username', username)
+  formData.append('password', password)
+
+  const response = await apiClient.post('/auth/token', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+  return response.data
+}
+
+export const register = async (userData: any) => {
+  const response = await apiClient.post('/auth/register', userData)
+  return response.data
+}
+
+export const getCurrentUser = async () => {
+  const response = await apiClient.get('/auth/me')
+  return response.data
+}
+
+export const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+}
+
+// Recommendation APIs
+export const getMyRecommendations = async (limit: number = 5) => {
+  const response = await apiClient.get('/recommendations/my-recommendations', {
+    params: { limit }
+  })
+  return response.data
+}
+
+export const getMyLearningPath = async (moduleId?: string) => {
+  const response = await apiClient.get('/recommendations/my-learning-path', {
+    params: moduleId ? { module_id: moduleId } : {}
+  })
+  return response.data
+}
+
+export const getDashboardInsights = async () => {
+  const response = await apiClient.get('/recommendations/dashboard/insights')
+  return response.data
+}
+
+export const getTeacherInterventions = async () => {
+  const response = await apiClient.get('/recommendations/teacher/intervention-recommendations')
+  return response.data
+}
+
+// Flowchart APIs
 export const fetchSolutionFlowchart = async (
   solutionId: string,
   regenerate: boolean = false
@@ -33,6 +95,7 @@ export const generateFlowchart = async (
   return response.data
 }
 
+// Solution tracking APIs
 export const trackStudentAction = async (
   studentId: string,
   solutionId: string,

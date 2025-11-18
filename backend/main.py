@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import logging
 
-from app.api.routes import student_solutions, flowchart, lms_integration
+from app.api.routes import student_solutions, flowchart, lms_integration, auth, recommendations
 from app.core.config import settings
 from app.db.database import engine, Base
 
@@ -32,9 +32,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="AI Education System - Student Solution Flowchart",
-    description="LMS-integrated system for visualizing student solution paths",
-    version="1.0.0",
+    title="AI Education System - Standalone Web App",
+    description="AI-powered learning platform with personalized recommendations and visual flowcharts",
+    version="2.0.0",
     lifespan=lifespan
 )
 
@@ -49,6 +49,11 @@ app.add_middleware(
 
 # Include routers
 app.include_router(
+    auth.router,
+    prefix="/api/v1/auth",
+    tags=["Authentication"]
+)
+app.include_router(
     student_solutions.router,
     prefix="/api/v1/solutions",
     tags=["Student Solutions"]
@@ -59,18 +64,32 @@ app.include_router(
     tags=["Flowchart Visualization"]
 )
 app.include_router(
+    recommendations.router,
+    prefix="/api/v1/recommendations",
+    tags=["AI Recommendations"]
+)
+app.include_router(
     lms_integration.router,
     prefix="/api/v1/lms",
-    tags=["LMS Integration"]
+    tags=["LMS Integration (Optional)"]
 )
 
 
 @app.get("/")
 async def root():
     return {
-        "message": "AI Education System API",
-        "version": "1.0.0",
-        "features": ["Student Solution Tracking", "Visual Flowchart Generation", "LMS Integration"]
+        "message": "AI Education System - Standalone Web App",
+        "version": "2.0.0",
+        "features": [
+            "Standalone Authentication",
+            "Student Solution Tracking",
+            "Visual Flowchart Generation",
+            "AI-Powered Personalized Recommendations",
+            "Learning Pattern Analysis",
+            "Teacher Intervention Insights",
+            "Optional LMS Integration"
+        ],
+        "docs": "/docs"
     }
 
 

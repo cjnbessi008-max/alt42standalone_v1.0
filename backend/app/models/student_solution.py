@@ -25,16 +25,30 @@ class ActionType(str, enum.Enum):
 
 
 class Student(Base):
-    """Student model"""
+    """Student model with standalone authentication"""
     __tablename__ = "students"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    lms_user_id = Column(String(255), unique=True, nullable=False, index=True)
+    lms_user_id = Column(String(255), unique=True, nullable=True, index=True)  # Optional for LMS integration
+    username = Column(String(100), unique=True, nullable=False, index=True)  # For standalone auth
+    email = Column(String(255), unique=True, nullable=False)
     name = Column(String(255), nullable=False)
-    email = Column(String(255), unique=True)
+    password_hash = Column(String(255), nullable=False)  # Hashed password
+
+    # User role and status
+    is_active = Column(Boolean, default=True)
+    is_teacher = Column(Boolean, default=False)
+    is_admin = Column(Boolean, default=False)
+
+    # Profile
     grade_level = Column(String(50))
+    avatar_url = Column(String(500), nullable=True)
+    bio = Column(Text, nullable=True)
+
+    # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    last_login = Column(DateTime, nullable=True)
 
     # Relationships
     solutions = relationship("StudentSolution", back_populates="student")
