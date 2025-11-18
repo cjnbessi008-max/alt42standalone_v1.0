@@ -1,0 +1,55 @@
+# Apache .htaccess Configuration
+# Absolute Tunnel App
+
+# PHP 설정
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log logs/php_errors.log
+</IfModule>
+
+# MIME 타입
+AddType application/javascript .js
+AddType text/css .css
+AddType application/json .json
+
+# 압축
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+# 캐싱
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
+
+# 보안 헤더
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# config 폴더 접근 금지
+<FilesMatch "config\.php">
+    Require all denied
+</FilesMatch>
+
+# 디렉토리 리스팅 비활성화
+Options -Indexes
+
+# URL 리라이트
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /absolute-tunnel/
+
+    # HTTPS 리다이렉트 (프로덕션)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>

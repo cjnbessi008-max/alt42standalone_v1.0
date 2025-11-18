@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Absolute Tunnel - 절댓값 부등식 학습</title>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/smartphone.css">
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 스마트폰 프레임 (우측 하단) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- 스마트폰 헤더 -->
+            <div class="smartphone-header">
+                <div class="status-bar">
+                    <span class="time" id="current-time">12:00</span>
+                    <div class="status-icons">
+                        <span class="battery">🔋</span>
+                        <span class="signal">📶</span>
+                    </div>
+                </div>
+                <div class="app-header">
+                    <button class="back-btn" onclick="app.goBack()">←</button>
+                    <h1 class="app-title">Absolute Tunnel</h1>
+                    <button class="menu-btn" onclick="app.toggleMenu()">☰</button>
+                </div>
+            </div>
+
+            <!-- 스마트폰 컨텐츠 -->
+            <div class="smartphone-content">
+                <!-- 로딩 화면 -->
+                <div id="loading-screen" class="screen active">
+                    <div class="loading-spinner"></div>
+                    <p>Loading...</p>
+                </div>
+
+                <!-- 메인 화면 -->
+                <div id="main-screen" class="screen">
+                    <div class="problem-info">
+                        <h2>문제</h2>
+                        <div class="equation-display" id="equation-display">
+                            절댓값 부등식을 로드 중...
+                        </div>
+                        <p class="problem-description" id="problem-description">
+                            아래 터널로 표현된 해의 범위를 확인하고 정답을 입력하세요.
+                        </p>
+                    </div>
+
+                    <!-- 3D 터널 시각화 영역 -->
+                    <div class="tunnel-container" id="tunnel-container">
+                        <!-- Three.js가 여기에 렌더링됩니다 -->
+                    </div>
+
+                    <!-- 컨트롤 패널 -->
+                    <div class="controls-panel">
+                        <div class="control-group">
+                            <label>속도</label>
+                            <input type="range" id="speed-slider" min="0.1" max="3" step="0.1" value="1.0">
+                            <span id="speed-value">1.0x</span>
+                        </div>
+                        <button class="control-btn" onclick="app.resetCamera()">
+                            📷 카메라 리셋
+                        </button>
+                    </div>
+
+                    <!-- 답안 입력 -->
+                    <div class="answer-section">
+                        <h3>답안 입력</h3>
+                        <div class="answer-input-group">
+                            <label>해의 범위:</label>
+                            <input type="text" id="answer-input" placeholder="예: -1 < x < 5" class="answer-input">
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="app.showHint()">💡 힌트</button>
+                            <button class="btn btn-primary" onclick="app.submitAnswer()">✓ 제출</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 결과 화면 -->
+                <div id="result-screen" class="screen">
+                    <div class="result-container">
+                        <div class="result-icon" id="result-icon">✓</div>
+                        <h2 class="result-title" id="result-title">정답입니다!</h2>
+                        <p class="result-message" id="result-message"></p>
+
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <span class="stat-label">소요 시간</span>
+                                <span class="stat-value" id="time-spent">0초</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">시도 횟수</span>
+                                <span class="stat-value" id="attempt-count">1회</span>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="app.showExplanation()">📚 해설 보기</button>
+                            <button class="btn btn-primary" onclick="app.nextProblem()">➔ 다음 문제</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 설명 화면 -->
+                <div id="explanation-screen" class="screen">
+                    <div class="explanation-container">
+                        <h2>문제 해설</h2>
+                        <div class="explanation-content" id="explanation-content">
+                            <!-- 동적으로 생성 -->
+                        </div>
+                        <button class="btn btn-primary" onclick="app.closeExplanation()">닫기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 하단 버튼 -->
+            <div class="smartphone-footer">
+                <div class="home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메뉴 오버레이 -->
+    <div id="menu-overlay" class="menu-overlay">
+        <div class="menu-content">
+            <h3>설정</h3>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" id="show-grid" checked>
+                    격자 표시
+                </label>
+            </div>
+            <div class="menu-item">
+                <label>
+                    <input type="checkbox" id="sound-enabled">
+                    사운드 효과
+                </label>
+            </div>
+            <div class="menu-item">
+                <label>테마</label>
+                <select id="theme-select">
+                    <option value="default">기본</option>
+                    <option value="dark">다크</option>
+                    <option value="light">라이트</option>
+                </select>
+            </div>
+            <button class="btn btn-secondary" onclick="app.toggleMenu()">닫기</button>
+        </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script src="../assets/js/absolute-tunnel-engine.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
