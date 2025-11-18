@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 Standalone - Zero Spark Math</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ALT42 Standalone - Zero Spark Math</h1>
+            <p class="subtitle">KAIST Touch Math Academy - Interactive Function Explorer</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <h2>문제 설정 / Problem Settings</h2>
+
+                <div class="input-group">
+                    <label for="functionInput">함수 입력 / Function (y = ):</label>
+                    <input type="text" id="functionInput" placeholder="예: x^2 - 4" value="x^2 - 4">
+                    <small>예제: x^2 - 4, x^3 - 2*x, sin(x), x^2 - 5*x + 6</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="rangeMin">X 범위 최소값 / Min:</label>
+                    <input type="number" id="rangeMin" value="-5" step="0.5">
+                </div>
+
+                <div class="input-group">
+                    <label for="rangeMax">X 범위 최대값 / Max:</label>
+                    <input type="number" id="rangeMax" value="5" step="0.5">
+                </div>
+
+                <button id="findZerosBtn" class="btn-primary">근 찾기 / Find Zeros</button>
+                <button id="resetBtn" class="btn-secondary">초기화 / Reset</button>
+
+                <div class="results">
+                    <h3>발견된 근 / Found Zeros:</h3>
+                    <div id="zerosList"></div>
+                </div>
+
+                <div class="lms-info">
+                    <h3>LMS 연동 정보 / LMS Integration</h3>
+                    <p>Moodle Version: <span id="moodleVersion">3.7</span></p>
+                    <p>Status: <span id="lmsStatus" class="status-ready">Ready</span></p>
+                </div>
+            </div>
+
+            <!-- Virtual Smartphone Display -->
+            <div class="smartphone-container">
+                <div class="smartphone">
+                    <div class="smartphone-screen">
+                        <div class="screen-header">
+                            <span class="time">14:30</span>
+                            <span class="battery">🔋 85%</span>
+                        </div>
+                        <canvas id="graphCanvas"></canvas>
+                        <div class="screen-footer">
+                            <p id="statusText">그래프를 그리려면 '근 찾기'를 클릭하세요</p>
+                        </div>
+                    </div>
+                    <div class="smartphone-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="math-parser.js"></script>
+    <script src="zero-finder.js"></script>
+    <script src="spark-effect.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
