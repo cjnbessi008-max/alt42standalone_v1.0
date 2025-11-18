@@ -1,0 +1,76 @@
+# Inequality Arrow - Git Ignore File
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Database
+*.sql.gz
+*.sql.backup
+database/backups/
+
+# Logs
+*.log
+logs/
+backend/logs/
+frontend/logs/
+
+# IDE and Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PHP
+vendor/
+composer.phar
+composer.lock
+
+# Node.js (if used for build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.cache
+
+# User uploads
+uploads/
+files/
+
+# Session files
+sessions/
+
+# Docker
+docker-compose.override.yml
+
+# PHPUnit
+.phpunit.result.cache
+phpunit.xml
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Sensitive configuration
+config.local.php

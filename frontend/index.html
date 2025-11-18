@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inequality Arrow - 부등호 학습 앱</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎯 Inequality Arrow</h1>
+            <div class="header-info">
+                <span id="userName">학생</span>
+                <span class="score">점수: <span id="score">0</span></span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <!-- Problem Display -->
+            <div class="problem-section">
+                <div class="problem-card">
+                    <h2>문제</h2>
+                    <div class="problem-display" id="problemDisplay">
+                        <div class="number-box left-number" id="leftNumber">5</div>
+                        <div class="operator-box" id="operatorBox">?</div>
+                        <div class="number-box right-number" id="rightNumber">3</div>
+                    </div>
+                    <p class="problem-text" id="problemText">두 숫자를 비교하세요</p>
+                </div>
+
+                <!-- Operator Selection Buttons -->
+                <div class="button-group">
+                    <button class="operator-btn" data-operator="<" onclick="selectOperator('<')">
+                        <span class="btn-symbol">&lt;</span>
+                        <span class="btn-label">작다</span>
+                    </button>
+                    <button class="operator-btn" data-operator="=" onclick="selectOperator('=')">
+                        <span class="btn-symbol">=</span>
+                        <span class="btn-label">같다</span>
+                    </button>
+                    <button class="operator-btn" data-operator=">" onclick="selectOperator('>')">
+                        <span class="btn-symbol">&gt;</span>
+                        <span class="btn-label">크다</span>
+                    </button>
+                </div>
+
+                <!-- Result Message -->
+                <div class="result-message" id="resultMessage"></div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="stat-card">
+                    <div class="stat-label">총 문제</div>
+                    <div class="stat-value" id="totalProblems">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">정답</div>
+                    <div class="stat-value correct" id="correctAnswers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">정확도</div>
+                    <div class="stat-value" id="accuracy">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container" id="smartphoneContainer">
+            <div class="smartphone">
+                <div class="smartphone-header">
+                    <div class="notch"></div>
+                    <div class="speaker"></div>
+                </div>
+
+                <div class="smartphone-screen">
+                    <!-- Arrow Display Area -->
+                    <div class="arrow-display" id="arrowDisplay">
+                        <svg class="arrow-svg" id="arrowSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Arrow pointing right (>) -->
+                            <g id="arrowRight" class="arrow-group" style="display: none;">
+                                <path class="arrow-path" d="M 50 150 L 200 150 L 200 100 L 280 150 L 200 200 L 200 150 Z"
+                                      fill="#FF5722" stroke="#D84315" stroke-width="3"/>
+                                <circle class="pulse-circle" cx="280" cy="150" r="20" fill="#FF5722" opacity="0.3"/>
+                            </g>
+
+                            <!-- Arrow pointing left (<) -->
+                            <g id="arrowLeft" class="arrow-group" style="display: none;">
+                                <path class="arrow-path" d="M 250 150 L 100 150 L 100 100 L 20 150 L 100 200 L 100 150 Z"
+                                      fill="#2196F3" stroke="#1565C0" stroke-width="3"/>
+                                <circle class="pulse-circle" cx="20" cy="150" r="20" fill="#2196F3" opacity="0.3"/>
+                            </g>
+
+                            <!-- Equal sign (=) -->
+                            <g id="arrowEqual" class="arrow-group" style="display: none;">
+                                <rect x="70" y="120" width="160" height="20" rx="10" fill="#4CAF50" stroke="#2E7D32" stroke-width="3"/>
+                                <rect x="70" y="160" width="160" height="20" rx="10" fill="#4CAF50" stroke="#2E7D32" stroke-width="3"/>
+                                <circle class="pulse-circle" cx="150" cy="150" r="30" fill="#4CAF50" opacity="0.3"/>
+                            </g>
+
+                            <!-- Idle/Waiting State -->
+                            <g id="arrowIdle" class="arrow-group">
+                                <circle cx="150" cy="150" r="40" fill="#9E9E9E" opacity="0.5"/>
+                                <text x="150" y="165" text-anchor="middle" font-size="48" fill="#ffffff" font-weight="bold">?</text>
+                            </g>
+                        </svg>
+
+                        <!-- Direction Label -->
+                        <div class="direction-label" id="directionLabel">방향을 기다리는 중...</div>
+                    </div>
+
+                    <!-- Comparison Display -->
+                    <div class="comparison-display" id="comparisonDisplay">
+                        <span class="comp-left" id="compLeft">-</span>
+                        <span class="comp-operator" id="compOperator">?</span>
+                        <span class="comp-right" id="compRight">-</span>
+                    </div>
+                </div>
+
+                <div class="smartphone-footer">
+                    <div class="home-button"></div>
+                </div>
+            </div>
+
+            <!-- Smartphone Toggle Button -->
+            <button class="smartphone-toggle" id="smartphoneToggle" onclick="toggleSmartphone()">
+                <span id="toggleIcon">📱</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
+        <div class="settings-content" id="settingsContent">
+            <h3>설정</h3>
+            <div class="setting-item">
+                <label for="animSpeed">애니메이션 속도</label>
+                <select id="animSpeed" onchange="updateSettings()">
+                    <option value="slow">느림</option>
+                    <option value="medium" selected>보통</option>
+                    <option value="fast">빠름</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label for="arrowColor">화살표 색상</label>
+                <input type="color" id="arrowColor" value="#FF5722" onchange="updateSettings()">
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="enableSound" checked onchange="updateSettings()">
+                    소리 효과
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="enableHaptics" checked onchange="updateSettings()">
+                    진동 효과
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
