@@ -1,0 +1,323 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Smartphone Container */
+.smartphone-container {
+    width: 100%;
+    max-width: 375px;
+    height: 812px;
+    background: #000;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    border-radius: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+}
+
+/* Scrollbar Styling */
+.smartphone-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.smartphone-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.app-header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.app-header .subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Sections */
+section {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 8px;
+}
+
+/* Problem Info */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.info-item label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+.info-item span {
+    font-size: 16px;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Canvas */
+#stairs-canvas {
+    width: 100%;
+    height: 250px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Sequence Display */
+.sequence-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sequence-item {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Controls */
+.control-group {
+    margin-bottom: 12px;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.control-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.control-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Formula */
+.formula-display {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.formula-display p {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.formula-display p:last-child {
+    margin-bottom: 0;
+}
+
+#formula-specific {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.app-footer p {
+    font-size: 12px;
+    color: #666;
+}
+
+#moodle-status {
+    font-weight: 600;
+    color: #667eea;
+}
+
+#moodle-status.connected {
+    color: #28a745;
+}
+
+#moodle-status.error {
+    color: #dc3545;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 420px) {
+    .smartphone-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .smartphone-container::before {
+        display: none;
+    }
+
+    .smartphone-screen {
+        border-radius: 0;
+    }
+}
+
+/* Animation for stairs */
+.stair-step {
+    animation: drawStair 0.5s ease-in-out;
+}
+
+@keyframes drawStair {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

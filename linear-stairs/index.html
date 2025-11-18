@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Linear Stairs - 등차수열 시각화</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="smartphone-screen">
+            <!-- Header -->
+            <header class="app-header">
+                <h1>Linear Stairs</h1>
+                <p class="subtitle">등차수열 계단 시각화</p>
+            </header>
+
+            <!-- Problem Information -->
+            <section class="problem-info">
+                <h2>문제 정보</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>첫째항 (a₁):</label>
+                        <span id="first-term">1</span>
+                    </div>
+                    <div class="info-item">
+                        <label>공차 (d):</label>
+                        <span id="common-diff">2</span>
+                    </div>
+                    <div class="info-item">
+                        <label>항의 개수:</label>
+                        <span id="term-count">5</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visualization Canvas -->
+            <section class="visualization">
+                <h2>계단 시각화</h2>
+                <canvas id="stairs-canvas"></canvas>
+            </section>
+
+            <!-- Sequence Display -->
+            <section class="sequence-display">
+                <h2>수열</h2>
+                <div id="sequence-list" class="sequence-items"></div>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls">
+                <h2>설정</h2>
+                <div class="control-group">
+                    <label for="input-first-term">첫째항 (a₁):</label>
+                    <input type="number" id="input-first-term" value="1" min="-100" max="100">
+                </div>
+                <div class="control-group">
+                    <label for="input-common-diff">공차 (d):</label>
+                    <input type="number" id="input-common-diff" value="2" min="-50" max="50">
+                </div>
+                <div class="control-group">
+                    <label for="input-term-count">항의 개수 (n):</label>
+                    <input type="number" id="input-term-count" value="5" min="1" max="20">
+                </div>
+                <button id="btn-update" class="btn-primary">시각화 업데이트</button>
+                <button id="btn-animate" class="btn-secondary">애니메이션 재생</button>
+            </section>
+
+            <!-- Formula Display -->
+            <section class="formula">
+                <h2>일반항 공식</h2>
+                <div class="formula-display">
+                    <p>aₙ = a₁ + (n-1)d</p>
+                    <p id="formula-specific"></p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>Moodle 연동 상태: <span id="moodle-status">대기중</span></p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/moodle-connector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
