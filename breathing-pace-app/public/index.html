@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호흡 템포 학습 도우미 - Breathing Pace Learning Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🫁 호흡 템포 학습 도우미</h1>
+            <p class="subtitle">문제 난이도에 따른 맞춤형 호흡 가이드</p>
+        </header>
+
+        <!-- Moodle 연결 설정 -->
+        <section id="config-section" class="card">
+            <h2>Moodle 연결 설정</h2>
+            <form id="moodle-config-form">
+                <div class="form-group">
+                    <label for="moodle-url">Moodle URL:</label>
+                    <input type="text" id="moodle-url" placeholder="https://your-moodle.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="moodle-token">API Token:</label>
+                    <input type="password" id="moodle-token" placeholder="Moodle Web Service Token" required>
+                </div>
+                <div class="form-group">
+                    <label for="quiz-id">퀴즈 ID:</label>
+                    <input type="number" id="quiz-id" placeholder="예: 123" required>
+                </div>
+                <button type="submit" class="btn btn-primary">연결하기</button>
+            </form>
+            <div id="connection-status" class="status-message"></div>
+        </section>
+
+        <!-- 문제 정보 표시 -->
+        <section id="question-section" class="card hidden">
+            <h2>현재 문제</h2>
+            <div id="question-info">
+                <p><strong>문제 제목:</strong> <span id="question-title">-</span></p>
+                <p><strong>난이도:</strong> <span id="question-difficulty" class="badge">-</span></p>
+                <p><strong>권장 호흡 템포:</strong> <span id="breathing-tempo">-</span></p>
+            </div>
+            <button id="start-breathing-btn" class="btn btn-success">호흡 가이드 시작</button>
+        </section>
+
+        <!-- 호흡 애니메이션 -->
+        <section id="breathing-section" class="card hidden">
+            <h2>호흡 가이드</h2>
+            <div id="breathing-container">
+                <div id="breathing-circle" class="breathing-circle">
+                    <div class="inner-circle">
+                        <span id="breathing-text">준비</span>
+                    </div>
+                </div>
+                <div id="breathing-instruction" class="instruction">심호흡 준비</div>
+                <div id="breathing-counter" class="counter">사이클: <span id="cycle-count">0</span> / 3</div>
+            </div>
+            <div class="controls">
+                <button id="pause-breathing-btn" class="btn btn-warning">일시정지</button>
+                <button id="stop-breathing-btn" class="btn btn-danger">중지</button>
+                <button id="complete-breathing-btn" class="btn btn-success hidden">완료 및 문제 시작</button>
+            </div>
+        </section>
+
+        <!-- 통계 -->
+        <section id="stats-section" class="card">
+            <h2>세션 통계</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-sessions">0</div>
+                    <div class="stat-label">총 세션</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-cycles">0</div>
+                    <div class="stat-label">총 호흡 사이클</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avg-difficulty">-</div>
+                    <div class="stat-label">평균 난이도</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
