@@ -1,0 +1,37 @@
+.vector-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vector-canvas {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.vector-endpoint {
+  cursor: move;
+  transition: r 0.2s ease;
+}
+
+.vector-endpoint:hover {
+  filter: brightness(1.2);
+}
+
+.vector-endpoint:active {
+  filter: brightness(0.8);
+}
+
+.grid line {
+  pointer-events: none;
+}
+
+.result-vector {
+  pointer-events: none;
+}

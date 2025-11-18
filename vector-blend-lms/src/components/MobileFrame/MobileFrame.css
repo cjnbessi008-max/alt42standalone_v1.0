@@ -1,0 +1,135 @@
+.mobile-frame-container {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.mobile-frame-container.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.mobile-frame-container.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.mobile-frame-container.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mobile-frame {
+  width: 320px;
+  height: 640px;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  pointer-events: auto;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: #1a1a1a;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  z-index: 2;
+}
+
+.phone-speaker {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #0a0a0a;
+  border-radius: 3px;
+  z-index: 3;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 28px;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  pointer-events: auto;
+}
+
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.mobile-content-full {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling for phone screen */
+.phone-screen::-webkit-scrollbar {
+  width: 4px;
+}
+
+.phone-screen::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.phone-screen::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mobile-frame-container.bottom-right,
+  .mobile-frame-container.bottom-left {
+    position: static;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-frame {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .phone-notch,
+  .phone-speaker,
+  .phone-home-indicator {
+    display: none;
+  }
+
+  .phone-screen {
+    border-radius: 0;
+  }
+}

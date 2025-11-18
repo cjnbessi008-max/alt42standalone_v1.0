@@ -1,0 +1,126 @@
+.problem-display {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.problem-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  flex: 1;
+}
+
+.problem-difficulty {
+  padding: 4px 12px;
+  border-radius: 12px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.problem-description {
+  color: #666;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.problem-instructions {
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #2196f3;
+}
+
+.problem-instructions h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.problem-instructions p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.problem-hint-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hint-toggle-button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  color: #856404;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hint-toggle-button:hover {
+  background: #ffc107;
+  color: white;
+}
+
+.problem-hint {
+  background: #fff3cd;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+  font-size: 14px;
+  line-height: 1.6;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.problem-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.problem-tag {
+  padding: 4px 10px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.problem-time {
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}

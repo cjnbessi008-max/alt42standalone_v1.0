@@ -1,0 +1,102 @@
+{
+  "id": "beginner-set-01",
+  "title": "Vector Blend Basics",
+  "description": "Learn the fundamentals of vector addition and color mixing",
+  "problems": [
+    {
+      "id": "prob-001",
+      "type": "vector-addition",
+      "difficulty": "beginner",
+      "title": "First Steps: Red + Blue",
+      "description": "두 개의 벡터를 더해보세요 (Add two vectors together)",
+      "instructions": "빨간색 벡터와 파란색 벡터를 더하면 어떤 색이 나올까요? (What color results from adding red and blue vectors?)",
+      "initialVectors": [
+        {
+          "x": 3,
+          "y": 0,
+          "color": { "r": 255, "g": 0, "b": 0 },
+          "label": "Vector A",
+          "id": "v1"
+        },
+        {
+          "x": 0,
+          "y": 3,
+          "color": { "r": 0, "g": 0, "b": 255 },
+          "label": "Vector B",
+          "id": "v2"
+        }
+      ],
+      "targetColor": { "r": 180, "g": 0, "b": 180 },
+      "colorTolerance": 40,
+      "hint": "빨간색과 파란색을 섞으면 보라색이 됩니다 (Red and blue make purple)",
+      "successMessage": "정답입니다! 벡터 합성과 색상 혼합을 이해하셨네요!",
+      "tags": ["basics", "color-mixing"],
+      "estimatedTime": 60
+    },
+    {
+      "id": "prob-002",
+      "type": "color-matching",
+      "difficulty": "beginner",
+      "title": "Color Match: Green",
+      "description": "목표 색상을 만들어보세요 (Create the target color)",
+      "instructions": "벡터들을 조정하여 녹색을 만들어보세요 (Adjust vectors to create green)",
+      "initialVectors": [
+        {
+          "x": 2,
+          "y": 2,
+          "color": { "r": 255, "g": 255, "b": 0 },
+          "label": "Yellow",
+          "id": "v1"
+        },
+        {
+          "x": -1,
+          "y": 1,
+          "color": { "r": 0, "g": 0, "b": 255 },
+          "label": "Blue",
+          "id": "v2"
+        }
+      ],
+      "targetColor": { "r": 0, "g": 255, "b": 0 },
+      "colorTolerance": 50,
+      "hint": "노란색(빨강+초록)에서 파란색을 적절히 더하면 녹색을 만들 수 있습니다",
+      "successMessage": "완벽합니다! 색상 혼합의 원리를 이해하셨네요!",
+      "tags": ["color-matching", "adjustment"],
+      "estimatedTime": 90
+    },
+    {
+      "id": "prob-003",
+      "type": "target-vector",
+      "difficulty": "beginner",
+      "title": "Target Vector: Diagonal",
+      "description": "목표 벡터를 만들어보세요 (Create the target vector)",
+      "instructions": "주어진 벡터들로 대각선 방향의 목표 벡터를 만드세요",
+      "initialVectors": [
+        {
+          "x": 2,
+          "y": 0,
+          "color": { "r": 255, "g": 0, "b": 0 },
+          "label": "Right",
+          "id": "v1"
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "color": { "r": 0, "g": 255, "b": 0 },
+          "label": "Up",
+          "id": "v2"
+        }
+      ],
+      "targetVector": {
+        "x": 2,
+        "y": 2,
+        "color": { "r": 255, "g": 128, "b": 0 }
+      },
+      "vectorTolerance": 0.5,
+      "hint": "두 벡터를 모두 사용하면 대각선 방향의 벡터를 만들 수 있습니다",
+      "successMessage": "훌륭합니다! 벡터 합성을 완벽히 이해하셨습니다!",
+      "tags": ["vector-addition", "geometry"],
+      "estimatedTime": 120
+    }
+  ],
+  "requiredCompletions": 2
+}
