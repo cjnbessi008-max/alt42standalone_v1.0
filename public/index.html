@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrema Blink - Math Learning App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h1>Extrema Blink - 극값 시각화</h1>
+            <div class="control-panel">
+                <h2>함수 입력</h2>
+                <div class="input-group">
+                    <label for="function-input">함수 f(x) =</label>
+                    <input type="text" id="function-input" placeholder="예: x^2 - 4*x + 3" value="x^2 - 4*x + 3">
+                </div>
+                <div class="input-group">
+                    <label for="range-min">X 범위 (최소):</label>
+                    <input type="number" id="range-min" value="-5" step="0.5">
+                </div>
+                <div class="input-group">
+                    <label for="range-max">X 범위 (최대):</label>
+                    <input type="number" id="range-max" value="5" step="0.5">
+                </div>
+                <button id="plot-btn" class="btn-primary">그래프 그리기</button>
+                <button id="show-extrema-btn" class="btn-secondary">극값 표시</button>
+            </div>
+
+            <div class="info-panel">
+                <h3>극값 정보</h3>
+                <div id="extrema-info">
+                    <p>함수를 입력하고 "극값 표시" 버튼을 클릭하세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smartphone Display (Right Bottom) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-header">
+                    <div class="notch"></div>
+                </div>
+                <div class="smartphone-screen">
+                    <div id="graph-container"></div>
+                </div>
+                <div class="smartphone-footer">
+                    <div class="home-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/extrema-calculator.js"></script>
+    <script src="js/math-renderer.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
