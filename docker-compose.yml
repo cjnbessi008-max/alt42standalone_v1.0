@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: smooth-interval-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: smooth_interval_db
+      MYSQL_USER: smooth_user
+      MYSQL_PASSWORD: smooth_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql-init:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  php:
+    image: php:7.1.9-apache
+    container_name: smooth-interval-php
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/php:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=smooth_interval_db
+      - MYSQL_USER=smooth_user
+      - MYSQL_PASSWORD=smooth_pass
+
+  backend:
+    build: ./backend
+    container_name: smooth-interval-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=smooth_interval_db
+      - DB_USER=smooth_user
+      - DB_PASSWORD=smooth_pass
+    command: npm run dev
+
+  frontend:
+    build: ./frontend
+    container_name: smooth-interval-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    command: npm run dev
+
+volumes:
+  mysql_data:

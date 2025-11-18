@@ -1,0 +1,105 @@
+.smartphone-container {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 1000;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.smartphone-frame {
+  width: 375px;
+  height: 667px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 12px;
+  position: relative;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 4px #1a1a1a,
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.phone-notch::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1200px) {
+  .smartphone-container {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .smartphone-frame {
+    width: 300px;
+    height: 533px;
+    border-radius: 32px;
+    padding: 10px;
+  }
+
+  .phone-notch {
+    width: 120px;
+    height: 24px;
+  }
+
+  .home-indicator {
+    width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .smartphone-container {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin: 20px auto;
+  }
+
+  .smartphone-frame {
+    width: 100%;
+    max-width: 375px;
+    height: auto;
+    min-height: 667px;
+  }
+}
