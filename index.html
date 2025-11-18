@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Shape Morph Animation System for Educational Concepts" />
+    <title>Shape Morph Animation</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Shape Morph Animation Test</h1>
+      <p>스마트폰 프레임이 우측 하단에 표시됩니다.</p>
+    </div>
+
+    <!-- Shape Morph 컨테이너 (옵션) -->
+    <!-- data-* 속성으로 설정 가능 -->
+    <div
+      id="shape-morph-root"
+      data-position="bottom-right"
+      data-size="medium"
+      data-theme="light"
+      data-course-id="1"
+    ></div>
+
+    <script type="module" src="/src/frontend/index.tsx"></script>
+  </body>
+</html>

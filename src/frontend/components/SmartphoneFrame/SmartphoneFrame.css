@@ -1,0 +1,316 @@
+/**
+ * Smartphone Frame Styling
+ * 우측 하단 스마트폰 프레임 UI
+ */
+
+.smartphone-frame {
+  position: fixed;
+  z-index: 9999;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Position variants */
+.smartphone-frame.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-frame.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+/* Size variants */
+.smartphone-frame.small {
+  --frame-width: 180px;
+  --frame-height: 360px;
+}
+
+.smartphone-frame.medium {
+  --frame-width: 240px;
+  --frame-height: 480px;
+}
+
+.smartphone-frame.large {
+  --frame-width: 300px;
+  --frame-height: 600px;
+}
+
+/* Minimized state */
+.smartphone-frame.minimized .smartphone-bezel {
+  height: 60px;
+  overflow: hidden;
+}
+
+/* Smartphone bezel */
+.smartphone-bezel {
+  width: var(--frame-width, 240px);
+  height: var(--frame-height, 480px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 30px;
+  padding: 12px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1),
+    inset 0 0 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Notch */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 24px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.smartphone-notch .camera {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #333;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.smartphone-notch .speaker {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: #333;
+}
+
+/* Minimize button */
+.minimize-button {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 11;
+  transition: all 0.2s;
+}
+
+.minimize-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.minimize-button:active {
+  transform: scale(0.95);
+}
+
+/* Screen */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px; /* notch 공간 */
+}
+
+.smartphone-frame.dark .smartphone-screen {
+  background: #1a1a2e;
+}
+
+/* Canvas wrapper */
+.canvas-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Concept label */
+.concept-label {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 80%;
+}
+
+.smartphone-frame.dark .concept-label {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.concept-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.concept-category {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Home indicator */
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.smartphone-frame.dark .smartphone-home-indicator {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .smartphone-frame {
+    --frame-width: 160px !important;
+    --frame-height: 320px !important;
+  }
+
+  .smartphone-frame.bottom-right,
+  .smartphone-frame.bottom-left {
+    bottom: 10px;
+  }
+
+  .smartphone-frame.bottom-right {
+    right: 10px;
+  }
+
+  .smartphone-frame.bottom-left {
+    left: 10px;
+  }
+
+  .concept-label {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .concept-name {
+    font-size: 14px;
+  }
+
+  .concept-category {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .smartphone-frame {
+    --frame-width: 140px !important;
+    --frame-height: 280px !important;
+  }
+
+  .smartphone-bezel {
+    border-radius: 24px;
+    padding: 10px;
+  }
+
+  .smartphone-notch {
+    width: 100px;
+    height: 20px;
+  }
+}
+
+/* Hover effects */
+.smartphone-frame:hover {
+  transform: scale(1.02);
+}
+
+.smartphone-frame:hover .concept-label {
+  bottom: 32px;
+}
+
+/* Animations */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.smartphone-frame.bottom-right,
+.smartphone-frame.top-right {
+  animation: slideInFromRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smartphone-frame.bottom-left,
+.smartphone-frame.top-left {
+  animation: slideInFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Accessibility */
+.smartphone-frame:focus-within {
+  outline: 2px solid #667eea;
+  outline-offset: 4px;
+}
+
+/* Print */
+@media print {
+  .smartphone-frame {
+    display: none;
+  }
+}
