@@ -1,0 +1,130 @@
+/**
+ * Virtual Smartphone Styles
+ */
+
+.smartphone-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.smartphone-frame {
+    width: 400px;
+    height: 850px;
+    background: linear-gradient(145deg, #2d3436, #1e272e);
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.smartphone-frame.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    padding: 0;
+    z-index: 9999;
+}
+
+.smartphone-frame.fullscreen .smartphone-screen {
+    border-radius: 0;
+}
+
+.smartphone-notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background: #555;
+    border-radius: 3px;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pearls-app {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    overflow-y: auto;
+}
+
+.app-bar {
+    background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.3em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.problem-info {
+    padding: 15px 20px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#recommendation-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+/* Responsive smartphone */
+@media (max-width: 768px) {
+    .smartphone-frame {
+        width: 100%;
+        max-width: 400px;
+        height: 700px;
+    }
+}

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:5.7
+    container_name: sequence_pearls_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-sequence_pearls}
+      MYSQL_USER: ${DB_USER:-pearls_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-pearls_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Web Application
+  app:
+    build: .
+    container_name: sequence_pearls_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-pearls_user}
+      DB_PASSWORD: ${DB_PASSWORD:-pearls_password}
+      DB_NAME: ${DB_NAME:-sequence_pearls}
+      JWT_SECRET: ${JWT_SECRET:-change_this_secret_key}
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+
+volumes:
+  db_data:

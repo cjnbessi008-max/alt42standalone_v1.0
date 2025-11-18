@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Pearls - 수열 구슬 학습 앱</title>
+    <meta name="description" content="빛나는 구슬로 배우는 수열 학습 앱">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/smartphone.css">
+    <link rel="stylesheet" href="/css/pearls.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <div class="logo">
+                <h1>🌟 Sequence Pearls</h1>
+                <p class="tagline">빛나는 구슬로 배우는 수열</p>
+            </div>
+
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="login">로그인</button>
+                <button class="tab-btn" data-tab="register">회원가입</button>
+            </div>
+
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <input type="text" id="login-username" placeholder="사용자명" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="비밀번호" required>
+                </div>
+                <button type="submit" class="btn btn-primary">로그인</button>
+                <button type="button" id="guest-login" class="btn btn-secondary">체험하기</button>
+            </form>
+
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <input type="text" id="register-username" placeholder="사용자명" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="register-email" placeholder="이메일" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="register-password" placeholder="비밀번호" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="register-fullname" placeholder="이름 (선택)">
+                </div>
+                <button type="submit" class="btn btn-primary">회원가입</button>
+            </form>
+
+            <div id="auth-error" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="app-screen" class="screen">
+        <div class="app-container">
+            <!-- Header -->
+            <header class="app-header">
+                <h1>🌟 Sequence Pearls</h1>
+                <div class="user-info">
+                    <span id="username-display"></span>
+                    <button id="logout-btn" class="btn btn-small">로그아웃</button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Progress Panel (Left) -->
+                <aside class="progress-panel">
+                    <h2>진행 상황</h2>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <div class="stat-label">해결한 문제</div>
+                            <div class="stat-value"><span id="problems-solved">0</span> / <span id="total-correct">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <div class="stat-label">정확도</div>
+                            <div class="stat-value"><span id="accuracy">0</span>%</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-info">
+                            <div class="stat-label">현재 연속</div>
+                            <div class="stat-value"><span id="current-streak">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-label">최고 연속</div>
+                            <div class="stat-value"><span id="best-streak">0</span></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-info">
+                            <div class="stat-label">현재 레벨</div>
+                            <div class="stat-value"><span id="current-level">1</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Achievement notifications -->
+                    <div id="achievements-container" class="achievements-container"></div>
+                </aside>
+
+                <!-- Smartphone Display (Right) -->
+                <main class="smartphone-section">
+                    <div class="smartphone-frame">
+                        <div class="smartphone-notch"></div>
+                        <div class="smartphone-screen">
+                            <!-- Smartphone App Content -->
+                            <div class="pearls-app">
+                                <!-- App Header -->
+                                <div class="app-bar">
+                                    <span class="app-title">Sequence Pearls</span>
+                                    <button id="fullscreen-btn" class="icon-btn">⛶</button>
+                                </div>
+
+                                <!-- Problem Info -->
+                                <div id="problem-info" class="problem-info">
+                                    <div id="recommendation-info"></div>
+                                    <div class="difficulty-badge">
+                                        <span id="difficulty-label">난이도:</span>
+                                        <span id="difficulty-level">3</span>
+                                    </div>
+                                </div>
+
+                                <!-- Pearls Canvas -->
+                                <canvas id="pearls-canvas" width="360" height="400"></canvas>
+
+                                <!-- Answer Section -->
+                                <div id="answer-section" class="answer-section">
+                                    <label for="user-answer">빠진 숫자를 찾으세요:</label>
+                                    <input type="number" id="user-answer" class="answer-input" step="0.01" placeholder="?">
+                                    <button id="submit-answer" class="btn btn-primary">제출</button>
+                                    <button id="hint-btn" class="btn btn-hint">💡 힌트</button>
+                                </div>
+
+                                <!-- Feedback Section -->
+                                <div id="feedback-section" class="feedback-section">
+                                    <div id="feedback-message"></div>
+                                    <div id="explanation"></div>
+                                    <button id="next-problem" class="btn btn-next">다음 문제</button>
+                                </div>
+
+                                <!-- Loading indicator -->
+                                <div id="loading" class="loading">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/pearls.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
