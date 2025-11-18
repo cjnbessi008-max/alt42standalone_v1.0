@@ -2,12 +2,12 @@
 /**
  * Simple PSR-4 Compatible Autoloader
  *
- * PHP 7.1.9 compatible autoloader for MoodleIntegration namespace
+ * PHP 7.1.9 compatible autoloader for App namespace
  */
 
 spl_autoload_register(function ($class) {
     // Project namespace prefix
-    $prefix = 'MoodleIntegration\\';
+    $prefix = 'App\\';
 
     // Base directory for the namespace prefix
     $baseDir = __DIR__ . '/';

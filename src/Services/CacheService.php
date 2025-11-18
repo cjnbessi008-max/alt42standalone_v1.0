@@ -6,7 +6,7 @@
  * "과한 계산 없이" - Avoiding excessive computation
  */
 
-namespace MoodleIntegration\Services;
+namespace App\Services;
 
 class CacheService
 {

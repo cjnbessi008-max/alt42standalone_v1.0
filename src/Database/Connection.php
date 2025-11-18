@@ -1,12 +1,12 @@
 <?php
 /**
- * Database Connection Manager for Moodle Integration
+ * Database Connection Manager for Standalone Web App
  *
  * Provides efficient, singleton-based MySQL connection
  * Compatible with MySQL 5.7 and PHP 7.1.9
  */
 
-namespace MoodleIntegration\Database;
+namespace App\Database;
 
 use PDO;
 use PDOException;
@@ -50,7 +50,7 @@ class Connection
      */
     private function connect()
     {
-        $dbConfig = $this->config['moodle_db'];
+        $dbConfig = $this->config['app_db'];
 
         try {
             $dsn = sprintf(
@@ -61,12 +61,12 @@ class Connection
                 $dbConfig['charset']
             );
 
-            $options = [
+            $options = isset($dbConfig['options']) ? $dbConfig['options'] : [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false, // Use real prepared statements
-                PDO::ATTR_PERSISTENT => false, // Avoid persistent connections for better resource management
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$dbConfig['charset']}", // MySQL 5.7 compatible
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_PERSISTENT => false,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$dbConfig['charset']}",
             ];
 
             $this->pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], $options);
@@ -85,11 +85,11 @@ class Connection
     }
 
     /**
-     * Get table prefix
+     * Get last insert ID
      */
-    public function getPrefix()
+    public function lastInsertId()
     {
-        return $this->config['moodle_db']['prefix'];
+        return $this->pdo->lastInsertId();
     }
 
     /**
