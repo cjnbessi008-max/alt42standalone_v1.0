@@ -1,0 +1,260 @@
+/**
+ * Feature Spotlight - Smartphone Display Styles
+ *
+ * Styles for the virtual smartphone interface
+ */
+
+.smartphone-display {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-display.minimized {
+    transform: scale(0.3) translateX(50%) translateY(50%);
+    transform-origin: bottom right;
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #2c3e50, #34495e);
+    border-radius: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 2px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    cursor: grab;
+}
+
+.smartphone-frame:active {
+    cursor: grabbing;
+}
+
+/* Notch */
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.smartphone-notch::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 5px;
+    background: #333;
+    border-radius: 3px;
+}
+
+.smartphone-notch::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+/* Screen */
+.smartphone-screen {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.smartphone-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+/* Scrollbar styling */
+.smartphone-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.smartphone-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Home Button */
+.smartphone-home-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #1a1a1a;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Controls */
+.smartphone-controls {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.minimize-btn {
+    background: rgba(255, 193, 7, 0.8);
+}
+
+.minimize-btn:hover {
+    background: rgba(255, 193, 7, 1);
+}
+
+.close-btn {
+    background: rgba(244, 67, 54, 0.8);
+}
+
+.close-btn:hover {
+    background: rgba(244, 67, 54, 1);
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+}
+
+.error-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .smartphone-display {
+        width: 300px !important;
+        height: 533px !important;
+    }
+
+    .smartphone-frame {
+        border-radius: 30px;
+        padding: 15px;
+    }
+
+    .smartphone-screen {
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-display {
+        width: 250px !important;
+        height: 444px !important;
+        bottom: 10px !important;
+        right: 10px !important;
+    }
+
+    .smartphone-controls {
+        top: -35px;
+    }
+
+    .control-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+    }
+}
+
+/* Animation for appearance */
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.smartphone-display {
+    animation: slideInFromRight 0.5s ease-out;
+}
