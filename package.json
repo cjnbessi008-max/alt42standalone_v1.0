@@ -1,0 +1,45 @@
+{
+  "name": "partial-sum-flow-lms",
+  "version": "1.0.0",
+  "description": "Partial Sum Flow Curve Visualization for LMS Integration (Moodle 3.7)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest",
+    "lint": "eslint src --ext ts,tsx"
+  },
+  "keywords": [
+    "partial-sum",
+    "flow-curve",
+    "lms",
+    "moodle",
+    "visualization",
+    "education"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.6.0",
+    "d3": "^7.8.5",
+    "bezier-js": "^6.1.4",
+    "@mui/material": "^5.14.18",
+    "@mui/icons-material": "^5.14.18",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/d3": "^7.4.3",
+    "@vitejs/plugin-react": "^4.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "eslint": "^8.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0"
+  }
+}
