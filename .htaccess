@@ -1,0 +1,47 @@
+# Apache Configuration for Parabola Glow
+
+# Enable Rewrite Engine
+RewriteEngine On
+RewriteBase /
+
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type"
+
+# PHP Configuration
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 30
+php_value default_charset "UTF-8"
+
+# Directory Index
+DirectoryIndex public/index.html index.html
+
+# Deny access to config files
+<FilesMatch "^(database\.php|config\.php)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to git files
+<FilesMatch "^\.git">
+    Require all denied
+</FilesMatch>
+
+# API Routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Compress CSS, JS, HTML
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+</IfModule>

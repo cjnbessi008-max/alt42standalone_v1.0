@@ -1,0 +1,35 @@
+# Environment files
+.env
+config/.env
+
+# Database credentials
+config/database.php
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+error_log
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Vendor directories
+vendor/
+node_modules/
+
+# Build files
+dist/
+build/

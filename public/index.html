@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2차 부등식 해를 곡선 아래 빛으로 표시하는 Parabola Glow">
+    <meta name="keywords" content="수학, 2차 부등식, 포물선, 교육, Moodle">
+    <title>Parabola Glow - 2차 부등식 시각화</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../src/css/smartphone.css">
+</head>
+<body>
+    <!-- Smartphone Container (bottom-right corner) -->
+    <div class="smartphone-container">
+        <div class="smartphone-screen">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                📱 Parabola Glow
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading">
+                    <div class="spinner"></div>
+                    <div class="loading-text">문제를 불러오는 중...</div>
+                </div>
+
+                <!-- Main Content -->
+                <div id="mainContent" style="display: none;">
+                    <!-- Problem Card -->
+                    <div class="problem-card">
+                        <div class="problem-title" id="problemTitle">
+                            문제를 불러오는 중...
+                        </div>
+                        <div class="problem-text" id="problemText">
+                            x² - 4x + 3 &lt; 0
+                        </div>
+                    </div>
+
+                    <!-- Canvas Container -->
+                    <div class="canvas-container">
+                        <canvas id="parabolaCanvas"></canvas>
+                    </div>
+
+                    <!-- Solution Display -->
+                    <div class="solution-display">
+                        <div class="solution-title">
+                            해 (Solution)
+                        </div>
+                        <div class="solution-text" id="solutionText">
+                            계산 중...
+                        </div>
+                        <div class="solution-details" id="solutionDetails">
+                            <!-- Details will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Example Buttons -->
+                    <div class="button-group">
+                        <button class="btn" onclick="app.loadExample(1, -4, 3, '<')">
+                            예제 1
+                        </button>
+                        <button class="btn" onclick="app.loadExample(1, 0, -4, '>')">
+                            예제 2
+                        </button>
+                        <button class="btn" onclick="app.loadExample(-1, 2, 3, '<=')">
+                            예제 3
+                        </button>
+                        <button class="btn" onclick="app.loadExample(2, -4, 2, '>=')">
+                            예제 4
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../src/js/parabola_glow.js"></script>
+</body>
+</html>
