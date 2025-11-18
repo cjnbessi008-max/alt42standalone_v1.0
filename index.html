@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회전체 생성 - Rotational Sweep Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Main Content Area -->
+        <div id="main-content">
+            <div class="header">
+                <h1>회전체 생성 시뮬레이션</h1>
+                <p class="subtitle">Rotational Sweep with Spiral Animation</p>
+            </div>
+
+            <div class="controls-panel">
+                <h3>설정 (Settings)</h3>
+                <div class="control-group">
+                    <label for="rotation-speed">회전 속도 (Rotation Speed):</label>
+                    <input type="range" id="rotation-speed" min="0.5" max="5" step="0.1" value="2">
+                    <span id="speed-value">2.0</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="spiral-pitch">나선 피치 (Spiral Pitch):</label>
+                    <input type="range" id="spiral-pitch" min="0.1" max="2" step="0.1" value="0.5">
+                    <span id="pitch-value">0.5</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="segments">세그먼트 수 (Segments):</label>
+                    <input type="range" id="segments" min="16" max="128" step="8" value="64">
+                    <span id="segments-value">64</span>
+                </div>
+
+                <div class="button-group">
+                    <button id="start-animation" class="btn btn-primary">애니메이션 시작</button>
+                    <button id="reset-animation" class="btn btn-secondary">리셋</button>
+                    <button id="toggle-wireframe" class="btn btn-secondary">와이어프레임 토글</button>
+                </div>
+
+                <div class="info-panel">
+                    <h4>문제 정보 (Problem Info)</h4>
+                    <div id="problem-info">
+                        <p><strong>문제 ID:</strong> <span id="problem-id">-</span></p>
+                        <p><strong>난이도:</strong> <span id="problem-difficulty">-</span></p>
+                        <p><strong>학습 목표:</strong> <span id="learning-objective">회전체의 부피 계산</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div id="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div id="three-container"></div>
+                    <div class="animation-status">
+                        <span id="status-text">준비됨</span>
+                        <div class="progress-bar">
+                            <div id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/lms-integration.js"></script>
+    <script src="js/rotational-sweep.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
