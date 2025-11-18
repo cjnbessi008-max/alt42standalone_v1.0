@@ -1,0 +1,130 @@
+.mobile-viewport {
+  position: fixed;
+  z-index: 1000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: #000;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-viewport.with-frame {
+  border: 8px solid #2d3748;
+  border-radius: 40px;
+}
+
+.device-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 25px;
+  background: #000;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  z-index: 20;
+}
+
+.status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 15;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+}
+
+.time {
+  margin-left: 10px;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.status-icons span {
+  font-size: 14px;
+}
+
+.viewport-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: white;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+  z-index: 15;
+}
+
+/* Scrollbar styling for viewport */
+.viewport-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.viewport-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.viewport-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+/* Responsive: hide on very small screens */
+@media (max-width: 480px) {
+  .mobile-viewport.bottom-right,
+  .mobile-viewport.bottom-left {
+    display: none;
+  }
+}
+
+/* Animation on mount */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(0.7);
+  }
+}
+
+.mobile-viewport.bottom-right {
+  animation: slideIn 0.5s ease-out;
+}

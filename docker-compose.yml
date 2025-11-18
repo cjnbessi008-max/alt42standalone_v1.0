@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: counting-tree-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: counting_tree_map
+      MYSQL_USER: ctm_user
+      MYSQL_PASSWORD: ctm_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/models/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - counting-tree-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API (Node.js + Express)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: counting-tree-backend
+    environment:
+      PORT: 3001
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ctm_user
+      DB_PASSWORD: ctm_password
+      DB_NAME: counting_tree_map
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - counting-tree-network
+    command: npm run dev
+
+  # Frontend (React + Vite)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: counting-tree-frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - counting-tree-network
+    command: npm run dev
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  counting-tree-network:
+    driver: bridge
