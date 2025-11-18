@@ -1,0 +1,28 @@
+{
+    "name": "kaist/color-pattern-classifier",
+    "description": "Color Pattern Classifier - Standalone web app for Moodle 3.7 LMS integration",
+    "type": "project",
+    "keywords": ["education", "pattern", "classification", "moodle"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.9",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ColorPattern\\": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php -r \"if (!file_exists('.env')) { copy('.env.example', '.env'); }\""
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
