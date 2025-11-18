@@ -1,0 +1,453 @@
+/**
+ * Puzzle Block Styles
+ * 드래그 가능한 논리 블록 스타일
+ */
+
+/* ====================================
+   Puzzle Block Base
+   ==================================== */
+.puzzle-block {
+    --block-color: var(--color-primary);
+
+    background: var(--block-color);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    cursor: grab;
+    user-select: none;
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-width: 80px;
+    position: relative;
+}
+
+.puzzle-block:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.puzzle-block:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+}
+
+.puzzle-block.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+/* ====================================
+   Block Content
+   ==================================== */
+.block-symbol {
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    line-height: 1;
+}
+
+.block-label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+}
+
+/* ====================================
+   Block Types
+   ==================================== */
+
+/* Variable Blocks */
+.puzzle-block[data-type="variable"] {
+    --block-color: #3498db;
+    border: 2px solid #2980b9;
+}
+
+/* AND Block */
+.puzzle-block[data-type="and"] {
+    --block-color: #2ecc71;
+    border: 2px solid #27ae60;
+}
+
+/* OR Block */
+.puzzle-block[data-type="or"] {
+    --block-color: #f39c12;
+    border: 2px solid #e67e22;
+}
+
+/* NOT Block */
+.puzzle-block[data-type="not"] {
+    --block-color: #e74c3c;
+    border: 2px solid #c0392b;
+}
+
+/* IMPLIES Block */
+.puzzle-block[data-type="implies"] {
+    --block-color: #9b59b6;
+    border: 2px solid #8e44ad;
+}
+
+/* IFF Block */
+.puzzle-block[data-type="iff"] {
+    --block-color: #1abc9c;
+    border: 2px solid #16a085;
+}
+
+/* ====================================
+   Block States
+   ==================================== */
+
+/* Draggable indicator */
+.puzzle-block.draggable::after {
+    content: '⋮⋮';
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    font-size: var(--font-size-xs);
+    opacity: 0.5;
+    line-height: 0.8;
+}
+
+/* Invalid state */
+.puzzle-block.invalid {
+    border-color: var(--color-danger);
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Valid state */
+.puzzle-block.valid {
+    border-color: var(--color-success);
+    animation: pulse-valid 0.5s;
+}
+
+@keyframes pulse-valid {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Connected state */
+.puzzle-block.connected {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), var(--shadow-lg);
+}
+
+/* ====================================
+   Block in Workspace
+   ==================================== */
+.puzzle-block.in-workspace {
+    position: absolute;
+    cursor: move;
+}
+
+.puzzle-block.in-workspace.selected {
+    box-shadow: 0 0 0 3px var(--color-warning), var(--shadow-lg);
+    z-index: 100;
+}
+
+/* ====================================
+   Connection Points (Sockets)
+   ==================================== */
+.block-sockets {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.socket {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border: 3px solid var(--block-color);
+    border-radius: 50%;
+    pointer-events: all;
+    cursor: crosshair;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.socket:hover {
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.socket.input {
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.socket.output {
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.socket.connected {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.socket.connecting {
+    animation: pulse-socket 1s infinite;
+}
+
+@keyframes pulse-socket {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+    50% { box-shadow: 0 0 0 8px rgba(52, 152, 219, 0); }
+}
+
+/* ====================================
+   Connection Lines
+   ==================================== */
+.connection-line {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.connection-line path {
+    fill: none;
+    stroke: var(--color-text-secondary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.connection-line.active path {
+    stroke: var(--color-primary);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 4px rgba(52, 152, 219, 0.5));
+}
+
+.connection-line.valid path {
+    stroke: var(--color-success);
+}
+
+.connection-line.invalid path {
+    stroke: var(--color-danger);
+    stroke-dasharray: 5, 5;
+    animation: dash 0.5s linear infinite;
+}
+
+@keyframes dash {
+    to { stroke-dashoffset: -10; }
+}
+
+/* ====================================
+   Block Container in Workspace
+   ==================================== */
+.block-container {
+    position: absolute;
+    display: inline-block;
+}
+
+.block-container.ghost {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ====================================
+   Drop Zone
+   ==================================== */
+.drop-zone {
+    border: 3px dashed var(--color-primary);
+    background: rgba(52, 152, 219, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+}
+
+.drop-zone.drag-over {
+    background: rgba(52, 152, 219, 0.15);
+    border-color: var(--color-success);
+    transform: scale(1.02);
+}
+
+.drop-zone-text {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    text-align: center;
+}
+
+/* ====================================
+   Block Toolbar
+   ==================================== */
+.block-toolbar {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xs);
+    display: none;
+    gap: var(--spacing-xs);
+    z-index: 200;
+}
+
+.puzzle-block.selected .block-toolbar {
+    display: flex;
+}
+
+.block-toolbar-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+}
+
+.block-toolbar-btn:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.block-toolbar-btn.delete:hover {
+    background: var(--color-danger);
+}
+
+/* ====================================
+   Block Badge (for displaying values)
+   ==================================== */
+.block-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--color-warning);
+    color: white;
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ====================================
+   Compound Block (nested structure)
+   ==================================== */
+.compound-block {
+    position: relative;
+    padding: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.compound-block-label {
+    position: absolute;
+    top: -12px;
+    left: var(--spacing-md);
+    background: var(--block-color);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+}
+
+/* ====================================
+   Block Animation Effects
+   ==================================== */
+
+/* Appear animation */
+.puzzle-block.appearing {
+    animation: appear 0.3s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Remove animation */
+.puzzle-block.removing {
+    animation: remove 0.3s ease forwards;
+}
+
+@keyframes remove {
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+/* Snap animation */
+.puzzle-block.snapping {
+    animation: snap 0.2s ease;
+}
+
+@keyframes snap {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ====================================
+   Touch Device Support
+   ==================================== */
+@media (hover: none) and (pointer: coarse) {
+    .puzzle-block {
+        cursor: default;
+    }
+
+    .puzzle-block:active {
+        transform: scale(0.95);
+    }
+
+    .socket {
+        width: 20px;
+        height: 20px;
+        cursor: default;
+    }
+
+    /* Larger touch targets */
+    .block-toolbar-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* ====================================
+   Print Styles
+   ==================================== */
+@media print {
+    .puzzle-block {
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    .block-toolbar,
+    .socket {
+        display: none !important;
+    }
+}

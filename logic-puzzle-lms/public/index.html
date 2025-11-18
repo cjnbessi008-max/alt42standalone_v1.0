@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Puzzle LMS - 명제 논리 퍼즐</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- MathJax for mathematical notation -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile-viewport.css">
+    <link rel="stylesheet" href="css/puzzle.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Left Panel: Block Palette -->
+        <aside class="block-palette">
+            <header class="palette-header">
+                <h2>논리 블록</h2>
+                <p class="palette-subtitle">블록을 드래그하여 논리식을 만드세요</p>
+            </header>
+
+            <div class="palette-content">
+                <!-- Variable Blocks -->
+                <div class="block-category">
+                    <h3 class="category-title">변수</h3>
+                    <div class="block-list" id="variableBlocks">
+                        <div class="puzzle-block draggable" data-type="variable" data-value="P" style="--block-color: #3498db;">
+                            <span class="block-symbol">P</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="variable" data-value="Q" style="--block-color: #3498db;">
+                            <span class="block-symbol">Q</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="variable" data-value="R" style="--block-color: #3498db;">
+                            <span class="block-symbol">R</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="variable" data-value="S" style="--block-color: #3498db;">
+                            <span class="block-symbol">S</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logical Operators -->
+                <div class="block-category">
+                    <h3 class="category-title">논리 연산자</h3>
+                    <div class="block-list" id="operatorBlocks">
+                        <div class="puzzle-block draggable" data-type="and" data-inputs="2" style="--block-color: #2ecc71;">
+                            <span class="block-symbol">∧</span>
+                            <span class="block-label">AND</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="or" data-inputs="2" style="--block-color: #f39c12;">
+                            <span class="block-symbol">∨</span>
+                            <span class="block-label">OR</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="not" data-inputs="1" style="--block-color: #e74c3c;">
+                            <span class="block-symbol">¬</span>
+                            <span class="block-label">NOT</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="implies" data-inputs="2" style="--block-color: #9b59b6;">
+                            <span class="block-symbol">→</span>
+                            <span class="block-label">IMPLIES</span>
+                        </div>
+                        <div class="puzzle-block draggable" data-type="iff" data-inputs="2" style="--block-color: #1abc9c;">
+                            <span class="block-symbol">↔</span>
+                            <span class="block-label">IFF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help Text -->
+                <div class="palette-help">
+                    <h4>💡 사용 방법</h4>
+                    <ul>
+                        <li>블록을 드래그하여 작업 영역에 배치</li>
+                        <li>블록을 연결하여 논리식 구성</li>
+                        <li>완성되면 "제출" 버튼 클릭</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Workspace -->
+        <main class="workspace-container">
+            <header class="workspace-header">
+                <div class="problem-info" id="problemInfo">
+                    <h1 class="problem-title">문제를 불러오는 중...</h1>
+                    <p class="problem-description"></p>
+                    <div class="problem-meta">
+                        <span class="difficulty-badge">난이도: <strong>-</strong></span>
+                        <span class="time-info">⏱️ <span id="timeRemaining">00:00</span></span>
+                        <span class="attempts-info">시도: <span id="attemptCount">0</span> / <span id="maxAttempts">3</span></span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="clearBtn">🗑️ 초기화</button>
+                    <button class="btn btn-secondary" id="hintBtn">💡 힌트</button>
+                    <button class="btn btn-primary" id="submitBtn">✓ 제출</button>
+                </div>
+            </header>
+
+            <div class="workspace" id="workspace">
+                <div class="workspace-canvas" id="workspaceCanvas">
+                    <!-- Blocks will be placed here -->
+                    <div class="canvas-placeholder">
+                        <p>👈 왼쪽에서 블록을 드래그하여 논리식을 만드세요</p>
+                    </div>
+                </div>
+
+                <!-- Formula Display -->
+                <div class="formula-display">
+                    <h3>현재 논리식</h3>
+                    <div class="formula-output" id="formulaOutput">
+                        <span class="empty-formula">블록을 배치하면 여기에 표시됩니다</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right: Mobile Viewport Simulator -->
+        <aside class="mobile-viewport">
+            <div class="mobile-device">
+                <div class="device-frame">
+                    <div class="device-notch"></div>
+                    <div class="device-screen">
+                        <!-- Problem Display in Mobile View -->
+                        <div class="mobile-content">
+                            <div class="mobile-header">
+                                <h2>Logic Puzzle</h2>
+                                <div class="mobile-status">
+                                    <span class="battery">🔋 85%</span>
+                                    <span class="signal">📶</span>
+                                </div>
+                            </div>
+
+                            <div class="mobile-problem" id="mobileProblem">
+                                <h3 class="mobile-problem-title">문제</h3>
+                                <div class="mobile-problem-content">
+                                    <p>문제를 불러오는 중입니다...</p>
+                                </div>
+
+                                <div class="mobile-truth-table" id="truthTable" style="display: none;">
+                                    <h4>진리표</h4>
+                                    <table class="truth-table">
+                                        <thead>
+                                            <tr>
+                                                <th>P</th>
+                                                <th>Q</th>
+                                                <th>결과</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="truthTableBody">
+                                            <!-- Truth table rows will be generated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="mobile-feedback" id="mobileFeedback" style="display: none;">
+                                <!-- Feedback will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-home-button"></div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedbackModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">결과</h2>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="feedback-result" id="feedbackResult">
+                    <!-- Feedback content will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modalContinue">계속하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>처리 중...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js" type="module"></script>
+    <script src="js/puzzle-engine.js" type="module"></script>
+    <script src="js/drag-drop.js" type="module"></script>
+    <script src="js/moodle-api.js" type="module"></script>
+</body>
+</html>

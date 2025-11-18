@@ -1,0 +1,568 @@
+/**
+ * Logic Puzzle LMS - Main Stylesheet
+ * 메인 레이아웃 및 공통 스타일
+ */
+
+/* ====================================
+   CSS Variables (Design Tokens)
+   ==================================== */
+:root {
+    /* Colors */
+    --color-primary: #3498db;
+    --color-primary-dark: #2980b9;
+    --color-secondary: #95a5a6;
+    --color-success: #2ecc71;
+    --color-warning: #f39c12;
+    --color-danger: #e74c3c;
+    --color-info: #1abc9c;
+
+    /* Neutral Colors */
+    --color-bg-main: #f8f9fa;
+    --color-bg-secondary: #ffffff;
+    --color-bg-tertiary: #ecf0f1;
+    --color-text-primary: #2c3e50;
+    --color-text-secondary: #7f8c8d;
+    --color-border: #dfe6e9;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+
+    /* Typography */
+    --font-family-base: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-mono: 'Fira Code', 'Courier New', monospace;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.5rem;
+    --font-size-xxxl: 2rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Z-index */
+    --z-dropdown: 1000;
+    --z-modal: 2000;
+    --z-tooltip: 3000;
+}
+
+/* ====================================
+   Reset & Base Styles
+   ==================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-main);
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+}
+
+h1 { font-size: var(--font-size-xxxl); }
+h2 { font-size: var(--font-size-xxl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+ul, ol {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ====================================
+   Layout
+   ==================================== */
+.app-container {
+    display: grid;
+    grid-template-columns: 280px 1fr 400px;
+    height: 100vh;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+/* ====================================
+   Block Palette (Left Sidebar)
+   ==================================== */
+.block-palette {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.palette-header {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.palette-header h2 {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xl);
+}
+
+.palette-subtitle {
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+    margin: 0;
+}
+
+.palette-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+}
+
+.block-category {
+    margin-bottom: var(--spacing-xl);
+}
+
+.category-title {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.block-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.palette-help {
+    background: var(--color-bg-tertiary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.palette-help h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-sm);
+}
+
+.palette-help ul {
+    margin-left: var(--spacing-md);
+    margin-bottom: 0;
+}
+
+/* ====================================
+   Workspace (Center)
+   ==================================== */
+.workspace-container {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.workspace-header {
+    background: white;
+    padding: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.problem-info {
+    margin-bottom: var(--spacing-lg);
+}
+
+.problem-title {
+    font-size: var(--font-size-xxl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.problem-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.problem-meta {
+    display: flex;
+    gap: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+}
+
+.difficulty-badge {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.difficulty-badge strong {
+    color: var(--color-warning);
+}
+
+.time-info,
+.attempts-info {
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.action-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+}
+
+/* Workspace Canvas */
+.workspace {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.workspace-canvas {
+    flex: 1;
+    background: repeating-linear-gradient(
+        0deg,
+        var(--color-bg-tertiary) 0px,
+        var(--color-bg-tertiary) 1px,
+        transparent 1px,
+        transparent 20px
+    ),
+    repeating-linear-gradient(
+        90deg,
+        var(--color-bg-tertiary) 0px,
+        var(--color-bg-tertiary) 1px,
+        transparent 1px,
+        transparent 20px
+    );
+    position: relative;
+    overflow: auto;
+    padding: var(--spacing-xl);
+}
+
+.canvas-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.formula-display {
+    background: var(--color-bg-tertiary);
+    padding: var(--spacing-lg);
+    border-top: 2px solid var(--color-border);
+}
+
+.formula-display h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-secondary);
+}
+
+.formula-output {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-lg);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-formula {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    font-size: var(--font-size-sm);
+}
+
+/* ====================================
+   Buttons
+   ==================================== */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family-base);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background: var(--color-secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ====================================
+   Modal
+   ==================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: var(--font-size-xxxl);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--color-danger);
+}
+
+.modal-body {
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: var(--spacing-lg);
+    border-top: 2px solid var(--color-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+}
+
+/* ====================================
+   Loading Overlay
+   ==================================== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal);
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+/* ====================================
+   Feedback Result
+   ==================================== */
+.feedback-result {
+    text-align: center;
+}
+
+.feedback-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+.feedback-result.correct .feedback-icon {
+    color: var(--color-success);
+}
+
+.feedback-result.incorrect .feedback-icon {
+    color: var(--color-danger);
+}
+
+.feedback-score {
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    margin: var(--spacing-lg) 0;
+}
+
+.feedback-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ====================================
+   Responsive Design
+   ==================================== */
+@media (max-width: 1400px) {
+    .app-container {
+        grid-template-columns: 240px 1fr 350px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .app-container {
+        grid-template-columns: 200px 1fr 300px;
+    }
+
+    .problem-title {
+        font-size: var(--font-size-xl);
+    }
+}
+
+@media (max-width: 992px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    .block-palette,
+    .mobile-viewport {
+        display: none;
+    }
+
+    /* Show mobile version of block palette */
+    .mobile-palette {
+        display: block;
+    }
+}
+
+/* ====================================
+   Scrollbar Styling
+   ==================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7f8c8d;
+}

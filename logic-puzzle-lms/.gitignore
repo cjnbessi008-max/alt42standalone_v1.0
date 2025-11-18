@@ -1,0 +1,60 @@
+# Logic Puzzle LMS - Git Ignore
+
+# Configuration Files
+api/config.php
+config/config.php
+
+# Logs
+logs/*.log
+*.log
+
+# Cache
+cache/*
+!cache/.gitkeep
+
+# PHP
+vendor/
+composer.lock
+
+# Node.js (if using npm)
+node_modules/
+package-lock.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Database backups
+*.sql
+*.sqlite
+*.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build files
+dist/
+build/
+
+# Debug
+debug.log
+error.log
