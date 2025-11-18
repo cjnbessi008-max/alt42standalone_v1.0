@@ -1,0 +1,147 @@
+/* 스마트폰 뷰포트 래퍼 */
+.smartphone-viewport-wrapper {
+  position: fixed;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.smartphone-viewport-wrapper.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.smartphone-viewport-wrapper.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 스마트폰 디바이스 */
+.smartphone-device {
+  position: relative;
+  width: 375px;
+  height: 667px;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow:
+    inset 0 0 0 2px #2a2a2a,
+    inset 0 0 0 6px #1a1a1a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 노치 (상단 카메라/스피커 영역) */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.camera {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  box-shadow: inset 0 0 3px rgba(100, 150, 255, 0.5);
+}
+
+.speaker {
+  width: 50px;
+  height: 5px;
+  background: #333;
+  border-radius: 3px;
+}
+
+/* 화면 영역 */
+.smartphone-screen {
+  flex: 1;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 홈 인디케이터 (하단) */
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* 전원 버튼 */
+.power-button {
+  position: absolute;
+  right: -3px;
+  top: 150px;
+  width: 3px;
+  height: 60px;
+  background: #2a2a2a;
+  border-radius: 0 2px 2px 0;
+}
+
+/* 볼륨 버튼 */
+.volume-button {
+  position: absolute;
+  left: -3px;
+  width: 3px;
+  height: 50px;
+  background: #2a2a2a;
+  border-radius: 2px 0 0 2px;
+}
+
+.volume-button.up {
+  top: 120px;
+}
+
+.volume-button.down {
+  top: 180px;
+}
+
+/* 반응형: 작은 화면에서는 크기 축소 */
+@media (max-width: 768px) {
+  .smartphone-device {
+    width: 300px;
+    height: 533px;
+  }
+}
+
+@media (max-width: 480px) {
+  .smartphone-viewport-wrapper.bottom-right {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    padding: 10px;
+  }
+
+  .smartphone-device {
+    width: 100%;
+    max-width: 375px;
+    height: auto;
+    aspect-ratio: 375 / 667;
+  }
+}

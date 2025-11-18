@@ -1,0 +1,267 @@
+.condition-doors-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  overflow-y: auto;
+}
+
+/* 문제 섹션 */
+.problem-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.problem-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.problem-description {
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.logic-statement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+.statement-box {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 120px;
+}
+
+.statement-box .label {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.statement-box .content {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.premise {
+  border: 2px solid #ffd700;
+}
+
+.conclusion {
+  border: 2px solid #00ffff;
+}
+
+.arrow {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.instruction {
+  text-align: center;
+  font-size: 16px;
+  margin: 15px 0 0 0;
+  font-weight: 600;
+}
+
+/* 문 섹션 */
+.doors-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 1;
+}
+
+.door-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.door-label {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.door-description {
+  font-size: 12px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* 문 스타일 */
+.door {
+  position: relative;
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+  border-radius: 8px;
+  border: 3px solid #654321;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s;
+}
+
+.door.selected {
+  cursor: default;
+}
+
+.door-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+  transition: transform 1s ease-in-out;
+  border: 2px solid #4a3319;
+}
+
+.door-panel.left {
+  left: 0;
+  border-right: 1px solid #4a3319;
+  transform-origin: left;
+}
+
+.door-panel.right {
+  right: 0;
+  border-left: 1px solid #4a3319;
+  transform-origin: right;
+}
+
+.door.opening .door-panel.left,
+.door.open .door-panel.left {
+  transform: perspective(1200px) rotateY(-105deg);
+}
+
+.door.opening .door-panel.right,
+.door.open .door-panel.right {
+  transform: perspective(1200px) rotateY(105deg);
+}
+
+.door-handle {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: #ffd700;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.door-panel.left .door-handle {
+  right: 15px;
+}
+
+.door-panel.right .door-handle {
+  left: 15px;
+}
+
+/* 문이 열렸을 때 결과 표시 */
+.door-result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.door-result.correct {
+  color: #00ff00;
+  text-shadow: 0 0 20px #00ff00;
+}
+
+.door-result.incorrect {
+  color: #ff0000;
+  text-shadow: 0 0 20px #ff0000;
+}
+
+/* 설명 섹션 */
+.explanation-section {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.explanation-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.explanation-box h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+.explanation-box p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.reset-button {
+  align-self: center;
+  padding: 10px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: 2px solid white;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.reset-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button:active {
+  transform: scale(0.95);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+  .doors-section {
+    grid-template-columns: 1fr;
+  }
+
+  .logic-statement {
+    flex-direction: column;
+  }
+
+  .arrow {
+    transform: rotate(90deg);
+  }
+}
