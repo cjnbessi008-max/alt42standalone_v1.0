@@ -1,0 +1,112 @@
+.concept-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.concept-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.concept-panel-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.concept-panel-body {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.concept-info .info-row {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.concept-info .info-row.description {
+  flex-direction: column;
+}
+
+.concept-info .label {
+  font-weight: 600;
+  color: #666;
+  min-width: 80px;
+}
+
+.concept-info .value {
+  color: #333;
+}
+
+.concept-info .description .value {
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+.concept-metadata {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.concept-metadata h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.concept-metadata ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.concept-metadata li {
+  padding: 6px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.concept-metadata li strong {
+  color: #333;
+  margin-right: 4px;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

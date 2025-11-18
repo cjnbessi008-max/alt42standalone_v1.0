@@ -1,0 +1,197 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  padding-right: 420px; /* 스마트폰 프레임 공간 확보 */
+}
+
+.app-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.app-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.app-header p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.controls-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.control-group {
+  margin-bottom: 16px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.control-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.control-group select:hover {
+  border-color: #667eea;
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.control-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.info-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-panel h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.info-panel h3 {
+  font-size: 20px;
+  color: #333;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.info-panel p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.info-panel ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.info-panel li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.info-panel li strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* 스마트폰 앱 스타일 */
+.smartphone-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.smartphone-app-header {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px 8px 0 0;
+  margin: -16px -16px 16px -16px;
+}
+
+.smartphone-app-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.smartphone-app-header .module-name {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.smartphone-vector-map {
+  flex: 1;
+  min-height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 반응형 */
+@media (max-width: 1400px) {
+  .main-content {
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .app-header p {
+    font-size: 16px;
+  }
+
+  .info-panel {
+    padding: 20px;
+  }
+}

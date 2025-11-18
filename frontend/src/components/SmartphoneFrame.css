@@ -1,0 +1,168 @@
+/* 스마트폰 프레임 스타일 */
+.smartphone-frame {
+  position: fixed;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* 위치 설정 */
+.smartphone-frame.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-frame.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+/* 크기 설정 */
+.smartphone-frame.small .smartphone-body {
+  width: 280px;
+  height: 580px;
+}
+
+.smartphone-frame.medium .smartphone-body {
+  width: 360px;
+  height: 740px;
+}
+
+.smartphone-frame.large .smartphone-body {
+  width: 420px;
+  height: 860px;
+}
+
+/* 스마트폰 본체 */
+.smartphone-body {
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 12px;
+  position: relative;
+  box-shadow:
+    0 0 0 3px #2a2a2a,
+    0 0 0 5px #1a1a1a;
+}
+
+/* 노치 */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+/* 화면 */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상태 바 */
+.status-bar {
+  height: 44px;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 12px;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.status-bar .time {
+  font-weight: 600;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* 컨텐츠 영역 */
+.smartphone-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #ffffff;
+  padding: 16px;
+}
+
+/* 스크롤바 스타일링 */
+.smartphone-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.smartphone-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2px;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* 제스처 바 */
+.smartphone-gesture-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* 애니메이션 */
+.smartphone-frame {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 반응형: 작은 화면에서는 크기 조정 */
+@media (max-width: 768px) {
+  .smartphone-frame.medium .smartphone-body {
+    width: 300px;
+    height: 620px;
+  }
+
+  .smartphone-frame.large .smartphone-body {
+    width: 340px;
+    height: 700px;
+  }
+}
