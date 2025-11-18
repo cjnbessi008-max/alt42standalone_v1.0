@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Digest - Virtual Smartphone</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>Function Digest Demo</h1>
+        <p>문제 속 함수 정보를 3줄로 요약합니다.</p>
+
+        <div class="demo-controls">
+            <label for="questionSelect">문제 선택:</label>
+            <select id="questionSelect">
+                <option value="1">Problem 1 - calculate_area</option>
+                <option value="2">Problem 2 - fibonacci</option>
+            </select>
+            <button id="loadDigest">Load Digest</button>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display (Bottom Right Corner) -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-screen">
+                <div class="status-bar">
+                    <span class="time">12:00</span>
+                    <span class="battery">🔋 100%</span>
+                </div>
+
+                <div class="app-content">
+                    <div class="app-header">
+                        <h2>📱 Function Digest</h2>
+                        <button class="minimize-btn" id="minimizeBtn">−</button>
+                    </div>
+
+                    <div class="digest-display" id="digestDisplay">
+                        <div class="loading">문제를 선택하고 'Load Digest'를 클릭하세요</div>
+                    </div>
+                </div>
+
+                <div class="home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
