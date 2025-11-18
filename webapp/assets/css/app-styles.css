@@ -1,0 +1,431 @@
+/**
+ * Styles for the Invariant Finder activity module
+ *
+ * @package    mod_invariantfinder
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Main container layout */
+.invariantfinder-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 600px;
+}
+
+/* Left panel with instructions */
+.left-panel {
+    flex: 1;
+    max-width: 400px;
+}
+
+.instructions {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.instructions h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #0066cc;
+    padding-bottom: 10px;
+}
+
+.instructions h4 {
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Controls section */
+.controls {
+    margin: 20px 0;
+}
+
+.control-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.control-btn:hover {
+    background: #0052a3;
+}
+
+.control-btn:active {
+    background: #003d7a;
+}
+
+/* Invariants list */
+.invariants-list {
+    margin: 20px 0;
+    padding: 15px;
+    background: #e8f4f8;
+    border-radius: 4px;
+}
+
+#found-invariants {
+    min-height: 60px;
+}
+
+.invariant-item {
+    padding: 8px;
+    margin: 5px 0;
+    background: white;
+    border-left: 4px solid #00cc66;
+    border-radius: 3px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Hints section */
+.hints {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 4px;
+    border: 1px solid #ffc107;
+}
+
+#hints-content {
+    color: #856404;
+}
+
+/* Right panel with smartphone */
+.right-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: sticky;
+    top: 20px;
+}
+
+/* Smartphone frame - positioned in bottom right */
+.smartphone-frame {
+    width: 340px;
+    height: 680px;
+    background: #1a1a1a;
+    border-radius: 36px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    position: relative;
+    border: 3px solid #2a2a2a;
+}
+
+/* Smartphone header (notch area) */
+.smartphone-header {
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.speaker {
+    width: 60px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+}
+
+.camera {
+    width: 10px;
+    height: 10px;
+    background: #1a3a4a;
+    border-radius: 50%;
+    border: 1px solid #333;
+}
+
+/* Smartphone screen */
+.smartphone-screen {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: rgba(255,255,255,0.95);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.app-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.score-display {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0066cc;
+    background: #e8f4f8;
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+
+/* Canvas area */
+#shape-canvas {
+    flex: 1;
+    background: white;
+    display: block;
+    margin: 0 auto;
+    cursor: grab;
+}
+
+#shape-canvas:active {
+    cursor: grabbing;
+}
+
+/* Shape controls */
+.shape-controls {
+    background: rgba(255,255,255,0.95);
+    padding: 12px 16px;
+}
+
+.slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #d3d3d3;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-label {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Measurement display */
+.measurement-display {
+    background: rgba(255,255,255,0.95);
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #555;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+#measurements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.measurement {
+    background: #f0f0f0;
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.measurement.invariant {
+    background: #d4edda;
+    border: 2px solid #28a745;
+    font-weight: bold;
+}
+
+/* Action buttons */
+.action-buttons {
+    background: rgba(255,255,255,0.95);
+    padding: 12px 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary,
+.btn-success {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #0066cc;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,102,204,0.3);
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+}
+
+.btn-primary:active,
+.btn-success:active {
+    transform: translateY(0);
+}
+
+/* Smartphone footer (home button area) */
+.smartphone-footer {
+    height: 30px;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-button {
+    width: 120px;
+    height: 4px;
+    background: #444;
+    border-radius: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .invariantfinder-container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        max-width: 100%;
+    }
+
+    .right-panel {
+        position: relative;
+        top: 0;
+    }
+
+    .smartphone-frame {
+        width: 300px;
+        height: 600px;
+    }
+
+    .smartphone-screen {
+        height: 530px;
+    }
+
+    #shape-canvas {
+        width: 260px;
+        height: 400px;
+    }
+}
+
+/* Notification/toast messages */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.toast.success {
+    background: #28a745;
+}
+
+.toast.error {
+    background: #dc3545;
+}
+
+.toast.info {
+    background: #17a2b8;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading spinner */
+.spinner {
+    border: 3px solid rgba(255,255,255,0.3);
+    border-top: 3px solid #0066cc;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
