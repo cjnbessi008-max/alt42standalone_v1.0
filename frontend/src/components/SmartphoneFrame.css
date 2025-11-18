@@ -1,0 +1,85 @@
+.smartphone-container {
+  perspective: 1000px;
+}
+
+.smartphone-frame {
+  position: relative;
+  width: 375px;
+  height: 667px;
+  background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+  transform: rotateY(5deg) rotateX(-2deg);
+}
+
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 25px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smartphone-notch::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: rgba(100, 100, 100, 0.3);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.smartphone-notch::after {
+  content: '';
+  width: 60px;
+  height: 6px;
+  background: rgba(80, 80, 80, 0.4);
+  border-radius: 3px;
+}
+
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  z-index: 1000;
+}
+
+@media (max-width: 480px) {
+  .smartphone-frame {
+    width: 90vw;
+    height: calc(90vw * 1.78);
+    max-height: 85vh;
+  }
+}
