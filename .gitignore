@@ -1,0 +1,64 @@
+# Concept Avoidance Detection System
+# Git Ignore File
+
+# Logs
+logs/
+*.log
+
+# Configuration (if contains sensitive data)
+# Uncomment if you want to ignore config
+# src/config/config.php
+
+# Database backups
+*.sql.gz
+*.sql.bak
+backups/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.phpstorm.meta.php
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if using any)
+node_modules/
+package-lock.json
+
+# Build files
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache
+cache/
+*.cache
+
+# Test files (if generated)
+test_*.php
+phpunit.xml
+.phpunit.result.cache
