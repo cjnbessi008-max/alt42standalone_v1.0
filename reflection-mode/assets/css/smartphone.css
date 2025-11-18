@@ -1,0 +1,374 @@
+/**
+ * Smartphone Display Styles
+ * Virtual smartphone viewport positioned at bottom right
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Control Panel (Left Side) */
+.control-panel {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+}
+
+.control-panel h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #667eea;
+}
+
+.control-panel h2 {
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.control-panel h3 {
+    font-size: 16px;
+    color: #666;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.problem-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.problem-info p {
+    margin: 8px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.control-group input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.control-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #555;
+}
+
+.btn-secondary:hover {
+    background: #d0d0d0;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #138496;
+}
+
+.statistics {
+    background: #f0f4ff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.statistics p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.statistics strong {
+    color: #333;
+}
+
+/* Smartphone Container (Right Bottom) */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.smartphone-frame {
+    width: 380px;
+    height: 780px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.smartphone-header {
+    background: #000;
+    height: 40px;
+    border-radius: 28px 28px 0 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: white;
+    font-size: 12px;
+}
+
+.notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+}
+
+.time {
+    font-weight: 600;
+    z-index: 1;
+}
+
+.status-icons {
+    display: flex;
+    gap: 8px;
+    z-index: 1;
+}
+
+.smartphone-screen {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    height: 680px;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.app-header .subtitle {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+#reflectionCanvas {
+    display: block;
+    width: 100%;
+    height: calc(100% - 140px);
+    background: white;
+    cursor: crosshair;
+}
+
+.app-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(102, 126, 234, 0.95);
+    padding: 12px;
+    text-align: center;
+}
+
+.touch-hint {
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.smartphone-bottom {
+    background: #000;
+    height: 40px;
+    border-radius: 0 0 28px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-button {
+    width: 120px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .control-panel {
+        max-width: 100%;
+    }
+
+    .smartphone-frame {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone-frame {
+        width: 320px;
+        height: 660px;
+    }
+
+    .smartphone-screen {
+        height: 580px;
+    }
+
+    #reflectionCanvas {
+        width: 100%;
+        height: calc(100% - 120px);
+    }
+}
+
+/* Animation Classes */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}

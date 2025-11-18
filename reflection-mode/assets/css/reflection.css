@@ -1,0 +1,341 @@
+/**
+ * Reflection Mode Specific Styles
+ * Visual styles for y=x reflection visualization
+ */
+
+/* Canvas Overlays */
+.canvas-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Axis Line Styles */
+.axis-line {
+    stroke: #667eea;
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
+    opacity: 0.8;
+}
+
+.axis-label {
+    fill: #667eea;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Shape Styles */
+.original-shape {
+    fill: rgba(102, 126, 234, 0.6);
+    stroke: #667eea;
+    stroke-width: 2;
+}
+
+.reflected-shape {
+    fill: rgba(118, 75, 162, 0.6);
+    stroke: #764ba2;
+    stroke-width: 2;
+}
+
+.overlap-shape {
+    fill: rgba(255, 99, 71, 0.8);
+    stroke: #ff6347;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(255, 99, 71, 0.6));
+}
+
+/* Grid Styles */
+.grid-line {
+    stroke: #e0e0e0;
+    stroke-width: 1;
+    opacity: 0.5;
+}
+
+.grid-major {
+    stroke: #c0c0c0;
+    stroke-width: 1.5;
+    opacity: 0.7;
+}
+
+/* Point Markers */
+.point-marker {
+    fill: #667eea;
+    stroke: white;
+    stroke-width: 2;
+    cursor: move;
+    transition: all 0.2s;
+}
+
+.point-marker:hover {
+    fill: #ff6347;
+    r: 8;
+}
+
+.point-marker.reflected {
+    fill: #764ba2;
+}
+
+/* Coordinate Labels */
+.coordinate-label {
+    font-size: 10px;
+    fill: #333;
+    font-family: monospace;
+    pointer-events: none;
+}
+
+/* Animation Keyframes */
+@keyframes fold-animation {
+    0% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scaleX(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes overlap-pulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.folding {
+    animation: fold-animation 2s ease-in-out;
+}
+
+.overlap-highlight {
+    animation: overlap-pulse 1.5s ease-in-out infinite;
+}
+
+/* Measurement Lines */
+.measurement-line {
+    stroke: #28a745;
+    stroke-width: 1;
+    stroke-dasharray: 3, 3;
+}
+
+.measurement-label {
+    fill: #28a745;
+    font-size: 11px;
+    font-weight: bold;
+    background: white;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* Info Tooltips */
+.info-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.info-tooltip.visible {
+    opacity: 1;
+}
+
+.info-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Shape Drawing Mode */
+.drawing-mode {
+    cursor: crosshair;
+}
+
+.drawing-mode .point-preview {
+    fill: rgba(102, 126, 234, 0.3);
+    stroke: #667eea;
+    stroke-width: 2;
+    stroke-dasharray: 5, 5;
+}
+
+/* Calculation Results Display */
+.result-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.result-badge.overlap {
+    background: linear-gradient(135deg, #ff6347 0%, #ff4500 100%);
+}
+
+.result-badge.success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error States */
+.error-message {
+    background: #ff6b6b;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-message::before {
+    content: '⚠️';
+    font-size: 16px;
+}
+
+/* Success States */
+.success-message {
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.success-message::before {
+    content: '✓';
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Interactive Feedback */
+.canvas-interactive {
+    transition: transform 0.1s;
+}
+
+.canvas-interactive:active {
+    transform: scale(0.99);
+}
+
+/* Mobile Touch Enhancements */
+@media (hover: none) and (pointer: coarse) {
+    .point-marker {
+        r: 8;
+    }
+
+    .control-group input[type="range"] {
+        height: 32px;
+    }
+
+    .btn {
+        min-height: 44px;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .axis-line {
+        stroke-width: 3;
+        opacity: 1;
+    }
+
+    .original-shape,
+    .reflected-shape {
+        opacity: 0.9;
+    }
+
+    .overlap-shape {
+        stroke-width: 4;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .control-panel {
+        background: #2a2a2a;
+        color: #e0e0e0;
+    }
+
+    .control-panel h1,
+    .control-panel h2,
+    .control-panel h3 {
+        color: #e0e0e0;
+    }
+
+    .problem-info {
+        background: #1a1a1a;
+    }
+
+    .statistics {
+        background: #1a1a1a;
+    }
+
+    .control-group select {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        border-color: #444;
+    }
+
+    .btn-secondary {
+        background: #444;
+        color: #e0e0e0;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .control-panel,
+    .app-footer,
+    .smartphone-header,
+    .smartphone-bottom {
+        display: none;
+    }
+
+    .smartphone-frame {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    #reflectionCanvas {
+        page-break-inside: avoid;
+    }
+}
