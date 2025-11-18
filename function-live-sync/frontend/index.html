@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Function Live Sync - 실시간 함수 그래프 학습 시스템">
+  <title>Function Live Sync - 함수 그래프 학습</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 좌측: 제어 패널 -->
+    <div class="control-panel">
+      <h1>📊 Function Live Sync</h1>
+      <p class="subtitle">함수식이 변하면 그래프가 살아 움직입니다</p>
+
+      <!-- 문제 정보 -->
+      <div class="problem-info">
+        <h2 id="problem-title">일차함수 그래프 그리기</h2>
+        <p id="problem-desc">일차함수 y = mx + b의 그래프를 그려보세요. m과 b 값을 변경하면서 그래프가 어떻게 변하는지 관찰하세요.</p>
+      </div>
+
+      <!-- 함수 입력 -->
+      <div class="input-section">
+        <label for="function-input">함수식 입력 (예: y = 2x + 3)</label>
+        <div class="input-group">
+          <input
+            type="text"
+            id="function-input"
+            placeholder="y = 2x + 1"
+            value="y = 2x + 1"
+            autocomplete="off"
+          >
+          <button id="parse-btn" class="btn-primary">그리기</button>
+          <button id="clear-btn" class="btn-secondary">지우기</button>
+        </div>
+
+        <label for="sample-select">샘플 함수 선택</label>
+        <select id="sample-select">
+          <option value="">-- 샘플 선택 --</option>
+          <optgroup label="일차함수">
+            <option value="y = 2x + 1">y = 2x + 1</option>
+            <option value="y = -0.5x + 3">y = -0.5x + 3</option>
+            <option value="y = x">y = x</option>
+          </optgroup>
+          <optgroup label="이차함수">
+            <option value="y = x^2">y = x²</option>
+            <option value="y = -x^2 + 4">y = -x² + 4</option>
+            <option value="y = 2x^2 - 3x + 1">y = 2x² - 3x + 1</option>
+          </optgroup>
+          <optgroup label="삼차함수">
+            <option value="y = x^3">y = x³</option>
+            <option value="y = x^3 - 3x">y = x³ - 3x</option>
+          </optgroup>
+          <optgroup label="삼각함수">
+            <option value="y = sin(x)">y = sin(x)</option>
+            <option value="y = cos(x)">y = cos(x)</option>
+            <option value="y = 2*sin(x)">y = 2·sin(x)</option>
+            <option value="y = sin(2*x)">y = sin(2x)</option>
+          </optgroup>
+          <optgroup label="지수/로그">
+            <option value="y = e^x">y = eˣ</option>
+            <option value="y = ln(x)">y = ln(x)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- 함수 정보 -->
+      <div class="function-info">
+        <p><strong>함수 타입:</strong> <span id="function-type">-</span></p>
+      </div>
+
+      <!-- 상태 메시지 -->
+      <div id="status-message" class="status-message"></div>
+
+      <!-- 사용 가능한 함수 안내 -->
+      <div class="input-section">
+        <label>사용 가능한 수학 기호 및 함수</label>
+        <div style="font-size: 13px; color: #666; line-height: 1.8;">
+          <strong>기본 연산:</strong> +, -, *, /, ^(제곱)<br>
+          <strong>삼각함수:</strong> sin(), cos(), tan()<br>
+          <strong>로그:</strong> ln() (자연로그), log() (상용로그)<br>
+          <strong>기타:</strong> sqrt() (제곱근), abs() (절댓값), exp() (지수)<br>
+          <strong>상수:</strong> pi (π), e (자연상수)
+        </div>
+      </div>
+
+      <!-- 답안 제출 -->
+      <button id="submit-btn" class="btn-success">답안 제출</button>
+
+      <!-- 피드백 -->
+      <div id="feedback-box"></div>
+    </div>
+
+    <!-- 우측: 스마트폰 시뮬레이션 -->
+    <div class="phone-container">
+      <div class="smartphone">
+        <div class="phone-screen">
+          <!-- 앱 헤더 -->
+          <div class="app-header">
+            <h2>📐 함수 그래프</h2>
+            <p class="problem-number">문제 #1</p>
+          </div>
+
+          <!-- 그래프 영역 -->
+          <div class="graph-area">
+            <canvas id="graph-canvas" width="335" height="400"></canvas>
+
+            <div class="graph-controls">
+              <button class="btn-secondary" onclick="app.graph.zoom(0.8)">확대</button>
+              <button class="btn-secondary" onclick="app.graph.zoom(1.2)">축소</button>
+              <button class="btn-secondary" onclick="app.graph.saveImage()">저장</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/parser.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
