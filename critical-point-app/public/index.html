@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Point Highlight - 수학 함수 극값 학습</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header>
+                <h1>🎓 Critical Point Highlight</h1>
+                <p class="subtitle">함수의 극값을 시각적으로 학습하세요</p>
+            </header>
+
+            <div class="problem-info" id="problemInfo">
+                <h2>문제 정보</h2>
+                <p id="problemDescription">문제를 불러오는 중...</p>
+                <div class="function-equation" id="functionEquation"></div>
+            </div>
+
+            <div class="controls">
+                <button id="loadProblemBtn" class="btn btn-primary">새 문제 불러오기</button>
+                <button id="showCriticalPointsBtn" class="btn btn-success">극값 표시</button>
+                <button id="resetBtn" class="btn btn-secondary">초기화</button>
+            </div>
+        </div>
+
+        <!-- Smartphone Simulator (Bottom Right) -->
+        <div class="smartphone-simulator">
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <span class="time">10:42</span>
+                        <span class="icons">📶 📡 🔋</span>
+                    </div>
+
+                    <div class="app-header">
+                        <h3>극값 찾기</h3>
+                    </div>
+
+                    <div class="graph-container">
+                        <canvas id="graphCanvas"></canvas>
+                    </div>
+
+                    <div class="info-panel">
+                        <div id="criticalPointsInfo">
+                            <p class="hint">극값 표시 버튼을 눌러보세요!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="phone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/mathEngine.js"></script>
+    <script src="../assets/js/graphRenderer.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
