@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dual Dance - Interactive Math Learning Platform">
+    <title>Login - Dual Dance</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/smartphone.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🎨 Dual Dance</h1>
+                <p class="tagline">Interactive Exponential & Logarithmic Learning</p>
+            </div>
+
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <div id="login-error" class="error-message" style="display: none;"></div>
+
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" required autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Login</span>
+                    <span class="btn-loading" style="display: none;">Loading...</span>
+                </button>
+
+                <p class="form-hint">
+                    Demo: username=<code>demo</code>, password=<code>demo123</code>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <div id="register-error" class="error-message" style="display: none;"></div>
+
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" name="username" required autocomplete="username" minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" name="email" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password" required autocomplete="new-password" minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="register-role">Role</label>
+                    <select id="register-role" name="role">
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Register</span>
+                    <span class="btn-loading" style="display: none;">Loading...</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>
+                    © 2025 Dual Dance |
+                    <a href="https://github.com/dualdance" target="_blank">GitHub</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { API } from '/js/api.js';
+        import { Auth } from '/js/auth.js';
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(`${tab}-form`).classList.add('active');
+            });
+        });
+
+        // Login form
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoading = btn.querySelector('.btn-loading');
+            const errorDiv = document.getElementById('login-error');
+
+            errorDiv.style.display = 'none';
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const result = await Auth.login(data.username, data.password);
+                if (result.success) {
+                    window.location.href = '/index.html';
+                } else {
+                    errorDiv.textContent = result.error || 'Login failed';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = error.message || 'Login failed';
+                errorDiv.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+            }
+        });
+
+        // Register form
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const btnText = btn.querySelector('.btn-text');
+            const btnLoading = btn.querySelector('.btn-loading');
+            const errorDiv = document.getElementById('register-error');
+
+            errorDiv.style.display = 'none';
+            btn.disabled = true;
+            btnText.style.display = 'none';
+            btnLoading.style.display = 'inline';
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const result = await Auth.register(data);
+                if (result.success) {
+                    window.location.href = '/index.html';
+                } else {
+                    errorDiv.textContent = result.error || result.errors?.join(', ') || 'Registration failed';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = error.message || 'Registration failed';
+                errorDiv.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+            }
+        });
+
+        // Check if already logged in
+        if (Auth.isLoggedIn()) {
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+</html>

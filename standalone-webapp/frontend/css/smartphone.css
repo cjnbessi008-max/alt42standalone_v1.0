@@ -1,0 +1,446 @@
+/**
+ * Dual Dance Module Styles
+ *
+ * @package    mod_dualdance
+ * @copyright  2025 AI Education System
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Main Container */
+.dualdance-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Progress Stats */
+.dualdance-stats {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dualdance-stats h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Virtual Smartphone Container */
+.smartphone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    perspective: 1000px;
+}
+
+.smartphone-frame {
+    width: 360px;
+    height: 720px;
+    background: linear-gradient(145deg, #2c3e50, #34495e);
+    border-radius: 35px;
+    padding: 15px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+    transform: translateY(-5px) rotateY(2deg);
+}
+
+/* Phone notch */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 20px;
+    background: #1a252f;
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* App Header */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px 20px 20px 20px;
+    text-align: center;
+}
+
+.app-header h2 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.app-header .subtitle {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    opacity: 0.95;
+}
+
+/* Visualization Area */
+.visualization-area {
+    background: white;
+    margin: 15px;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#dance-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.function-legend {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 0.85em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.exp-color {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+}
+
+.log-color {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+/* Problem Area */
+.problem-area {
+    flex: 1;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#problem-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#problem-text {
+    font-size: 1.1em;
+    text-align: center;
+    margin: 0;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+/* Answer Input */
+.answer-input {
+    position: relative;
+}
+
+#answer-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#answer-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+#answer-input:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 100px;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.button-group button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+}
+
+/* Feedback Area */
+.feedback-area {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#feedback-message {
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.feedback-correct {
+    color: #11998e;
+}
+
+.feedback-incorrect {
+    color: #ff6b6b;
+}
+
+/* Timer Display */
+.timer-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Instructions */
+.instructions {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.instructions h4 {
+    color: #667eea;
+    margin: 0 0 15px 0;
+    font-size: 1.3em;
+}
+
+.instructions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.instructions li {
+    padding: 10px 0 10px 30px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.instructions li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #11998e;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dualdance-container {
+        padding: 10px;
+    }
+
+    .smartphone-frame {
+        width: 320px;
+        height: 640px;
+        border-radius: 30px;
+        padding: 12px;
+    }
+
+    .app-header h2 {
+        font-size: 1.5em;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .smartphone-frame {
+        border: 3px solid currentColor;
+    }
+
+    button {
+        border: 2px solid currentColor;
+    }
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dual Dance - Interactive Math Learning">
+    <title>Dual Dance - Interactive Learning Platform</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/smartphone.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">🎨 Dual Dance</div>
+            <div class="navbar-menu">
+                <div class="user-info">
+                    <span id="username-display">Loading...</span>
+                    <span class="level-badge" id="level-badge">Lv. 1</span>
+                </div>
+                <button id="logout-btn" class="btn btn-sm btn-outline">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <h3>Your Progress</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Accuracy</div>
+                        <div class="stat-value" id="stat-accuracy">0%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Correct</div>
+                        <div class="stat-value" id="stat-correct">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Avg Grade</div>
+                        <div class="stat-value" id="stat-grade">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Streak</div>
+                        <div class="stat-value" id="stat-streak">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Virtual Smartphone -->
+            <div class="smartphone-container">
+                <div class="smartphone-frame">
+                    <div class="smartphone-notch"></div>
+                    <div class="smartphone-screen">
+                        <!-- App Header -->
+                        <div class="app-header">
+                            <h2>Dual Dance</h2>
+                            <p class="subtitle">Exponential & Logarithmic Functions</p>
+                        </div>
+
+                        <!-- Visualization Area -->
+                        <div class="visualization-area">
+                            <canvas id="dance-canvas" width="320" height="400"></canvas>
+                            <div class="function-legend">
+                                <div class="legend-item">
+                                    <span class="color-box exp-color"></span>
+                                    <span id="exp-function-label">f(x) = e^x</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="color-box log-color"></span>
+                                    <span id="log-function-label">g(x) = ln(x)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Problem Area -->
+                        <div class="problem-area">
+                            <div id="problem-container" class="problem-container">
+                                <p id="problem-text">Click "Start" to begin!</p>
+                            </div>
+
+                            <div class="answer-input">
+                                <input type="number" id="answer-input" step="0.01"
+                                       placeholder="Enter your answer" disabled>
+                            </div>
+
+                            <div class="button-group">
+                                <button id="start-btn" class="btn btn-primary">Start</button>
+                                <button id="submit-btn" class="btn btn-success" disabled>Submit</button>
+                                <button id="next-btn" class="btn btn-info" style="display:none;">Next</button>
+                            </div>
+
+                            <div id="feedback-area" class="feedback-area" style="display:none;">
+                                <div id="feedback-message"></div>
+                            </div>
+                        </div>
+
+                        <!-- Timer -->
+                        <div class="timer-display">
+                            <span>Time:</span>
+                            <span id="timer">0:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="settings-panel">
+                <h3>Settings</h3>
+                <div class="setting-item">
+                    <label for="difficulty-select">Difficulty</label>
+                    <select id="difficulty-select" class="form-select">
+                        <option value="1">Very Easy</option>
+                        <option value="2">Easy</option>
+                        <option value="3" selected>Medium</option>
+                        <option value="4">Hard</option>
+                        <option value="5">Very Hard</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="animation-speed">Animation Speed</label>
+                    <input type="range" id="animation-speed" min="1" max="5" value="3"
+                           class="form-range">
+                    <span id="speed-value">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { API } from '/js/api.js';
+        import { Auth } from '/js/auth.js';
+        import { DualDanceApp } from '/js/app.js';
+
+        // Check authentication
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/login.html';
+        }
+
+        // Initialize app
+        const app = new DualDanceApp();
+        app.init();
+
+        // Logout handler
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                Auth.logout();
+                window.location.href = '/login.html';
+            }
+        });
+
+        // Load user info
+        async function loadUserInfo() {
+            try {
+                const user = await API.get('/auth/me');
+                if (user.success) {
+                    document.getElementById('username-display').textContent = user.user.username;
+                    document.getElementById('level-badge').textContent = `Lv. ${user.user.level || 1}`;
+                }
+            } catch (error) {
+                console.error('Failed to load user info:', error);
+            }
+        }
+
+        loadUserInfo();
+
+        // Expose app globally for debugging
+        window.DualDanceApp = app;
+    </script>
+</body>
+</html>

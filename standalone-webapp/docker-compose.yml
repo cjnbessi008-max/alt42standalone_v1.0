@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  # Nginx web server
+  nginx:
+    image: nginx:1.21-alpine
+    container_name: dualdance_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./backend/public:/var/www/html/api:ro
+    depends_on:
+      - php
+    networks:
+      - dualdance_network
+    restart: unless-stopped
+
+  # PHP-FPM 7.1
+  php:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dualdance_php
+    volumes:
+      - ./backend:/var/www/html
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${DB_NAME:-dualdance}
+      - DB_USER=${DB_USER:-dualdance_user}
+      - DB_PASSWORD=${DB_PASSWORD:-dualdance_pass}
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key-change-this}
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+    depends_on:
+      - mysql
+    networks:
+      - dualdance_network
+    restart: unless-stopped
+
+  # MySQL 5.7
+  mysql:
+    image: mysql:5.7
+    container_name: dualdance_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+      - MYSQL_DATABASE=${DB_NAME:-dualdance}
+      - MYSQL_USER=${DB_USER:-dualdance_user}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-dualdance_pass}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    ports:
+      - "3306:3306"
+    networks:
+      - dualdance_network
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+
+  # Redis (optional - for caching and sessions)
+  redis:
+    image: redis:6-alpine
+    container_name: dualdance_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dualdance_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # phpMyAdmin (optional - for database management)
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: dualdance_phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - dualdance_network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+networks:
+  dualdance_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
