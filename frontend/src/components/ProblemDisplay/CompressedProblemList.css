@@ -1,0 +1,152 @@
+/* Compressed Problem List Styles */
+
+.compressed-problem-list {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.problem-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.problem-list-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.refresh-button {
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.refresh-button:hover {
+  background: #0056b3;
+}
+
+.problem-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.problem-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.problem-item:hover {
+  background: #e9ecef;
+  border-color: #007bff;
+  transform: translateX(2px);
+}
+
+.problem-item.selected {
+  background: #e7f3ff;
+  border-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.problem-index {
+  min-width: 40px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.problem-compressed {
+  flex: 1;
+  color: #212529;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.problem-details {
+  margin-top: 12px;
+  padding: 12px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 100%;
+}
+
+.detail-row {
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row strong {
+  color: #495057;
+  margin-right: 8px;
+}
+
+.detail-row pre {
+  margin: 4px 0 0 0;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 3px;
+  font-size: 12px;
+  overflow-x: auto;
+}
+
+/* Loading and error states */
+.compressed-problem-list.loading,
+.compressed-problem-list.error,
+.compressed-problem-list.empty {
+  padding: 40px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.compressed-problem-list.error {
+  color: #dc3545;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .compressed-problem-list {
+    padding: 12px;
+  }
+
+  .problem-list-header h3 {
+    font-size: 18px;
+  }
+
+  .problem-item {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .problem-index {
+    min-width: 30px;
+  }
+}
