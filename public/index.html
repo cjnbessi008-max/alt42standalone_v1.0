@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="형상 변환기 - 도형을 터치하면 부드럽게 변형되며 성질을 보여주는 교육용 앱">
+    <title>형상 변환기 (Shape Transformer) | KAIST Touch Math Academy</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>형상 변환기</h1>
+                <p class="subtitle">도형의 성질을 배우며 즐겁게 탐험하세요</p>
+            </div>
+            <div class="user-info" id="userInfo">
+                <span id="userName">게스트</span>
+            </div>
+        </header>
+
+        <!-- Instructions Panel -->
+        <div class="instructions-panel">
+            <h2>사용 방법</h2>
+            <ul>
+                <li>📱 우측 하단의 스마트폰 화면에서 도형을 터치하세요</li>
+                <li>✨ 도형을 터치하면 부드럽게 변형되며 수학적 성질을 보여줍니다</li>
+                <li>🔄 변환 버튼을 눌러 다양한 변형을 시도해보세요</li>
+                <li>📊 각 도형의 넓이, 둘레, 각도 등을 확인할 수 있습니다</li>
+            </ul>
+        </div>
+
+        <!-- Virtual Smartphone (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- Phone Frame -->
+                <div class="phone-frame">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <span class="time">10:30</span>
+                        <div class="status-icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- App Screen -->
+                    <div class="app-screen" id="appScreen">
+                        <!-- Shape Selector -->
+                        <div class="shape-selector">
+                            <h3>도형 선택</h3>
+                            <div class="shape-buttons" id="shapeButtons">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <!-- Canvas Area -->
+                        <div class="canvas-container">
+                            <canvas id="shapeCanvas" width="300" height="400"></canvas>
+                            <div class="canvas-overlay" id="canvasOverlay"></div>
+                        </div>
+
+                        <!-- Transformation Controls -->
+                        <div class="transform-controls">
+                            <h3>변환</h3>
+                            <div class="transform-buttons" id="transformButtons">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <!-- Properties Panel -->
+                        <div class="properties-panel" id="propertiesPanel">
+                            <h3>도형의 성질</h3>
+                            <div class="properties-content" id="propertiesContent">
+                                <p class="hint">도형을 선택하세요</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Home Button -->
+                    <div class="home-button"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <p>로딩 중...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/shapes.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
