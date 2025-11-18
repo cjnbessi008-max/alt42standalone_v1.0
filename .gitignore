@@ -1,0 +1,52 @@
+# Boundary Slider .gitignore
+
+# 환경 설정 파일 (보안)
+config.php.local
+*.local.php
+.env
+.env.local
+
+# 데이터베이스 백업
+*.sql.backup
+*.sql.gz
+db/backups/
+
+# 로그 파일
+*.log
+logs/
+error_log
+access_log
+
+# 임시 파일
+*.tmp
+*.temp
+*.cache
+temp/
+cache/
+
+# 에디터 설정
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# PHP
+vendor/
+composer.lock
+
+# Node.js (필요시)
+node_modules/
+package-lock.json
+npm-debug.log
+
+# 업로드 파일
+uploads/
+files/
+
+# 테스트 파일
+test_connection.php
+phpinfo.php
+debug.php

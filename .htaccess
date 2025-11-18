@@ -1,0 +1,65 @@
+# Apache 설정 - Boundary Slider
+# PHP 7.1.9, Moodle 3.7 호환
+
+# PHP 설정
+<IfModule mod_php7.c>
+    php_flag display_errors On
+    php_value error_reporting E_ALL
+    php_value max_execution_time 300
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value memory_limit 128M
+</IfModule>
+
+# URL Rewrite 활성화
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /boundary-slider/
+
+    # 실제 파일이나 디렉토리가 아닌 경우 index.php로 라우팅
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+# CORS 설정 (필요시)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# 디렉토리 리스팅 비활성화
+Options -Indexes
+
+# 민감한 파일 접근 차단
+<FilesMatch "^(config\.php|\.git.*|\.env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Gzip 압축 활성화
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# 브라우저 캐싱 설정
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+</IfModule>
+
+# UTF-8 인코딩 설정
+AddDefaultCharset UTF-8
+
+# MIME 타입 설정
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+    AddType text/html .html .htm
+    AddType application/json .json
+</IfModule>
