@@ -1,0 +1,111 @@
+/**
+ * Styles for mod_coreconditions
+ *
+ * @package    mod_coreconditions
+ * @copyright  2025 AI Education System
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Teacher view */
+.coreconditions-teacher-view {
+    margin-top: 20px;
+}
+
+.coreconditions-teacher-view .generaltable {
+    margin-top: 15px;
+}
+
+/* Student view */
+.coreconditions-student-view {
+    margin-top: 20px;
+}
+
+.problem-card {
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.problem-card .card-title {
+    color: #495057;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.conditions-list {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 0.25rem;
+    margin-top: 15px;
+}
+
+.conditions-list h5 {
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.conditions-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.conditions-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.conditions-list li:last-child {
+    border-bottom: none;
+}
+
+/* Condition management form */
+fieldset.card {
+    border: 1px solid #dee2e6;
+}
+
+fieldset.card legend.card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Attempt page */
+#attempt-form {
+    margin-top: 20px;
+}
+
+#attempt-form #answer {
+    font-size: 1.5rem;
+    padding: 15px;
+}
+
+/* Badges */
+.badge {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.875rem;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .problem-card {
+        margin-bottom: 15px;
+    }
+
+    #attempt-form #answer {
+        font-size: 1.25rem;
+    }
+}

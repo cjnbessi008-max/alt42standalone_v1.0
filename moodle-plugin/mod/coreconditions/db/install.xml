@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/coreconditions/db" VERSION="20250118" COMMENT="XMLDB file for Moodle mod/coreconditions">
+  <TABLES>
+    <!-- Main activity table -->
+    <TABLE NAME="coreconditions" COMMENT="Core Conditions activity module instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Problems/Questions table -->
+    <TABLE NAME="coreconditions_problems" COMMENT="Problems within each core conditions activity">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="coreconditions_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="problem_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="e.g., fraction, algebra, geometry"/>
+        <FIELD NAME="difficulty_level" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="correct_answer" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="metadata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON field for additional problem data"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="coreconditions_id" TYPE="foreign" FIELDS="coreconditions_id" REFTABLE="coreconditions" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="problem_type" UNIQUE="false" FIELDS="problem_type"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Core conditions table - exactly 3 per problem -->
+    <TABLE NAME="coreconditions_conditions" COMMENT="Three core conditions for each problem">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="problem_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="condition_order" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="1, 2, or 3"/>
+        <FIELD NAME="condition_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="validation, calculation, progression, feedback"/>
+        <FIELD NAME="condition_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="condition_description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="condition_rule" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Rule logic or expression"/>
+        <FIELD NAME="condition_weight" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="33.33" SEQUENCE="false" DECIMALS="2" COMMENT="Weight for grading (default ~33%)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="problem_id" TYPE="foreign" FIELDS="problem_id" REFTABLE="coreconditions_problems" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="problem_order" UNIQUE="true" FIELDS="problem_id, condition_order"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Student attempts table -->
+    <TABLE NAME="coreconditions_attempts" COMMENT="Student attempts at problems">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="problem_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="attempt_number" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="answer" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="conditions_met" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON: which conditions were satisfied"/>
+        <FIELD NAME="partial_score" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Score based on conditions met"/>
+        <FIELD NAME="time_taken" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Seconds taken to answer"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="problem_id" TYPE="foreign" FIELDS="problem_id" REFTABLE="coreconditions_problems" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_problem" UNIQUE="false" FIELDS="userid, problem_id"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>
