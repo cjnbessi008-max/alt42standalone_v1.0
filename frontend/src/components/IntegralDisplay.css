@@ -1,0 +1,258 @@
+/**
+ * 적분 표시 컴포넌트 스타일
+ */
+
+.integral-display {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.problem-header {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #dee2e6;
+}
+
+.problem-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.integral-type {
+  font-size: 12px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.problem-content {
+  padding: 20px 16px;
+}
+
+.problem-text {
+  margin: 0 0 16px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #212529;
+  line-height: 1.5;
+}
+
+.problem-latex {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  text-align: center;
+  font-size: 18px;
+}
+
+.core-rules-section {
+  padding: 16px;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.section-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.core-rule-card {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.core-rule-card:last-child {
+  margin-bottom: 0;
+}
+
+.rule-header {
+  margin-bottom: 8px;
+}
+
+.rule-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.rule-formula {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.rule-description {
+  margin: 0;
+  font-size: 12px;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.steps-section {
+  padding: 16px;
+  background: white;
+}
+
+.step-card {
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.step-card:last-child {
+  margin-bottom: 0;
+}
+
+.step-card.active {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8efff 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.step-card.completed {
+  opacity: 0.7;
+  border-color: #10b981;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.step-number {
+  font-size: 12px;
+  font-weight: 700;
+  color: #667eea;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.applied-rule {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: #667eea;
+  color: white;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.step-description {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #495057;
+  line-height: 1.4;
+}
+
+.step-latex {
+  background: white;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  text-align: center;
+  margin-bottom: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.highlighted-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.highlight-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 6px;
+  border-left: 3px solid;
+  font-size: 12px;
+}
+
+.label-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.label-text {
+  font-weight: 600;
+  color: #212529;
+  flex-shrink: 0;
+}
+
+.label-tooltip {
+  color: #6c757d;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* MathJax 스타일 조정 */
+.MathJax {
+  font-size: 1.1em !important;
+}
+
+mjx-container {
+  margin: 0.5em 0 !important;
+}
+
+/* 스크롤바 스타일 */
+.problem-latex::-webkit-scrollbar,
+.rule-formula::-webkit-scrollbar,
+.step-latex::-webkit-scrollbar {
+  height: 6px;
+}
+
+.problem-latex::-webkit-scrollbar-track,
+.rule-formula::-webkit-scrollbar-track,
+.step-latex::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.problem-latex::-webkit-scrollbar-thumb,
+.rule-formula::-webkit-scrollbar-thumb,
+.step-latex::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.problem-latex::-webkit-scrollbar-thumb:hover,
+.rule-formula::-webkit-scrollbar-thumb:hover,
+.step-latex::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

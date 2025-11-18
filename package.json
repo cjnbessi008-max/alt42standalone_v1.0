@@ -1,0 +1,23 @@
+{
+  "name": "alt42-core-integral-highlighting",
+  "version": "1.0.0",
+  "description": "LMS integrated integral problem display with core rule highlighting",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test"
+  },
+  "keywords": ["education", "integral", "calculus", "moodle", "lms", "highlighting"],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
