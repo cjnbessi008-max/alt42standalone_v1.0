@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/slopeheatmap/db" VERSION="20251118" COMMENT="XMLDB file for Moodle mod/slopeheatmap"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="slopeheatmap" COMMENT="Slope Heatmap activity instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="slopeheatmap_sessions" COMMENT="Student session data">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="slopeheatmap_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_id" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="session_end" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="2" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="slopeheatmap_id" UNIQUE="false" FIELDS="slopeheatmap_id"/>
+        <INDEX NAME="user_id" UNIQUE="false" FIELDS="user_id"/>
+        <INDEX NAME="session_start" UNIQUE="false" FIELDS="session_start"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="slopeheatmap_sensor_data" COMMENT="Raw slope sensor data">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="session_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="alpha" TYPE="number" LENGTH="10" NOTNULL="true" DECIMALS="6" SEQUENCE="false" COMMENT="Rotation around Z-axis (0-360)"/>
+        <FIELD NAME="beta" TYPE="number" LENGTH="10" NOTNULL="true" DECIMALS="6" SEQUENCE="false" COMMENT="Rotation around X-axis (-180 to 180)"/>
+        <FIELD NAME="gamma" TYPE="number" LENGTH="10" NOTNULL="true" DECIMALS="6" SEQUENCE="false" COMMENT="Rotation around Y-axis (-90 to 90)"/>
+        <FIELD NAME="absolute" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="session_id" UNIQUE="false" FIELDS="session_id"/>
+        <INDEX NAME="timestamp" UNIQUE="false" FIELDS="timestamp"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="slopeheatmap_aggregated" COMMENT="Aggregated heatmap data">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="session_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="beta_range_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="beta_range_end" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="gamma_range_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="gamma_range_end" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="count" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="duration_ms" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="session_id" UNIQUE="false" FIELDS="session_id"/>
+        <INDEX NAME="ranges" UNIQUE="false" FIELDS="beta_range_start,gamma_range_start"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="slopeheatmap_problems" COMMENT="Problem definitions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="slopeheatmap_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_key" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="target_beta_min" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="target_beta_max" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="target_gamma_min" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="target_gamma_max" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="time_limit" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="difficulty" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="medium" SEQUENCE="false"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="slopeheatmap_id" UNIQUE="false" FIELDS="slopeheatmap_id"/>
+        <INDEX NAME="problem_key" UNIQUE="true" FIELDS="slopeheatmap_id,problem_key"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

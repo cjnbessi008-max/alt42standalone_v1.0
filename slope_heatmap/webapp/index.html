@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slope Heatmap - Virtual Smartphone</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/heatmap.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h1>Slope Heatmap Activity</h1>
+            <div id="problem-info" class="problem-info">
+                <h2 id="problem-title">문제를 선택하세요</h2>
+                <p id="problem-description">아래 문제 목록에서 시작할 문제를 선택해주세요.</p>
+            </div>
+
+            <div id="problem-list" class="problem-list">
+                <!-- Problems will be loaded here -->
+            </div>
+
+            <div id="session-info" class="session-info" style="display: none;">
+                <div class="info-row">
+                    <span>경과 시간:</span>
+                    <span id="elapsed-time">0s</span>
+                </div>
+                <div class="info-row">
+                    <span>데이터 포인트:</span>
+                    <span id="data-points">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Heatmap Visualization -->
+            <div id="heatmap-container" class="heatmap-container" style="display: none;">
+                <h3>기울기 히트맵</h3>
+                <canvas id="heatmap-canvas" width="400" height="300"></canvas>
+                <div class="heatmap-legend">
+                    <span>낮음</span>
+                    <div class="legend-gradient"></div>
+                    <span>높음</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div class="app-header">
+                        <div class="status-bar">
+                            <span class="time">12:34</span>
+                            <div class="status-icons">
+                                <span class="signal">📶</span>
+                                <span class="battery">🔋</span>
+                            </div>
+                        </div>
+                        <h3>기울기 센서</h3>
+                    </div>
+
+                    <div class="sensor-display">
+                        <div class="sensor-value">
+                            <label>Alpha (Z축)</label>
+                            <div class="value-display">
+                                <span id="alpha-value">0.0</span>°
+                            </div>
+                            <input type="range" id="alpha-slider" min="0" max="360" value="0" step="0.1">
+                        </div>
+
+                        <div class="sensor-value">
+                            <label>Beta (X축 - 앞뒤)</label>
+                            <div class="value-display">
+                                <span id="beta-value">0.0</span>°
+                            </div>
+                            <input type="range" id="beta-slider" min="-180" max="180" value="0" step="0.1">
+                        </div>
+
+                        <div class="sensor-value">
+                            <label>Gamma (Y축 - 좌우)</label>
+                            <div class="value-display">
+                                <span id="gamma-value">0.0</span>°
+                            </div>
+                            <input type="range" id="gamma-slider" min="-90" max="90" value="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="visual-indicator">
+                        <svg width="200" height="200" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="80" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+                            <circle id="tilt-indicator" cx="100" cy="100" r="15" fill="#4CAF50"/>
+                            <line x1="100" y1="20" x2="100" y2="40" stroke="#666" stroke-width="2"/>
+                            <text x="100" y="15" text-anchor="middle" font-size="12">앞</text>
+                        </svg>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button id="start-btn" class="btn btn-primary">시작</button>
+                        <button id="stop-btn" class="btn btn-secondary" style="display: none;">완료</button>
+                        <button id="reset-btn" class="btn btn-tertiary">리셋</button>
+                    </div>
+
+                    <div class="target-indicator" id="target-indicator" style="display: none;">
+                        <div class="target-range">
+                            <strong>목표 범위:</strong>
+                            <div id="target-beta">Beta: -</div>
+                            <div id="target-gamma">Gamma: -</div>
+                        </div>
+                        <div class="target-status" id="target-status">
+                            <span class="status-icon">⏳</span>
+                            <span id="target-time">0s / 10s</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/sensor.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/smartphone.js"></script>
+</body>
+</html>
