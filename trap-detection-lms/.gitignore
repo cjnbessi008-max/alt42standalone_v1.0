@@ -1,0 +1,45 @@
+# Trap Detection LMS - Git Ignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Storage and logs
+storage/
+*.log
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Database dumps
+*.sql.gz
+*.sql.bak
+dump.sql
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Backup files
+*~
+*.bak
+*.backup
