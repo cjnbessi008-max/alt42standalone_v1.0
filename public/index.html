@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set MiniMap - 집합 구조 시각화</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <h1>Set MiniMap</h1>
+            <div class="header-controls">
+                <button id="syncBtn" class="btn btn-primary">
+                    <span class="icon">🔄</span>
+                    Moodle 동기화
+                </button>
+                <select id="layoutSelector" class="select">
+                    <option value="tree">트리 구조</option>
+                    <option value="venn">벤 다이어그램</option>
+                    <option value="network">네트워크</option>
+                    <option value="hierarchy">계층 구조</option>
+                </select>
+                <button id="zoomInBtn" class="btn">+</button>
+                <button id="zoomOutBtn" class="btn">-</button>
+                <button id="resetViewBtn" class="btn">Reset</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Left Panel - Set List -->
+            <aside class="sidebar">
+                <h2>집합 목록</h2>
+                <div id="setList" class="set-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </aside>
+
+            <!-- Center - MiniMap Visualization -->
+            <main class="minimap-container">
+                <canvas id="minimapCanvas"></canvas>
+                <div id="minimapSvg" class="minimap-svg"></div>
+            </main>
+
+            <!-- Right Panel - Problem List -->
+            <aside class="sidebar-right">
+                <h2>문제 목록</h2>
+                <div id="problemList" class="problem-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </aside>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div id="smartphone" class="smartphone">
+            <div class="smartphone-header">
+                <div class="camera"></div>
+                <div class="speaker"></div>
+            </div>
+            <div class="smartphone-screen">
+                <div class="smartphone-content">
+                    <div id="smartphoneApp" class="app-container">
+                        <h3>학습 앱</h3>
+                        <div id="currentProblem" class="current-problem">
+                            <p>집합을 선택하면 문제가 표시됩니다.</p>
+                        </div>
+                        <div class="app-controls">
+                            <button id="prevProblem" class="app-btn" disabled>이전</button>
+                            <button id="nextProblem" class="app-btn" disabled>다음</button>
+                        </div>
+                        <div id="problemProgress" class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="smartphone-footer">
+                <div class="home-button"></div>
+            </div>
+        </div>
+
+        <!-- Floating Toggle Button for Smartphone -->
+        <button id="toggleSmartphone" class="toggle-smartphone">
+            📱
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Loading Indicator -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/minimap.js"></script>
+    <script src="js/smartphone.js"></script>
+</body>
+</html>
