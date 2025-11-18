@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: aipipeline-postgres
+    environment:
+      POSTGRES_DB: aipipeline
+      POSTGRES_USER: aipipeline
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dev_password_change_in_production}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../database/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aipipeline"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aipipeline-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: aipipeline-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - aipipeline-network
+
+  # AI Pipeline (Python FastAPI)
+  ai-pipeline:
+    build:
+      context: ../backend/ai-pipeline
+      dockerfile: ../../docker/Dockerfile.pipeline
+    container_name: aipipeline-api
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql://aipipeline:${DB_PASSWORD:-dev_password_change_in_production}@postgres:5432/aipipeline
+      - REDIS_URL=redis://redis:6379/0
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-3-sonnet-20240229}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../backend/ai-pipeline:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.api.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aipipeline-network
+
+  # API Gateway (Node.js Express) - Optional for now
+  # api-gateway:
+  #   build:
+  #     context: ../backend/api-gateway
+  #     dockerfile: ../../docker/Dockerfile.gateway
+  #   container_name: aipipeline-gateway
+  #   environment:
+  #     - NODE_ENV=development
+  #     - AI_PIPELINE_URL=http://ai-pipeline:8000
+  #     - DATABASE_URL=postgresql://aipipeline:${DB_PASSWORD}@postgres:5432/aipipeline
+  #     - REDIS_URL=redis://redis:6379/0
+  #     - JWT_SECRET=${JWT_SECRET}
+  #   ports:
+  #     - "4000:4000"
+  #   depends_on:
+  #     - ai-pipeline
+  #   networks:
+  #     - aipipeline-network
+
+  # Frontend (React) - Optional for now
+  # frontend:
+  #   build:
+  #     context: ../frontend
+  #     dockerfile: ../docker/Dockerfile.frontend
+  #   container_name: aipipeline-frontend
+  #   environment:
+  #     - VITE_API_URL=http://localhost:8000/api
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ../frontend:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - ai-pipeline
+  #   networks:
+  #     - aipipeline-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  aipipeline-network:
+    driver: bridge
