@@ -1,0 +1,28 @@
+{
+  "name": "concept-problem-matching-webapp",
+  "version": "1.0.0",
+  "description": "Standalone concept-problem matching visualization and recommendation system",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "cd backend && npm start",
+    "setup": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [
+    "education",
+    "learning",
+    "recommendation",
+    "visualization",
+    "concept-mapping"
+  ],
+  "author": "AI Education System",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
