@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 대시보드 - 학습 현황</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>📖 나의 학습 현황</h1>
+            <p>학습한 개념들의 이해도를 확인하고 복습이 필요한 부분을 찾아보세요</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Student Selection (for demo) -->
+        <div class="card">
+            <div class="card-header">
+                <h2>학생 선택</h2>
+            </div>
+            <select id="studentSelect" onchange="loadStudentData()" style="padding: 10px; font-size: 16px; width: 100%; max-width: 300px;">
+                <option value="">학생을 선택하세요...</option>
+            </select>
+        </div>
+
+        <!-- Student Info -->
+        <div id="studentInfo" style="display: none;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>학습한 개념</h3>
+                    <div class="value" id="totalConceptsLearned">-</div>
+                </div>
+                <div class="stat-card success">
+                    <h3>안정적으로 이해한 개념</h3>
+                    <div class="value" id="stableConcepts">-</div>
+                </div>
+                <div class="stat-card warning">
+                    <h3>복습이 필요한 개념</h3>
+                    <div class="value" id="needsReviewConcepts">-</div>
+                </div>
+            </div>
+
+            <!-- Concepts to Review -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>🎯 복습이 필요한 개념</h2>
+                </div>
+                <div id="reviewConceptsContainer">
+                    <div class="loading">데이터 로딩 중</div>
+                </div>
+            </div>
+
+            <!-- Progress by Concept -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📊 개념별 이해도</h2>
+                </div>
+                <div id="progressContainer">
+                    <div class="loading">데이터 로딩 중</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/student-dashboard.js"></script>
+</body>
+</html>
