@@ -1,0 +1,235 @@
+/* Virtual Device Container */
+.virtual-device-wrapper {
+  position: relative;
+  display: inline-block;
+  perspective: 1000px;
+}
+
+/* Position variants */
+.virtual-device-wrapper.bottom-right {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.virtual-device-wrapper.center {
+  position: relative;
+  margin: 0 auto;
+}
+
+/* Main device container */
+.virtual-device {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  transform-style: preserve-3d;
+  animation: deviceFloat 6s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes deviceFloat {
+  0%, 100% {
+    transform: translateY(0px) rotateY(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotateY(2deg);
+  }
+}
+
+/* Device frame - main body */
+.device-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--device-frame);
+  border-radius: 42px;
+  padding: 12px;
+  z-index: 10;
+
+  /* Subtle gradient for metallic effect */
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+
+  /* Frame border highlight */
+  border: 2px solid rgba(255, 255, 255, 0.1);
+
+  /* Main device shadow */
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Top bezel */
+.device-bezel.top {
+  position: relative;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Notch */
+.notch {
+  width: 180px;
+  height: 28px;
+  background: var(--device-frame);
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.speaker {
+  width: 60px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+}
+
+.camera {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #1a1a1a 0%, #000 70%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Device screen */
+.device-screen {
+  width: 100%;
+  height: calc(100% - 80px);
+  background: var(--device-screen);
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+
+  /* Screen glass effect */
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.screen-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Bottom bezel */
+.device-bezel.bottom {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-indicator {
+  width: 140px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* ============================================
+   IMPOSSIBLE SHADOW EFFECT
+   ============================================
+   Multiple layered shadows create a realistic 3D depth
+   without using actual shadows on device edges
+   This creates an "impossible" visual illusion
+*/
+
+.shadow-layer {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Primary shadow - closest to device */
+.shadow-1 {
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border-radius: 42px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 70%
+  );
+  filter: blur(10px);
+  transform: translateZ(-10px);
+}
+
+/* Secondary shadow - mid-range depth */
+.shadow-2 {
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 42px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.12) 40%,
+    transparent 60%
+  );
+  filter: blur(20px);
+  transform: translateZ(-20px);
+}
+
+/* Tertiary shadow - deepest layer */
+.shadow-3 {
+  top: 25px;
+  left: 25px;
+  right: 25px;
+  bottom: 25px;
+  border-radius: 42px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.05) 30%,
+    transparent 50%
+  );
+  filter: blur(30px);
+  transform: translateZ(-30px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .virtual-device {
+    width: 300px;
+    height: 650px;
+    transform: scale(0.8);
+  }
+
+  .virtual-device-wrapper.bottom-right {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* Hover effect - enhances 3D illusion */
+.virtual-device:hover {
+  animation-play-state: paused;
+  transform: translateY(-5px) rotateY(0deg) scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.virtual-device:hover .shadow-1 {
+  filter: blur(12px);
+  opacity: 0.9;
+}
+
+.virtual-device:hover .shadow-2 {
+  filter: blur(24px);
+  opacity: 0.85;
+}
+
+.virtual-device:hover .shadow-3 {
+  filter: blur(36px);
+  opacity: 0.8;
+}

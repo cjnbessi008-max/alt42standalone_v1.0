@@ -1,0 +1,15 @@
+{
+  "name": "impossible-shadow-division",
+  "version": "1.0.0",
+  "description": "LMS-integrated division problem app with virtual smartphone display",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && node api/server.js",
+    "test": "jest"
+  },
+  "keywords": ["education", "lms", "moodle", "division", "math"],
+  "author": "",
+  "license": "MIT"
+}
