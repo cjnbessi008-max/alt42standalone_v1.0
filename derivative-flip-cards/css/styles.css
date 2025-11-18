@@ -287,6 +287,67 @@ body {
     transform: none;
 }
 
+/* Recommendation Controls */
+.recommendation-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    gap: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.recommend-btn,
+.path-btn,
+.smart-next-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.recommend-btn {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    color: white;
+}
+
+.path-btn {
+    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+    color: white;
+}
+
+.smart-next-btn {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #333;
+}
+
+.recommend-btn:hover,
+.path-btn:hover,
+.smart-next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recommend-btn:active,
+.path-btn:active,
+.smart-next-btn:active {
+    transform: translateY(0);
+}
+
+.recommend-btn svg,
+.path-btn svg,
+.smart-next-btn svg {
+    flex-shrink: 0;
+}
+
 /* Progress Bar */
 .progress-container {
     height: 6px;

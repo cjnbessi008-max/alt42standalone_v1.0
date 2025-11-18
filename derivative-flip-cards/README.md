@@ -7,6 +7,11 @@ Moodle LMS와 연동되는 미분 규칙 학습용 플립 카드 웹 애플리�
 - **플립 카드 인터페이스**: 카드를 뒤집어서 미분 규칙과 예제를 학습
 - **스마트폰 화면 시뮬레이션**: 우측 하단에 가상 스마트폰 화면으로 표시
 - **Moodle LMS 연동**: 학생 정보 및 학습 진도 추적
+- **🤖 AI 추천 시스템**: 학습 패턴 분석 기반 개인화 추천
+  - 학습하지 않은 카드 우선 추천
+  - 난이도 순차 학습 지원
+  - 간격 반복 학습 (Spaced Repetition)
+  - 개인 맞춤형 학습 경로 생성
 - **12가지 미분 규칙**: 기본부터 고급 미분 규칙까지 포함
 - **인터랙티브 학습**: 키보드, 마우스, 터치 제스처 지원
 - **수학 공식 렌더링**: MathJax를 사용한 LaTeX 수식 표시
@@ -105,6 +110,11 @@ http://your-moodle-site.com/derivative-flip-cards/index.html?student_id=123&cour
 - **카드 클릭**: 카드 뒤집기
 - **이전/다음 버튼**: 카드 이동
 - **뒤집기 버튼**: 카드 뒤집기
+
+### 🤖 AI 추천 기능 버튼
+- **추천 카드**: AI가 분석한 학습 패턴 기반 최적의 다음 카드 표시
+- **학습 경로**: 개인화된 5단계 학습 순서 제안
+- **스마트 다음**: 추천 알고리즘을 활용한 지능형 다음 카드 이동
 
 ### 터치 (모바일)
 - **탭**: 카드 뒤집기
@@ -253,6 +263,65 @@ CSS에서 `.smartphone-container` 위치 수정:
   "card_id": 1,
   "event_type": "flip",
   "timestamp": "2025-11-18T10:30:00Z"
+}
+```
+
+### 🤖 GET /php/api.php?action=getRecommendation
+AI 기반 개인화 카드 추천을 제공합니다.
+
+**파라미터:**
+- `student_id`: Moodle 사용자 ID (필수)
+- `course_id`: 코스 ID (선택)
+
+**응답:**
+```json
+{
+  "success": true,
+  "recommendation": {
+    "id": 3,
+    "rule_name": "상수배 법칙",
+    "formula": "$$\\frac{d}{dx}[cf(x)] = c\\frac{d}{dx}f(x)$$",
+    "recommendation_score": 85,
+    "recommendation_reasons": [
+      "아직 학습하지 않은 새로운 카드입니다",
+      "현재 학습 수준에 적합한 난이도입니다"
+    ]
+  }
+}
+```
+
+**추천 알고리즘:**
+- 미학습 카드 우선 추천 (+100점)
+- 난이도 적합성 평가 (+50점)
+- 간격 반복 학습 적용 (+40점)
+- 학습 참여도 분석 (+25점)
+- 순차 학습 권장 (+30점)
+
+### 🤖 GET /php/api.php?action=getLearningPath
+개인화된 학습 경로를 생성합니다.
+
+**파라미터:**
+- `student_id`: Moodle 사용자 ID (필수)
+- `course_id`: 코스 ID (선택)
+- `count`: 추천할 카드 수 (기본값: 5)
+
+**응답:**
+```json
+{
+  "success": true,
+  "path": [
+    {
+      "id": 1,
+      "rule_name": "상수 함수의 미분",
+      "recommendation_score": 100
+    },
+    {
+      "id": 2,
+      "rule_name": "거듭제곱 법칙",
+      "recommendation_score": 95
+    }
+  ],
+  "total_cards": 12
 }
 ```
 

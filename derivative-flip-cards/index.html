@@ -84,6 +84,34 @@
                     </button>
                 </div>
 
+                <!-- Recommendation Controls -->
+                <div class="recommendation-controls">
+                    <button id="recommend-btn" class="recommend-btn" onclick="showRecommendedCard()" title="AI가 추천하는 다음 카드를 보여줍니다">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        추천 카드
+                    </button>
+
+                    <button id="path-btn" class="path-btn" onclick="showLearningPath()" title="개인화된 학습 경로를 보여줍니다">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path>
+                        </svg>
+                        학습 경로
+                    </button>
+
+                    <button id="smart-next-btn" class="smart-next-btn" onclick="getSmartNext()" title="AI 추천 기반 다음 카드">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="13 17 18 12 13 7"></polyline>
+                            <polyline points="6 17 11 12 6 7"></polyline>
+                        </svg>
+                        스마트 다음
+                    </button>
+                </div>
+
                 <!-- Progress Bar -->
                 <div class="progress-container">
                     <div id="progress-bar" class="progress-bar"></div>

@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Include database configuration
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/recommendation-engine.php';
 
 // Get request method and action
 $method = $_SERVER['REQUEST_METHOD'];
@@ -55,6 +56,14 @@ try {
 
         case 'updateProgress':
             handleUpdateProgress();
+            break;
+
+        case 'getRecommendation':
+            handleGetRecommendation();
+            break;
+
+        case 'getLearningPath':
+            handleGetLearningPath();
             break;
 
         default:
@@ -293,6 +302,51 @@ function handleUpdateProgress() {
     } catch (Exception $e) {
         error_log('Error in handleUpdateProgress: ' . $e->getMessage());
         sendError('Failed to update progress', 500);
+    }
+}
+
+/**
+ * Get personalized card recommendation
+ */
+function handleGetRecommendation() {
+    $studentId = isset($_GET['student_id']) ? intval($_GET['student_id']) : 0;
+    $courseId = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+
+    if ($studentId === 0) {
+        sendError('Student ID is required', 400);
+        return;
+    }
+
+    try {
+        $recommendation = getRecommendedCard($studentId, $courseId);
+        sendSuccess($recommendation);
+
+    } catch (Exception $e) {
+        error_log('Error in handleGetRecommendation: ' . $e->getMessage());
+        sendError('Failed to get recommendation', 500);
+    }
+}
+
+/**
+ * Get personalized learning path
+ */
+function handleGetLearningPath() {
+    $studentId = isset($_GET['student_id']) ? intval($_GET['student_id']) : 0;
+    $courseId = isset($_GET['course_id']) ? intval($_GET['course_id']) : 0;
+    $count = isset($_GET['count']) ? intval($_GET['count']) : 5;
+
+    if ($studentId === 0) {
+        sendError('Student ID is required', 400);
+        return;
+    }
+
+    try {
+        $path = getLearningPath($studentId, $courseId, $count);
+        sendSuccess($path);
+
+    } catch (Exception $e) {
+        error_log('Error in handleGetLearningPath: ' . $e->getMessage());
+        sendError('Failed to get learning path', 500);
     }
 }
 

@@ -434,3 +434,157 @@ document.getElementById('flip-card').addEventListener('click', function(event) {
         flipCard();
     }
 });
+
+// ===== RECOMMENDATION SYSTEM =====
+
+/**
+ * Get personalized card recommendation
+ */
+async function getRecommendation() {
+    if (!studentData) {
+        showStatus('학생 정보가 없어 추천을 제공할 수 없습니다.', 'error');
+        return null;
+    }
+
+    try {
+        showStatus('추천 카드를 찾는 중...', 'info');
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('course_id') || 0;
+
+        const response = await fetch(
+            `${API_BASE_URL}?action=getRecommendation&student_id=${studentData.id}&course_id=${courseId}`
+        );
+        const data = await response.json();
+
+        if (data.success && data.recommendation) {
+            return data.recommendation;
+        } else {
+            console.error('Failed to get recommendation:', data);
+            return null;
+        }
+
+    } catch (error) {
+        console.error('Error getting recommendation:', error);
+        showStatus('추천을 가져오는 중 오류가 발생했습니다.', 'error');
+        return null;
+    }
+}
+
+/**
+ * Show recommended card
+ */
+async function showRecommendedCard() {
+    const recommendation = await getRecommendation();
+
+    if (!recommendation) {
+        showStatus('추천 카드를 찾을 수 없습니다.', 'error');
+        return;
+    }
+
+    // Find the card index
+    const cardIndex = cards.findIndex(c => c.id === recommendation.id);
+
+    if (cardIndex >= 0) {
+        displayCard(cardIndex);
+
+        // Show recommendation reasons
+        const reasons = recommendation.recommendation_reasons || [];
+        if (reasons.length > 0) {
+            const reasonText = '추천 이유: ' + reasons[0];
+            showStatus(reasonText, 'success');
+
+            // Show additional reasons in console
+            if (reasons.length > 1) {
+                console.log('추천 이유들:', reasons);
+            }
+        } else {
+            showStatus('이 카드를 학습해보세요!', 'success');
+        }
+    } else {
+        showStatus('추천 카드를 표시할 수 없습니다.', 'error');
+    }
+}
+
+/**
+ * Get learning path (sequence of recommended cards)
+ */
+async function getLearningPath(count = 5) {
+    if (!studentData) {
+        console.log('No student data available for learning path');
+        return null;
+    }
+
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('course_id') || 0;
+
+        const response = await fetch(
+            `${API_BASE_URL}?action=getLearningPath&student_id=${studentData.id}&course_id=${courseId}&count=${count}`
+        );
+        const data = await response.json();
+
+        if (data.success && data.path) {
+            return data.path;
+        } else {
+            console.error('Failed to get learning path:', data);
+            return null;
+        }
+
+    } catch (error) {
+        console.error('Error getting learning path:', error);
+        return null;
+    }
+}
+
+/**
+ * Show learning path dialog
+ */
+async function showLearningPath() {
+    const path = await getLearningPath(5);
+
+    if (!path || path.length === 0) {
+        showStatus('학습 경로를 생성할 수 없습니다.', 'error');
+        return;
+    }
+
+    // Create a simple alert with the learning path
+    const pathNames = path.map((card, index) =>
+        `${index + 1}. ${card.rule_name} (점수: ${card.recommendation_score})`
+    ).join('\n');
+
+    alert('추천 학습 순서:\n\n' + pathNames + '\n\n첫 번째 카드로 이동합니다.');
+
+    // Go to first recommended card
+    const firstCardIndex = cards.findIndex(c => c.id === path[0].id);
+    if (firstCardIndex >= 0) {
+        displayCard(firstCardIndex);
+    }
+}
+
+/**
+ * Get smart next card (recommendation-based navigation)
+ */
+async function getSmartNext() {
+    const recommendation = await getRecommendation();
+
+    if (!recommendation) {
+        // Fallback to regular next
+        nextCard();
+        return;
+    }
+
+    const cardIndex = cards.findIndex(c => c.id === recommendation.id);
+
+    if (cardIndex >= 0 && cardIndex !== currentCardIndex) {
+        // Show notification about smart navigation
+        const reasons = recommendation.recommendation_reasons || [];
+        const message = reasons.length > 0 ? reasons[0] : '스마트 추천 모드';
+
+        displayCard(cardIndex);
+        setTimeout(() => showStatus('🧠 ' + message, 'info'), 500);
+    } else {
+        // If recommended card is current card, go to regular next
+        nextCard();
+    }
+}
