@@ -1,22 +1,27 @@
 {
-  "name": "partial-sum-flow-lms",
+  "name": "partial-sum-flow-standalone",
   "version": "1.0.0",
-  "description": "Partial Sum Flow Curve Visualization for LMS Integration (Moodle 3.7)",
-  "main": "index.js",
+  "description": "Standalone Partial Sum Flow Curve Visualization Web App (PWA)",
+  "type": "module",
+  "main": "server/index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "vite",
+    "dev:backend": "nodemon server/index.js",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "start": "node server/index.js",
     "test": "jest",
     "lint": "eslint src --ext ts,tsx"
   },
   "keywords": [
     "partial-sum",
     "flow-curve",
-    "lms",
-    "moodle",
     "visualization",
-    "education"
+    "education",
+    "pwa",
+    "standalone",
+    "offline-first"
   ],
   "author": "KAIST Touch Math Academy",
   "license": "MIT",
@@ -29,17 +34,36 @@
     "@mui/material": "^5.14.18",
     "@mui/icons-material": "^5.14.18",
     "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0"
+    "@emotion/styled": "^11.11.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^9.2.2",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "compression": "^1.7.4",
+    "workbox-window": "^7.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@types/d3": "^7.4.3",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/compression": "^1.7.5",
     "@vitejs/plugin-react": "^4.2.0",
+    "vite-plugin-pwa": "^0.17.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
     "eslint": "^8.54.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0"
+    "@typescript-eslint/parser": "^6.12.0",
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
   }
 }
