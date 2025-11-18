@@ -1,0 +1,48 @@
+# Truth Light App - Git Ignore
+
+# 환경 설정 파일
+config/config.local.php
+.env
+.env.local
+
+# 로그 파일
+logs/
+*.log
+
+# 캐시
+cache/
+tmp/
+temp/
+
+# 데이터베이스 백업
+*.sql.backup
+*.dump
+
+# IDE 설정
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 의존성 (필요시)
+vendor/
+node_modules/
+
+# 빌드 결과물
+dist/
+build/
+
+# 테스트 커버리지
+coverage/
+*.coverage
+
+# 임시 파일
+*~
+*.swp
+*.swo
+*.tmp

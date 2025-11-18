@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Truth Light - 명제의 참/거짓을 빛으로 표현하는 학습 앱">
+    <title>Truth Light - AI 교육 시스템</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 배경 컨테이너 -->
+    <div class="background-container">
+        <div class="ambient-light" id="ambientLight"></div>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 상단 헤더 -->
+        <header class="app-header">
+            <h1 class="app-title">Truth Light</h1>
+            <p class="app-subtitle">명제의 참과 거짓을 빛으로 느껴보세요</p>
+        </header>
+
+        <!-- 스마트폰 화면 (우측 하단) -->
+        <div class="smartphone-container">
+            <!-- 스마트폰 프레임 -->
+            <div class="smartphone-frame">
+                <!-- 노치 -->
+                <div class="smartphone-notch"></div>
+
+                <!-- 스크린 -->
+                <div class="smartphone-screen">
+                    <!-- Truth Light 조명 영역 -->
+                    <div class="truth-light-container">
+                        <div class="light-bulb" id="lightBulb">
+                            <div class="light-glow" id="lightGlow"></div>
+                            <div class="bulb-icon">💡</div>
+                        </div>
+                        <div class="light-label" id="lightLabel">준비 중...</div>
+                    </div>
+
+                    <!-- 문제 표시 영역 -->
+                    <div class="question-container" id="questionContainer">
+                        <div class="question-header">
+                            <span class="question-number" id="questionNumber">문제 1</span>
+                            <span class="question-category" id="questionCategory">Mathematics</span>
+                        </div>
+                        <div class="question-text" id="questionText">
+                            문제를 불러오는 중...
+                        </div>
+                    </div>
+
+                    <!-- 답변 버튼 영역 -->
+                    <div class="answer-buttons" id="answerButtons">
+                        <button class="btn btn-true" id="btnTrue" onclick="submitAnswer(true)">
+                            <span class="btn-icon">✓</span>
+                            <span class="btn-text">참 (True)</span>
+                        </button>
+                        <button class="btn btn-false" id="btnFalse" onclick="submitAnswer(false)">
+                            <span class="btn-icon">✗</span>
+                            <span class="btn-text">거짓 (False)</span>
+                        </button>
+                    </div>
+
+                    <!-- 결과 피드백 -->
+                    <div class="feedback-container" id="feedbackContainer" style="display: none;">
+                        <div class="feedback-message" id="feedbackMessage"></div>
+                        <button class="btn btn-next" id="btnNext" onclick="loadNextQuestion()">
+                            다음 문제 →
+                        </button>
+                    </div>
+
+                    <!-- 진도 표시 -->
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span id="correctCount">정답: 0</span>
+                            <span id="totalCount">총 문제: 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 홈 버튼 -->
+                <div class="smartphone-home-button"></div>
+            </div>
+        </div>
+
+        <!-- 정보 패널 (왼쪽 상단) -->
+        <div class="info-panel">
+            <div class="info-card">
+                <h3>🎯 학습 목표</h3>
+                <p>명제의 참과 거짓을 정확히 판단하는 능력을 키웁니다.</p>
+            </div>
+            <div class="info-card">
+                <h3>💡 Truth Light란?</h3>
+                <p>당신의 답이 참이면 빛이 밝아지고, 거짓이면 어두워집니다.</p>
+            </div>
+            <div class="info-card stats-card">
+                <h3>📊 오늘의 통계</h3>
+                <div class="stat-item">
+                    <span class="stat-label">정답률:</span>
+                    <span class="stat-value" id="accuracyRate">--%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">학습 시간:</span>
+                    <span class="stat-value" id="studyTime">0분</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 시작 화면 오버레이 -->
+        <div class="start-overlay" id="startOverlay">
+            <div class="start-card">
+                <h2>Truth Light에 오신 것을 환영합니다!</h2>
+                <p>명제의 참과 거짓을 빛의 변화로 경험해보세요.</p>
+                <button class="btn btn-start" onclick="startLearning()">
+                    학습 시작하기 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

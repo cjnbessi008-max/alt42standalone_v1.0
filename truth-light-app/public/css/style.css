@@ -1,0 +1,595 @@
+/**
+ * Truth Light App - Styles
+ * 명제의 참/거짓을 조명 밝기로 표현하는 학습 앱
+ */
+
+/* ========== 기본 설정 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 색상 팔레트 */
+    --primary-color: #4A90E2;
+    --secondary-color: #50C878;
+    --danger-color: #E74C3C;
+    --warning-color: #F39C12;
+    --dark-bg: #1a1a2e;
+    --light-bg: #f5f7fa;
+    --text-dark: #2c3e50;
+    --text-light: #ecf0f1;
+
+    /* 조명 색상 */
+    --light-true: #FFD700;
+    --light-false: #2c3e50;
+    --light-glow-true: rgba(255, 215, 0, 0.8);
+    --light-glow-false: rgba(44, 62, 80, 0.3);
+
+    /* 간격 */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* 전환 효과 */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.5s ease;
+    --transition-slow: 1s ease;
+}
+
+body {
+    font-family: 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+/* ========== 배경 효과 ========== */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ambient-light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transition: all var(--transition-slow);
+    opacity: 0.3;
+}
+
+.ambient-light.glow-true {
+    background: radial-gradient(circle, var(--light-glow-true) 0%, transparent 70%);
+    opacity: 0.6;
+}
+
+.ambient-light.glow-false {
+    background: radial-gradient(circle, var(--light-glow-false) 0%, transparent 70%);
+    opacity: 0.2;
+}
+
+/* ========== 메인 컨테이너 ========== */
+.main-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+}
+
+/* ========== 헤더 ========== */
+.app-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    animation: fadeInDown 0.6s ease;
+}
+
+.app-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: var(--spacing-xs);
+}
+
+.app-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* ========== 스마트폰 컨테이너 ========== */
+.smartphone-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    animation: slideInRight 0.8s ease;
+}
+
+.smartphone-frame {
+    width: 360px;
+    height: 720px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 노치 */
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* 스크린 */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 28px;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    padding-top: 3rem;
+    position: relative;
+}
+
+/* 홈 버튼 */
+.smartphone-home-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* ========== Truth Light 조명 ========== */
+.truth-light-container {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg) 0;
+}
+
+.light-bulb {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.light-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--light-false) 0%, transparent 70%);
+    transition: all var(--transition-normal);
+    opacity: 0.3;
+}
+
+.light-glow.active-true {
+    background: radial-gradient(circle, var(--light-glow-true) 0%, transparent 70%);
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+    animation: pulse 2s infinite;
+}
+
+.light-glow.active-false {
+    background: radial-gradient(circle, var(--light-glow-false) 0%, transparent 70%);
+    opacity: 0.2;
+}
+
+.bulb-icon {
+    position: relative;
+    z-index: 2;
+    font-size: 5rem;
+    filter: grayscale(100%) brightness(0.5);
+    transition: all var(--transition-normal);
+}
+
+.bulb-icon.lit {
+    filter: grayscale(0%) brightness(1.2) drop-shadow(0 0 20px var(--light-true));
+    animation: flicker 0.3s ease;
+}
+
+.light-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all var(--transition-fast);
+}
+
+/* ========== 문제 영역 ========== */
+.question-container {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-height: 150px;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--light-bg);
+}
+
+.question-number {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.question-category {
+    font-size: 0.85rem;
+    background: var(--light-bg);
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    color: var(--text-dark);
+}
+
+.question-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    font-weight: 500;
+}
+
+/* ========== 답변 버튼 ========== */
+.answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.btn {
+    padding: var(--spacing-md);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-true {
+    background: linear-gradient(135deg, #52c234 0%, #61d345 100%);
+    color: white;
+}
+
+.btn-false {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+}
+
+.btn-icon {
+    font-size: 2rem;
+}
+
+.btn-text {
+    font-size: 0.95rem;
+}
+
+/* ========== 피드백 ========== */
+.feedback-container {
+    background: white;
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.feedback-message {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.feedback-message.correct {
+    color: var(--secondary-color);
+}
+
+.feedback-message.incorrect {
+    color: var(--danger-color);
+}
+
+.btn-next {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+    padding: var(--spacing-md);
+}
+
+/* ========== 진도 표시 ========== */
+.progress-container {
+    margin-top: var(--spacing-md);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--light-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    transition: width var(--transition-normal);
+    border-radius: 4px;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    opacity: 0.8;
+}
+
+/* ========== 정보 패널 ========== */
+.info-panel {
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 320px;
+    z-index: 50;
+    animation: fadeInLeft 0.8s ease;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+}
+
+.info-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-dark);
+}
+
+.stats-card .stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.stats-card .stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.stat-value {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* ========== 시작 오버레이 ========== */
+.start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.start-overlay.hidden {
+    display: none;
+}
+
+.start-card {
+    background: white;
+    border-radius: 24px;
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.5s ease;
+}
+
+.start-card h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-dark);
+}
+
+.start-card p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.btn-start {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1.2rem;
+}
+
+/* ========== 애니메이션 ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px) translateY(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(-50%);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* ========== 반응형 디자인 ========== */
+@media (max-width: 1400px) {
+    .info-panel {
+        position: static;
+        transform: none;
+        max-width: 100%;
+        margin: 0 auto var(--spacing-lg);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .smartphone-container {
+        position: static;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone-frame {
+        width: 320px;
+        height: 640px;
+    }
+
+    .app-title {
+        font-size: 2rem;
+    }
+
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+}
