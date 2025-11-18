@@ -1,0 +1,122 @@
+.equamap-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.equamap-header {
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.equamap-header h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.equation-display {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.equamap-visualization {
+  flex: 1;
+  position: relative;
+  background: #fafafa;
+}
+
+.equamap-legend {
+  padding: 12px 15px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.equamap-legend h3 {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.legend-items {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.legend-color.equation { background: #667eea; }
+.legend-color.term { background: #48bb78; }
+.legend-color.factor { background: #ed8936; }
+.legend-color.variable { background: #4299e1; }
+.legend-color.constant { background: #9f7aea; }
+
+/* React Flow 커스텀 스타일 */
+.react-flow__node {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+}
+
+.react-flow__node[data-type="equation"] {
+  background: #667eea;
+  min-width: 120px;
+}
+
+.react-flow__node[data-type="term"] {
+  background: #48bb78;
+}
+
+.react-flow__node[data-type="factor"] {
+  background: #ed8936;
+}
+
+.react-flow__node[data-type="variable"] {
+  background: #4299e1;
+}
+
+.react-flow__node[data-type="constant"] {
+  background: #9f7aea;
+}
+
+.react-flow__edge-path {
+  stroke: #b1b1b7;
+  stroke-width: 2;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
