@@ -1,0 +1,281 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.main-content h1 {
+    color: #667eea;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+.control-group input[type="number"] {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 120px;
+    transition: border-color 0.3s;
+}
+
+.control-group input[type="number"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.control-group input[type="range"] {
+    width: 150px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+button:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#resetBtn {
+    background: #e74c3c;
+}
+
+#resetBtn:hover {
+    background: #c0392b;
+}
+
+/* 스마트폰 컨테이너 - 우측 하단 고정 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 스마트폰 디자인 */
+.smartphone {
+    width: 360px;
+    height: 720px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-header {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.camera {
+    width: 12px;
+    height: 12px;
+    background: #333;
+    border-radius: 50%;
+    border: 2px solid #555;
+}
+
+.speaker {
+    width: 60px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 640px;
+    background: #fff;
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.screen-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.status-bar {
+    font-size: 12px;
+}
+
+#connectionStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#integralCanvas {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+}
+
+.screen-footer {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.smartphone-button {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto 0;
+    background: #2a2a2a;
+    border-radius: 50%;
+    border: 3px solid #3a3a3a;
+}
+
+/* LMS 연동 정보 */
+.lms-info {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 999;
+}
+
+.lms-info h4 {
+    color: #667eea;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.lms-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.lms-info span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .smartphone {
+        transform: scale(0.8);
+    }
+
+    .lms-info {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px auto;
+        max-width: 400px;
+    }
+}
+
+/* 로딩 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}

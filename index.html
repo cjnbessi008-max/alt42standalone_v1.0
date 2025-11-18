@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavy Integral - 적분 시각화 앱</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- 메인 컨텐츠 영역 -->
+    <div class="main-content">
+        <h1>Wavy Integral - 적분 시각화</h1>
+        <div class="controls">
+            <div class="control-group">
+                <label for="lowerBound">시작점 (a):</label>
+                <input type="number" id="lowerBound" value="0" step="0.1">
+            </div>
+            <div class="control-group">
+                <label for="upperBound">끝점 (b):</label>
+                <input type="number" id="upperBound" value="2" step="0.1">
+            </div>
+            <div class="control-group">
+                <label for="waveIntensity">파동 강도:</label>
+                <input type="range" id="waveIntensity" min="0" max="100" value="50">
+                <span id="waveValue">50</span>
+            </div>
+            <button id="expandBtn">구간 확장</button>
+            <button id="resetBtn">초기화</button>
+        </div>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 화면 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-header">
+                <div class="camera"></div>
+                <div class="speaker"></div>
+            </div>
+            <div class="smartphone-screen">
+                <div class="screen-header">
+                    <h3>적분 시각화</h3>
+                    <div class="status-bar">
+                        <span id="connectionStatus">⚪ 대기중</span>
+                    </div>
+                </div>
+                <canvas id="integralCanvas" width="320" height="480"></canvas>
+                <div class="screen-footer">
+                    <div id="integralValue">∫ f(x)dx = 0</div>
+                </div>
+            </div>
+            <div class="smartphone-button"></div>
+        </div>
+    </div>
+
+    <!-- LMS 연동 정보 표시 -->
+    <div id="lmsInfo" class="lms-info">
+        <h4>LMS 연동 상태</h4>
+        <p>문제 ID: <span id="problemId">-</span></p>
+        <p>학생 ID: <span id="studentId">-</span></p>
+    </div>
+
+    <script src="js/wavyIntegral.js"></script>
+    <script src="js/lmsConnector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# Database configuration (보안을 위해 실제 환경에서는 커밋하지 않음)
+# api/db_config.php
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# Node modules (향후 확장 시)
+node_modules/
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
