@@ -1,0 +1,341 @@
+/* Student Dashboard Styles */
+
+.student-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  margin-bottom: 32px;
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  color: white;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dashboard-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Tab Navigation */
+.dashboard-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.tab-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 100px;
+}
+
+.tab-button:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.tab-icon {
+  font-size: 28px;
+}
+
+.tab-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Tab Content */
+.dashboard-content {
+  min-height: 400px;
+}
+
+.tab-panel {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Preview Section */
+.preview-section {
+  margin-top: 24px;
+}
+
+.preview-title {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Trend Options */
+.trend-options {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.section-title {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.section-description {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Trend Insights */
+.trend-insights {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
+}
+
+.insights-title {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.insights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.insights-list li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Leaderboard Intro */
+.leaderboard-intro {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.leaderboard-note {
+  background: #fff3e0;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+  margin-top: 24px;
+}
+
+.leaderboard-note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.leaderboard-note strong {
+  color: #ff9800;
+}
+
+/* Dashboard Footer */
+.dashboard-footer {
+  margin-top: 32px;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.footer-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  color: #999;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-separator {
+  color: #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-dashboard {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    padding: 20px;
+  }
+
+  .dashboard-title {
+    font-size: 24px;
+  }
+
+  .dashboard-subtitle {
+    font-size: 14px;
+  }
+
+  .dashboard-tabs {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .tab-button {
+    padding: 12px 16px;
+    min-width: 80px;
+  }
+
+  .tab-icon {
+    font-size: 24px;
+  }
+
+  .tab-label {
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .section-description {
+    font-size: 13px;
+  }
+
+  .trend-options,
+  .leaderboard-intro,
+  .trend-insights {
+    padding: 16px;
+  }
+
+  .footer-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .info-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-dashboard {
+    padding: 12px;
+  }
+
+  .dashboard-header {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .dashboard-title {
+    font-size: 20px;
+  }
+
+  .dashboard-subtitle {
+    font-size: 12px;
+  }
+
+  .dashboard-tabs {
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .tab-button {
+    padding: 10px 12px;
+    min-width: 70px;
+    gap: 4px;
+  }
+
+  .tab-icon {
+    font-size: 20px;
+  }
+
+  .tab-label {
+    font-size: 11px;
+  }
+
+  .insights-list li {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .leaderboard-note {
+    padding: 12px;
+  }
+
+  .leaderboard-note p {
+    font-size: 13px;
+  }
+}

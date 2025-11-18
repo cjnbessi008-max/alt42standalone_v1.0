@@ -1,0 +1,278 @@
+/* Speed Trend Chart Styles */
+
+.speed-trend-chart {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 16px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.speed-trend-chart.loading,
+.speed-trend-chart.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  min-height: 300px;
+}
+
+.spinner-small {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-right: 12px;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-size: 14px;
+}
+
+/* Chart Header */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 12px;
+}
+
+.chart-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chart-subtitle {
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+}
+
+.improvement-badge {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(67, 233, 123, 0.3);
+}
+
+/* Chart Container */
+.chart-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-y-axis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+}
+
+.y-axis-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.chart-area {
+  flex: 1;
+  position: relative;
+  min-height: 250px;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.grid-line {
+  stroke: #e0e0e0;
+  stroke-width: 0.3;
+  stroke-dasharray: 2, 2;
+}
+
+.student-line {
+  stroke: #667eea;
+  stroke-width: 2;
+  fill: none;
+  transition: stroke-width 0.3s;
+}
+
+.student-line:hover {
+  stroke-width: 3;
+}
+
+.cohort-line {
+  stroke: #f5576c;
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 4, 4;
+  opacity: 0.7;
+}
+
+.data-point {
+  transition: r 0.3s;
+  cursor: pointer;
+}
+
+.data-point:hover {
+  r: 2.5;
+}
+
+.student-point {
+  fill: #667eea;
+}
+
+/* X-axis */
+.chart-x-axis {
+  position: relative;
+  height: 30px;
+  margin-top: 8px;
+}
+
+.x-axis-label {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: #666;
+  white-space: nowrap;
+}
+
+/* No Data Message */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  text-align: center;
+  color: #999;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.no-data-message p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.no-data-subtext {
+  font-size: 14px !important;
+  color: #aaa;
+}
+
+/* Legend */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.legend-color {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.student-color {
+  background: #667eea;
+}
+
+.cohort-color {
+  background: #f5576c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .speed-trend-chart {
+    padding: 16px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .improvement-badge {
+    align-self: flex-start;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .chart-title {
+    font-size: 18px;
+  }
+
+  .chart-svg {
+    height: 200px;
+  }
+
+  .chart-area {
+    min-height: 200px;
+  }
+
+  .chart-legend {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    gap: 8px;
+  }
+
+  .chart-y-axis {
+    width: 30px;
+  }
+
+  .y-axis-label {
+    font-size: 10px;
+  }
+
+  .x-axis-label {
+    font-size: 9px;
+  }
+
+  .chart-svg {
+    height: 180px;
+  }
+
+  .chart-area {
+    min-height: 180px;
+  }
+}
