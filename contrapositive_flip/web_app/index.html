@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contrapositive Flip - 대우 학습</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mobile Phone Frame -->
+    <div class="phone-container">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- App Content -->
+                <div class="app-container">
+                    <!-- Header -->
+                    <header class="app-header">
+                        <h1>대우 학습 (Contrapositive)</h1>
+                        <div class="language-toggle">
+                            <button id="lang-ko" class="active">한국어</button>
+                            <button id="lang-en">English</button>
+                        </div>
+                    </header>
+
+                    <!-- Main Content -->
+                    <main class="app-main">
+                        <!-- Instruction Panel -->
+                        <div class="instruction-panel" id="instruction">
+                            <h2>💡 대우란?</h2>
+                            <p>논리학에서 대우(contrapositive)는 명제를 논리적으로 동치인 형태로 변환한 것입니다.</p>
+                            <div class="formula-box">
+                                <div class="formula-item">
+                                    <strong>원명제:</strong> P → Q<br>
+                                    <span class="small">(만약 P이면 Q이다)</span>
+                                </div>
+                                <div class="arrow">⬇️</div>
+                                <div class="formula-item highlight">
+                                    <strong>대우:</strong> ¬Q → ¬P<br>
+                                    <span class="small">(만약 Q가 아니면 P도 아니다)</span>
+                                </div>
+                            </div>
+                            <button class="btn-primary" id="start-btn">학습 시작하기</button>
+                        </div>
+
+                        <!-- Question Card (Flip Card) -->
+                        <div class="card-container" id="card-container" style="display: none;">
+                            <div class="difficulty-badge" id="difficulty">난이도: 1</div>
+
+                            <div class="flip-card" id="flip-card">
+                                <!-- Front Side (Original) -->
+                                <div class="flip-card-front">
+                                    <div class="card-label">원명제 (Original)</div>
+                                    <div class="card-content">
+                                        <div class="statement-box">
+                                            <div class="statement-part">
+                                                <span class="label">P:</span>
+                                                <span class="text" id="original-antecedent">x > 5</span>
+                                            </div>
+                                            <div class="arrow-right">→</div>
+                                            <div class="statement-part">
+                                                <span class="label">Q:</span>
+                                                <span class="text" id="original-consequent">x > 3</span>
+                                            </div>
+                                        </div>
+                                        <div class="full-statement" id="original-statement">
+                                            만약 x > 5이면, x > 3이다
+                                        </div>
+                                    </div>
+                                    <div class="flip-instruction">
+                                        👆 카드를 탭하여 대우를 확인하세요
+                                    </div>
+                                </div>
+
+                                <!-- Back Side (Contrapositive) -->
+                                <div class="flip-card-back">
+                                    <div class="card-label">대우 (Contrapositive)</div>
+                                    <div class="card-content">
+                                        <div class="statement-box">
+                                            <div class="statement-part">
+                                                <span class="label">¬Q:</span>
+                                                <span class="text" id="contra-antecedent">x ≤ 3</span>
+                                            </div>
+                                            <div class="arrow-right">→</div>
+                                            <div class="statement-part">
+                                                <span class="label">¬P:</span>
+                                                <span class="text" id="contra-consequent">x ≤ 5</span>
+                                            </div>
+                                        </div>
+                                        <div class="full-statement" id="contra-statement">
+                                            만약 x ≤ 3이면, x ≤ 5이다
+                                        </div>
+                                    </div>
+                                    <div class="flip-instruction">
+                                        👆 카드를 다시 탭하여 원명제 보기
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="stats-bar">
+                                <div class="stat-item">
+                                    <span class="stat-icon">🔄</span>
+                                    <span class="stat-label">뒤집기:</span>
+                                    <span class="stat-value" id="flip-count">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-icon">⏱️</span>
+                                    <span class="stat-label">시간:</span>
+                                    <span class="stat-value" id="time-spent">0s</span>
+                                </div>
+                            </div>
+
+                            <!-- Understanding Check -->
+                            <div class="understanding-panel">
+                                <h3>이해했나요?</h3>
+                                <div class="understanding-buttons">
+                                    <button class="btn-understand yes" id="understand-yes">
+                                        ✅ 네, 이해했어요
+                                    </button>
+                                    <button class="btn-understand no" id="understand-no">
+                                        ❌ 아니요, 더 공부할게요
+                                    </button>
+                                </div>
+                                <div class="explanation-box" id="explanation-box" style="display: none;">
+                                    <label for="user-explanation">자신의 말로 설명해보세요:</label>
+                                    <textarea id="user-explanation" rows="4" placeholder="대우가 무엇인지, 왜 원명제와 동치인지 설명해보세요..."></textarea>
+                                    <button class="btn-submit" id="submit-explanation">제출</button>
+                                </div>
+                            </div>
+
+                            <!-- Navigation -->
+                            <div class="nav-buttons">
+                                <button class="btn-nav" id="prev-btn">← 이전 문제</button>
+                                <button class="btn-nav primary" id="next-btn">다음 문제 →</button>
+                            </div>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="loading" id="loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>문제를 불러오는 중...</p>
+                        </div>
+
+                        <!-- Error State -->
+                        <div class="error-panel" id="error" style="display: none;">
+                            <h3>⚠️ 오류 발생</h3>
+                            <p id="error-message"></p>
+                            <button class="btn-primary" id="retry-btn">다시 시도</button>
+                        </div>
+                    </main>
+
+                    <!-- Footer -->
+                    <footer class="app-footer">
+                        <p>KAIST Touch Math Academy &copy; 2025</p>
+                    </footer>
+                </div>
+            </div>
+            <div class="phone-button"></div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
