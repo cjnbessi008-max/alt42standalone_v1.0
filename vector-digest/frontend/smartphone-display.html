@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vector Digest - Smartphone Display</title>
     <link rel="stylesheet" href="css/smartphone-style.css">
+    <link rel="stylesheet" href="css/recommendation-style.css">
 </head>
 <body>
     <!-- Virtual Smartphone Display (bottom right) -->
@@ -30,12 +31,18 @@
                     <!-- Header -->
                     <div class="app-header">
                         <div class="header-icon">📐</div>
-                        <h2>Vector Digest</h2>
+                        <h2>학습 도우미</h2>
                         <button class="minimize-btn" id="minimizeBtn">−</button>
                     </div>
 
-                    <!-- Digest Content -->
-                    <div class="digest-content" id="digestContent">
+                    <!-- Tab Navigation -->
+                    <div class="content-tabs">
+                        <button class="content-tab active" id="digestTab">요약</button>
+                        <button class="content-tab" id="recommendTab">추천</button>
+                    </div>
+
+                    <!-- Digest Panel -->
+                    <div class="digest-content content-panel active" id="digestContent">
                         <div class="loading" id="loadingIndicator">
                             <div class="spinner"></div>
                             <p>분석 중...</p>
@@ -86,6 +93,36 @@
                             <p class="error-text">오류가 발생했습니다.</p>
                         </div>
                     </div>
+
+                    <!-- Recommendation Panel -->
+                    <div class="digest-content content-panel" id="recommendContent">
+                        <!-- Learning Path Progress -->
+                        <div class="learning-path-section" id="learningPathSection" style="display: none;"></div>
+
+                        <!-- Profile Summary -->
+                        <div class="profile-summary" id="profileSummary" style="display: none;"></div>
+
+                        <!-- Recommendations Header -->
+                        <div class="recommendation-section">
+                            <div class="recommendation-header">
+                                <div>
+                                    <span class="icon">🎯</span>
+                                    <h3 style="display: inline; margin-left: 8px;">맞춤 추천</h3>
+                                </div>
+                                <button class="refresh-recommendations-btn" id="refreshRecommendationsBtn">
+                                    🔄
+                                </button>
+                            </div>
+
+                            <!-- Recommendations List -->
+                            <div class="recommendations-list" id="recommendationsList">
+                                <div class="recommendations-loading">
+                                    <div class="spinner"></div>
+                                    <p>추천 생성 중...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Home Indicator (iPhone-style) -->
@@ -102,12 +139,15 @@
 
     <!-- Scripts -->
     <script src="js/vector-digest.js"></script>
+    <script src="js/recommendation-controller.js"></script>
     <script>
-        // Initialize Vector Digest
+        // Initialize Vector Digest and Recommendation System
         document.addEventListener('DOMContentLoaded', function() {
-            // Get question ID from page context or URL
+            // Get question ID and user ID from page context or URL
             const questionId = getQuestionIdFromPage();
+            const userId = getUserIdFromPage();
 
+            // Initialize Vector Digest
             if (questionId) {
                 window.vectorDigest = new VectorDigest({
                     apiUrl: '/vector-digest/api/VectorDigestAPI.php',
@@ -116,6 +156,41 @@
                     position: 'bottom-right'
                 });
             }
+
+            // Initialize Recommendation System
+            if (userId) {
+                window.recommendationController = new RecommendationController({
+                    apiUrl: '/vector-digest/recommendation/RecommendationAPI.php',
+                    userId: userId,
+                    autoLoad: true
+                });
+
+                // Show profile and learning path sections
+                const profileSection = document.getElementById('profileSummary');
+                const pathSection = document.getElementById('learningPathSection');
+                if (profileSection) profileSection.style.display = 'block';
+                if (pathSection) pathSection.style.display = 'block';
+            }
+
+            // Tab switching functionality
+            const digestTab = document.getElementById('digestTab');
+            const recommendTab = document.getElementById('recommendTab');
+            const digestContent = document.getElementById('digestContent');
+            const recommendContent = document.getElementById('recommendContent');
+
+            digestTab.addEventListener('click', function() {
+                digestTab.classList.add('active');
+                recommendTab.classList.remove('active');
+                digestContent.classList.add('active');
+                recommendContent.classList.remove('active');
+            });
+
+            recommendTab.addEventListener('click', function() {
+                recommendTab.classList.add('active');
+                digestTab.classList.remove('active');
+                recommendContent.classList.add('active');
+                digestContent.classList.remove('active');
+            });
         });
 
         // Extract question ID from Moodle page
@@ -140,6 +215,31 @@
             }
 
             return qid;
+        }
+
+        // Extract user ID from Moodle page
+        function getUserIdFromPage() {
+            // Try to get from Moodle global config
+            if (typeof M !== 'undefined' && M.cfg && M.cfg.userid) {
+                return M.cfg.userid;
+            }
+
+            // Try URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            let uid = urlParams.get('userid') || urlParams.get('uid');
+
+            if (uid) {
+                return uid;
+            }
+
+            // Try data attributes
+            const userElement = document.querySelector('[data-user-id]');
+            if (userElement) {
+                return userElement.getAttribute('data-user-id');
+            }
+
+            // Fallback: return null (will need to be set manually)
+            return null;
         }
     </script>
 </body>

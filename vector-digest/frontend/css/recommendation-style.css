@@ -1,0 +1,470 @@
+/**
+ * Recommendation System Styles
+ * Extends smartphone-style.css for recommendation UI
+ */
+
+/* Recommendation Section */
+.recommendation-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.recommendation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.recommendation-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #212529;
+    font-weight: 700;
+}
+
+.recommendation-header .icon {
+    font-size: 20px;
+}
+
+.refresh-recommendations-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 18px;
+    transition: transform 0.2s;
+}
+
+.refresh-recommendations-btn:hover {
+    transform: rotate(180deg);
+}
+
+/* Recommendation Cards */
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recommendation-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.recommendation-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s;
+}
+
+.recommendation-card:hover {
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    transform: translateX(4px);
+}
+
+.recommendation-card:hover::before {
+    width: 6px;
+}
+
+/* Recommendation Types */
+.recommendation-card.type-review::before {
+    background: linear-gradient(180deg, #f093fb 0%, #f5576c 100%);
+}
+
+.recommendation-card.type-next_topic::before {
+    background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.recommendation-card.type-practice::before {
+    background: linear-gradient(180deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.recommendation-card.type-challenge::before {
+    background: linear-gradient(180deg, #fa709a 0%, #fee140 100%);
+}
+
+/* Recommendation Content */
+.rec-type-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.rec-type-badge.review {
+    background: #f093fb;
+    color: white;
+}
+
+.rec-type-badge.next_topic {
+    background: #4facfe;
+    color: white;
+}
+
+.rec-type-badge.practice {
+    background: #43e97b;
+    color: white;
+}
+
+.rec-type-badge.challenge {
+    background: #fa709a;
+    color: white;
+}
+
+.rec-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #212529;
+    margin: 0 0 8px 0;
+}
+
+.rec-description {
+    font-size: 12px;
+    color: #6c757d;
+    line-height: 1.5;
+    margin: 0 0 12px 0;
+}
+
+.rec-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.rec-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rec-meta-item .icon {
+    font-size: 14px;
+}
+
+/* Difficulty Indicator */
+.difficulty-indicator {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.difficulty-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e9ecef;
+}
+
+.difficulty-dot.filled {
+    background: #667eea;
+}
+
+/* Priority Indicator */
+.priority-indicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.priority-indicator.high {
+    background: #dc3545;
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
+}
+
+.priority-indicator.medium {
+    background: #ffc107;
+}
+
+.priority-indicator.low {
+    background: #28a745;
+}
+
+/* Learning Path Progress */
+.learning-path-section {
+    background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.learning-path-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.learning-path-header h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.path-progress-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.path-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
+}
+
+.path-progress-text {
+    font-size: 11px;
+    color: #6c757d;
+    text-align: center;
+}
+
+.current-concept {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #212529;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.current-concept .icon {
+    font-size: 16px;
+}
+
+/* Student Profile Summary */
+.profile-summary {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.profile-stat {
+    flex: 1;
+}
+
+.profile-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #667eea;
+    display: block;
+}
+
+.profile-stat-label {
+    font-size: 10px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Concept Mastery Radar */
+.concept-mastery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.concept-mastery-item {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.concept-name {
+    font-size: 10px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.concept-score-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+
+.concept-score-circle.high {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.concept-score-circle.medium {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.concept-score-circle.low {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Empty State */
+.recommendations-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.recommendations-empty .icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.recommendations-empty p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Loading Animation for Recommendations */
+.recommendations-loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.recommendations-loading .spinner {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto 12px;
+}
+
+/* Recommendation Action Buttons */
+.rec-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.rec-action-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.rec-action-btn.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.rec-action-btn.primary:hover {
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
+}
+
+.rec-action-btn.secondary {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+.rec-action-btn.secondary:hover {
+    background: #e9ecef;
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.recommendation-card {
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.recommendation-card:nth-child(1) { animation-delay: 0.05s; }
+.recommendation-card:nth-child(2) { animation-delay: 0.1s; }
+.recommendation-card:nth-child(3) { animation-delay: 0.15s; }
+
+/* Tab Navigation (for switching between digest and recommendations) */
+.content-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    background: #f8f9fa;
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.content-tab {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.content-tab.active {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content-tab:hover:not(.active) {
+    color: #495057;
+}
+
+/* Content Panels */
+.content-panel {
+    display: none;
+}
+
+.content-panel.active {
+    display: block;
+}
