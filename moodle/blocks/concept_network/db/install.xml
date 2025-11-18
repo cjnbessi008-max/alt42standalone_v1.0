@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/concept_network/db" VERSION="20251118" COMMENT="XMLDB file for Moodle blocks/concept_network"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Concept Network Table -->
+    <TABLE NAME="block_concept_network" COMMENT="Stores student concept network metadata">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="network_data" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON representation of network"/>
+        <FIELD NAME="last_updated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course_id" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="student_id" TYPE="foreign" FIELDS="student_id" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_student" UNIQUE="true" FIELDS="course_id, student_id"/>
+        <INDEX NAME="student_idx" UNIQUE="false" FIELDS="student_id"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Concept Nodes Table -->
+    <TABLE NAME="block_concept_nodes" COMMENT="Individual concept nodes in student networks">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="network_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="concept_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="concept_type" TYPE="char" LENGTH="50" NOTNULL="false" DEFAULT="general" SEQUENCE="false" COMMENT="general, skill, knowledge, practice"/>
+        <FIELD NAME="mastery_level" TYPE="number" LENGTH="5" NOTNULL="false" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2" COMMENT="0.00 to 100.00"/>
+        <FIELD NAME="total_attempts" TYPE="int" LENGTH="11" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="successful_attempts" TYPE="int" LENGTH="11" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="avg_score" TYPE="number" LENGTH="5" NOTNULL="false" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="first_encountered" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="last_practiced" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="metadata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Additional JSON metadata"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="network_id" TYPE="foreign" FIELDS="network_id" REFTABLE="block_concept_network" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="network_idx" UNIQUE="false" FIELDS="network_id"/>
+        <INDEX NAME="concept_name_idx" UNIQUE="false" FIELDS="concept_name"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Concept Edges Table -->
+    <TABLE NAME="block_concept_edges" COMMENT="Relationships between concepts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="network_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="source_node_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="target_node_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="relationship_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="prerequisite, similar, temporal, difficulty"/>
+        <FIELD NAME="strength" TYPE="number" LENGTH="5" NOTNULL="false" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2" COMMENT="0.00 to 1.00"/>
+        <FIELD NAME="co_occurrence_count" TYPE="int" LENGTH="11" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="temporal_distance" TYPE="int" LENGTH="10" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Time difference in seconds"/>
+        <FIELD NAME="metadata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Additional JSON metadata"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="network_id" TYPE="foreign" FIELDS="network_id" REFTABLE="block_concept_network" REFFIELDS="id"/>
+        <KEY NAME="source_node_id" TYPE="foreign" FIELDS="source_node_id" REFTABLE="block_concept_nodes" REFFIELDS="id"/>
+        <KEY NAME="target_node_id" TYPE="foreign" FIELDS="target_node_id" REFTABLE="block_concept_nodes" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="network_idx" UNIQUE="false" FIELDS="network_id"/>
+        <INDEX NAME="source_idx" UNIQUE="false" FIELDS="source_node_id"/>
+        <INDEX NAME="target_idx" UNIQUE="false" FIELDS="target_node_id"/>
+        <INDEX NAME="relationship_idx" UNIQUE="false" FIELDS="relationship_type"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Student Concept Progress Table -->
+    <TABLE NAME="block_student_concept_progress" COMMENT="Detailed student progress per concept">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="concept_node_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activity_id" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Reference to quiz/assignment"/>
+        <FIELD NAME="activity_type" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="quiz, assign, forum, etc"/>
+        <FIELD NAME="attempt_number" TYPE="int" LENGTH="11" NOTNULL="false" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="false" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="max_score" TYPE="number" LENGTH="10" NOTNULL="false" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="11" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Seconds spent"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="student_id" TYPE="foreign" FIELDS="student_id" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="course_id" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+        <KEY NAME="concept_node_id" TYPE="foreign" FIELDS="concept_node_id" REFTABLE="block_concept_nodes" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="student_idx" UNIQUE="false" FIELDS="student_id"/>
+        <INDEX NAME="course_idx" UNIQUE="false" FIELDS="course_id"/>
+        <INDEX NAME="concept_idx" UNIQUE="false" FIELDS="concept_node_id"/>
+        <INDEX NAME="timestamp_idx" UNIQUE="false" FIELDS="timestamp"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Concept Mappings Table -->
+    <TABLE NAME="block_concept_mappings" COMMENT="Maps activities to concepts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activity_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="activity_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="concept_name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="weight" TYPE="number" LENGTH="5" NOTNULL="false" DEFAULT="1.00" SEQUENCE="false" DECIMALS="2" COMMENT="Importance weight"/>
+        <FIELD NAME="is_auto_generated" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course_id" TYPE="foreign" FIELDS="course_id" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course_idx" UNIQUE="false" FIELDS="course_id"/>
+        <INDEX NAME="activity_idx" UNIQUE="false" FIELDS="activity_id"/>
+        <INDEX NAME="concept_name_idx" UNIQUE="false" FIELDS="concept_name"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

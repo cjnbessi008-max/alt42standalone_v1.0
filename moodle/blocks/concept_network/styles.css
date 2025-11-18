@@ -1,0 +1,134 @@
+/* Concept Network Block Styles */
+
+.block_concept_network {
+    padding: 10px;
+}
+
+.concept-network-container {
+    padding: 10px;
+}
+
+.concept-network-stats {
+    background: #f5f5f5;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.concept-network-stats p {
+    margin: 5px 0;
+}
+
+.concept-network-canvas {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.concept-network-canvas svg {
+    display: block;
+}
+
+/* Network visualization styles */
+.concept-network-canvas .nodes circle {
+    cursor: pointer;
+    transition: r 0.2s ease;
+}
+
+.concept-network-canvas .nodes circle:hover {
+    stroke: #333;
+    stroke-width: 3px;
+}
+
+.concept-network-canvas .nodes text {
+    pointer-events: none;
+    user-select: none;
+}
+
+.concept-network-canvas .links line {
+    pointer-events: none;
+}
+
+.concept-network-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Legend styles */
+.concept-network-canvas .legend,
+.concept-network-canvas .rel-legend {
+    font-family: Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.concept-network-canvas .legend text,
+.concept-network-canvas .rel-legend text {
+    pointer-events: none;
+}
+
+/* Full page view */
+.concept-network-full {
+    padding: 20px;
+}
+
+.concept-network-full .concept-network-stats {
+    max-width: 400px;
+}
+
+/* Mastery badges */
+.badge-success {
+    background-color: #00C851;
+    color: white;
+}
+
+.badge-warning {
+    background-color: #ffbb33;
+    color: #333;
+}
+
+.badge-danger {
+    background-color: #ff4444;
+    color: white;
+}
+
+/* Concept list table */
+.conceptlist-table {
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .concept-network-canvas {
+        height: 300px !important;
+    }
+
+    .concept-network-canvas .nodes text {
+        font-size: 10px;
+    }
+
+    .concept-network-canvas .legend,
+    .concept-network-canvas .rel-legend {
+        display: none;
+    }
+}
+
+/* Loading spinner */
+.concept-network-loading {
+    text-align: center;
+    padding: 50px;
+}
+
+.concept-network-loading i {
+    font-size: 3em;
+    color: #999;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
