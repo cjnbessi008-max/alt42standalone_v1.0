@@ -1,0 +1,201 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #FF9800;
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
+    --dark-bg: #1a1a2e;
+    --light-bg: #f5f5f5;
+    --text-primary: #333;
+    --text-light: #fff;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* Main Container */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-right: 400px; /* Space for smartphone */
+}
+
+header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#username {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.score-display {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: var(--text-light);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Content Area */
+.content-area {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#problem-container {
+    margin-bottom: 30px;
+}
+
+#problem-container h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+#problem-content {
+    background: var(--light-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    min-height: 150px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#problem-content .loading {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+/* Answer Input */
+#answer-input {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+#user-answer {
+    flex: 1;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+#user-answer:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+#submit-btn {
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#submit-btn:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+#submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Feedback Area */
+#feedback-area {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    display: none;
+}
+
+#feedback-area.correct {
+    background: rgba(76, 175, 80, 0.1);
+    border: 2px solid var(--success-color);
+    color: var(--success-color);
+    display: block;
+}
+
+#feedback-area.incorrect {
+    background: rgba(244, 67, 54, 0.1);
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .main-container {
+        padding-right: 20px;
+    }
+
+    #smartphone-container {
+        position: static !important;
+        margin: 20px auto;
+        float: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    #answer-input {
+        flex-direction: column;
+    }
+
+    #user-answer,
+    #submit-btn {
+        width: 100%;
+    }
+}

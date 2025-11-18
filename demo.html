@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 - Power Charge Animation Demo</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+    <style>
+        .demo-controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .demo-controls h2 {
+            color: #2196F3;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .control-group input[type="number"],
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .control-group input[type="range"] {
+            padding: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .demo-button {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-small {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-medium {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-large {
+            background: #F44336;
+            color: white;
+        }
+
+        .btn-reset {
+            background: #9E9E9E;
+            color: white;
+        }
+
+        .value-display {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+
+        .info-box {
+            background: #E3F2FD;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+
+        .info-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>⚡ Power Charge Animation Demo</h1>
+            <div class="user-info">
+                <span id="username">Demo Mode</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="demo-controls">
+                <h2>Animation Controls</h2>
+
+                <div class="control-group">
+                    <label>Current Score: <span class="value-display" id="current-score-display">0</span></label>
+                    <input type="range" id="current-score" min="0" max="1000" value="0" step="10">
+                </div>
+
+                <div class="control-group">
+                    <label>Points to Add:</label>
+                    <input type="number" id="points-to-add" min="1" max="100" value="10">
+                </div>
+
+                <div class="button-group">
+                    <button class="demo-button btn-small" onclick="addPoints(10)">
+                        +10 Points
+                    </button>
+                    <button class="demo-button btn-medium" onclick="addPoints(25)">
+                        +25 Points
+                    </button>
+                    <button class="demo-button btn-large" onclick="addPoints(50)">
+                        +50 Points
+                    </button>
+                    <button class="demo-button" style="background: #9C27B0; color: white;" onclick="addPoints(100)">
+                        +100 Points (Level Up!)
+                    </button>
+                </div>
+
+                <div class="button-group" style="margin-top: 10px;">
+                    <button class="demo-button" style="background: #2196F3; color: white;" onclick="addCustomPoints()">
+                        Add Custom Points
+                    </button>
+                    <button class="demo-button btn-reset" onclick="resetDemo()">
+                        Reset Demo
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <h3>💡 Tips</h3>
+                    <ul>
+                        <li>우측 하단 가상 스마트폰 화면을 주목하세요</li>
+                        <li>포인트 추가 버튼을 클릭하면 Power Charge 애니메이션이 실행됩니다</li>
+                        <li>점수가 높을수록 더 강렬한 애니메이션 효과가 나타납니다</li>
+                        <li>100점마다 레벨업이 됩니다</li>
+                        <li>파티클 효과, 사운드, 화면 플래시에 주목하세요</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="background: #FFF3E0; border-left-color: #FF9800;">
+                    <h3>🎮 Animation Features</h3>
+                    <ul>
+                        <li><strong>Particle Burst:</strong> 획득 포인트에 비례한 파티클 개수</li>
+                        <li><strong>Score Count-Up:</strong> 숫자가 부드럽게 증가하는 애니메이션</li>
+                        <li><strong>Power Bar:</strong> 진행도에 따라 변하는 글로우 효과</li>
+                        <li><strong>Screen Flash:</strong> 순간적인 화면 플래시</li>
+                        <li><strong>Sound Effect:</strong> 획득 포인트에 따라 음높이 변화</li>
+                        <li><strong>Canvas Animation:</strong> 실시간 파티클 렌더링</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Virtual Smartphone (Right Bottom Corner) -->
+    <div id="smartphone-container">
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <!-- Power Display -->
+                <div class="power-header">
+                    <div class="power-icon">⚡</div>
+                    <div class="power-label">POWER</div>
+                </div>
+
+                <!-- Power Score with Animation -->
+                <div class="power-score-container">
+                    <canvas id="power-charge-canvas"></canvas>
+                    <div id="power-score" class="power-score">0</div>
+                    <div class="power-bar-container">
+                        <div id="power-bar" class="power-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Stats Display -->
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-label">Charges</span>
+                        <span id="charge-count" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Level</span>
+                        <span id="level" class="stat-value">1</span>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-log">
+                    <h3>Recent</h3>
+                    <ul id="activity-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/powerCharge.js"></script>
+    <script>
+        let currentScore = 0;
+        let chargeCount = 0;
+        let currentLevel = 1;
+
+        // Initialize
+        document.getElementById('current-score').addEventListener('input', function() {
+            currentScore = parseInt(this.value);
+            updateDisplay();
+        });
+
+        function addPoints(points) {
+            const oldScore = currentScore;
+            currentScore += points;
+            chargeCount++;
+
+            // Update slider
+            document.getElementById('current-score').value = Math.min(currentScore, 1000);
+
+            // Trigger animation
+            window.powerChargeAnimation.charge(oldScore, currentScore, 1000);
+
+            // Update displays
+            updateDisplay();
+
+            // Check level up
+            const newLevel = Math.floor(currentScore / 100) + 1;
+            if (newLevel > currentLevel) {
+                currentLevel = newLevel;
+                showLevelUp();
+            }
+
+            // Add to activity log
+            addActivity(`+${points} points`, points);
+        }
+
+        function addCustomPoints() {
+            const points = parseInt(document.getElementById('points-to-add').value);
+            if (points > 0) {
+                addPoints(points);
+            }
+        }
+
+        function resetDemo() {
+            currentScore = 0;
+            chargeCount = 0;
+            currentLevel = 1;
+            document.getElementById('current-score').value = 0;
+            document.getElementById('activity-list').innerHTML = '';
+            window.powerChargeAnimation.reset();
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById('power-score').textContent = currentScore;
+            document.getElementById('current-score-display').textContent = currentScore;
+            document.getElementById('charge-count').textContent = chargeCount;
+            document.getElementById('level').textContent = currentLevel;
+
+            // Update power bar
+            const percentage = Math.min((currentScore / 1000) * 100, 100);
+            document.getElementById('power-bar').style.width = percentage + '%';
+        }
+
+        function addActivity(description, points) {
+            const activityList = document.getElementById('activity-list');
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${description}</span>
+                <span class="points">+${points}</span>
+            `;
+            activityList.insertBefore(li, activityList.firstChild);
+
+            // Keep only last 10
+            while (activityList.children.length > 10) {
+                activityList.removeChild(activityList.lastChild);
+            }
+        }
+
+        function showLevelUp() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 40px 60px;
+                border-radius: 20px;
+                font-size: 32px;
+                font-weight: bold;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+                animation: levelUpBounce 0.6s ease-out;
+            `;
+            notification.innerHTML = `
+                🎉 LEVEL UP! 🎉<br>
+                <span style="font-size: 48px; color: #FFD700;">Level ${currentLevel}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.transition = 'opacity 0.5s';
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 500);
+            }, 2000);
+        }
+
+        // Add level up animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes levelUpBounce {
+                0% { transform: translate(-50%, -50%) scale(0); }
+                50% { transform: translate(-50%, -50%) scale(1.1); }
+                100% { transform: translate(-50%, -50%) scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

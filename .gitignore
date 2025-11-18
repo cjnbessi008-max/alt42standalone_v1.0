@@ -1,0 +1,47 @@
+# Configuration files with sensitive data
+config/config.php
+
+# Log files
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+
+# Node modules (if using any build tools)
+node_modules/
+
+# Vendor (if using Composer)
+vendor/
+
+# User uploaded files
+uploads/
+assets/uploads/
+
+# Cache
+cache/
+*.cache
+
+# Database dumps
+*.sql.gz
+*.sql.zip
+dump.sql
