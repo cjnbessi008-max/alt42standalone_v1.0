@@ -37,10 +37,6 @@ root.render(
 
 // 성능 모니터링 (선택사항)
 if (config.debugMode) {
-  const reportWebVitals = (metric) => {
-    console.log('Web Vitals:', metric);
-  };
-
   if (typeof window !== 'undefined' && window.performance) {
     window.addEventListener('load', () => {
       const perfData = window.performance.timing;
@@ -48,15 +44,4 @@ if (config.debugMode) {
       console.log(`Page Load Time: ${pageLoadTime}ms`);
     });
   }
-
-  // Web Vitals 리포팅 (선택사항)
-  import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-    getCLS(reportWebVitals);
-    getFID(reportWebVitals);
-    getFCP(reportWebVitals);
-    getLCP(reportWebVitals);
-    getTTFB(reportWebVitals);
-  }).catch(() => {
-    console.log('Web Vitals not available');
-  });
 }

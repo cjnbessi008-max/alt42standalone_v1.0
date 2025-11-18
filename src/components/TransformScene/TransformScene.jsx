@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as d3 from 'd3';
 import { evaluate } from 'mathjs';
+import { apiCall } from '../../utils/mockApi';
 import './TransformScene.css';
 
 /**
@@ -19,23 +20,30 @@ const TransformScene = ({ problemId, moodleApiUrl }) => {
   const [problemData, setProblemData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Moodle에서 문제 데이터 가져오기
+  // Moodle에서 문제 데이터 가져오기 (또는 Mock API 사용)
   useEffect(() => {
     const fetchProblemData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${moodleApiUrl}/get_problem.php?id=${problemId}`);
-        const data = await response.json();
-        setProblemData(data);
 
-        if (data.originalFunction) {
-          setCurrentFunction(data.originalFunction);
-        }
-        if (data.targetFunction) {
-          setTransformedFunction(data.targetFunction);
-        }
-        if (data.transformType) {
-          setTransformType(data.transformType);
+        // API 호출 (Mock 또는 실제)
+        const endpoint = `${moodleApiUrl}/moodle_integration.php?action=get_problem&id=${problemId}`;
+        const result = await apiCall(endpoint);
+
+        if (result.success && result.data) {
+          setProblemData(result.data);
+
+          if (result.data.originalFunction) {
+            setCurrentFunction(result.data.originalFunction);
+          }
+          if (result.data.targetFunction) {
+            setTransformedFunction(result.data.targetFunction);
+          }
+          if (result.data.transformType) {
+            setTransformType(result.data.transformType);
+          }
+        } else {
+          console.error('Failed to load problem:', result.message);
         }
 
         setLoading(false);
@@ -45,7 +53,7 @@ const TransformScene = ({ problemId, moodleApiUrl }) => {
       }
     };
 
-    if (problemId && moodleApiUrl) {
+    if (problemId) {
       fetchProblemData();
     } else {
       setLoading(false);
