@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calm Growth - LMS-integrated educational app with vibration feedback">
+    <title>Calm Growth - Educational Vibration App</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌊</text></svg>">
+</head>
+<body>
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="app-title">
+                🌊 Calm Growth
+                <span class="app-version">v1.0.0</span>
+            </h1>
+            <p class="app-subtitle">
+                LMS-integrated educational app with intelligent vibration feedback
+                <br>
+                <small>MySQL 5.7 • PHP 7.1.9 • Moodle 3.7</small>
+            </p>
+        </header>
+
+        <!-- Controls -->
+        <section class="controls">
+            <div class="control-group">
+                <button id="load-problems-btn" class="btn btn-primary">
+                    📚 Load Problems
+                </button>
+                <button id="sync-moodle-btn" class="btn btn-secondary">
+                    🔄 Sync from Moodle
+                </button>
+                <button id="test-vibration-btn" class="btn btn-success">
+                    📳 Test Vibration
+                </button>
+                <button id="simulate-growth-btn" class="btn btn-secondary">
+                    🌱 Simulate Growth
+                </button>
+                <button id="toggle-vibration-btn" class="btn btn-danger">
+                    🔊 Disable Vibration
+                </button>
+                <button id="reset-btn" class="btn btn-secondary">
+                    🔄 Reset
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats Dashboard -->
+        <section class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-label">Log Value</div>
+                <div class="stat-value" id="log-value-stat">1.00</div>
+                <div class="stat-description">Cumulative activity score</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Vibration Intensity</div>
+                <div class="stat-value" id="intensity-stat">100.0%</div>
+                <div class="stat-description">Current vibration strength</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Damping</div>
+                <div class="stat-value" id="damping-stat">0.0%</div>
+                <div class="stat-description">Calm growth reduction</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Activity Count</div>
+                <div class="stat-value" id="activity-stat">0</div>
+                <div class="stat-description">Total interactions</div>
+            </div>
+        </section>
+
+        <!-- Activity Log -->
+        <section class="activity-log">
+            <h2>💡 How Calm Growth Works</h2>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <div class="activity-time">Algorithm</div>
+                    <div class="activity-text">
+                        <strong>Intensity = Base / (1 + Damping × log(value))</strong>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-time">Effect</div>
+                    <div class="activity-text">
+                        As log value increases → Vibration becomes calmer and gentler
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-time">Purpose</div>
+                    <div class="activity-text">
+                        Provides progressively calmer feedback as user gains experience
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-time">Integration</div>
+                    <div class="activity-text">
+                        Syncs with Moodle LMS to track problem-solving progress
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>
+                Built with ❤️ for enhanced learning experiences
+                • Powered by PHP 7.1.9, MySQL 5.7, and Moodle 3.7
+            </p>
+        </footer>
+    </div>
+
+    <!-- Virtual Smartphone (Bottom Right) -->
+    <div class="smartphone-container" id="smartphone">
+        <button class="collapse-btn" id="collapse-phone-btn" title="Collapse/Expand">−</button>
+
+        <div class="smartphone-frame">
+            <!-- Notch -->
+            <div class="smartphone-notch">
+                <div class="smartphone-speaker"></div>
+                <div class="smartphone-camera"></div>
+            </div>
+
+            <!-- Screen -->
+            <div class="smartphone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-bar-left">
+                        <span>🌊</span>
+                        <span id="status-time">12:00</span>
+                    </div>
+                    <div class="status-bar-right">
+                        <span>📶</span>
+                        <span>🔋</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="app-content" id="app-content">
+                    <div style="text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.8);">
+                        <div style="font-size: 48px; margin-bottom: 10px;">🌊</div>
+                        <div style="font-size: 16px; font-weight: 600;">Calm Growth</div>
+                        <div style="font-size: 13px; margin-top: 5px;">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Button -->
+            <div class="home-button"></div>
+        </div>
+    </div>
+
+    <!-- Vibration Indicator (dynamically added) -->
+    <div id="vibration-indicator" class="vibration-indicator"></div>
+
+    <!-- Scripts -->
+    <script src="js/vibration.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Update clock in status bar -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timeElement = document.getElementById('status-time');
+            if (timeElement) {
+                timeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
