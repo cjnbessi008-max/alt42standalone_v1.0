@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Fill - LMS 연동 학습 앱</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 메인 컨텐츠 영역 -->
+    <div class="main-content">
+        <header>
+            <h1>KAIST Touch Math Academy</h1>
+            <p>LMS 연동 학습 시스템</p>
+        </header>
+
+        <div class="control-panel">
+            <h2>테스트 컨트롤</h2>
+            <div class="controls">
+                <label for="progress">진도율 (%)</label>
+                <input type="range" id="progress" min="0" max="100" value="0">
+                <span id="progress-value">0%</span>
+            </div>
+            <div class="controls">
+                <label for="problem-count">문제 수</label>
+                <input type="number" id="problem-count" min="1" max="20" value="10">
+            </div>
+            <div class="controls">
+                <label for="correct-count">정답 수</label>
+                <input type="number" id="correct-count" min="0" max="20" value="0">
+            </div>
+            <button id="submit-answer" class="btn-primary">정답 제출 (+1)</button>
+            <button id="load-from-moodle" class="btn-secondary">Moodle에서 불러오기</button>
+            <button id="reset" class="btn-danger">초기화</button>
+        </div>
+
+        <div class="info-panel">
+            <h3>현재 상태</h3>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">총 문제:</span>
+                    <span class="stat-value" id="total-problems">10</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">정답:</span>
+                    <span class="stat-value" id="correct-answers">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">정답률:</span>
+                    <span class="stat-value" id="accuracy">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-header">
+                <div class="notch"></div>
+                <div class="time">12:34</div>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <h2>학습 진도</h2>
+                    <div class="student-info">
+                        <p id="student-name">학생: 홍길동</p>
+                    </div>
+                </div>
+
+                <!-- Volume Fill Container -->
+                <div class="volume-container">
+                    <h3>학습 완성도</h3>
+                    <div class="volume-fill-wrapper">
+                        <svg class="volume-svg" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 용기 외곽선 (비커 모양) -->
+                            <defs>
+                                <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4FC3F7;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#0288D1;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="wave">
+                                    <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="turbulence"/>
+                                    <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+                                </filter>
+                            </defs>
+
+                            <!-- 비커 외곽선 -->
+                            <path class="beaker-outline"
+                                  d="M 50,30 L 50,250 Q 50,280 70,285 L 130,285 Q 150,280 150,250 L 150,30 Z"
+                                  stroke="#333"
+                                  stroke-width="3"
+                                  fill="none"/>
+
+                            <!-- 비커 눈금 -->
+                            <line x1="50" y1="80" x2="45" y2="80" stroke="#666" stroke-width="1"/>
+                            <text x="40" y="83" font-size="10" fill="#666" text-anchor="end">75%</text>
+
+                            <line x1="50" y1="130" x2="45" y2="130" stroke="#666" stroke-width="1"/>
+                            <text x="40" y="133" font-size="10" fill="#666" text-anchor="end">50%</text>
+
+                            <line x1="50" y1="180" x2="45" y2="180" stroke="#666" stroke-width="1"/>
+                            <text x="40" y="183" font-size="10" fill="#666" text-anchor="end">25%</text>
+
+                            <!-- 클리핑 패스 (비커 내부만 표시) -->
+                            <clipPath id="beaker-clip">
+                                <path d="M 52,32 L 52,250 Q 52,278 70,283 L 130,283 Q 148,278 148,250 L 148,32 Z"/>
+                            </clipPath>
+
+                            <!-- 물 영역 -->
+                            <g clip-path="url(#beaker-clip)">
+                                <rect id="water-fill"
+                                      x="50"
+                                      y="250"
+                                      width="100"
+                                      height="0"
+                                      fill="url(#waterGradient)"
+                                      class="water-animation"/>
+
+                                <!-- 물결 효과 -->
+                                <ellipse id="water-surface"
+                                         cx="100"
+                                         cy="250"
+                                         rx="48"
+                                         ry="8"
+                                         fill="#4FC3F7"
+                                         opacity="0.5"
+                                         class="wave-animation"/>
+                            </g>
+
+                            <!-- 퍼센트 표시 -->
+                            <text id="volume-percentage"
+                                  x="100"
+                                  y="160"
+                                  font-size="32"
+                                  font-weight="bold"
+                                  fill="#fff"
+                                  text-anchor="middle"
+                                  class="percentage-text">0%</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 상세 정보 -->
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="icon">📝</span>
+                        <span class="label">문제</span>
+                        <span class="value" id="phone-total">10</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">✅</span>
+                        <span class="label">정답</span>
+                        <span class="value" id="phone-correct">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="icon">⏱️</span>
+                        <span class="label">시간</span>
+                        <span class="value" id="phone-time">00:00</span>
+                    </div>
+                </div>
+
+                <!-- 메시지 -->
+                <div class="message-area">
+                    <p id="encouragement-message">학습을 시작해보세요! 🎓</p>
+                </div>
+            </div>
+
+            <div class="smartphone-footer">
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/volume-fill.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
