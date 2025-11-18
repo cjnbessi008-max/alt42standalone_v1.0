@@ -1,0 +1,37 @@
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+error_log
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Uploads
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Dependencies
+vendor/
+node_modules/
+
+# Build files
+dist/
+build/

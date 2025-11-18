@@ -1,0 +1,42 @@
+# Component Lego Apache Configuration
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect API requests to api.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/v1/(.*)$ api.php/$1 [QSA,L]
+
+    # Serve static assets directly
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Enable CORS for API (adjust domains as needed)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(php)$">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+        Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+    </FilesMatch>
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# PHP Settings
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>

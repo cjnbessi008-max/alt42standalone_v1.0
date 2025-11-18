@@ -1,0 +1,532 @@
+/**
+ * Virtual Smartphone Display CSS
+ * Component Lego Interface
+ */
+
+/* ====================
+   Smartphone Container
+   ==================== */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 360px;
+    height: 640px;
+    background: #000;
+    border-radius: 30px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    box-sizing: border-box;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-container:hover {
+    transform: scale(1.02);
+}
+
+/* Smartphone Screen */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+    height: 24px;
+    background: linear-gradient(to bottom, #f5f5f5, #ebebeb);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.status-time {
+    font-weight: 500;
+}
+
+.status-icons {
+    display: flex;
+    gap: 4px;
+}
+
+.status-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+}
+
+/* App Header */
+.app-header {
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content Area */
+.app-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+/* Question Display */
+.question-display {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.question-text {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.question-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meta-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.meta-badge.type-chemistry {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.meta-badge.type-mathematics {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.meta-badge.difficulty {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+/* Component Palette */
+.component-palette {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.palette-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.palette-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+}
+
+/* Component Block (Lego Piece) */
+.component-block {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.component-block:active {
+    cursor: grabbing;
+    transform: scale(0.95);
+}
+
+.component-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.component-symbol {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.component-name {
+    font-size: 9px;
+    color: white;
+    margin-top: 2px;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.component-quantity {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff5722;
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Assembly Canvas */
+.assembly-canvas {
+    background: white;
+    border-radius: 12px;
+    min-height: 200px;
+    padding: 16px;
+    border: 2px dashed #ddd;
+    position: relative;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+}
+
+.assembly-canvas.drag-over {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.canvas-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.canvas-grid {
+    position: relative;
+    min-height: 150px;
+    background-image:
+        linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, 0.03) 25%, rgba(0, 0, 0, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, 0.03) 75%, rgba(0, 0, 0, 0.03) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, 0.03) 25%, rgba(0, 0, 0, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, 0.03) 75%, rgba(0, 0, 0, 0.03) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+}
+
+.canvas-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #999;
+    pointer-events: none;
+}
+
+.canvas-placeholder-icon {
+    font-size: 48px;
+    margin-bottom: 8px;
+    opacity: 0.3;
+}
+
+.canvas-placeholder-text {
+    font-size: 14px;
+}
+
+/* Placed Components */
+.placed-component {
+    position: absolute;
+    cursor: move;
+    transition: none;
+}
+
+.placed-component.dragging {
+    opacity: 0.6;
+    z-index: 10;
+}
+
+.placed-component .delete-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.placed-component:hover .delete-btn {
+    display: flex;
+}
+
+/* Connection Lines (Bonds) */
+.connection-line {
+    position: absolute;
+    background: #333;
+    transform-origin: left center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.connection-line.single {
+    height: 2px;
+}
+
+.connection-line.double {
+    height: 4px;
+}
+
+.connection-line.triple {
+    height: 6px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 16px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.btn-secondary:hover {
+    background: #ebebeb;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Feedback Modal */
+.feedback-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    min-width: 280px;
+    text-align: center;
+}
+
+.feedback-modal.correct {
+    border-top: 4px solid #4caf50;
+}
+
+.feedback-modal.incorrect {
+    border-top: 4px solid #f44336;
+}
+
+.feedback-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.feedback-message {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.feedback-detail {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 8px 16px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
+/* Hint Panel */
+.hint-panel {
+    background: #fff9e6;
+    border-left: 4px solid #ffc107;
+    padding: 12px;
+    margin: 0 16px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #666;
+    display: none;
+}
+
+.hint-panel.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Minimize/Maximize Button */
+.smartphone-toggle {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 12px 12px 0 0;
+    padding: 4px 16px;
+    font-size: 11px;
+    cursor: pointer;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.smartphone-container.minimized {
+    height: 60px;
+}
+
+.smartphone-container.minimized .smartphone-screen {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .smartphone-container {
+        bottom: 10px;
+        right: 10px;
+        width: 300px;
+        height: 533px;
+        transform: scale(0.85);
+        transform-origin: bottom right;
+    }
+}
+
+/* Scrollbar Styling */
+.app-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.app-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.app-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.app-content::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Color Classes for Components */
+.color-hydrogen { background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%); color: #333; }
+.color-carbon { background: linear-gradient(135deg, #424242 0%, #212121 100%); }
+.color-oxygen { background: linear-gradient(135deg, #f44336 0%, #c62828 100%); }
+.color-nitrogen { background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%); }
+.color-number { background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); }
+.color-operator { background: linear-gradient(135deg, #ff9800 0%, #ef6c00 100%); }
+.color-variable { background: linear-gradient(135deg, #9c27b0 0%, #6a1b9a 100%); }
