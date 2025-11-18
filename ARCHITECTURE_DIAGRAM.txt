@@ -1,0 +1,327 @@
+================================================================================
+                   ALT42 STANDALONE v1.0 SYSTEM ARCHITECTURE
+================================================================================
+
+CURRENT IMPLEMENTATION STATUS (As of 2025-11-18)
+────────────────────────────────────────────────────────────────────────────
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                          TEACHER INTERFACE LAYER                         │
+│                      (Planned - Not yet implemented)                     │
+│                                                                          │
+│  [Module Request Wizard] → [Concept Map Preview] → [Deploy/Refine]     │
+└──────────────────────────────────────────────────────────────────────────┘
+                                     ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│                     AI PIPELINE ORCHESTRATOR (Python)                    │
+│                      (Planned - Partial implementation)                  │
+│                                                                          │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │ Phase 1: World Model   → Phase 2: Rules    → Phase 3: Data        │ │
+│  │ Reconstruction         Generation Engine    Management             │ │
+│  │ [Planned]              [Planned]            [Planned]             │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                     ↓                                    │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │ Phase 4: Input         → Phase 5: UI       → Phase 6: Deployment  │ │
+│  │ Strategy Design        Generation          & Integration           │ │
+│  │ [Planned]              [Planned]           [Planned]              │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                     ↓                                    │
+│                    Claude API (Anthropic) - LLM Engine                   │
+│                         (Configured, Ready for use)                      │
+└──────────────────────────────────────────────────────────────────────────┘
+                                     ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│                        API GATEWAY LAYER (Node.js)                       │
+│                      (Planned - Not yet implemented)                     │
+│                                                                          │
+│  [Authentication] → [Rate Limiting] → [Request Routing] → [Response]   │
+└──────────────────────────────────────────────────────────────────────────┘
+                                     ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│                     MOODLE INTEGRATION LAYER (PHP) ✓                     │
+│                       (Partially Implemented)                            │
+│                                                                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌─────────────────┐              │
+│  │  Question    │  │  Cache       │  │  Web Services   │              │
+│  │  Service ✓   │  │  Service ✓   │  │  API ✓          │              │
+│  └──────────────┘  └──────────────┘  └─────────────────┘              │
+│                                                                          │
+│                    Database Connection (PDO) ✓                          │
+│                    - Singleton Pattern                                  │
+│                    - Prepared Statements                                │
+│                    - SQL Injection Prevention                           │
+└──────────────────────────────────────────────────────────────────────────┘
+                                     ↓
+┌──────────────────────────────────────────────────────────────────────────┐
+│                      DATA PERSISTENCE LAYER                              │
+│                                                                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐                 │
+│  │  Moodle 3.7  │  │  PostgreSQL   │  │  Redis Cache │                │
+│  │  MySQL 5.7 ✓ │  │  (Planned)    │  │  (Planned)   │                │
+│  └──────────────┘  └──────────────┘  └──────────────┘                 │
+│                                                                          │
+│   Tables:                                                                │
+│   - mdl_question          (Question bank)                                │
+│   - mdl_question_categories (Categories)                                │
+│   - mdl_quiz_slots        (Quiz questions)                              │
+│   - mdl_question_attempts (Student attempts)                            │
+│   - Custom modules        (Generated module data)                       │
+│   - Rules & Ontologies    (Generated business logic)                    │
+└──────────────────────────────────────────────────────────────────────────┘
+
+STUDENT INTERFACE LAYER
+────────────────────────────────────────────────────────────────────────────
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│                    FRONTEND (React 18 + TypeScript)                      │
+│                      (Partially Implemented)                             │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    Virtual Smartphone Display ✓                  │  │
+│  │                                                                  │  │
+│  │  ╔════════════════════════════════════╗                         │  │
+│  │  ║     ╯  (Status Bar / Notch)       ║                         │  │
+│  │  ╠════════════════════════════════════╣                         │  │
+│  │  ║                                    ║                         │  │
+│  │  ║  [Gradient Header - Educational]  ║                         │  │
+│  │  ║                                    ║                         │  │
+│  │  ║  [Main Content Area - Scrollable] ║                         │  │
+│  │  ║  - Interactive problems           ║                         │  │
+│  │  ║  - Animation elements ✓           ║                         │  │
+│  │  ║  - Progress tracking              ║                         │  │
+│  │  ║                                    ║                         │  │
+│  │  ║  [Footer - Action buttons]        ║                         │  │
+│  │  ║                                    ║                         │  │
+│  │  ╚════════════════════════════════════╝                         │  │
+│  │  375px × 667px (iPhone 8 dimensions)                            │  │
+│  │  Responsive (also supports tablet/desktop)                     │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │              Animation Engine & Gesture Handler ✓               │  │
+│  │                                                                  │  │
+│  │  Infinity Breath Animation:                                     │  │
+│  │  - Scale: 1.0 ↔ 1.2 (4s)                                       │  │
+│  │  - Rotation: -2° ↔ +2° (8s)                                    │  │
+│  │  - Glow: Dynamic shadow effect                                 │  │
+│  │  - Gradient: Background rotation (10s)                         │  │
+│  │                                                                  │  │
+│  │  Gesture Support (Planned):                                    │  │
+│  │  - Swipe gestures for navigation                               │  │
+│  │  - Tap gestures for interaction                                │  │
+│  │  - Long-press for context menus                                │  │
+│  │  - Pinch for zoom (if applicable)                              │  │
+│  │                                                                  │  │
+│  │  Related Features:                                              │  │
+│  │  - Shape morph animations                                      │  │
+│  │  - Graph animations                                            │  │
+│  │  - Celebration effects                                         │  │
+│  │  - Mathematical visualizations                                 │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│  Components:                                                             │
+│  ✓ Virtual Device Frame (CSS)                                           │
+│  ✓ Animation Keyframes (CSS)                                            │
+│  ✓ State Management (JavaScript)                                        │
+│  ✓ LMS Connector (JavaScript)                                           │
+│  ✓ Progress Tracking (JavaScript)                                       │
+│  ✗ Form Components (Planned)                                            │
+│  ✗ Problem Rendering (Planned)                                         │
+│  ✗ Interactive Widgets (Planned)                                        │
+└──────────────────────────────────────────────────────────────────────────┘
+
+
+IMPLEMENTATION SUMMARY
+────────────────────────────────────────────────────────────────────────────
+
+✓ IMPLEMENTED (Ready to use):
+  • Comprehensive PRD (1,262 lines)
+  • Moodle 3.7 database integration
+  • Question retrieval & caching
+  • REST API endpoints
+  • Virtual smartphone display (CSS)
+  • Infinity Breath animation (CSS + JS)
+  • LMS state management (AppState class)
+  • Database connection (PDO singleton)
+  • Configuration system
+  • Security measures (SQL injection prevention)
+
+✗ PLANNED (Not yet implemented):
+  • World model reconstruction service
+  • Rule generation engine
+  • Data schema generator
+  • Input strategy designer
+  • UI component generator
+  • Teacher dashboard
+  • Deployment automation
+  • Docker containerization
+  • Full React component library
+  • Advanced gesture recognition
+
+⚠ IN PROGRESS:
+  • Gesture animation features
+  • LMS integration extensions
+  • Additional animation effects
+
+
+GIT BRANCHES OVERVIEW
+────────────────────────────────────────────────────────────────────────────
+
+Current Branch:
+  → claude/choice-gesture-animation-01YZxm67dTt7wmZ5MBcFkMWB
+    Status: Only PRD file currently checked in
+
+Related Feature Branches (200+ total):
+  
+  Moodle/LMS Integration:
+    → claude/moodle-auto-display-problems-012KbgrrXtt2ebBb2terzSrw
+    → claude/moodle-concept-detection-01M1fJKA5H5fY7awsYboaJU8
+    → claude/fix-lms-integration-012VcdfiZtnQsSNzdEKvRX3k
+  
+  Animation & Gestures (60+ branches):
+    → add-infinity-breath-animation
+    → add-rotational-sweep-animation
+    → shape-morph-animation
+    → fluid-geometry-animation
+    → [60+ more animation-focused branches]
+  
+  LMS Features (20+ branches):
+    → lms-auto-questions
+    → lms-problem-explanation
+    → lms-emotion-detection
+    → lms-focus-mode
+    → [15+ more LMS feature branches]
+  
+  Mathematical Visualizations:
+    → live-graph-animation
+    → partial-sum-flow-curve
+    → parabola-glow-visualization
+    → slope-sense-animation
+    → [Others...]
+
+
+TECHNOLOGY STACK COMPARISON
+────────────────────────────────────────────────────────────────────────────
+
+Component          | Specification        | Status      | Notes
+─────────────────────────────────────────────────────────────────────────
+Frontend           | React 18+            | Planned     | TypeScript support
+UI Components      | MUI / Ant Design     | Planned     | Material design
+State Management   | Redux/Zustand        | Planned     | Context API ready
+Animations         | CSS3 + Framer Motion | Partial ✓   | Infinity Breath done
+─────────────────────────────────────────────────────────────────────────
+API Gateway        | Node.js + Express    | Planned     | Express/Fastify
+Authentication     | JWT + KAIST SSO      | Planned     | OAuth-ready
+─────────────────────────────────────────────────────────────────────────
+AI Orchestrator    | Python + FastAPI     | Planned     | Core pipelines ready
+LLM Integration    | Claude 3 (Anthropic) | Ready ✓     | Connected
+Task Queue         | Celery + Redis       | Planned     | Background jobs
+─────────────────────────────────────────────────────────────────────────
+Primary DB         | PostgreSQL 15+       | Planned     | JSONB support
+LMS Integration    | Moodle 3.7 (MySQL)   | Partial ✓   | Production-ready
+Cache             | Redis 7+             | Planned     | File-based for now
+─────────────────────────────────────────────────────────────────────────
+DevOps            | Docker + Compose     | Planned     | K8s for Phase 2
+CI/CD             | GitHub Actions       | Planned     | Ready when code added
+Monitoring        | Prometheus + Grafana | Planned     | ELK Stack for logs
+
+
+DEPLOYMENT TARGETS
+────────────────────────────────────────────────────────────────────────────
+
+MVP (Phase 0-1):
+  • Standalone web application
+  • Supports 50-100 teachers
+  • Supports 500-1000 students
+  • Single server deployment
+
+Phase 2 (Scaling):
+  • Horizontal scaling
+  • Load balancing
+  • Read replicas
+  • CDN for static content
+
+Phase 3 (Enterprise):
+  • Multi-region deployment
+  • Kubernetes orchestration
+  • Advanced disaster recovery
+  • Global performance optimization
+
+
+SECURITY MEASURES IN PLACE
+────────────────────────────────────────────────────────────────────────────
+
+✓ SQL Injection Prevention
+  - PDO prepared statements
+  - Parameter binding
+  - Parameterized queries
+
+✓ XSS Prevention
+  - HTML escaping
+  - Output encoding
+  - Input sanitization
+
+✓ Connection Security
+  - Environment-based credentials
+  - Charset specification (utf8mb4)
+  - SSL/TLS ready
+
+✓ Data Protection
+  - Encryption at rest (planned)
+  - Encryption in transit (TLS)
+  - RBAC (planned)
+
+✓ Audit & Logging
+  - Error logging
+  - Query logging
+  - Audit trails (planned)
+
+
+PERFORMANCE TARGETS
+────────────────────────────────────────────────────────────────────────────
+
+Question Retrieval:
+  • First request: 200-500ms (database query)
+  • Cached request: 10-50ms (file-based cache)
+  • Cache TTL: 3600 seconds (1 hour)
+
+Module Generation:
+  • Simple module: 2-5 minutes
+  • Medium complexity: 5-15 minutes
+  • Complex module: 15-30 minutes
+
+Scalability:
+  • Concurrent users: 100+
+  • Questions per query: 100 max
+  • Database queries: Single connection (optimized)
+
+Success Metrics (6-month target):
+  • Teacher adoption: 70%
+  • Module generation time: <2 hours
+  • System accuracy: >85%
+  • Teacher satisfaction (NPS): >50
+
+
+QUICK START GUIDE
+────────────────────────────────────────────────────────────────────────────
+
+1. Review the PRD:
+   cat /home/user/alt42standalone_v1.0/tasks/0001-prd-ai-education-pipeline.md
+
+2. Explore existing implementations:
+   git fetch origin claude/moodle-auto-display-problems-012KbgrrXtt2ebBb2terzSrw
+   git fetch origin claude/add-infinity-breath-animation-01JsHcZ7bPDGdRRApkgfwrzz
+
+3. Check other feature branches:
+   git branch -r | grep -i "animation\|gesture\|lms\|moodle"
+
+4. Review implementation guide:
+   cat /home/user/alt42standalone_v1.0/CODEBASE_STRUCTURE.md
+
+
+================================================================================
+                            Last Updated: 2025-11-18
+                           Current Status: Early Development
+================================================================================

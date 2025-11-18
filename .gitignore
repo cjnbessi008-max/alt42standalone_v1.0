@@ -1,0 +1,29 @@
+# Environment configuration
+config/.env
+
+# Cache directory
+storage/
+cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build files
+dist/
+build/
