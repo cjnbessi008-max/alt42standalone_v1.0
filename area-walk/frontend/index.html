@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Area Walk - 적분 시각화</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Optional: Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 가상 스마트폰 컨테이너 (우측 하단 고정) -->
+    <div id="smartphone-container" class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- 스마트폰 상단 바 -->
+            <div class="smartphone-header">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-status-bar">
+                    <span class="time">10:30</span>
+                    <span class="icons">
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-full"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 스마트폰 메인 화면 -->
+            <div class="smartphone-screen">
+                <!-- 로딩 화면 -->
+                <div id="loading-screen" class="loading-screen">
+                    <div class="spinner"></div>
+                    <p>문제를 불러오는 중...</p>
+                </div>
+
+                <!-- 앱 화면 -->
+                <div id="app-screen" class="app-screen" style="display: none;">
+                    <!-- 문제 헤더 -->
+                    <div class="problem-header">
+                        <h2 id="problem-title">문제 제목</h2>
+                        <div class="function-display">
+                            <span id="function-latex">\(f(x) = x^2\)</span>
+                        </div>
+                        <div class="integral-bounds">
+                            적분 범위: <span id="lower-bound">0</span> ~ <span id="upper-bound">2</span>
+                        </div>
+                    </div>
+
+                    <!-- Canvas 영역 (그래프 + 캐릭터) -->
+                    <div class="canvas-container">
+                        <canvas id="integral-canvas" width="320" height="320"></canvas>
+                        <div class="canvas-overlay">
+                            <button id="replay-btn" class="icon-btn" title="애니메이션 재생">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button id="zoom-btn" class="icon-btn" title="확대/축소">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 컨트롤 패널 -->
+                    <div class="control-panel">
+                        <!-- 힌트 버튼 -->
+                        <div class="hint-section">
+                            <button id="hint-btn" class="btn btn-secondary">
+                                <i class="fas fa-lightbulb"></i> 힌트 보기
+                            </button>
+                            <div id="hint-display" class="hint-display" style="display: none;">
+                                <p id="hint-text"></p>
+                            </div>
+                        </div>
+
+                        <!-- 답안 입력 -->
+                        <div class="answer-section">
+                            <label for="answer-input">적분 값:</label>
+                            <div class="input-group">
+                                <input type="number" id="answer-input"
+                                       placeholder="답을 입력하세요"
+                                       step="0.0001">
+                                <button id="submit-btn" class="btn btn-primary">
+                                    <i class="fas fa-check"></i> 제출
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 진행 상태 -->
+                        <div class="status-section">
+                            <div class="attempts-info">
+                                시도: <span id="attempt-count">0</span>/<span id="max-attempts">3</span>
+                            </div>
+                            <div class="timer-info" id="timer-display" style="display: none;">
+                                <i class="fas fa-clock"></i>
+                                <span id="timer">00:00</span>
+                            </div>
+                        </div>
+
+                        <!-- 피드백 영역 -->
+                        <div id="feedback-section" class="feedback-section" style="display: none;">
+                            <div id="feedback-message" class="feedback-message"></div>
+                            <div id="score-display" class="score-display"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 결과 화면 -->
+                <div id="result-screen" class="result-screen" style="display: none;">
+                    <div class="result-content">
+                        <div class="result-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h2 id="result-title">문제 완료!</h2>
+                        <div class="result-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">최종 점수</span>
+                                <span class="stat-value" id="final-score">100</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">시도 횟수</span>
+                                <span class="stat-value" id="total-attempts">1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">소요 시간</span>
+                                <span class="stat-value" id="total-time">00:30</span>
+                            </div>
+                        </div>
+                        <div class="result-actions">
+                            <button id="next-problem-btn" class="btn btn-primary">
+                                다음 문제 <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button id="review-btn" class="btn btn-secondary">
+                                복습하기 <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 홈 버튼 -->
+            <div class="smartphone-home-button"></div>
+        </div>
+
+        <!-- 최소화/닫기 버튼 -->
+        <div class="smartphone-controls">
+            <button id="minimize-btn" class="control-btn" title="최소화">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button id="close-btn" class="control-btn" title="닫기">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/graph-renderer.js"></script>
+    <script src="js/character-animator.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // 앱 초기화
+        $(document).ready(function() {
+            // URL 파라미터에서 문제 ID 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const problemId = urlParams.get('problem_id') || 1;
+            const userId = urlParams.get('user_id') || 201;
+
+            // Area Walk 앱 초기화
+            window.areaWalkApp = new AreaWalkApp(problemId, userId);
+            window.areaWalkApp.init();
+        });
+    </script>
+</body>
+</html>
