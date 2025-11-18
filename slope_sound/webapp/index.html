@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slope Sound - 도함수 사운드 학습 앱</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🎵 Slope Sound</h1>
+            <p class="subtitle">도함수를 소리로 느껴보세요</p>
+        </header>
+
+        <!-- Desktop View: Problem List -->
+        <div class="desktop-view">
+            <div class="problem-selector">
+                <h2>문제 선택</h2>
+                <div id="problemList" class="problem-list">
+                    <!-- Problems will be loaded here -->
+                    <div class="loading">문제를 불러오는 중...</div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3>📱 사용 방법</h3>
+                <ol>
+                    <li>원하는 문제를 선택하세요</li>
+                    <li>우측 하단 스마트폰 화면에서 그래프를 터치하세요</li>
+                    <li>각 점의 기울기(도함수 값)가 사운드로 표현됩니다</li>
+                    <li>양수 기울기 = 높은 음, 음수 기울기 = 낮은 음</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Screen (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <!-- App Content -->
+                    <div class="app-header">
+                        <button id="backBtn" class="back-btn">←</button>
+                        <h2 id="problemTitle">문제를 선택하세요</h2>
+                        <div class="sound-indicator" id="soundIndicator">🔇</div>
+                    </div>
+
+                    <!-- Canvas for Function Graph -->
+                    <div class="graph-container">
+                        <canvas id="functionCanvas" width="340" height="400"></canvas>
+                    </div>
+
+                    <!-- Control Panel -->
+                    <div class="controls">
+                        <div class="info-panel">
+                            <div class="info-item">
+                                <label>X:</label>
+                                <span id="currentX">-</span>
+                            </div>
+                            <div class="info-item">
+                                <label>f(x):</label>
+                                <span id="currentY">-</span>
+                            </div>
+                            <div class="info-item">
+                                <label>기울기:</label>
+                                <span id="currentSlope">-</span>
+                            </div>
+                            <div class="info-item">
+                                <label>주파수:</label>
+                                <span id="currentFreq">-</span>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="playBtn" class="primary-btn" disabled>▶ 소리 재생</button>
+                            <button id="resetBtn" class="secondary-btn">🔄 초기화</button>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text">탐색한 영역: <span id="progressText">0%</span></p>
+                    </div>
+                </div>
+                <div class="smartphone-bottom-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/math-engine.js"></script>
+    <script src="js/audio-engine.js"></script>
+    <script src="js/graph-renderer.js"></script>
+    <script src="js/moodle-api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
