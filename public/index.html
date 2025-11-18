@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Along - 함수 시각화 앱</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <header>
+            <h1>Roll Along - 함수 시각화</h1>
+            <p>x값을 조정하면 공이 굴러가며 y값의 변화를 보여줍니다</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="functionSelect">함수 선택:</label>
+                <select id="functionSelect">
+                    <option value="linear">일차함수 (y = x)</option>
+                    <option value="quadratic">이차함수 (y = x²)</option>
+                    <option value="cubic">삼차함수 (y = x³)</option>
+                    <option value="sine">사인함수 (y = sin(x))</option>
+                    <option value="cosine">코사인함수 (y = cos(x))</option>
+                    <option value="custom">사용자 정의</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="customFunctionGroup" style="display: none;">
+                <label for="customFunction">함수 입력 (예: x*x, Math.sin(x)):</label>
+                <input type="text" id="customFunction" placeholder="예: x*x + 2*x + 1">
+            </div>
+
+            <div class="control-group">
+                <label for="xValue">X 값: <span id="xValueDisplay">0</span></label>
+                <input type="range" id="xValue" min="-10" max="10" step="0.1" value="0">
+            </div>
+
+            <div class="control-group">
+                <label for="speedControl">애니메이션 속도:</label>
+                <input type="range" id="speedControl" min="1" max="10" step="1" value="5">
+            </div>
+
+            <div class="button-group">
+                <button id="playBtn">▶ 재생</button>
+                <button id="pauseBtn">⏸ 일시정지</button>
+                <button id="resetBtn">↺ 리셋</button>
+            </div>
+
+            <div class="info-panel">
+                <p>현재 좌표: (<span id="currentX">0</span>, <span id="currentY">0</span>)</p>
+                <p>함수값: y = <span id="functionValue">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone in Bottom Right -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-screen">
+                <canvas id="rollCanvas"></canvas>
+                <div class="screen-overlay">
+                    <div class="status-bar">
+                        <span class="time">12:00</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+            </div>
+            <div class="smartphone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- LMS Data Receiver (Hidden) -->
+    <div id="lmsData" style="display: none;">
+        <input type="hidden" id="problemId" value="">
+        <input type="hidden" id="userId" value="">
+        <input type="hidden" id="courseId" value="">
+    </div>
+
+    <script src="js/physics-engine.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/lms-integration.js"></script>
+</body>
+</html>
