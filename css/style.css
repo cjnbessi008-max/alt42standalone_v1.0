@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* 왼쪽 문제 영역 */
+.problem-area {
+    flex: 1;
+    min-width: 500px;
+}
+
+.header {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    color: #667eea;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.2em;
+}
+
+.problem-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.problem-number {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.problem-content {
+    margin: 20px 0;
+}
+
+.problem-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.set-display {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.set-notation {
+    font-size: 1.8em;
+    color: #333;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+}
+
+.visual-elements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px 0;
+    min-height: 100px;
+}
+
+.element-item {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.answer-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.answer-section label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+#answerInput {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    transition: border-color 0.3s;
+}
+
+#answerInput:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feedback {
+    min-height: 50px;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+.info-panel {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.info-panel h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.info-panel p {
+    color: #666;
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+/* 우측 스마트폰 */
+.smartphone-container {
+    position: sticky;
+    top: 20px;
+}
+
+.smartphone {
+    width: 320px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.smartphone-notch {
+    width: 150px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 15px 15px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+}
+
+.smartphone-home-button {
+    width: 50px;
+    height: 5px;
+    background: #333;
+    border-radius: 3px;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Beam Container */
+.beam-container {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.beam-title {
+    color: #fff;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+.beam-count {
+    color: #667eea;
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+}
+
+#beamCanvas {
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.beam-label {
+    color: #aaa;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+#elementCount {
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .smartphone-container {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .problem-area {
+        min-width: 100%;
+    }
+
+    .smartphone {
+        transform: scale(0.85);
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+}

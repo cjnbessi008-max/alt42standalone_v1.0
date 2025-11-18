@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardinality Beam - 집합의 원소 수 학습 앱</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 문제 영역 -->
+        <div class="problem-area">
+            <div class="header">
+                <h1>🎓 Cardinality Beam</h1>
+                <p class="subtitle">집합의 원소 수를 배워봐요!</p>
+            </div>
+
+            <div class="problem-card">
+                <div class="problem-number">문제 <span id="currentProblem">1</span></div>
+                <div class="problem-content">
+                    <h2 id="problemTitle">집합 A의 원소는 몇 개일까요?</h2>
+                    <div class="set-display" id="setDisplay">
+                        <div class="set-notation">
+                            A = <span id="setContent">{1, 2, 3}</span>
+                        </div>
+                    </div>
+                    <div class="visual-elements" id="visualElements">
+                        <!-- 원소들이 여기 시각적으로 표시됩니다 -->
+                    </div>
+                </div>
+
+                <div class="answer-section">
+                    <label for="answerInput">답:</label>
+                    <input type="number" id="answerInput" placeholder="원소의 개수를 입력하세요" min="0">
+                    <button id="submitBtn" class="btn-primary">제출</button>
+                </div>
+
+                <div class="feedback" id="feedback"></div>
+
+                <div class="controls">
+                    <button id="prevBtn" class="btn-secondary">이전 문제</button>
+                    <button id="nextBtn" class="btn-secondary">다음 문제</button>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <h3>💡 Cardinality(카디널리티)란?</h3>
+                <p>집합에 포함된 원소의 개수를 의미합니다.</p>
+                <p>원소가 많을수록 우측 스마트폰의 빛의 강도가 커집니다!</p>
+            </div>
+        </div>
+
+        <!-- 우측 하단 가상 스마트폰 -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div class="beam-container">
+                        <div class="beam-title">Cardinality Beam</div>
+                        <div class="beam-count" id="beamCount">0</div>
+                        <canvas id="beamCanvas" width="280" height="400"></canvas>
+                        <div class="beam-label">원소 수: <span id="elementCount">0</span></div>
+                    </div>
+                </div>
+                <div class="smartphone-home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cardinality-beam.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

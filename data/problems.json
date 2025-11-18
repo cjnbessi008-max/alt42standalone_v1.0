@@ -1,0 +1,100 @@
+{
+  "problems": [
+    {
+      "id": 1,
+      "title": "집합 A의 원소는 몇 개일까요?",
+      "set": [1, 2, 3],
+      "setName": "A",
+      "visualType": "numbers",
+      "difficulty": "easy",
+      "category": "기본"
+    },
+    {
+      "id": 2,
+      "title": "집합 B의 원소는 몇 개일까요?",
+      "set": [2, 4, 6, 8, 10],
+      "setName": "B",
+      "visualType": "numbers",
+      "difficulty": "easy",
+      "category": "기본"
+    },
+    {
+      "id": 3,
+      "title": "과일 집합의 원소는 몇 개일까요?",
+      "set": ["🍎", "🍌", "🍊", "🍇"],
+      "setName": "C",
+      "visualType": "emoji",
+      "difficulty": "easy",
+      "category": "일상"
+    },
+    {
+      "id": 4,
+      "title": "빈 집합의 원소는 몇 개일까요?",
+      "set": [],
+      "setName": "D",
+      "visualType": "numbers",
+      "difficulty": "medium",
+      "category": "특수"
+    },
+    {
+      "id": 5,
+      "title": "알파벳 집합의 원소는 몇 개일까요?",
+      "set": ["a", "b", "c", "d", "e", "f", "g"],
+      "setName": "E",
+      "visualType": "letters",
+      "difficulty": "medium",
+      "category": "문자"
+    },
+    {
+      "id": 6,
+      "title": "동물 집합의 원소는 몇 개일까요?",
+      "set": ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊"],
+      "setName": "F",
+      "visualType": "emoji",
+      "difficulty": "medium",
+      "category": "일상"
+    },
+    {
+      "id": 7,
+      "title": "10보다 작은 소수 집합의 원소는 몇 개일까요?",
+      "set": [2, 3, 5, 7],
+      "setName": "G",
+      "visualType": "numbers",
+      "difficulty": "hard",
+      "category": "수학"
+    },
+    {
+      "id": 8,
+      "title": "색깔 집합의 원소는 몇 개일까요?",
+      "set": ["🔴", "🟠", "🟡", "🟢", "🔵", "🟣", "🟤", "⚫", "⚪"],
+      "setName": "H",
+      "visualType": "emoji",
+      "difficulty": "hard",
+      "category": "일상"
+    },
+    {
+      "id": 9,
+      "title": "1부터 15까지의 홀수 집합의 원소는 몇 개일까요?",
+      "set": [1, 3, 5, 7, 9, 11, 13, 15],
+      "setName": "I",
+      "visualType": "numbers",
+      "difficulty": "hard",
+      "category": "수학"
+    },
+    {
+      "id": 10,
+      "title": "계절 집합의 원소는 몇 개일까요?",
+      "set": ["봄", "여름", "가을", "겨울"],
+      "setName": "J",
+      "visualType": "text",
+      "difficulty": "easy",
+      "category": "일상"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "totalProblems": 10,
+    "categories": ["기본", "일상", "수학", "문자", "특수"],
+    "difficulties": ["easy", "medium", "hard"]
+  }
+}
