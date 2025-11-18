@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlier Shadow - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info-box p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .demo-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .tech-stack {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .tech-stack h3 {
+            margin-bottom: 15px;
+        }
+
+        .tech-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .shadow-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .shadow-example {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .shadow-example.low::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 15px;
+            background: radial-gradient(circle at center, rgba(139, 0, 0, 0.5), transparent);
+            z-index: -1;
+        }
+
+        .shadow-example.high::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 15px;
+            background: radial-gradient(circle at center, rgba(0, 0, 139, 0.5), transparent);
+            z-index: -1;
+        }
+
+        .shadow-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .shadow-desc {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Outlier Shadow</h1>
+            <p>Student Performance Monitor with Dark Shadow Visualization</p>
+        </div>
+
+        <div class="info-box">
+            <h2>소개 (Introduction)</h2>
+            <p>
+                Outlier Shadow는 Moodle 3.7 LMS와 연동하여 학생들의 성적 데이터를 실시간으로 모니터링하고,
+                통계적 이상치(outlier)를 어두운 그림자 효과로 시각화하는 모바일 웹 애플리케이션입니다.
+            </p>
+            <p>
+                The Outlier Shadow is a mobile web application that integrates with Moodle 3.7 LMS to monitor student performance data in real-time
+                and visualize statistical outliers using dark shadow effects.
+            </p>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>실시간 모니터링</h3>
+                <p>30초마다 자동으로 최신 학생 성적 데이터를 업데이트하여 실시간으로 성과를 추적합니다.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>이상치 탐지</h3>
+                <p>IQR과 Z-score 통계 방법을 사용하여 저성취 및 고성취 학생을 자동으로 식별합니다.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌑</div>
+                <h3>그림자 시각화</h3>
+                <p>이상치를 어두운 그림자로 표시 - 빨간색은 위험군, 파란색은 우수 학생을 나타냅니다.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>모바일 최적화</h3>
+                <p>우측 하단에 표시되는 가상 스마트폰 화면으로 모바일 환경에 최적화되었습니다.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Moodle 연동</h3>
+                <p>Moodle 3.7 데이터베이스에 직접 연결하여 퀴즈 및 평가 데이터를 가져옵니다.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>필터링 기능</h3>
+                <p>전체, 이상치만, 위험군, 우수 학생 등 다양한 필터로 데이터를 조회할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>그림자 효과 예시 (Shadow Effect Examples)</h2>
+            <div class="shadow-demo">
+                <div class="shadow-example">
+                    <div class="shadow-label">일반 학생</div>
+                    <div class="shadow-desc">Normal Student<br>그림자 없음</div>
+                </div>
+                <div class="shadow-example low">
+                    <div class="shadow-label">위험군</div>
+                    <div class="shadow-desc">At Risk<br>빨간 그림자</div>
+                </div>
+                <div class="shadow-example high">
+                    <div class="shadow-label">우수 학생</div>
+                    <div class="shadow-desc">Excelling<br>파란 그림자</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>사용 방법 (How to Use)</h2>
+            <p><strong>기본 사용:</strong></p>
+            <div class="code-block">http://your-server/outlier_shadow/</div>
+
+            <p><strong>강좌별 필터:</strong></p>
+            <div class="code-block">http://your-server/outlier_shadow/?course_id=123</div>
+
+            <p><strong>퀴즈별 필터:</strong></p>
+            <div class="code-block">http://your-server/outlier_shadow/?quiz_id=456</div>
+
+            <p><strong>Z-score 방법 사용:</strong></p>
+            <div class="code-block">http://your-server/outlier_shadow/?method=zscore</div>
+        </div>
+
+        <div class="demo-buttons">
+            <a href="index.php" class="btn">Launch App</a>
+            <a href="index.php?method=zscore" class="btn">Use Z-Score Method</a>
+            <a href="README.md" class="btn btn-secondary">Documentation</a>
+        </div>
+
+        <div class="tech-stack">
+            <h3>Technology Stack</h3>
+            <div class="tech-badges">
+                <span class="tech-badge">PHP 7.1.9</span>
+                <span class="tech-badge">MySQL 5.7</span>
+                <span class="tech-badge">Moodle 3.7</span>
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript ES6+</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
