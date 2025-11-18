@@ -1,0 +1,36 @@
+{
+  "name": "alt42-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Alt42 Equation Solver with Solve Timeline",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "migrate": "node database/migrate.js",
+    "seed": "node database/seed.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "education",
+    "equation-solver",
+    "moodle",
+    "timeline"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.0",
+    "moment": "^2.29.4",
+    "express-validator": "^7.0.1",
+    "mathjs": "^11.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
+  }
+}
