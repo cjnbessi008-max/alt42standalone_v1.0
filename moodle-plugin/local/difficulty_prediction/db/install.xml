@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/difficulty_prediction/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/difficulty_prediction plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="question_difficulty" COMMENT="Stores predicted and actual difficulty levels for questions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to mdl_question.id"/>
+        <FIELD NAME="predicted_difficulty" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2" COMMENT="Raw predicted difficulty (0.00-1.00)"/>
+        <FIELD NAME="predicted_level" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Discretized difficulty level (1-5)"/>
+        <FIELD NAME="confidence_score" TYPE="number" LENGTH="3" NOTNULL="true" DEFAULT="0.00" SEQUENCE="false" DECIMALS="2" COMMENT="Prediction confidence (0.00-1.00)"/>
+        <FIELD NAME="actual_difficulty" TYPE="number" LENGTH="3" NOTNULL="false" SEQUENCE="false" DECIMALS="2" COMMENT="Calculated from student performance"/>
+        <FIELD NAME="num_attempts" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Total number of student attempts"/>
+        <FIELD NAME="num_correct" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of correct attempts"/>
+        <FIELD NAME="avg_time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Average time spent in seconds"/>
+        <FIELD NAME="feature_vector" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON-encoded problem features"/>
+        <FIELD NAME="algorithm_version" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="v1.0" SEQUENCE="false" COMMENT="Version of prediction algorithm"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Timestamp when record was created"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Timestamp when record was last modified"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid" TYPE="foreign-unique" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="predicted_level" UNIQUE="false" FIELDS="predicted_level" COMMENT="Index for filtering by difficulty level"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="question_performance" COMMENT="Tracks individual student performance on questions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to mdl_question.id"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to mdl_user.id"/>
+        <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key to mdl_quiz_attempts.id"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="1 if correct, 0 if incorrect"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="num_attempts" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Number of attempts on this question"/>
+        <FIELD NAME="student_difficulty_rating" TYPE="int" LENGTH="1" NOTNULL="false" SEQUENCE="false" COMMENT="Student's self-reported difficulty (1-5)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Timestamp when attempt was recorded"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="attemptid" UNIQUE="false" FIELDS="attemptid"/>
+        <INDEX NAME="question_user" UNIQUE="false" FIELDS="questionid,userid"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="difficulty_config" COMMENT="Configuration for difficulty prediction algorithms">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="config_key" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Configuration key"/>
+        <FIELD NAME="config_value" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Configuration value"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Human-readable description"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Last modification timestamp"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="config_key" UNIQUE="true" FIELDS="config_key"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
