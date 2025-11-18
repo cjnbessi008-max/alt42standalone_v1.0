@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alt42 - Learning Activity Monitor</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 메인 컨텐츠 영역 -->
+        <div class="main-content">
+            <header>
+                <h1>학습 활동 모니터</h1>
+                <p>Moodle LMS 연동 실시간 학습 로그</p>
+            </header>
+
+            <div class="info-panel">
+                <div class="info-card">
+                    <h3>현재 활동</h3>
+                    <p id="current-activity">분수 학습 모듈</p>
+                </div>
+                <div class="info-card">
+                    <h3>참여 학생</h3>
+                    <p id="student-count">0명</p>
+                </div>
+                <div class="info-card">
+                    <h3>활동 로그</h3>
+                    <p id="log-count">0개</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 가상 스마트폰 화면 (우측 하단) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- 스마트폰 상단 노치 -->
+                <div class="smartphone-notch"></div>
+
+                <!-- 스마트폰 화면 -->
+                <div class="smartphone-screen">
+                    <div class="screen-header">
+                        <div class="time">10:30</div>
+                        <div class="status-icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+
+                    <div class="app-header">
+                        <h2>학습 로그</h2>
+                        <button id="clear-logs" class="clear-btn">지우기</button>
+                    </div>
+
+                    <!-- Slow Climb 로그 영역 -->
+                    <div class="log-container" id="log-container">
+                        <div class="log-list" id="log-list">
+                            <!-- 로그 항목들이 동적으로 추가됩니다 -->
+                        </div>
+                    </div>
+
+                    <div class="screen-footer">
+                        <div class="home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 테스트용 컨트롤 패널 -->
+    <div class="control-panel">
+        <h3>테스트 컨트롤</h3>
+        <button id="add-log-btn" class="control-btn">로그 추가</button>
+        <button id="add-multiple-btn" class="control-btn">연속 로그 추가 (5개)</button>
+        <button id="toggle-animation-btn" class="control-btn">애니메이션 속도 변경</button>
+        <div class="speed-control">
+            <label for="speed-slider">스크롤 속도:</label>
+            <input type="range" id="speed-slider" min="1" max="10" value="5">
+            <span id="speed-value">5</span>
+        </div>
+    </div>
+
+    <script src="js/slow-climb.js"></script>
+</body>
+</html>

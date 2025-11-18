@@ -1,0 +1,65 @@
+# Alt42 Standalone .gitignore
+
+# 데이터베이스 설정 (민감한 정보)
+src/config/database.php
+config.local.php
+
+# 환경 변수
+.env
+.env.local
+
+# 로그 파일
+*.log
+logs/
+error_log
+
+# 임시 파일
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# OS 관련 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 설정
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+
+# PHP 관련
+vendor/
+composer.phar
+composer.lock
+
+# Node modules (향후 사용 가능)
+node_modules/
+package-lock.json
+yarn.lock
+
+# 빌드 파일
+dist/
+build/
+
+# 백업 파일
+*.bak
+*.backup
+backup/
+
+# 업로드 파일
+uploads/
+files/
+
+# 캐시
+cache/
+*.cache
+
+# 민감한 설정 파일
+moodle_token.txt
+secrets.json
