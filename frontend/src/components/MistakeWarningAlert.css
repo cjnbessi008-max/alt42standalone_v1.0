@@ -1,0 +1,157 @@
+/* Mistake Warning Alert Styles */
+
+.mistake-warning-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.warning-header {
+  margin-bottom: 16px;
+}
+
+.warning-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.warning-subtitle {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.warnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.warning-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.warning-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.warning-alert-high {
+  border-left-color: #ef4444;
+  background: #fef2f2;
+}
+
+.warning-alert-medium {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+
+.warning-alert-low {
+  border-left-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.warning-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.warning-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.warning-message {
+  flex: 1;
+  color: #1f2937;
+}
+
+.warning-type {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+
+.warning-message p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dismiss-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dismiss-button:hover {
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+.focus-areas {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.focus-areas h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.focus-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.focus-tag {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .mistake-warning-container {
+    padding: 16px;
+    margin: 16px 0;
+  }
+
+  .warning-card {
+    padding: 12px;
+  }
+
+  .warning-header h3 {
+    font-size: 18px;
+  }
+
+  .warning-subtitle {
+    font-size: 13px;
+  }
+}
