@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: higher-derivative-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-moodle}
+      MYSQL_USER: ${MYSQL_USER:-moodleuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-moodlepass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./database/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - derivative_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  fastapi:
+    build:
+      context: ./backend/ai-pipeline
+      dockerfile: ../../docker/fastapi.dockerfile
+    container_name: higher-derivative-fastapi
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${MYSQL_DATABASE:-moodle}
+      - DB_USER=${MYSQL_USER:-moodleuser}
+      - DB_PASSWORD=${MYSQL_PASSWORD:-moodlepass}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/ai-pipeline:/app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - derivative_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # PHP 7.1.9 for Moodle Integration
+  php-moodle:
+    build:
+      context: ./backend/moodle-integration
+      dockerfile: ../../docker/php-moodle.dockerfile
+    container_name: higher-derivative-php
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=${MYSQL_DATABASE:-moodle}
+      - DB_USER=${MYSQL_USER:-moodleuser}
+      - DB_PASS=${MYSQL_PASSWORD:-moodlepass}
+      - API_BACKEND_URL=http://fastapi:8000
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend/moodle-integration/php:/var/www/html
+    depends_on:
+      - mysql
+      - fastapi
+    networks:
+      - derivative_network
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.dockerfile
+    container_name: higher-derivative-frontend
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - fastapi
+    networks:
+      - derivative_network
+    command: npm run dev -- --host 0.0.0.0
+
+networks:
+  derivative_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
