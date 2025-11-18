@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusion Gate - 포함 게이트</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 우측 하단 가상 스마트폰 화면 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="screen">
+                <!-- 헤더 -->
+                <div class="header">
+                    <h1>Inclusion Gate</h1>
+                    <div class="score">점수: <span id="score">0</span></div>
+                </div>
+
+                <!-- 문제 영역 -->
+                <div class="question-area">
+                    <div class="question-text" id="questionText">
+                        문제를 불러오는 중...
+                    </div>
+                </div>
+
+                <!-- Inclusion Gate 영역 -->
+                <div class="gate-container">
+                    <!-- 왼쪽 게이트 (포함) -->
+                    <div class="gate-wrapper left-gate">
+                        <div class="gate-label">포함</div>
+                        <div class="gate" id="includeGate">
+                            <div class="gate-door left-door" id="includeLeftDoor"></div>
+                            <div class="gate-door right-door" id="includeRightDoor"></div>
+                            <div class="gate-frame"></div>
+                        </div>
+                        <button class="gate-button" id="includeButton" onclick="selectAnswer(true)">
+                            <span class="button-icon">✓</span>
+                            포함
+                        </button>
+                    </div>
+
+                    <!-- 오른쪽 게이트 (포함 X) -->
+                    <div class="gate-wrapper right-gate">
+                        <div class="gate-label">포함 X</div>
+                        <div class="gate" id="excludeGate">
+                            <div class="gate-door left-door" id="excludeLeftDoor"></div>
+                            <div class="gate-door right-door" id="excludeRightDoor"></div>
+                            <div class="gate-frame"></div>
+                        </div>
+                        <button class="gate-button" id="excludeButton" onclick="selectAnswer(false)">
+                            <span class="button-icon">✕</span>
+                            포함 X
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 피드백 영역 -->
+                <div class="feedback" id="feedback"></div>
+
+                <!-- 다음 문제 버튼 -->
+                <div class="controls">
+                    <button class="next-button" id="nextButton" onclick="loadNextQuestion()" style="display:none;">
+                        다음 문제
+                    </button>
+                </div>
+
+                <!-- 진행 상황 -->
+                <div class="progress">
+                    <div class="progress-text">
+                        문제 <span id="currentQuestion">0</span> / <span id="totalQuestions">0</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 홈 버튼 -->
+            <div class="home-button"></div>
+        </div>
+    </div>
+
+    <!-- 설정 및 정보 (선택적) -->
+    <div class="info-panel">
+        <h2>Inclusion Gate</h2>
+        <p>Moodle LMS 연동 학습 앱</p>
+        <div class="connection-status">
+            <span class="status-indicator" id="statusIndicator"></span>
+            <span id="connectionStatus">연결 확인 중...</span>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/gate-animation.js"></script>
+</body>
+</html>

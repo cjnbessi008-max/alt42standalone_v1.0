@@ -1,0 +1,59 @@
+# OS 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 에디터/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# 환경 설정 (민감한 정보 포함)
+src/config/database.php
+.env
+*.local
+
+# 로그
+*.log
+logs/
+
+# 임시 파일
+tmp/
+temp/
+*.tmp
+
+# 백업 파일
+*.bak
+*.backup
+*~
+
+# 캐시
+cache/
+*.cache
+
+# 업로드 파일
+uploads/
+files/
+
+# Node.js (만약 나중에 추가될 경우)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# PHP
+vendor/
+composer.phar
+composer.lock
+
+# 데이터베이스
+*.sql.gz
+*.sqlite
+*.db
+
+# 배포 관련
+dist/
+build/
