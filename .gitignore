@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.local
+
+# Dependencies
+node_modules/
+__pycache__/
+
+# Build outputs
+.next/
+dist/
+build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Database
+*.db
+*.sqlite
+
+# Docker volumes (keep data local)
+postgres_data/
+redis_data/

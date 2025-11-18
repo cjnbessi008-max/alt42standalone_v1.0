@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Documentation
+*.md
+tasks/
+
+# Environment
+.env
+.env.local
+
+# Dependencies
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+
+# Build
+**/dist
+**/build
+**/.next
+
+# IDE
+.vscode
+.idea
