@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curvy Log - Demo (No Moodle Required)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .demo-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .demo-banner h2 {
+            margin: 0 0 10px 0;
+        }
+
+        .demo-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .demo-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="demo-banner">
+            <h2>🎨 Curvy Log - Demo Mode</h2>
+            <p>Moodle 연결 없이 샘플 데이터로 애니메이션을 테스트해보세요</p>
+        </div>
+
+        <header>
+            <h1>Curvy Log Viewer</h1>
+            <p>LMS 연동 로그 감성 시각화 - 데모</p>
+        </header>
+
+        <div class="demo-controls">
+            <button class="demo-btn" onclick="generateSinWaveData()">📈 사인파 데이터</button>
+            <button class="demo-btn" onclick="generateProgressData()">📊 학습 진도 데이터</button>
+            <button class="demo-btn" onclick="generateRandomWalkData()">🎲 랜덤 워크 데이터</button>
+            <button class="demo-btn" onclick="generateQuizScoresData()">🎯 퀴즈 점수 데이터</button>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="dataPoints">데이터 포인트 수:</label>
+                <input type="number" id="dataPoints" value="30" min="5" max="100">
+            </div>
+
+            <div class="control-group">
+                <label for="animationSpeed">Animation Speed:</label>
+                <input type="range" id="animationSpeed" min="0.5" max="5" step="0.5" value="2">
+                <span id="speedValue">2x</span>
+            </div>
+
+            <div class="control-group">
+                <label for="curveIntensity">Curve Intensity:</label>
+                <input type="range" id="curveIntensity" min="0" max="1" step="0.1" value="0.6">
+                <span id="curveValue">0.6</span>
+            </div>
+
+            <button id="playAnimation" class="btn-secondary">Play Animation</button>
+            <button onclick="resetAnimation()" class="btn-primary">Reset</button>
+        </div>
+
+        <div class="main-content">
+            <div class="info-panel">
+                <h3>데이터 정보</h3>
+                <div id="dataInfo">
+                    <p>샘플 데이터를 선택하여 애니메이션을 시작하세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display -->
+    <div id="smartphone" class="smartphone">
+        <div class="smartphone-header">
+            <div class="camera"></div>
+            <div class="speaker"></div>
+        </div>
+
+        <div class="smartphone-screen">
+            <div class="screen-header">
+                <h4>Curvy Log Demo</h4>
+                <span id="currentTime">--:--</span>
+            </div>
+
+            <canvas id="curvyCanvas" width="340" height="600"></canvas>
+
+            <div class="screen-footer">
+                <div id="currentPoint" class="data-point-info">
+                    <span class="label">데모 모드 - 샘플 데이터를 선택하세요</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="smartphone-footer">
+            <div class="home-button"></div>
+        </div>
+    </div>
+
+    <script src="js/curvy-log.js"></script>
+    <script>
+        // Demo Application Logic
+        let curvyLog = null;
+        let currentData = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            curvyLog = new CurvyLog('curvyCanvas', {
+                animationSpeed: 2,
+                curveIntensity: 0.6,
+                colors: {
+                    primary: '#4ECDC4',
+                    secondary: '#FF6B6B',
+                    accent: '#FFE66D'
+                }
+            });
+
+            setupEventListeners();
+            updateTime();
+            setInterval(updateTime, 1000);
+
+            // Load initial demo data
+            generateProgressData();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('playAnimation').addEventListener('click', playAnimation);
+
+            document.getElementById('animationSpeed').addEventListener('input', function() {
+                const speed = parseFloat(this.value);
+                document.getElementById('speedValue').textContent = speed + 'x';
+                curvyLog.setSpeed(speed);
+            });
+
+            document.getElementById('curveIntensity').addEventListener('input', function() {
+                const intensity = parseFloat(this.value);
+                document.getElementById('curveValue').textContent = intensity;
+                curvyLog.setCurveIntensity(intensity);
+            });
+
+            curvyLog.onComplete(() => {
+                document.getElementById('playAnimation').textContent = 'Replay Animation';
+            });
+        }
+
+        function generateSinWaveData() {
+            const count = parseInt(document.getElementById('dataPoints').value);
+            const data = [];
+
+            for (let i = 0; i < count; i++) {
+                const t = (i / count) * Math.PI * 4;
+                data.push({
+                    x: i,
+                    y: Math.sin(t) * 2 + 3,
+                    timestamp: Date.now() - (count - i) * 3600000,
+                    event: '사인파 포인트 ' + (i + 1),
+                    rawScore: (Math.sin(t) + 1) * 50
+                });
+            }
+
+            loadData(data, '사인파 패턴');
+        }
+
+        function generateProgressData() {
+            const count = parseInt(document.getElementById('dataPoints').value);
+            const data = [];
+            let currentLevel = 1;
+
+            for (let i = 0; i < count; i++) {
+                const progress = i / count;
+                const logValue = Math.log(progress * 10 + 1) + Math.random() * 0.3;
+
+                if (Math.random() > 0.9) {
+                    currentLevel += 1;
+                }
+
+                data.push({
+                    x: i,
+                    y: logValue,
+                    timestamp: Date.now() - (count - i) * 86400000,
+                    event: '학습 활동 ' + (i + 1),
+                    rawScore: progress * 100,
+                    quizName: '레벨 ' + currentLevel
+                });
+            }
+
+            loadData(data, '학습 진도 데이터');
+        }
+
+        function generateRandomWalkData() {
+            const count = parseInt(document.getElementById('dataPoints').value);
+            const data = [];
+            let value = 2;
+
+            for (let i = 0; i < count; i++) {
+                value += (Math.random() - 0.5) * 0.5;
+                value = Math.max(0.5, Math.min(4, value));
+
+                data.push({
+                    x: i,
+                    y: value,
+                    timestamp: Date.now() - (count - i) * 7200000,
+                    event: '랜덤 이벤트 ' + (i + 1),
+                    rawScore: (value / 4) * 100
+                });
+            }
+
+            loadData(data, '랜덤 워크 데이터');
+        }
+
+        function generateQuizScoresData() {
+            const count = parseInt(document.getElementById('dataPoints').value);
+            const data = [];
+            const quizzes = ['입문', '기초', '중급', '고급', '심화'];
+
+            for (let i = 0; i < count; i++) {
+                const baseScore = 50 + (i / count) * 30;
+                const variance = Math.random() * 20;
+                const score = Math.min(100, baseScore + variance);
+                const logScore = Math.log(score + 1);
+
+                data.push({
+                    x: i,
+                    y: logScore,
+                    timestamp: Date.now() - (count - i) * 172800000,
+                    event: '퀴즈 시도',
+                    rawScore: score,
+                    quizName: quizzes[Math.floor(Math.random() * quizzes.length)] + ' 퀴즈',
+                    attempt: (i % 3) + 1
+                });
+            }
+
+            loadData(data, '퀴즈 점수 데이터');
+        }
+
+        function loadData(data, typeName) {
+            currentData = data;
+            curvyLog.setData(data);
+
+            const infoDiv = document.getElementById('dataInfo');
+            const yValues = data.map(d => d.y);
+
+            infoDiv.innerHTML = `
+                <p><strong>상태:</strong> <span style="color: #50c878;">✓ 로드됨</span></p>
+                <p><strong>데이터 타입:</strong> ${typeName}</p>
+                <p><strong>데이터 포인트:</strong> ${data.length}개</p>
+                <p><strong>값 범위:</strong> ${Math.min(...yValues).toFixed(2)} - ${Math.max(...yValues).toFixed(2)}</p>
+                <p><strong>생성 시간:</strong> ${new Date().toLocaleString()}</p>
+            `;
+
+            updateCurrentPoint(null);
+            showNotification('샘플 데이터가 로드되었습니다!', 'success');
+        }
+
+        function playAnimation() {
+            if (!currentData || currentData.length === 0) {
+                showNotification('먼저 샘플 데이터를 선택하세요', 'warning');
+                return;
+            }
+
+            curvyLog.play();
+            document.getElementById('playAnimation').textContent = 'Playing...';
+
+            const updateInterval = setInterval(() => {
+                const currentPoint = curvyLog.getCurrentPoint();
+                updateCurrentPoint(currentPoint);
+
+                if (!curvyLog.isAnimating) {
+                    clearInterval(updateInterval);
+                }
+            }, 100);
+        }
+
+        function resetAnimation() {
+            curvyLog.reset();
+            document.getElementById('playAnimation').textContent = 'Play Animation';
+            updateCurrentPoint(null);
+        }
+
+        function updateCurrentPoint(point) {
+            const pointInfo = document.getElementById('currentPoint');
+
+            if (!point) {
+                pointInfo.innerHTML = '<span class="label">애니메이션 준비 완료</span>';
+                return;
+            }
+
+            const html = `
+                <span class="label">현재 포인트</span>
+                <div style="margin-top: 5px; font-size: 0.9em;">
+                    ${point.event ? `<div><strong>이벤트:</strong> ${point.event}</div>` : ''}
+                    ${point.rawScore !== undefined ? `<div><strong>점수:</strong> ${point.rawScore.toFixed(1)}%</div>` : ''}
+                    ${point.quizName ? `<div><strong>퀴즈:</strong> ${point.quizName}</div>` : ''}
+                    <div><strong>Log 값:</strong> ${point.y.toFixed(3)}</div>
+                </div>
+            `;
+
+            pointInfo.innerHTML = html;
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ko-KR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 420px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#50c878' : type === 'warning' ? '#ffa500' : '#4a90e2'};
+                color: white;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+                font-weight: 600;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

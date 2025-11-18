@@ -1,0 +1,56 @@
+# Curvy Log - Git Ignore File
+
+# Database configuration
+config/database.php
+
+# Logs
+logs/
+*.log
+
+# PHP
+vendor/
+composer.phar
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# User uploaded files
+uploads/
+temp/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build files
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Moodle specific
+moodledata/
