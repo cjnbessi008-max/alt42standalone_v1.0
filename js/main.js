@@ -1,20 +1,33 @@
 /**
  * Main Application - Log Flow 애니메이션 앱의 메인 컨트롤러
+ * PWA, Storage, Recommendation 시스템 통합
  */
 
 // 전역 객체
 let calculator = null;
 let animation = null;
 let moodle = null;
+let storage = null;
+let recommendation = null;
 
 /**
  * 앱 초기화
  */
-function initApp() {
+async function initApp() {
+    // Storage 초기화
+    storage = new LocalStorage();
+    await storage.init();
+
+    // Recommendation 초기화
+    recommendation = new RecommendationEngine(storage);
+
     // 인스턴스 생성
     calculator = new LogCalculator();
     animation = new LogFlowAnimation('flowSvg');
     moodle = new MoodleIntegration();
+
+    // 기본 문제 데이터 로드
+    await loadDefaultProblems();
 
     // 이벤트 리스너 등록
     setupEventListeners();
@@ -23,10 +36,44 @@ function initApp() {
     attemptAutoConnect();
 
     // 초기 UI 상태 설정
-    updateUIState();
+    await updateUIState();
+
+    // PWA 설치 버튼 추가
+    showInstallButton();
+
+    // 추천 문제 표시
+    await showRecommendedProblem();
 
     // 로그 추가
     addLogEntry('앱 초기화 완료', 'success');
+}
+
+/**
+ * 기본 문제 데이터 로드
+ */
+async function loadDefaultProblems() {
+    const existingProblems = await storage.getAllProblems();
+
+    if (existingProblems.length === 0) {
+        const defaultProblems = [
+            { id: 'log_101', title: 'log₂(4)', base: 2, value: 4, correct_answer: 2, difficulty: 'easy', category: 'logarithm' },
+            { id: 'log_102', title: 'log₂(8)', base: 2, value: 8, correct_answer: 3, difficulty: 'easy', category: 'logarithm' },
+            { id: 'log_103', title: 'log₃(9)', base: 3, value: 9, correct_answer: 2, difficulty: 'easy', category: 'logarithm' },
+            { id: 'log_104', title: 'log₂(16)', base: 2, value: 16, correct_answer: 4, difficulty: 'medium', category: 'logarithm' },
+            { id: 'log_105', title: 'log₃(27)', base: 3, value: 27, correct_answer: 3, difficulty: 'medium', category: 'logarithm' },
+            { id: 'log_106', title: 'log₅(25)', base: 5, value: 25, correct_answer: 2, difficulty: 'medium', category: 'logarithm' },
+            { id: 'log_107', title: 'log₂(32)', base: 2, value: 32, correct_answer: 5, difficulty: 'medium', category: 'logarithm' },
+            { id: 'log_108', title: 'log₄(64)', base: 4, value: 64, correct_answer: 3, difficulty: 'hard', category: 'logarithm' },
+            { id: 'log_109', title: 'log₁₀(100)', base: 10, value: 100, correct_answer: 2, difficulty: 'easy', category: 'logarithm' },
+            { id: 'log_110', title: 'log₁₀(1000)', base: 10, value: 1000, correct_answer: 3, difficulty: 'medium', category: 'logarithm' }
+        ];
+
+        for (const problem of defaultProblems) {
+            await storage.saveProblem(problem);
+        }
+
+        console.log('기본 문제 데이터 로드 완료');
+    }
 }
 
 /**
@@ -67,6 +114,70 @@ function setupEventListeners() {
     document.getElementById('logBase').addEventListener('keypress', handleEnterKey);
     document.getElementById('logValue').addEventListener('keypress', handleEnterKey);
     document.getElementById('problemId').addEventListener('keypress', handleEnterKey);
+}
+
+/**
+ * PWA 설치 버튼 표시
+ */
+function showInstallButton() {
+    // beforeinstallprompt 이벤트 대기
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+
+        const installBtn = document.createElement('button');
+        installBtn.className = 'install-pwa-btn';
+        installBtn.textContent = '앱 설치하기';
+        installBtn.onclick = () => {
+            window.showInstallPrompt();
+            installBtn.remove();
+        };
+
+        document.body.appendChild(installBtn);
+    });
+}
+
+/**
+ * 추천 문제 표시
+ */
+async function showRecommendedProblem() {
+    try {
+        const recommendedProblem = await recommendation.recommendNextProblem();
+        const reason = await recommendation.getRecommendationReason(recommendedProblem);
+
+        // 문제 카드 생성
+        const card = createRecommendationCard(recommendedProblem, reason);
+
+        // 기존 카드 제거
+        const existingCard = document.querySelector('.recommendation-card');
+        if (existingCard) existingCard.remove();
+
+        // 입력 섹션 전에 삽입
+        const inputSection = document.querySelector('.input-section');
+        inputSection.parentNode.insertBefore(card, inputSection);
+
+    } catch (error) {
+        console.error('추천 문제 로드 실패:', error);
+    }
+}
+
+/**
+ * 추천 문제 카드 생성
+ */
+function createRecommendationCard(problem, reason) {
+    const card = document.createElement('div');
+    card.className = 'recommendation-card';
+    card.innerHTML = `
+        <div class="badge">💡 추천 문제</div>
+        <h3>${problem.title}</h3>
+        <p class="reason">${reason}</p>
+    `;
+
+    card.onclick = () => {
+        loadProblemToUI(problem);
+        addLogEntry(`추천 문제 선택: ${problem.title}`, 'info');
+    };
+
+    return card;
 }
 
 /**
@@ -123,10 +234,10 @@ function loadProblemToUI(problem) {
 
     // 문제 정보 표시
     document.getElementById('problemInfo').innerHTML = `
-        <span class="badge">${problem.title}</span>
+        <span class="badge">${problem.title || problem.id}</span>
     `;
 
-    addLogEntry(`문제 로드: ${problem.title}`, 'info');
+    addLogEntry(`문제 로드: ${problem.title || problem.id}`, 'info');
 }
 
 /**
@@ -170,6 +281,26 @@ async function startCalculation() {
             // 첫 단계만 표시
             showStep(0);
         }
+
+        // 진행상황 저장
+        await storage.saveProgress(problemId, {
+            base,
+            value,
+            result: result.result,
+            steps: result.steps,
+            completedAt: Date.now()
+        });
+
+        // 답안 저장 (정답으로 가정)
+        await storage.saveAnswer({
+            problemId,
+            answer: result.result,
+            isCorrect: true,
+            grade: 100
+        });
+
+        // 다음 추천 문제 업데이트
+        await showRecommendedProblem();
 
     } catch (error) {
         addLogEntry(`오류 발생: ${error.message}`, 'error');
@@ -286,9 +417,17 @@ function updateMoodleStatus(message, status) {
 /**
  * UI 상태 업데이트
  */
-function updateUIState() {
+async function updateUIState() {
     // 초기 상태 설정
     document.getElementById('speedValue').textContent = '1x';
+
+    // 학습 통계 표시
+    const stats = await storage.getTotalStatistics();
+    console.log('학습 통계:', stats);
+
+    // 사용자 수준 표시
+    const userLevel = await recommendation.analyzeUserLevel();
+    console.log('현재 수준:', userLevel);
 }
 
 /**
@@ -324,47 +463,6 @@ function handleEnterKey(e) {
 }
 
 /**
- * 스마트폰 드래그 기능 (선택사항)
- */
-function enableSmartphoneDragging() {
-    const smartphone = document.querySelector('.smartphone-container');
-    let isDragging = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-
-    smartphone.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-
-    function dragStart(e) {
-        if (e.target.closest('.phone-screen')) return; // 화면 내부는 드래그 불가
-
-        initialX = e.clientX - smartphone.offsetLeft;
-        initialY = e.clientY - smartphone.offsetTop;
-        isDragging = true;
-        smartphone.classList.add('dragging');
-    }
-
-    function drag(e) {
-        if (!isDragging) return;
-
-        e.preventDefault();
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
-
-        smartphone.style.left = currentX + 'px';
-        smartphone.style.top = currentY + 'px';
-    }
-
-    function dragEnd() {
-        isDragging = false;
-        smartphone.classList.remove('dragging');
-    }
-}
-
-/**
  * 키보드 단축키
  */
 document.addEventListener('keydown', function(e) {
@@ -378,7 +476,33 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
         resetApp();
     }
+
+    // Ctrl + S: 통계 보기
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        showStatistics();
+    }
 });
+
+/**
+ * 학습 통계 표시
+ */
+async function showStatistics() {
+    const stats = await storage.getTotalStatistics();
+    const userLevel = await recommendation.analyzeUserLevel();
+
+    alert(`
+📊 학습 통계
+
+총 시도 횟수: ${stats.totalAttempts}
+정답 횟수: ${stats.correctAnswers}
+정답률: ${stats.successRate}%
+평균 점수: ${stats.averageGrade.toFixed(2)}
+시도한 문제 수: ${stats.problemsAttempted}
+
+현재 수준: ${userLevel}
+    `.trim());
+}
 
 /**
  * 페이지 로드 시 앱 초기화
@@ -390,24 +514,35 @@ if (document.readyState === 'loading') {
 }
 
 /**
- * 윈도우 리사이즈 처리
- */
-window.addEventListener('resize', function() {
-    // 반응형 처리 (필요시)
-});
-
-/**
  * 개발자 도구용 전역 함수
  */
 window.logFlow = {
     calculator: () => calculator,
     animation: () => animation,
     moodle: () => moodle,
+    storage: () => storage,
+    recommendation: () => recommendation,
     version: '1.0.0',
-    info: () => {
+    info: async () => {
         console.log('Log Flow Animation v1.0.0');
         console.log('Calculator:', calculator);
         console.log('Animation:', animation);
         console.log('Moodle:', moodle);
+        console.log('Storage:', storage);
+        console.log('Recommendation:', recommendation);
+        console.log('Statistics:', await storage.getTotalStatistics());
+        console.log('User Level:', await recommendation.analyzeUserLevel());
+    },
+    exportData: async () => {
+        const data = await storage.exportData();
+        console.log('데이터 내보내기:', data);
+        return data;
+    },
+    clearData: async () => {
+        if (confirm('모든 데이터를 삭제하시겠습니까?')) {
+            await storage.clearAll();
+            console.log('모든 데이터가 삭제되었습니다');
+            window.location.reload();
+        }
     }
 };
