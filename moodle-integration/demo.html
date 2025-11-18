@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross Wave Effect Demo - Interactive Playground</title>
+
+    <link rel="stylesheet" href="frontend/css/cross-wave.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            color: white;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .instructions h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .instructions p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .control-group input[type="color"] {
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .control-value {
+            display: inline-block;
+            min-width: 60px;
+            text-align: right;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .preset-button {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .preset-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .preset-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .preset-excellent {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+        }
+
+        .preset-correct {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+        }
+
+        .preset-achievement {
+            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            color: white;
+        }
+
+        .preset-custom {
+            background: linear-gradient(135deg, #FF5722, #E64A19);
+            color: white;
+        }
+
+        .click-area {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: crosshair;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .click-area:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .click-instruction {
+            font-size: 24px;
+            opacity: 0.6;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .stats {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stats-value {
+            font-weight: 700;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Cross Wave Effect Demo</h1>
+        <p class="subtitle">원형 파동 애니메이션 인터랙티브 플레이그라운드</p>
+
+        <div class="instructions">
+            <h2>💡 사용 방법</h2>
+            <p>
+                아래 회색 영역을 클릭하면 Cross Wave 효과가 나타납니다.<br>
+                컨트롤 패널에서 색상, 지속 시간, 크기, 강도를 조절할 수 있습니다.<br>
+                프리셋 버튼을 클릭하면 미리 설정된 효과를 볼 수 있습니다.
+            </p>
+        </div>
+
+        <div class="control-panel">
+            <h2>⚙️ 효과 설정</h2>
+
+            <div class="control-group">
+                <label>
+                    색상 (Color)
+                    <input type="color" id="wave-color" value="#4CAF50">
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    지속 시간 (Duration)
+                    <span class="control-value" id="duration-value">2000ms</span>
+                </label>
+                <input type="range" id="wave-duration" min="500" max="5000" step="100" value="2000">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    최대 반지름 (Max Radius)
+                    <span class="control-value" id="radius-value">500px</span>
+                </label>
+                <input type="range" id="wave-radius" min="100" max="1000" step="50" value="500">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    강도 (Intensity)
+                    <span class="control-value" id="intensity-value">100</span>
+                </label>
+                <input type="range" id="wave-intensity" min="1" max="100" step="1" value="100">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    파티클 개수 (Particle Count)
+                    <span class="control-value" id="particles-value">24</span>
+                </label>
+                <input type="range" id="wave-particles" min="0" max="48" step="4" value="24">
+            </div>
+        </div>
+
+        <div class="preset-buttons">
+            <button class="preset-button preset-success" onclick="triggerPreset('success')">
+                ✓ Success
+            </button>
+            <button class="preset-button preset-excellent" onclick="triggerPreset('excellent')">
+                ⭐ Excellent
+            </button>
+            <button class="preset-button preset-correct" onclick="triggerPreset('correct')">
+                ✓ Correct
+            </button>
+            <button class="preset-button preset-achievement" onclick="triggerPreset('achievement')">
+                🏆 Achievement
+            </button>
+            <button class="preset-button preset-custom" onclick="triggerCustom()">
+                🎨 Custom Settings
+            </button>
+        </div>
+
+        <div class="click-area" id="click-area">
+            <div class="click-instruction">
+                클릭하여 Cross Wave 효과 실행<br>
+                🌊
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stats-item">
+            <span>총 클릭:</span>
+            <span class="stats-value" id="total-clicks">0</span>
+        </div>
+        <div class="stats-item">
+            <span>활성 웨이브:</span>
+            <span class="stats-value" id="active-waves">0</span>
+        </div>
+    </div>
+
+    <script src="frontend/js/cross-wave.js"></script>
+    <script>
+        // Initialize Cross Wave
+        const wave = new CrossWave();
+
+        // Stats
+        let totalClicks = 0;
+
+        // Update control values
+        document.getElementById('wave-duration').addEventListener('input', (e) => {
+            document.getElementById('duration-value').textContent = e.target.value + 'ms';
+        });
+
+        document.getElementById('wave-radius').addEventListener('input', (e) => {
+            document.getElementById('radius-value').textContent = e.target.value + 'px';
+        });
+
+        document.getElementById('wave-intensity').addEventListener('input', (e) => {
+            document.getElementById('intensity-value').textContent = e.target.value;
+        });
+
+        document.getElementById('wave-particles').addEventListener('input', (e) => {
+            document.getElementById('particles-value').textContent = e.target.value;
+        });
+
+        // Click area handler
+        document.getElementById('click-area').addEventListener('click', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX;
+            const y = e.clientY;
+
+            const options = {
+                color: document.getElementById('wave-color').value,
+                duration: parseInt(document.getElementById('wave-duration').value),
+                maxRadius: parseInt(document.getElementById('wave-radius').value),
+                intensity: parseInt(document.getElementById('wave-intensity').value),
+                particleCount: parseInt(document.getElementById('wave-particles').value),
+                showMessage: false
+            };
+
+            wave.trigger(x, y, options);
+            totalClicks++;
+            updateStats();
+        });
+
+        // Preset triggers
+        function triggerPreset(presetName) {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            wave.triggerPreset(centerX, centerY, presetName);
+            totalClicks++;
+            updateStats();
+        }
+
+        function triggerCustom() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            const options = {
+                color: document.getElementById('wave-color').value,
+                duration: parseInt(document.getElementById('wave-duration').value),
+                maxRadius: parseInt(document.getElementById('wave-radius').value),
+                intensity: parseInt(document.getElementById('wave-intensity').value),
+                particleCount: parseInt(document.getElementById('wave-particles').value),
+                message: '커스텀 효과! 🎨'
+            };
+
+            wave.trigger(centerX, centerY, options);
+            totalClicks++;
+            updateStats();
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('total-clicks').textContent = totalClicks;
+            document.getElementById('active-waves').textContent = wave.activeWaves.length;
+        }
+
+        // Update active waves count periodically
+        setInterval(updateStats, 100);
+
+        console.log('Cross Wave Demo initialized');
+    </script>
+</body>
+</html>

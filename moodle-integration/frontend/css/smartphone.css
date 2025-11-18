@@ -1,0 +1,373 @@
+/**
+ * Virtual Smartphone Display - Bottom Right Corner
+ * Responsive iPhone-style interface
+ */
+
+:root {
+    --smartphone-width: 375px;
+    --smartphone-height: 667px;
+    --smartphone-scale: 0.7;
+    --border-radius: 36px;
+    --notch-width: 200px;
+    --notch-height: 30px;
+    --bezel-color: #1a1a1a;
+    --screen-bg: #ffffff;
+    --status-bar-height: 44px;
+}
+
+/* Container positioned at bottom-right */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: calc(var(--smartphone-width) * var(--smartphone-scale));
+    height: calc(var(--smartphone-height) * var(--smartphone-scale));
+    z-index: 1000;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-container.minimized {
+    transform: scale(0.5);
+    opacity: 0.8;
+}
+
+.smartphone-container:hover {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Phone bezel/frame */
+.smartphone-frame {
+    width: 100%;
+    height: 100%;
+    background: var(--bezel-color);
+    border-radius: calc(var(--border-radius) * var(--smartphone-scale));
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Notch (iPhone style) */
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(var(--notch-width) * var(--smartphone-scale));
+    height: calc(var(--notch-height) * var(--smartphone-scale));
+    background: var(--bezel-color);
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.smartphone-notch::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+/* Screen area */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--screen-bg);
+    border-radius: calc((var(--border-radius) - 6) * var(--smartphone-scale));
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status bar */
+.smartphone-status-bar {
+    height: calc(var(--status-bar-height) * var(--smartphone-scale));
+    background: linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 10px;
+    color: #000;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.status-time {
+    font-weight: 600;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+.status-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* App content area */
+.smartphone-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #f5f5f5;
+    position: relative;
+}
+
+/* Scrollbar styling */
+.smartphone-content::-webkit-scrollbar {
+    width: 3px;
+}
+
+.smartphone-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+/* Home indicator (iPhone X style) */
+.smartphone-home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+/* Quiz app interface */
+.quiz-app {
+    padding: 20px;
+    min-height: 100%;
+}
+
+.quiz-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.quiz-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.quiz-progress {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Question card */
+.question-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.question-difficulty {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.difficulty-easy {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.difficulty-medium {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.difficulty-hard {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+/* Answer options */
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-option {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    color: #333;
+}
+
+.answer-option:hover {
+    background: #e3f2fd;
+    border-color: #2196f3;
+    transform: translateX(4px);
+}
+
+.answer-option.selected {
+    background: #2196f3;
+    border-color: #2196f3;
+    color: white;
+    font-weight: 600;
+}
+
+.answer-option.correct {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: white;
+}
+
+.answer-option.incorrect {
+    background: #f44336;
+    border-color: #f44336;
+    color: white;
+}
+
+/* Submit button */
+.submit-button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+.submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Results screen */
+.results-screen {
+    text-align: center;
+    padding: 20px;
+}
+
+.results-score {
+    font-size: 48px;
+    font-weight: 700;
+    color: #667eea;
+    margin: 20px 0;
+}
+
+.results-message {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --smartphone-scale: 0.5;
+    }
+
+    .smartphone-container {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --smartphone-scale: 0.4;
+    }
+}
+
+/* Draggable functionality */
+.smartphone-container.draggable {
+    cursor: move;
+}
+
+.smartphone-container.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+}

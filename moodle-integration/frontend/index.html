@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Moodle Quiz - Cross Wave App</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/cross-wave.css">
+
+    <style>
+        /* Base page styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Main content area */
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .feature-list li::before {
+            content: '✓ ';
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Demo button */
+        .demo-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: white;
+            color: #667eea;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Background animation */
+        .bg-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 80%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+            }
+        }
+
+        /* Arrow indicator pointing to smartphone */
+        .arrow-indicator {
+            position: fixed;
+            bottom: 100px;
+            right: 300px;
+            color: white;
+            font-size: 18px;
+            animation: bounce 2s infinite;
+            z-index: 999;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .arrow-indicator::after {
+            content: '→';
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 32px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 20px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .main-subtitle {
+                font-size: 16px;
+            }
+
+            .arrow-indicator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background decoration -->
+    <div class="bg-circles">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <h1 class="main-title">Moodle LMS 연동 퀴즈</h1>
+        <p class="main-subtitle">
+            Moodle에서 문제를 가져와 가상 스마트폰에 표시하고,<br>
+            정답을 맞추면 Cross Wave 효과가 나타납니다!
+        </p>
+
+        <div class="info-card">
+            <h3>🎯 주요 기능</h3>
+            <ul class="feature-list">
+                <li>Moodle 3.7 LMS 실시간 연동</li>
+                <li>우측 하단 가상 스마트폰 인터페이스</li>
+                <li>Cross Wave 원형 파동 애니메이션</li>
+                <li>실시간 정답 체크 및 피드백</li>
+                <li>반응형 터치 인터페이스</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>💡 사용 방법</h3>
+            <p>
+                우측 하단의 가상 스마트폰을 확인하세요.<br>
+                문제가 자동으로 로드되며, 답안을 선택하고 제출하면<br>
+                정답일 경우 아름다운 Cross Wave 효과를 볼 수 있습니다!
+            </p>
+        </div>
+
+        <button class="demo-button" onclick="triggerDemoWave()">
+            🌊 Cross Wave 데모 보기
+        </button>
+    </div>
+
+    <!-- Arrow indicator -->
+    <div class="arrow-indicator">
+        스마트폰 앱 확인
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/cross-wave.js"></script>
+    <script src="js/smartphone.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // Demo wave trigger function
+        function triggerDemoWave() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            if (window.quizApp && window.quizApp.crossWave) {
+                window.quizApp.crossWave.trigger(centerX, centerY, {
+                    color: '#FFD700',
+                    duration: 2500,
+                    maxRadius: 600,
+                    intensity: 100,
+                    message: 'Cross Wave 효과! 🎉'
+                });
+            } else {
+                // Fallback if app not loaded yet
+                const tempWave = new CrossWave();
+                tempWave.trigger(centerX, centerY, {
+                    color: '#FFD700',
+                    duration: 2500,
+                    maxRadius: 600,
+                    intensity: 100,
+                    message: 'Cross Wave 효과! 🎉'
+                });
+            }
+        }
+
+        // Log app initialization
+        console.log('Moodle LMS Integration App - Ready');
+        console.log('Features: Virtual Smartphone + Cross Wave Effect');
+        console.log('Compatible: Moodle 3.7, PHP 7.1.9, MySQL 5.7');
+    </script>
+</body>
+</html>

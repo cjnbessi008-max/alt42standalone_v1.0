@@ -1,0 +1,320 @@
+/**
+ * Cross Wave Effect - Circular Ripple Animation
+ * Expanding wave animation for correct answers
+ */
+
+/* Wave container - fullscreen overlay */
+.wave-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Individual wave element */
+.cross-wave {
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Primary wave ring */
+.wave-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: waveExpand var(--wave-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Secondary wave ring (delayed) */
+.wave-ring-secondary {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: waveExpand var(--wave-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+/* Tertiary wave ring (more delayed) */
+.wave-ring-tertiary {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: waveExpand var(--wave-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+/* Main expansion animation */
+@keyframes waveExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(var(--wave-scale, 40));
+        opacity: 0;
+    }
+}
+
+/* Filled circle that expands and fades */
+.wave-fill {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--wave-color, #4CAF50) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: waveFill var(--wave-duration, 2s) ease-out forwards;
+}
+
+@keyframes waveFill {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(var(--wave-scale, 40));
+        opacity: 0;
+    }
+}
+
+/* Pulse effect at center */
+.wave-pulse {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--wave-color, #4CAF50);
+    transform: translate(-50%, -50%);
+    animation: wavePulse 0.5s ease-out forwards;
+}
+
+@keyframes wavePulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* Particle burst effect */
+.wave-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.wave-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--wave-color, #4CAF50);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+/* Particle animation - radiates outward */
+@keyframes particleBurst {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) translate(var(--particle-x), var(--particle-y)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Cross pattern lines */
+.wave-cross-line {
+    position: absolute;
+    background: var(--wave-color, #4CAF50);
+    opacity: 0;
+    animation: crossLineExpand var(--wave-duration, 2s) ease-out forwards;
+}
+
+.wave-cross-line.horizontal {
+    height: 3px;
+    width: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wave-cross-line.vertical {
+    width: 3px;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes crossLineExpand {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.wave-cross-line.horizontal {
+    animation: crossLineExpandH var(--wave-duration, 2s) ease-out forwards;
+}
+
+.wave-cross-line.vertical {
+    animation: crossLineExpandV var(--wave-duration, 2s) ease-out forwards;
+}
+
+@keyframes crossLineExpandH {
+    0% {
+        width: 0;
+        opacity: 1;
+    }
+    100% {
+        width: calc(var(--wave-max-radius, 500px) * 2);
+        opacity: 0;
+    }
+}
+
+@keyframes crossLineExpandV {
+    0% {
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        height: calc(var(--wave-max-radius, 500px) * 2);
+        opacity: 0;
+    }
+}
+
+/* Shimmer effect */
+.wave-shimmer {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.4) 30%,
+        transparent 70%
+    );
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    animation: shimmerExpand calc(var(--wave-duration, 2s) * 0.7) ease-out 0.1s forwards;
+}
+
+@keyframes shimmerExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(var(--wave-scale, 40));
+        opacity: 0;
+    }
+}
+
+/* Success message overlay */
+.wave-success-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(76, 175, 80, 0.95);
+    color: white;
+    padding: 30px 50px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    pointer-events: none;
+    animation: messagePopIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+               messageFadeOut 0.3s ease-out 1.7s forwards;
+}
+
+@keyframes messagePopIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes messageFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Color variations */
+.wave-success {
+    --wave-color: #4CAF50;
+}
+
+.wave-info {
+    --wave-color: #2196F3;
+}
+
+.wave-warning {
+    --wave-color: #FF9800;
+}
+
+.wave-error {
+    --wave-color: #f44336;
+}
+
+/* Intensity variations */
+.wave-intensity-low {
+    --wave-scale: 20;
+    --wave-max-radius: 300px;
+}
+
+.wave-intensity-medium {
+    --wave-scale: 40;
+    --wave-max-radius: 500px;
+}
+
+.wave-intensity-high {
+    --wave-scale: 60;
+    --wave-max-radius: 800px;
+}
+
+/* Performance optimization */
+.cross-wave * {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
