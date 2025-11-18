@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Gear Demo - 오프라인 데모</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .demo-notice {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f39c12;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo notice -->
+    <div class="demo-notice">
+        🎮 데모 모드 - API 연결 없이 동작합니다
+    </div>
+
+    <!-- Main container -->
+    <div class="main-container" style="margin-top: 60px;">
+        <!-- Left side: Control panel -->
+        <div class="control-panel">
+            <h1>Log Gear Demo</h1>
+
+            <div class="control-section">
+                <h2>데모 문제</h2>
+                <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">
+                    API 없이 동작하는 오프라인 데모입니다. 아래 버튼을 눌러 샘플 문제를 불러오세요.
+                </p>
+                <button id="loadDemoBtn" class="btn btn-primary">데모 문제 불러오기</button>
+            </div>
+
+            <div class="control-section">
+                <h2>현재 문제</h2>
+                <div id="currentProblem" class="problem-display">
+                    데모 문제를 불러와주세요
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h2>샘플 문제 목록</h2>
+                <div style="background: white; padding: 15px; border-radius: 5px;">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 10px 0;">
+                            <button class="btn btn-secondary" onclick="loadSpecificProblem(0)">2 × 3</button>
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <button class="btn btn-secondary" onclick="loadSpecificProblem(1)">5 × 4</button>
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <button class="btn btn-secondary" onclick="loadSpecificProblem(2)">3 × 7</button>
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <button class="btn btn-secondary" onclick="loadSpecificProblem(3)">8 ÷ 2</button>
+                        </li>
+                        <li style="margin: 10px 0;">
+                            <button class="btn btn-secondary" onclick="loadSpecificProblem(4)">20 ÷ 4</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h2>통계 (로컬)</h2>
+                <div id="statistics" class="statistics">
+                    <div class="stat-item">
+                        <span class="stat-label">시도 횟수:</span>
+                        <span id="attemptCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">정답 횟수:</span>
+                        <span id="correctCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">정답률:</span>
+                        <span id="accuracy" class="stat-value">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side: Virtual smartphone -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- Phone frame -->
+                <div class="phone-frame">
+                    <!-- Screen -->
+                    <div class="phone-screen">
+                        <!-- App header -->
+                        <div class="app-header">
+                            <h3>🔧 Log Gear Demo</h3>
+                            <div class="status-bar">
+                                <span class="status-indicator" style="color: #f39c12;">●</span>
+                                <span class="time" id="currentTime">12:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Problem display area -->
+                        <div class="problem-area">
+                            <div id="problemText" class="problem-text">
+                                문제를 기다리는 중...
+                            </div>
+                            <div class="problem-equation">
+                                <span id="operand1" class="operand">?</span>
+                                <span id="operator" class="operator">×</span>
+                                <span id="operand2" class="operand">?</span>
+                                <span class="equals">=</span>
+                                <span id="result" class="result">?</span>
+                            </div>
+                        </div>
+
+                        <!-- Gear visualization canvas -->
+                        <div class="gear-container">
+                            <canvas id="gearCanvas" width="320" height="300"></canvas>
+                            <div class="gear-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #3498db;"></div>
+                                    <span>Input (곱셈)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #e74c3c;"></div>
+                                    <span>Log Scale</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #2ecc71;"></div>
+                                    <span>Output (덧셈)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Answer input area -->
+                        <div class="answer-area">
+                            <input type="number" id="answerInput" placeholder="답을 입력하세요" step="0.01" />
+                            <button id="submitAnswerBtn" class="btn-submit">제출</button>
+                            <button id="showAnimationBtn" class="btn-animation">기어 보기</button>
+                        </div>
+
+                        <!-- Feedback area -->
+                        <div id="feedbackArea" class="feedback-area"></div>
+                    </div>
+
+                    <!-- Phone home button -->
+                    <div class="phone-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/gears.js"></script>
+    <script>
+        // Demo app - standalone without API
+        let gearEngine;
+        let currentProblem = null;
+        let stats = { attempts: 0, correct: 0 };
+
+        const demoProblems = [
+            { id: 1, problem_text: '2 × 3을 로그 기어로 계산하세요', operand1: 2, operand2: 3, operation: 'multiply', answer: 6 },
+            { id: 2, problem_text: '5 × 4를 로그 기어로 계산하세요', operand1: 5, operand2: 4, operation: 'multiply', answer: 20 },
+            { id: 3, problem_text: '3 × 7을 로그 기어로 계산하세요', operand1: 3, operand2: 7, operation: 'multiply', answer: 21 },
+            { id: 4, problem_text: '8 ÷ 2를 로그 기어로 계산하세요', operand1: 8, operand2: 2, operation: 'divide', answer: 4 },
+            { id: 5, problem_text: '20 ÷ 4를 로그 기어로 계산하세요', operand1: 20, operand2: 4, operation: 'divide', answer: 5 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            gearEngine = new LogGearEngine('gearCanvas');
+            updateTime();
+            setInterval(updateTime, 1000);
+
+            document.getElementById('loadDemoBtn').addEventListener('click', loadRandomProblem);
+            document.getElementById('submitAnswerBtn').addEventListener('click', submitAnswer);
+            document.getElementById('showAnimationBtn').addEventListener('click', () => {
+                gearEngine.startAnimation();
+            });
+
+            document.getElementById('answerInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') submitAnswer();
+            });
+
+            loadRandomProblem();
+        });
+
+        function loadRandomProblem() {
+            const problem = demoProblems[Math.floor(Math.random() * demoProblems.length)];
+            setProblem(problem);
+        }
+
+        function loadSpecificProblem(index) {
+            setProblem(demoProblems[index]);
+        }
+
+        function setProblem(problem) {
+            currentProblem = problem;
+
+            document.getElementById('problemText').textContent = problem.problem_text;
+            document.getElementById('currentProblem').textContent = problem.problem_text;
+            document.getElementById('operand1').textContent = problem.operand1;
+            document.getElementById('operand2').textContent = problem.operand2;
+            document.getElementById('operator').textContent = problem.operation === 'multiply' ? '×' : '÷';
+            document.getElementById('result').textContent = '?';
+
+            document.getElementById('answerInput').value = '';
+            const feedbackArea = document.getElementById('feedbackArea');
+            feedbackArea.textContent = '';
+            feedbackArea.className = 'feedback-area';
+
+            gearEngine.setProblem(problem.operand1, problem.operand2, problem.operation);
+        }
+
+        function submitAnswer() {
+            if (!currentProblem) return;
+
+            const studentAnswer = parseFloat(document.getElementById('answerInput').value);
+            if (isNaN(studentAnswer)) {
+                alert('올바른 숫자를 입력하세요.');
+                return;
+            }
+
+            const isCorrect = Math.abs(studentAnswer - currentProblem.answer) < 0.01;
+
+            stats.attempts++;
+            if (isCorrect) stats.correct++;
+
+            document.getElementById('result').textContent = currentProblem.answer;
+
+            const feedbackArea = document.getElementById('feedbackArea');
+            if (isCorrect) {
+                feedbackArea.textContent = '정답입니다! 🎉';
+                feedbackArea.className = 'feedback-area correct';
+                setTimeout(() => gearEngine.startAnimation(), 500);
+            } else {
+                feedbackArea.textContent = `틀렸습니다. 정답은 ${currentProblem.answer}입니다.`;
+                feedbackArea.className = 'feedback-area incorrect';
+            }
+
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('attemptCount').textContent = stats.attempts;
+            document.getElementById('correctCount').textContent = stats.correct;
+            const accuracy = stats.attempts > 0 ? ((stats.correct / stats.attempts) * 100).toFixed(1) : 0;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+    </script>
+</body>
+</html>

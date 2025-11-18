@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Gear - 로그 기어 학습 앱</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main container -->
+    <div class="main-container">
+        <!-- Left side: Control panel -->
+        <div class="control-panel">
+            <h1>Log Gear Controller</h1>
+
+            <div class="control-section">
+                <h2>문제 선택</h2>
+                <select id="difficultySelect">
+                    <option value="">모든 난이도</option>
+                    <option value="easy">쉬움</option>
+                    <option value="medium" selected>보통</option>
+                    <option value="hard">어려움</option>
+                </select>
+                <button id="loadProblemBtn" class="btn btn-primary">문제 불러오기</button>
+                <button id="randomProblemBtn" class="btn btn-secondary">랜덤 문제</button>
+            </div>
+
+            <div class="control-section">
+                <h2>현재 문제</h2>
+                <div id="currentProblem" class="problem-display">
+                    문제를 불러와주세요
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h2>Moodle 연동</h2>
+                <input type="number" id="quizIdInput" placeholder="Quiz ID" />
+                <button id="syncMoodleBtn" class="btn btn-moodle">Moodle 문제 동기화</button>
+                <div id="moodleStatus" class="status-message"></div>
+            </div>
+
+            <div class="control-section">
+                <h2>통계</h2>
+                <div id="statistics" class="statistics">
+                    <div class="stat-item">
+                        <span class="stat-label">세션 ID:</span>
+                        <span id="sessionId" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">시도 횟수:</span>
+                        <span id="attemptCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">정답률:</span>
+                        <span id="accuracy" class="stat-value">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side: Virtual smartphone -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- Phone frame -->
+                <div class="phone-frame">
+                    <!-- Screen -->
+                    <div class="phone-screen">
+                        <!-- App header -->
+                        <div class="app-header">
+                            <h3>🔧 Log Gear</h3>
+                            <div class="status-bar">
+                                <span id="connectionStatus" class="status-indicator connected">●</span>
+                                <span class="time" id="currentTime">12:00</span>
+                            </div>
+                        </div>
+
+                        <!-- Problem display area -->
+                        <div class="problem-area">
+                            <div id="problemText" class="problem-text">
+                                문제를 기다리는 중...
+                            </div>
+                            <div class="problem-equation">
+                                <span id="operand1" class="operand">?</span>
+                                <span id="operator" class="operator">×</span>
+                                <span id="operand2" class="operand">?</span>
+                                <span class="equals">=</span>
+                                <span id="result" class="result">?</span>
+                            </div>
+                        </div>
+
+                        <!-- Gear visualization canvas -->
+                        <div class="gear-container">
+                            <canvas id="gearCanvas" width="320" height="300"></canvas>
+                            <div class="gear-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #3498db;"></div>
+                                    <span>Input Gear (곱셈)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #e74c3c;"></div>
+                                    <span>Log Scale (로그)</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background: #2ecc71;"></div>
+                                    <span>Output Gear (덧셈)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Answer input area -->
+                        <div class="answer-area">
+                            <input type="number" id="answerInput" placeholder="답을 입력하세요" step="0.01" />
+                            <button id="submitAnswerBtn" class="btn-submit">제출</button>
+                            <button id="showAnimationBtn" class="btn-animation">기어 동작 보기</button>
+                        </div>
+
+                        <!-- Feedback area -->
+                        <div id="feedbackArea" class="feedback-area"></div>
+                    </div>
+
+                    <!-- Phone home button -->
+                    <div class="phone-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/gears.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
