@@ -1,0 +1,42 @@
+# Pattern Loop Animation System - Git Ignore
+
+# Configuration files with sensitive data
+app/config/config.local.php
+
+# Logs
+*.log
+logs/
+
+# Cache
+cache/
+*.cache
+
+# Database
+*.sql.backup
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies
+vendor/
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,378 @@
+/**
+ * 가상 스마트폰 화면 스타일
+ * 우측 하단에 표시되는 스마트폰 미리보기
+ */
+
+:root {
+    --phone-width: 360px;
+    --phone-height: 640px;
+    --phone-scale: 0.6;
+    --phone-border: 16px;
+    --phone-radius: 36px;
+    --phone-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 메인 컨테이너 */
+.main-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 좌측 컨트롤 패널 */
+.control-panel {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.control-panel .subtitle {
+    color: #7f8c8d;
+    margin-bottom: 24px;
+}
+
+/* 문제 정보 */
+.question-info {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.question-info h2 {
+    font-size: 18px;
+    color: #34495e;
+    margin-bottom: 12px;
+}
+
+.question-text {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.question-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+/* 패턴 목록 */
+.pattern-list {
+    margin-bottom: 24px;
+}
+
+.pattern-list h3 {
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 12px;
+}
+
+.pattern-item {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s;
+}
+
+.pattern-item:hover {
+    border-color: #3498db;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+}
+
+.pattern-item.active {
+    border-color: #3498db;
+    background: #ebf5fb;
+}
+
+.pattern-info {
+    flex: 1;
+}
+
+.pattern-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.pattern-params {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.pattern-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 컨트롤 버튼 */
+.controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+}
+
+.btn-success {
+    background: #2ecc71;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #27ae60;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* 가상 스마트폰 컨테이너 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* 스마트폰 프레임 */
+.smartphone {
+    width: calc(var(--phone-width) * var(--phone-scale) + var(--phone-border) * 2);
+    height: calc(var(--phone-height) * var(--phone-scale) + var(--phone-border) * 2);
+    background: #1a1a1a;
+    border-radius: var(--phone-radius);
+    padding: var(--phone-border);
+    box-shadow: var(--phone-shadow);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.smartphone:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* 스마트폰 노치 */
+.smartphone::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 20px;
+    background: #1a1a1a;
+    border-radius: 0 0 16px 16px;
+    z-index: 2;
+}
+
+/* 스마트폰 스크린 */
+.smartphone-screen {
+    width: calc(var(--phone-width) * var(--phone-scale));
+    height: calc(var(--phone-height) * var(--phone-scale));
+    background: white;
+    border-radius: calc(var(--phone-radius) - var(--phone-border));
+    overflow: hidden;
+    position: relative;
+}
+
+/* 캔버스 */
+#patternCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 스마트폰 버튼 */
+.phone-button {
+    position: absolute;
+    right: -3px;
+    top: 80px;
+    width: 3px;
+    height: 50px;
+    background: #333;
+    border-radius: 0 2px 2px 0;
+}
+
+/* 토글 버튼 */
+.toggle-phone {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+}
+
+.toggle-phone:hover {
+    background: #f0f0f0;
+}
+
+/* 숨김 상태 */
+.smartphone-container.hidden .smartphone {
+    transform: translateY(calc(100% + 40px));
+}
+
+/* 로딩 상태 */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 상태 표시 */
+.status-bar {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #95a5a6;
+}
+
+.status-indicator.active {
+    background: #2ecc71;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 반응형 */
+@media (max-width: 1200px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 20px;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --phone-scale: 0.5;
+    }
+
+    .control-panel {
+        padding: 16px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
