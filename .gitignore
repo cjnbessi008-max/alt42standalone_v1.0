@@ -1,0 +1,39 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PHP
+vendor/
+composer.lock
+
+# Configuration files with sensitive data
+config/database.php
+config/moodle.php
+
+# Keep template files
+!config/database.php.example
+!config/moodle.php.example
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# User uploads
+uploads/
+
+# Environment files
+.env
+.env.local
