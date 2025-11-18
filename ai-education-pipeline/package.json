@@ -1,0 +1,26 @@
+{
+  "name": "ai-education-pipeline",
+  "version": "0.1.0",
+  "description": "AI-powered educational module generation system",
+  "private": true,
+  "workspaces": [
+    "backend/api-gateway",
+    "frontend"
+  ],
+  "scripts": {
+    "dev:gateway": "npm run dev --workspace=backend/api-gateway",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:all": "concurrently \"npm run dev:gateway\" \"npm run dev:frontend\" \"cd backend/pipeline-engine && uvicorn main:app --reload\"",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "migrate": "cd backend/api-gateway && npm run migrate"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
