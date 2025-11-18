@@ -1,0 +1,510 @@
+/* Easy Problems Interface Styles */
+
+.easy-problems-interface {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================
+   Header & Confidence Display
+   ============================================ */
+
+.confidence-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.confidence-header h1 {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.confidence-display {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.confidence-label {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.confidence-bar-container {
+  width: 100%;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.confidence-bar {
+  height: 100%;
+  transition: width 0.5s ease, background-color 0.3s ease;
+  border-radius: 15px;
+}
+
+.confidence-score {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 10px 0 5px 0;
+}
+
+.confidence-level {
+  font-size: 16px;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.streak {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ============================================
+   Problem Container
+   ============================================ */
+
+.problem-container {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.difficulty-badge {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.success-rate {
+  background: #f3e5f5;
+  color: #7b1fa2;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.problem-content {
+  margin-bottom: 30px;
+}
+
+.problem-text h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.hint-box {
+  background: #fff9e6;
+  border-left: 4px solid #ffc107;
+  padding: 15px 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #664d03;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Fraction Visual
+   ============================================ */
+
+.fraction-visual {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.pizza-visual {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 300px;
+}
+
+.pizza-slice {
+  width: 120px;
+  height: 120px;
+  background: #f5f5f5;
+  border: 3px solid #ddd;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pizza-slice.filled {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  border-color: #e64a19;
+  transform: scale(1.05);
+}
+
+.circle-visual {
+  display: flex;
+  gap: 10px;
+}
+
+.circle-segment {
+  width: 60px;
+  height: 60px;
+  background: #f5f5f5;
+  border: 3px solid #ddd;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.circle-segment.filled {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  border-color: #1b5e20;
+  transform: scale(1.1);
+}
+
+/* ============================================
+   Answer Input
+   ============================================ */
+
+.answer-input {
+  margin: 30px 0;
+}
+
+.answer-input h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.fraction-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.fraction-input input {
+  width: 100px;
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.fraction-input input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.fraction-line {
+  font-size: 32px;
+  font-weight: 300;
+  color: #666;
+}
+
+/* ============================================
+   Action Buttons
+   ============================================ */
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.hint-button,
+.submit-button,
+.next-button {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hint-button {
+  background: #fff;
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.hint-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.next-button {
+  background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+  color: white;
+}
+
+.next-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+}
+
+/* ============================================
+   Feedback Display
+   ============================================ */
+
+.feedback-container {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.feedback-container.correct {
+  border: 3px solid #4caf50;
+}
+
+.feedback-container.incorrect {
+  border: 3px solid #ff9800;
+}
+
+.feedback-header h2 {
+  font-size: 28px;
+  margin: 0 0 25px 0;
+  color: #333;
+}
+
+.feedback-content {
+  margin-bottom: 25px;
+}
+
+.correct-answer {
+  background: #fff3e0;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #e65100;
+  margin-bottom: 20px;
+}
+
+.explanation {
+  background: #f5f5f5;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.encouragement {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  padding: 20px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.confidence-change {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.change-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.change-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+.delta {
+  margin-left: 8px;
+  font-size: 20px;
+}
+
+.delta.positive {
+  color: #4caf50;
+}
+
+.delta.negative {
+  color: #ff5722;
+}
+
+.feedback-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+/* ============================================
+   Loading & Error States
+   ============================================ */
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  background: #ffebee;
+  border: 2px solid #f44336;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  color: #c62828;
+}
+
+.error button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.error button:hover {
+  background: #d32f2f;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .easy-problems-interface {
+    padding: 15px;
+  }
+
+  .confidence-header {
+    padding: 20px;
+  }
+
+  .confidence-header h1 {
+    font-size: 22px;
+  }
+
+  .problem-container {
+    padding: 20px;
+  }
+
+  .problem-text h2 {
+    font-size: 20px;
+  }
+
+  .fraction-input input {
+    width: 80px;
+    font-size: 20px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .hint-button,
+  .submit-button,
+  .next-button {
+    width: 100%;
+  }
+
+  .pizza-slice {
+    width: 80px;
+    height: 80px;
+  }
+}
