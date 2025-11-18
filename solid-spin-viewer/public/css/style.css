@@ -1,0 +1,408 @@
+/* Solid Spin Viewer - Stylesheet */
+/* Mobile Phone Frame in Bottom-Right Corner */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --phone-width: 380px;
+    --phone-height: 720px;
+    --phone-border-radius: 30px;
+    --phone-border-width: 12px;
+    --phone-bg: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    --screen-bg: #ffffff;
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-color: #333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Phone Frame - Bottom-Right Corner */
+.phone-frame {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background: var(--phone-bg);
+    border-radius: var(--phone-border-radius);
+    padding: var(--phone-border-width);
+    box-shadow: 0 25px 60px var(--shadow-color),
+                0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    animation: slideInFromRight 0.6s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.phone-frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 70px var(--shadow-color),
+                0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Phone Screen */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--screen-bg);
+    border-radius: calc(var(--phone-border-radius) - var(--phone-border-width));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Phone Notch (Top) */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 24px;
+    background: var(--phone-bg);
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+/* Phone Button (Bottom) */
+.phone-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+/* Header */
+.viewer-header {
+    background: linear-gradient(135deg, var(--primary-color), #2980b9);
+    color: white;
+    padding: 30px 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.viewer-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.question-info {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* Canvas Container */
+.canvas-container {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    overflow: hidden;
+}
+
+#viewer-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(52, 152, 219, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    margin-top: 15px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Error Message */
+.error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 80%;
+    z-index: 101;
+}
+
+.error-message.hidden {
+    display: none;
+}
+
+.error-message p {
+    color: var(--danger-color);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.error-message button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.3s ease;
+}
+
+.error-message button:hover {
+    background: #2980b9;
+}
+
+/* Controls Panel */
+.controls-panel {
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.control-group {
+    margin-bottom: 12px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.control-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+.control-btn.active {
+    background: var(--secondary-color);
+}
+
+#rotation-speed {
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#speed-value {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    font-weight: 600;
+    display: inline-block;
+    min-width: 40px;
+}
+
+.shape-selector {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.shape-selector:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Information Panel */
+.info-panel {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #666;
+    min-width: 70px;
+}
+
+.info-kr {
+    margin-left: 8px;
+    color: #999;
+    font-style: italic;
+}
+
+#info-rotation {
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .phone-frame {
+        bottom: 10px;
+        right: 10px;
+        width: calc(var(--phone-width) * 0.85);
+        height: calc(var(--phone-height) * 0.85);
+    }
+}
+
+@media (max-width: 480px) {
+    .phone-frame {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .phone-screen {
+        border-radius: 0;
+    }
+
+    .phone-notch,
+    .phone-button {
+        display: none;
+    }
+}
+
+/* Accessibility */
+button:focus,
+select:focus,
+input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+.controls-panel,
+.info-panel {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f1f1f1;
+}
+
+.controls-panel::-webkit-scrollbar,
+.info-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.controls-panel::-webkit-scrollbar-track,
+.info-panel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.controls-panel::-webkit-scrollbar-thumb,
+.info-panel::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}

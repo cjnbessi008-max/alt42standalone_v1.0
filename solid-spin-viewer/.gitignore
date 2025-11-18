@@ -1,0 +1,29 @@
+# Environment files
+.env
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies (if using composer)
+/vendor/
+composer.lock
+
+# Cache
+cache/
+*.cache
