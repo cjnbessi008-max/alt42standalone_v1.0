@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/confidence/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/confidence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- 개념 정의 테이블 -->
+    <TABLE NAME="local_confidence_concepts" COMMENT="학습 개념 정의">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="conceptname" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="category" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="displayorder" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="displayorder_idx" UNIQUE="false" FIELDS="displayorder"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 학생 자신감 점수 테이블 -->
+    <TABLE NAME="local_confidence_scores" COMMENT="학생 자신감 점수">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="int" LENGTH="2" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="comment" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="conceptid" TYPE="foreign" FIELDS="conceptid" REFTABLE="local_confidence_concepts" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="conceptid_idx" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="userid_conceptid_idx" UNIQUE="true" FIELDS="userid,conceptid"/>
+        <INDEX NAME="courseid_score_idx" UNIQUE="false" FIELDS="courseid,score"/>
+        <INDEX NAME="timemodified_idx" UNIQUE="false" FIELDS="timemodified"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 점수 변화 이력 테이블 -->
+    <TABLE NAME="local_confidence_history" COMMENT="자신감 점수 변화 이력">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="scoreid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="oldscore" TYPE="int" LENGTH="2" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="newscore" TYPE="int" LENGTH="2" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="comment" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="scoreid" TYPE="foreign" FIELDS="scoreid" REFTABLE="local_confidence_scores" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="conceptid" TYPE="foreign" FIELDS="conceptid" REFTABLE="local_confidence_concepts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="scoreid_idx" UNIQUE="false" FIELDS="scoreid"/>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="conceptid_idx" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="timecreated_idx" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 개념별 알림 설정 테이블 -->
+    <TABLE NAME="local_confidence_alerts" COMMENT="자신감 점수 알림 설정">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="threshold" TYPE="int" LENGTH="2" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="alerttype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="conceptid" TYPE="foreign" FIELDS="conceptid" REFTABLE="local_confidence_concepts" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="conceptid_idx" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
