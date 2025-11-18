@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:5.7
+    container_name: divisor_molecules_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-divisor_molecules}
+      MYSQL_USER: ${DB_USER:-divisor_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-userpassword}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - divisor_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: divisor_molecules_backend
+    restart: always
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-divisor_user}
+      DB_PASSWORD: ${DB_PASSWORD:-userpassword}
+      DB_NAME: ${DB_NAME:-divisor_molecules}
+      MOODLE_URL: ${MOODLE_URL}
+      MOODLE_TOKEN: ${MOODLE_TOKEN}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+    ports:
+      - "${PORT:-3000}:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - divisor_network
+
+  # Frontend (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: divisor_molecules_frontend
+    restart: always
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - divisor_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  divisor_network:
+    driver: bridge
