@@ -1,0 +1,194 @@
+.logical-step {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.logical-step:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+  transform: translateY(-2px);
+}
+
+.logical-step.selected {
+  border-color: var(--primary-color);
+  background: linear-gradient(to right, #f0f7ff, white);
+}
+
+.logical-step.current {
+  border-color: var(--secondary-color);
+  border-width: 3px;
+  box-shadow: 0 0 20px rgba(80, 200, 120, 0.3);
+}
+
+.logical-step.incorrect {
+  border-color: var(--error-color);
+  background: linear-gradient(to right, #fff5f5, white);
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.step-number {
+  background: var(--primary-color);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.logical-step.incorrect .step-number {
+  background: var(--error-color);
+}
+
+.step-type {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.incorrect-badge {
+  margin-left: auto;
+  color: var(--error-color);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.step-content {
+  padding-left: 8px;
+}
+
+.step-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.step-formula {
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+  margin: 10px 0;
+}
+
+.step-formula code {
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.step-explanation {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  margin-top: 8px;
+  padding-left: 8px;
+  border-left: 2px solid #ddd;
+}
+
+.validate-button {
+  margin-top: 12px;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.validate-button:hover {
+  background: #45b369;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(80, 200, 120, 0.3);
+}
+
+.validate-button:active {
+  transform: translateY(0);
+}
+
+/* Collapse effect styles */
+.collapse-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--error-color);
+  border-radius: 50%;
+  box-shadow: 0 0 4px var(--error-color);
+}
+
+.crack-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.crack-svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+/* Animation states */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.logical-step.incorrect {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Scrollbar styling */
+.steps-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.steps-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.steps-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.steps-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
