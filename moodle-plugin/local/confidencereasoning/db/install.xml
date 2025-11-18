@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/confidencereasoning/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/confidencereasoning"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- 답변 확신도 및 이유 저장 테이블 -->
+    <TABLE NAME="local_confidence_reasoning" COMMENT="Stores student confidence levels and reasoning for quiz attempts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionattemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Question attempt ID from question_attempts table"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID who submitted the answer"/>
+        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Quiz ID"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Question ID"/>
+
+        <!-- 확신도 레벨 (1-5) -->
+        <FIELD NAME="confidencelevel" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Confidence level: 1=Very unsure, 2=Unsure, 3=Neutral, 4=Confident, 5=Very confident"/>
+
+        <!-- 확신한 이유 (자유 텍스트) -->
+        <FIELD NAME="reasoning" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Student's reasoning for their answer"/>
+
+        <!-- 확신도 카테고리 (선택형) -->
+        <FIELD NAME="reasoningcategory" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="Category of reasoning: studied, guessed, calculated, remembered, etc."/>
+
+        <!-- 타임스탬프 -->
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Time when this record was created"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Time when this record was last modified"/>
+      </FIELDS>
+
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionattemptid" TYPE="foreign" FIELDS="questionattemptid" REFTABLE="question_attempts" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="quizid" TYPE="foreign" FIELDS="quizid" REFTABLE="quiz" REFFIELDS="id"/>
+        <KEY NAME="questionid" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="quizid_idx" UNIQUE="false" FIELDS="quizid"/>
+        <INDEX NAME="questionattempt_idx" UNIQUE="false" FIELDS="questionattemptid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 확신도 통계 요약 테이블 (선택적) -->
+    <TABLE NAME="local_confidence_stats" COMMENT="Aggregated confidence statistics per student">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="quizid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+
+        <!-- 통계 데이터 -->
+        <FIELD NAME="avgconfidence" TYPE="number" LENGTH="5" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="Average confidence level"/>
+        <FIELD NAME="totalattempts" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="correctwithhighconfidence" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of correct answers with confidence >= 4"/>
+        <FIELD NAME="incorrectwithhighconfidence" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of incorrect answers with confidence >= 4"/>
+
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="quizid" TYPE="foreign" FIELDS="quizid" REFTABLE="quiz" REFFIELDS="id"/>
+      </KEYS>
+
+      <INDEXES>
+        <INDEX NAME="userid_quizid_idx" UNIQUE="true" FIELDS="userid, quizid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

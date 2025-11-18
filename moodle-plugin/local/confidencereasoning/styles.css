@@ -1,0 +1,132 @@
+/**
+ * Styles for Confidence Reasoning Plugin
+ */
+
+.confidence-reasoning-container {
+    transition: border-color 0.3s ease;
+}
+
+.confidence-slider {
+    cursor: pointer;
+}
+
+.confidence-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
+
+.confidence-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    border: none;
+}
+
+.confidence-value {
+    color: #007bff;
+}
+
+.reasoning-category,
+.reasoning-text {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+}
+
+.reasoning-text:focus,
+.reasoning-category:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Report page styles */
+.confidence-report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.confidence-report-table th,
+.confidence-report-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.confidence-report-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.confidence-report-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.confidence-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.confidence-badge-1 {
+    background-color: #dc3545;
+    color: white;
+}
+
+.confidence-badge-2 {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.confidence-badge-3 {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.confidence-badge-4 {
+    background-color: #28a745;
+    color: white;
+}
+
+.confidence-badge-5 {
+    background-color: #20c997;
+    color: white;
+}
+
+.confidence-stats-box {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.confidence-stats-box h3 {
+    margin-top: 0;
+    color: #495057;
+}
+
+.stat-item {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.stat-label {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.stat-value {
+    color: #007bff;
+    font-weight: bold;
+}
