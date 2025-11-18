@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking Tempo Analysis Dashboard</title>
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .viz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 12px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        select, input, button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .pattern-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .pattern-mastery { background: #4caf50; color: white; }
+        .pattern-strategy { background: #2196f3; color: white; }
+        .pattern-struggle { background: #f44336; color: white; }
+        .pattern-behavioral { background: #ff9800; color: white; }
+
+        .tempo-distribution {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tempo-bar {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tempo-fast { background: #00ff00; color: #333; }
+        .tempo-normal { background: #ffff00; color: #333; }
+        .tempo-deep { background: #ff9900; }
+        .tempo-stuck { background: #ff0000; }
+
+        #tempoMapContainer {
+            position: relative;
+            min-height: 450px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 사고 템포 분석 대시보드</h1>
+            <p class="subtitle">Thinking Tempo Analysis Dashboard - 마이크로초 단위 학습 패턴 분석</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="studentSelect">학생 선택</label>
+                <select id="studentSelect">
+                    <option value="">선택하세요...</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="quizSelect">퀴즈 선택</label>
+                <select id="quizSelect">
+                    <option value="">선택하세요...</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="questionSelect">문제 선택</label>
+                <select id="questionSelect">
+                    <option value="">선택하세요...</option>
+                </select>
+            </div>
+
+            <button onclick="loadAnalysis()" style="margin-top: 15px;">분석 불러오기</button>
+            <button onclick="exportReport()" style="margin-top: 15px;">리포트 내보내기</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-title">📊 전체 메트릭</div>
+                <div class="metric">
+                    <span class="metric-label">총 소요 시간</span>
+                    <span class="metric-value" id="totalDuration">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">총 이벤트</span>
+                    <span class="metric-value" id="totalEvents">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">타이핑 속도</span>
+                    <span class="metric-value" id="typingSpeed">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🎯 사고 스타일</div>
+                <div class="metric">
+                    <span class="metric-label">스타일</span>
+                    <span class="metric-value" id="thinkingStyle" style="font-size: 18px;">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">인지 부하</span>
+                    <span class="metric-value" id="cognitiveLoad">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">수정 횟수</span>
+                    <span class="metric-value" id="revisionCount">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">⏸️ 휴지 분석</div>
+                <div class="metric">
+                    <span class="metric-label">총 휴지</span>
+                    <span class="metric-value" id="totalPauses">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">평균 휴지 시간</span>
+                    <span class="metric-value" id="avgPause">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">붙여넣기 횟수</span>
+                    <span class="metric-value" id="pasteCount">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🔍 감지된 패턴</div>
+                <div id="detectedPatterns">
+                    <p style="color: #999; text-align: center; padding: 20px;">분석을 불러오세요</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">📈 템포 분포</div>
+            <div class="tempo-distribution">
+                <div class="tempo-bar tempo-fast">
+                    <div>Fast</div>
+                    <div id="fastPercent" style="font-size: 20px;">-</div>
+                </div>
+                <div class="tempo-bar tempo-normal">
+                    <div>Normal</div>
+                    <div id="normalPercent" style="font-size: 20px;">-</div>
+                </div>
+                <div class="tempo-bar tempo-deep">
+                    <div>Deep</div>
+                    <div id="deepPercent" style="font-size: 20px;">-</div>
+                </div>
+                <div class="tempo-bar tempo-stuck">
+                    <div>Stuck</div>
+                    <div id="stuckPercent" style="font-size: 20px;">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="viz-container">
+            <div id="tempoMapContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>분석 데이터를 선택하고 "분석 불러오기"를 클릭하세요</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="tempo_map.js"></script>
+    <script>
+        // Global variables
+        let currentSessionId = null;
+        let tempoMap = null;
+
+        // Initialize dashboard
+        window.onload = function() {
+            loadStudents();
+            loadQuizzes();
+        };
+
+        // Load students
+        async function loadStudents() {
+            // In production, this would fetch from API
+            // For demo, using mock data
+            const students = [
+                { id: 1, name: '김철수' },
+                { id: 2, name: '이영희' },
+                { id: 3, name: '박민수' }
+            ];
+
+            const select = document.getElementById('studentSelect');
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.id;
+                option.textContent = student.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Load quizzes
+        async function loadQuizzes() {
+            const quizzes = [
+                { id: 1, name: '분수 덧셈' },
+                { id: 2, name: '소수 곱셈' },
+                { id: 3, name: '도형의 넓이' }
+            ];
+
+            const select = document.getElementById('quizSelect');
+            quizzes.forEach(quiz => {
+                const option = document.createElement('option');
+                option.value = quiz.id;
+                option.textContent = quiz.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Load analysis
+        async function loadAnalysis() {
+            const studentId = document.getElementById('studentSelect').value;
+            const quizId = document.getElementById('quizSelect').value;
+
+            if (!studentId || !quizId) {
+                alert('학생과 퀴즈를 선택하세요');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('tempoMapContainer').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>분석 데이터를 불러오는 중...</p>
+                </div>
+            `;
+
+            // In production, fetch from API:
+            // const response = await fetch(`/api/analysis/${studentId}/${quizId}`);
+            // const data = await response.json();
+
+            // Demo data
+            const data = generateMockData();
+
+            // Update metrics
+            updateMetrics(data);
+
+            // Render tempo map
+            if (tempoMap) {
+                tempoMap.update(data.tempo_map);
+            } else {
+                tempoMap = new ThinkingTempoMap('tempoMapContainer', {
+                    width: document.getElementById('tempoMapContainer').clientWidth,
+                    height: 400
+                });
+                tempoMap.init(data.tempo_map);
+            }
+        }
+
+        // Update dashboard metrics
+        function updateMetrics(data) {
+            const metrics = data.overall_metrics;
+
+            document.getElementById('totalDuration').textContent =
+                (metrics.total_duration_ms / 1000).toFixed(1) + 's';
+            document.getElementById('totalEvents').textContent = metrics.total_events;
+            document.getElementById('typingSpeed').textContent =
+                metrics.avg_typing_speed.toFixed(1) + ' cps';
+            document.getElementById('thinkingStyle').textContent =
+                getThinkingStyleKorean(metrics.thinking_style);
+            document.getElementById('cognitiveLoad').textContent =
+                metrics.avg_cognitive_load.toFixed(0) + '%';
+            document.getElementById('revisionCount').textContent = metrics.revision_count;
+            document.getElementById('totalPauses').textContent = metrics.total_pauses;
+            document.getElementById('avgPause').textContent =
+                (metrics.avg_pause_duration_ms / 1000).toFixed(1) + 's';
+            document.getElementById('pasteCount').textContent = metrics.paste_count;
+
+            // Update tempo distribution
+            const dist = metrics.tempo_distribution;
+            document.getElementById('fastPercent').textContent = dist.fast.toFixed(0) + '%';
+            document.getElementById('normalPercent').textContent = dist.normal.toFixed(0) + '%';
+            document.getElementById('deepPercent').textContent = dist.deep.toFixed(0) + '%';
+            document.getElementById('stuckPercent').textContent = dist.stuck.toFixed(0) + '%';
+
+            // Update detected patterns
+            updatePatterns(data.detected_patterns);
+        }
+
+        // Update detected patterns
+        function updatePatterns(patterns) {
+            const container = document.getElementById('detectedPatterns');
+
+            if (patterns.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center;">패턴이 감지되지 않았습니다</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            patterns.forEach(pattern => {
+                const badge = document.createElement('span');
+                badge.className = 'pattern-badge ' + getPatternClass(pattern.pattern_name);
+                badge.textContent = `${pattern.pattern_name} (${(pattern.confidence * 100).toFixed(0)}%)`;
+                container.appendChild(badge);
+            });
+        }
+
+        // Get pattern CSS class
+        function getPatternClass(patternName) {
+            if (patternName.includes('Recall') || patternName.includes('Mastery')) {
+                return 'pattern-mastery';
+            } else if (patternName.includes('Strategy') || patternName.includes('Solving') || patternName.includes('Methodical')) {
+                return 'pattern-strategy';
+            } else if (patternName.includes('Struggle') || patternName.includes('Stuck')) {
+                return 'pattern-struggle';
+            } else {
+                return 'pattern-behavioral';
+            }
+        }
+
+        // Get thinking style in Korean
+        function getThinkingStyleKorean(style) {
+            const map = {
+                'impulsive': '충동적',
+                'reflective': '성찰적',
+                'iterative': '반복적',
+                'methodical': '체계적',
+                'struggling': '어려움',
+                'balanced': '균형적'
+            };
+            return map[style] || style;
+        }
+
+        // Generate mock data for demo
+        function generateMockData() {
+            const numBuckets = 50;
+            const tempoMap = [];
+
+            for (let i = 0; i < numBuckets; i++) {
+                const bucketStart = i * 100000; // 100ms buckets
+                const bucketEnd = bucketStart + 100000;
+
+                // Simulate varying tempo patterns
+                let tempoScore;
+                if (i < 5) {
+                    // Fast start
+                    tempoScore = 80 + Math.random() * 20;
+                } else if (i >= 5 && i < 15) {
+                    // Normal thinking
+                    tempoScore = 50 + Math.random() * 20;
+                } else if (i >= 15 && i < 25) {
+                    // Deep thinking
+                    tempoScore = 20 + Math.random() * 30;
+                } else if (i >= 25 && i < 30) {
+                    // Stuck period
+                    tempoScore = Math.random() * 20;
+                } else {
+                    // Recovery and completion
+                    tempoScore = 60 + Math.random() * 30;
+                }
+
+                tempoMap.push({
+                    time_bucket: i,
+                    bucket_start: bucketStart,
+                    bucket_end: bucketEnd,
+                    tempo_score: tempoScore,
+                    activity_level: Math.floor(Math.random() * 20) + 5,
+                    dominant_event_type: ['keydown', 'mousemove', 'input', 'click'][Math.floor(Math.random() * 4)],
+                    event_count: Math.floor(Math.random() * 30) + 5
+                });
+            }
+
+            return {
+                overall_metrics: {
+                    total_duration_ms: 5000,
+                    total_events: 342,
+                    avg_typing_speed: 3.5,
+                    thinking_style: 'methodical',
+                    avg_cognitive_load: 65,
+                    revision_count: 7,
+                    total_pauses: 12,
+                    avg_pause_duration_ms: 1850,
+                    paste_count: 0,
+                    tempo_distribution: {
+                        fast: 25,
+                        normal: 40,
+                        deep: 25,
+                        stuck: 10
+                    }
+                },
+                detected_patterns: [
+                    { pattern_name: 'Methodical Solving', confidence: 0.85 },
+                    { pattern_name: 'Deep Analysis', confidence: 0.72 },
+                    { pattern_name: 'Trial and Error', confidence: 0.65 }
+                ],
+                tempo_map: tempoMap
+            };
+        }
+
+        // Export report
+        function exportReport() {
+            if (!tempoMap) {
+                alert('먼저 분석을 불러오세요');
+                return;
+            }
+
+            tempoMap.exportPNG('thinking-tempo-report.png');
+        }
+    </script>
+</body>
+</html>
