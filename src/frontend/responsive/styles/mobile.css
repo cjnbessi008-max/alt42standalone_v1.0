@@ -1,0 +1,182 @@
+/**
+ * Mobile-specific styles for vector drag app
+ * Optimized for touch interaction and small screens
+ */
+
+/* Mobile container */
+.mobile-container {
+  max-width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Enhanced touch targets for mobile */
+.mobile-touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection during drag */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Mobile button styles */
+.mobile-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+  min-height: 44px;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.mobile-button:active {
+  background: #0056b3;
+  transform: scale(0.98);
+}
+
+/* Mobile control panel */
+.mobile-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.mobile-controls button {
+  width: 100%;
+}
+
+/* Smartphone frame simulation */
+.smartphone-frame {
+  max-width: 375px;
+  margin: 0 auto;
+  border: 12px solid #333;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: #000;
+  padding: 40px 10px 40px 10px;
+  position: relative;
+}
+
+.smartphone-frame::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #444;
+  border-radius: 3px;
+}
+
+.smartphone-screen {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Vector info panel for mobile */
+.mobile-vector-info {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.mobile-vector-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-vector-info-row:last-child {
+  border-bottom: none;
+}
+
+/* Responsive canvas container */
+.canvas-container-mobile {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.canvas-container-mobile svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch feedback */
+@keyframes touch-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.touch-feedback {
+  animation: touch-ripple 0.3s ease-out;
+}
+
+/* Landscape orientation specific */
+@media (orientation: landscape) and (max-width: 768px) {
+  .mobile-container {
+    display: flex;
+    gap: 20px;
+  }
+
+  .canvas-container-mobile {
+    flex: 1;
+  }
+
+  .mobile-controls {
+    width: 200px;
+    flex-shrink: 0;
+  }
+}
+
+/* Dark mode support for mobile */
+@media (prefers-color-scheme: dark) {
+  .mobile-vector-info {
+    background: #2d2d2d;
+    color: #f0f0f0;
+  }
+
+  .mobile-vector-info-row {
+    border-bottom-color: #444;
+  }
+
+  .smartphone-screen {
+    background: #1a1a1a;
+  }
+}
+
+/* Accessibility - high contrast mode */
+@media (prefers-contrast: high) {
+  .mobile-button {
+    border: 2px solid white;
+  }
+
+  .smartphone-frame {
+    border-color: #fff;
+  }
+}

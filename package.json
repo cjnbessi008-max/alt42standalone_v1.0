@@ -1,0 +1,29 @@
+{
+  "name": "alt42-vector-drag-app",
+  "version": "1.0.0",
+  "description": "Interactive vector drag application for educational purposes",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx",
+    "test": "vitest"
+  },
+  "keywords": ["education", "vector", "interactive", "drag-drop", "moodle"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.3.0",
+    "vitest": "^0.32.0",
+    "eslint": "^8.42.0"
+  }
+}
