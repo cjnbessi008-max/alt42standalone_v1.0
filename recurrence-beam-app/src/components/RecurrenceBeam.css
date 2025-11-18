@@ -1,0 +1,49 @@
+.recurrence-beam-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.recurrence-beam-canvas {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+.current-formula {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #3498db;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  border: 1px solid rgba(52, 152, 219, 0.5);
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pulsing animation for active formula */
+.current-formula {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(52, 152, 219, 0.6);
+  }
+}
