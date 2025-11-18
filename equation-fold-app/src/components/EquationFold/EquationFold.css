@@ -1,0 +1,252 @@
+.equation-fold {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.equation-fold-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(100, 108, 255, 0.3);
+}
+
+.equation-fold-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #646cff;
+}
+
+.step-indicator {
+  background: rgba(100, 108, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.equation-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.step-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.step-item.active {
+  border-color: #646cff;
+  box-shadow: 0 0 20px rgba(100, 108, 255, 0.3);
+}
+
+.step-item.future {
+  opacity: 0.5;
+}
+
+.step-item.collapsed .step-details {
+  max-height: 0;
+  opacity: 0;
+}
+
+.step-item.expanded .step-details {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.step-header:hover {
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: #646cff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-expression {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  word-break: break-all;
+}
+
+.expression-full {
+  color: #fff;
+}
+
+.expression-folded {
+  color: #888;
+  font-style: italic;
+}
+
+.step-description {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.step-toggle {
+  width: 30px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #646cff;
+  flex-shrink: 0;
+}
+
+.step-details {
+  padding: 0 1rem 1rem 1rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.expression-display {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid #646cff;
+}
+
+.expression-display code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.3rem;
+  color: #4ade80;
+  display: block;
+  overflow-x: auto;
+}
+
+.step-arrow {
+  text-align: center;
+  font-size: 2rem;
+  color: #646cff;
+  margin: 0.5rem 0;
+}
+
+.equation-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.control-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #646cff;
+  background: rgba(100, 108, 255, 0.1);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+  background: #646cff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.reset-btn {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.reset-btn:hover {
+  background: #f59e0b;
+}
+
+.equation-info {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-item strong {
+  color: #646cff;
+  margin-right: 0.5rem;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .equation-fold-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .step-indicator {
+    align-self: flex-end;
+  }
+
+  .step-header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .step-expression {
+    font-size: 1rem;
+  }
+
+  .expression-display code {
+    font-size: 1.1rem;
+  }
+
+  .equation-controls {
+    flex-direction: column;
+  }
+
+  .control-btn {
+    width: 100%;
+  }
+}

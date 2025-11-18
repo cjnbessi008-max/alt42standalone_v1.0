@@ -1,0 +1,195 @@
+.mobile-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile-frame {
+  width: 375px;
+  height: 667px;
+  background: #000;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 0 0 2px #1a1a1a,
+    0 0 0 4px #2a2a2a,
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-header {
+  height: 44px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-radius: 28px 28px 0 0;
+  position: relative;
+}
+
+.mobile-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 30px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+}
+
+.mobile-time {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  z-index: 1;
+}
+
+.mobile-status {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  z-index: 1;
+}
+
+.mobile-screen {
+  height: calc(100% - 44px - 20px);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.mobile-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: rgba(100, 108, 255, 0.1);
+  border-bottom: 1px solid rgba(100, 108, 255, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.mobile-app-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.back-btn,
+.menu-btn {
+  background: none;
+  border: none;
+  color: #646cff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover,
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+.mobile-content {
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+/* 모바일 스크린 내부의 컴포넌트 스타일 조정 */
+.mobile-content .equation-fold {
+  max-width: 100%;
+}
+
+.mobile-content .equation-fold-header h2 {
+  font-size: 1.2rem;
+}
+
+.mobile-content .step-indicator {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.mobile-content .step-number {
+  width: 32px;
+  height: 32px;
+  font-size: 0.9rem;
+}
+
+.mobile-content .step-expression {
+  font-size: 0.9rem;
+}
+
+.mobile-content .step-description {
+  font-size: 0.75rem;
+}
+
+.mobile-content .expression-display code {
+  font-size: 1rem;
+}
+
+.mobile-content .control-btn {
+  font-size: 0.85rem;
+  padding: 0.6rem 1rem;
+}
+
+.mobile-content .equation-info {
+  font-size: 0.85rem;
+}
+
+.mobile-footer {
+  height: 20px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0 28px 28px;
+}
+
+.home-indicator {
+  width: 120px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+.mobile-label {
+  font-size: 0.9rem;
+  color: #888;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* 스크롤바 스타일 */
+.mobile-screen::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-screen::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.mobile-screen::-webkit-scrollbar-thumb {
+  background: rgba(100, 108, 255, 0.5);
+  border-radius: 2px;
+}
+
+.mobile-screen::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 108, 255, 0.7);
+}
+
+/* 작은 화면에서는 모바일 프레임 숨기기 */
+@media (max-width: 768px) {
+  .mobile-view-container {
+    display: none;
+  }
+}

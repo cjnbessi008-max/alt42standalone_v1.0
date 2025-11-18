@@ -1,0 +1,275 @@
+.app {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.app-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #646cff;
+  background: linear-gradient(135deg, #646cff 0%, #4ade80 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-header p {
+  font-size: 1.1rem;
+  color: #888;
+}
+
+.app-controls {
+  max-width: 1400px;
+  margin: 0 auto 3rem auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.example-selector h3,
+.custom-input h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #646cff;
+}
+
+.example-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.example-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.example-btn:hover {
+  background: rgba(100, 108, 255, 0.1);
+  border-color: #646cff;
+  transform: translateY(-2px);
+}
+
+.example-btn.active {
+  background: rgba(100, 108, 255, 0.2);
+  border-color: #646cff;
+  box-shadow: 0 0 20px rgba(100, 108, 255, 0.3);
+}
+
+.example-title {
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.example-equation {
+  font-family: 'Courier New', monospace;
+  color: #4ade80;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.example-difficulty {
+  font-size: 0.85rem;
+  color: #f59e0b;
+}
+
+.custom-input {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-input form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.equation-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.equation-input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.submit-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.submit-btn:hover {
+  background: #535bf2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
+}
+
+.input-hint {
+  font-size: 0.85rem;
+  color: #888;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 3rem;
+  color: #646cff;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.main-content {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-preview {
+  position: sticky;
+  top: 2rem;
+}
+
+.app-footer {
+  max-width: 1400px;
+  margin: 3rem auto 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.footer-section h4 {
+  color: #646cff;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  padding: 0.25rem 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.footer-section li::before {
+  content: '▸ ';
+  color: #646cff;
+}
+
+.footer-section p {
+  color: #999;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.footer-section code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #4ade80;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+  .app-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-preview {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .app-controls {
+    gap: 1.5rem;
+  }
+
+  .example-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .custom-input form {
+    flex-direction: column;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
