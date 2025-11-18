@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/3dinsight/db" VERSION="20241118" COMMENT="XMLDB file for Moodle blocks/3dinsight">
+  <TABLES>
+    <TABLE NAME="block_3dinsight_problems" COMMENT="Stores 3D geometry problems">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Problem title"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Problem description"/>
+        <FIELD NAME="geometry_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type of geometry: cube, sphere, pyramid, custom, etc."/>
+        <FIELD NAME="geometry_data" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="JSON data for 3D geometry (vertices, faces, textures, etc.)"/>
+        <FIELD NAME="difficulty" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Difficulty level 1-5"/>
+        <FIELD NAME="active" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Is problem active"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="createdby" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="geometry_type" UNIQUE="false" FIELDS="geometry_type"/>
+        <INDEX NAME="active" UNIQUE="false" FIELDS="active"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="block_3dinsight_attempts" COMMENT="Stores student attempts at 3D problems">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="problemid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="answer_data" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data of student answer"/>
+        <FIELD NAME="rotation_count" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of times student rotated the model"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="2" SEQUENCE="false"/>
+        <FIELD NAME="completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="problemid" TYPE="foreign" FIELDS="problemid" REFTABLE="block_3dinsight_problems" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_problemid" UNIQUE="false" FIELDS="userid, problemid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="block_3dinsight_config" COMMENT="Configuration settings for 3D Insight Mode">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="enable_rotation" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="enable_smartphone_view" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="default_camera_angle" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="isometric" SEQUENCE="false"/>
+        <FIELD NAME="smartphone_position" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="bottom-right" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

@@ -1,0 +1,34 @@
+# Node modules
+webapp/node_modules/
+webapp/package-lock.json
+
+# Build output
+webapp/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Moodle
+moodledata/
+config.php
+
+# Temporary files
+*.tmp
+*.bak
+*.cache

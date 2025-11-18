@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Insight Mode - Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .demo-content {
+            margin-top: 30px;
+        }
+
+        .demo-content h2 {
+            color: #667eea;
+        }
+
+        .demo-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .info-box ul {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>3D Insight Mode - Interactive Demo</h1>
+
+        <div class="demo-content">
+            <h2>Welcome to 3D Insight Mode!</h2>
+            <p>
+                This is a standalone demo of the 3D Insight Mode application.
+                Look at the bottom-right corner of your screen to see the virtual smartphone interface.
+            </p>
+
+            <div class="info-box">
+                <h3>How to Use:</h3>
+                <ul>
+                    <li><strong>Mouse:</strong> Click and drag to rotate the 3D model</li>
+                    <li><strong>Scroll:</strong> Zoom in and out</li>
+                    <li><strong>Touch:</strong> Drag with one finger to rotate, pinch to zoom</li>
+                    <li><strong>Drag:</strong> Click and drag the top bar to move the smartphone</li>
+                    <li><strong>Minimize:</strong> Click the minimize button (−) to collapse</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Available Geometry Types:</h3>
+                <ul>
+                    <li>Cube / Box</li>
+                    <li>Sphere</li>
+                    <li>Cylinder</li>
+                    <li>Cone</li>
+                    <li>Pyramid</li>
+                    <li>Torus</li>
+                    <li>Platonic Solids (Dodecahedron, Icosahedron, Octahedron, Tetrahedron)</li>
+                    <li>Prism (n-sided)</li>
+                    <li>Custom geometries with vertices and faces</li>
+                </ul>
+            </div>
+
+            <h2>Integration with Moodle</h2>
+            <p>
+                In a production environment, this application integrates seamlessly with Moodle LMS
+                to fetch problem data and track student progress. The smartphone interface displays
+                3D geometry problems that students can rotate and explore from all angles.
+            </p>
+        </div>
+    </div>
+
+    <!-- 3D Insight Mode Container -->
+    <div id="3dinsight-app"
+         data-course-id="1"
+         data-api-endpoint="/blocks/3dinsight/api.php"
+         data-problem-data='[
+             {
+                 "id": 1,
+                 "title": "Cube Properties",
+                 "description": "Explore the properties of a cube by rotating it in 3D space",
+                 "geometry_type": "cube",
+                 "geometry_data": {"width": 2, "height": 2, "depth": 2, "color": 4491519},
+                 "difficulty": 1
+             },
+             {
+                 "id": 2,
+                 "title": "Sphere Surface Area",
+                 "description": "Understand sphere geometry through 3D visualization",
+                 "geometry_type": "sphere",
+                 "geometry_data": {"radius": 1.5, "color": 5025535},
+                 "difficulty": 2
+             },
+             {
+                 "id": 3,
+                 "title": "Pyramid Volume",
+                 "description": "Calculate pyramid volume by examining its 3D structure",
+                 "geometry_type": "pyramid",
+                 "geometry_data": {"radius": 1.5, "height": 3, "color": 16744192},
+                 "difficulty": 3
+             },
+             {
+                 "id": 4,
+                 "title": "Dodecahedron Exploration",
+                 "description": "Explore the 12 faces of a dodecahedron",
+                 "geometry_type": "dodecahedron",
+                 "geometry_data": {"radius": 1.5, "color": 10027008},
+                 "difficulty": 4
+             }
+         ]'>
+    </div>
+
+    <script src="dist/bundle.js"></script>
+</body>
+</html>

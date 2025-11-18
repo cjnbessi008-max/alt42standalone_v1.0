@@ -1,0 +1,454 @@
+/* 3D Insight Mode - Main Styles */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Smartphone Container */
+.smartphone-container {
+    position: fixed;
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.smartphone-container.smartphone-bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.smartphone-container.smartphone-bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.smartphone-container.smartphone-top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.smartphone-container.smartphone-top-left {
+    top: 20px;
+    left: 20px;
+}
+
+.smartphone-container.dragging {
+    cursor: grabbing;
+    transition: none;
+}
+
+.smartphone-container.minimized .smartphone-screen {
+    display: none;
+}
+
+.smartphone-container.minimized .smartphone-home-button {
+    display: none;
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    width: 375px;
+    height: 667px;
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top Bar */
+.smartphone-topbar {
+    height: 30px;
+    background: linear-gradient(to bottom, #2d2d2d, #1a1a1a);
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+}
+
+.smartphone-topbar:active {
+    cursor: grabbing;
+}
+
+/* Notch */
+.smartphone-notch {
+    width: 150px;
+    height: 25px;
+    background: #000;
+    border-radius: 0 0 15px 15px;
+    position: relative;
+}
+
+.smartphone-notch::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+}
+
+.smartphone-notch::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    width: 8px;
+    height: 8px;
+    background: #1a4d1a;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #00ff00;
+}
+
+/* Control Buttons */
+.smartphone-controls {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.smartphone-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.smartphone-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.smartphone-btn.close-btn:hover {
+    background: rgba(255, 0, 0, 0.6);
+}
+
+/* Screen */
+.smartphone-screen {
+    width: 100%;
+    height: calc(100% - 50px);
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Bar */
+.smartphone-statusbar {
+    height: 40px;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    font-size: 12px;
+    color: #333;
+}
+
+.smartphone-statusbar .time {
+    font-weight: 600;
+}
+
+.smartphone-statusbar .status-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.smartphone-statusbar .status-icons span {
+    font-size: 14px;
+}
+
+/* App Header */
+.smartphone-app-header {
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.smartphone-app-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Content Area */
+.smartphone-content {
+    flex: 1;
+    overflow-y: auto;
+    background: #f5f5f5;
+    padding: 15px;
+}
+
+/* Home Button */
+.smartphone-home-button {
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.smartphone-home-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Problem Selector */
+.problem-selector {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.problem-selector label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.problem-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.problem-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.problem-info {
+    margin-top: 15px;
+}
+
+.problem-details h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.problem-details p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 13px;
+}
+
+.problem-details .difficulty {
+    color: #ff9800;
+    font-weight: 600;
+}
+
+.problem-details .description {
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.problem-details .geometry-type {
+    background: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* 3D Scene Container */
+.3dinsight-scene-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.3dinsight-scene-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+/* Error Messages */
+.3dinsight-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(220, 53, 69, 0.95);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Loading State */
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(102, 126, 234, 0.1);
+    border-top-color: #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .smartphone-frame {
+        width: 320px;
+        height: 568px;
+    }
+
+    .smartphone-container {
+        bottom: 10px !important;
+        right: 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-frame {
+        width: 280px;
+        height: 500px;
+    }
+
+    .smartphone-app-header h3 {
+        font-size: 16px;
+    }
+
+    .smartphone-content {
+        padding: 10px;
+    }
+}
+
+/* Accessibility */
+.smartphone-btn:focus,
+.problem-select:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .smartphone-frame {
+        border: 2px solid #fff;
+    }
+
+    .problem-select {
+        border-width: 3px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .smartphone-container,
+    .smartphone-btn,
+    .problem-select {
+        transition: none;
+    }
+
+    .loading-spinner {
+        animation: none;
+        border-top-color: #667eea;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .smartphone-content {
+        background: #1a1a1a;
+    }
+
+    .problem-selector {
+        background: #2d2d2d;
+        color: #fff;
+    }
+
+    .problem-selector label {
+        color: #fff;
+    }
+
+    .problem-select {
+        background: #3a3a3a;
+        color: #fff;
+        border-color: #555;
+    }
+
+    .problem-details h4 {
+        color: #fff;
+    }
+
+    .problem-details p {
+        color: #ccc;
+    }
+
+    .3dinsight-scene-container {
+        background: #2d2d2d;
+    }
+}
