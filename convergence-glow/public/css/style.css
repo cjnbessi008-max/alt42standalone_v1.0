@@ -1,0 +1,458 @@
+/**
+ * Convergence Glow Styles
+ * 수열의 수렴/발산 시각화 앱 스타일
+ */
+
+:root {
+    /* 색상 테마 */
+    --convergent-start: #4ECDC4;
+    --convergent-end: #1A535C;
+    --divergent-start: #FFE66D;
+    --divergent-end: #FF6B6B;
+    --oscillating-start: #AA96DA;
+    --oscillating-end: #F38181;
+
+    /* UI 색상 */
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --bg-color: #f7fafc;
+    --card-bg: #ffffff;
+    --text-color: #2d3748;
+    --border-color: #e2e8f0;
+
+    /* 스마트폰 색상 */
+    --phone-bg: #1a202c;
+    --phone-screen: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* ===== 좌측 패널 ===== */
+.left-panel {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5em;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #718096;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.problem-info,
+.controls,
+.answer-section,
+.legend {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.problem-info h2,
+.controls h3,
+.answer-section h3,
+.legend h4 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.info-card {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.loading {
+    text-align: center;
+    color: #718096;
+}
+
+.formula {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2em;
+    margin: 10px 0;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin: 5px 5px 5px 0;
+}
+
+.badge.convergent {
+    background: var(--convergent-start);
+    color: white;
+}
+
+.badge.divergent {
+    background: var(--divergent-end);
+    color: white;
+}
+
+.badge.oscillating {
+    background: var(--oscillating-start);
+    color: white;
+}
+
+/* 컨트롤 */
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.control-group input[type="range"] {
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.control-group span {
+    display: inline-block;
+    min-width: 50px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* 버튼 */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background: #cbd5e0;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 답변 섹션 */
+.answer-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.answer-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.answer-btn.selected {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+}
+
+.answer-btn .icon {
+    font-size: 2em;
+    margin-bottom: 8px;
+}
+
+.answer-btn .text {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.feedback {
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 15px;
+    display: none;
+}
+
+.feedback.show {
+    display: block;
+}
+
+.feedback.correct {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 2px solid #48bb78;
+}
+
+.feedback.incorrect {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 2px solid #f56565;
+}
+
+/* 범례 */
+.legend {
+    border-bottom: none;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.color-box {
+    width: 40px;
+    height: 25px;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.color-box.convergent {
+    background: linear-gradient(90deg, var(--convergent-start), var(--convergent-end));
+}
+
+.color-box.divergent {
+    background: linear-gradient(90deg, var(--divergent-start), var(--divergent-end));
+}
+
+.color-box.oscillating {
+    background: linear-gradient(90deg, var(--oscillating-start), var(--oscillating-end));
+}
+
+/* ===== 우측 패널: 스마트폰 ===== */
+.right-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.smartphone-container {
+    perspective: 1000px;
+}
+
+.smartphone {
+    width: 340px;
+    height: 680px;
+    background: var(--phone-bg);
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transform: rotateY(-5deg);
+    transition: transform 0.3s ease;
+}
+
+.smartphone:hover {
+    transform: rotateY(0deg);
+}
+
+.smartphone-header {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+}
+
+.camera {
+    width: 12px;
+    height: 12px;
+    background: #2d3748;
+    border-radius: 50%;
+    border: 2px solid #4a5568;
+}
+
+.speaker {
+    width: 60px;
+    height: 6px;
+    background: #2d3748;
+    border-radius: 3px;
+}
+
+.smartphone-screen {
+    background: var(--phone-screen);
+    border-radius: 25px;
+    height: 580px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+}
+
+.status {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+#visualizationCanvas {
+    flex: 1;
+    display: block;
+    background: #f7fafc;
+}
+
+.sequence-info {
+    background: white;
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-row .label {
+    font-weight: 600;
+    color: #718096;
+}
+
+.info-row .value {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.smartphone-footer {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-button {
+    width: 50px;
+    height: 50px;
+    background: #2d3748;
+    border-radius: 50%;
+    border: 3px solid #4a5568;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .smartphone {
+        transform: none;
+    }
+
+    .answer-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(102, 126, 234, 0.8);
+    }
+}
+
+.smartphone.active {
+    animation: glow 2s ease-in-out infinite;
+}

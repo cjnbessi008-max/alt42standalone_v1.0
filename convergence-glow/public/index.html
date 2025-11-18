@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convergence Glow - 수열의 수렴/발산 시각화</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 좌측 영역: 정보 및 컨트롤 -->
+        <div class="left-panel">
+            <header>
+                <h1>🌟 Convergence Glow</h1>
+                <p class="subtitle">수열의 수렴과 발산을 색감으로 체험하세요</p>
+            </header>
+
+            <div class="problem-info" id="problemInfo">
+                <h2>문제 정보</h2>
+                <div class="info-card">
+                    <div class="loading">문제를 불러오는 중...</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <h3>수열 설정</h3>
+                <div class="control-group">
+                    <label for="numTerms">표시할 항의 개수:</label>
+                    <input type="range" id="numTerms" min="10" max="100" value="50" step="5">
+                    <span id="numTermsValue">50</span>
+                </div>
+                <div class="control-group">
+                    <label for="animationSpeed">애니메이션 속도:</label>
+                    <input type="range" id="animationSpeed" min="0.5" max="3" value="1" step="0.1">
+                    <span id="animationSpeedValue">1.0x</span>
+                </div>
+                <button id="startBtn" class="btn btn-primary">시각화 시작</button>
+                <button id="resetBtn" class="btn btn-secondary">다시 시작</button>
+            </div>
+
+            <div class="answer-section" id="answerSection" style="display: none;">
+                <h3>이 수열은 어떻게 동작할까요?</h3>
+                <div class="answer-options">
+                    <button class="answer-btn" data-answer="convergent">
+                        <span class="icon">📉</span>
+                        <span class="text">수렴</span>
+                    </button>
+                    <button class="answer-btn" data-answer="divergent">
+                        <span class="icon">📈</span>
+                        <span class="text">발산</span>
+                    </button>
+                    <button class="answer-btn" data-answer="oscillating">
+                        <span class="icon">〰️</span>
+                        <span class="text">진동하며 수렴</span>
+                    </button>
+                </div>
+                <div id="feedback" class="feedback"></div>
+            </div>
+
+            <div class="legend">
+                <h4>색상 가이드</h4>
+                <div class="legend-item">
+                    <div class="color-box convergent"></div>
+                    <span>수렴 (차가운 색)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box divergent"></div>
+                    <span>발산 (따뜻한 색)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box oscillating"></div>
+                    <span>진동 (보라색 계열)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측 영역: 가상 스마트폰 화면 -->
+        <div class="right-panel">
+            <div class="smartphone-container">
+                <div class="smartphone">
+                    <div class="smartphone-header">
+                        <div class="camera"></div>
+                        <div class="speaker"></div>
+                    </div>
+                    <div class="smartphone-screen">
+                        <div class="app-header">
+                            <h2 id="sequenceTitle">수열 시각화</h2>
+                            <div class="status" id="status">대기 중</div>
+                        </div>
+                        <canvas id="visualizationCanvas"></canvas>
+                        <div class="sequence-info" id="sequenceInfo">
+                            <div class="info-row">
+                                <span class="label">현재 항:</span>
+                                <span class="value" id="currentTerm">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">현재 값:</span>
+                                <span class="value" id="currentValue">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">분석:</span>
+                                <span class="value" id="analysis">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="smartphone-footer">
+                        <div class="home-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script src="js/sequence.js"></script>
+    <script src="js/visualizer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
