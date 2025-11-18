@@ -1,0 +1,58 @@
+# Apache 설정
+
+# RewriteEngine 활성화
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # API 요청 리다이렉션
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.*)$ ../api/$1 [L,QSA]
+</IfModule>
+
+# CORS 헤더 설정
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# MIME 타입 설정
+AddType application/javascript .js
+AddType text/css .css
+AddType text/html .html
+
+# Gzip 압축
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# 캐싱 설정
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# 보안 헤더
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# PHP 설정 (가능한 경우)
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+# 디렉토리 브라우징 비활성화
+Options -Indexes
+
+# 기본 문서
+DirectoryIndex index.html index.php

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>접선 경사도 색감 시각화 - Gradient Color</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 메인 컨트롤 패널 -->
+    <div class="control-panel">
+        <h1>접선 경사도 시각화</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="function-select">함수 선택:</label>
+                <select id="function-select">
+                    <option value="quadratic">이차함수 (y = x²)</option>
+                    <option value="cubic">삼차함수 (y = x³ - 2x)</option>
+                    <option value="sine">사인함수 (y = sin(x))</option>
+                    <option value="exponential">지수함수 (y = eˣ)</option>
+                    <option value="custom">사용자 정의</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="custom-function-group" style="display: none;">
+                <label for="custom-function">함수 입력:</label>
+                <input type="text" id="custom-function" placeholder="예: x^2 + 2*x + 1">
+            </div>
+
+            <div class="control-group">
+                <label for="x-point">접선 위치 (x):</label>
+                <input type="range" id="x-point" min="-5" max="5" step="0.1" value="1">
+                <span id="x-value">1.0</span>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="show-tangent" checked>
+                    접선 표시
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="animate" checked>
+                    자동 애니메이션
+                </label>
+            </div>
+
+            <button id="moodle-sync" class="btn-primary">Moodle 문제 불러오기</button>
+        </div>
+
+        <!-- 색상 범례 -->
+        <div class="legend">
+            <h3>경사도 색상 범례</h3>
+            <div class="legend-bar">
+                <div class="legend-gradient"></div>
+            </div>
+            <div class="legend-labels">
+                <span>급격한 하강</span>
+                <span>평평</span>
+                <span>급격한 상승</span>
+            </div>
+            <div class="slope-info">
+                <p>현재 경사도: <strong id="slope-value">0.00</strong></p>
+                <p>각도: <strong id="angle-value">0.00°</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 화면 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <div class="smartphone-notch"></div>
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <h2>접선 경사도 분석</h2>
+                    <div class="status-indicator" id="moodle-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text">대기중</span>
+                    </div>
+                </div>
+
+                <!-- 그래프 캔버스 -->
+                <canvas id="graph-canvas" width="360" height="600"></canvas>
+
+                <!-- 하단 정보 -->
+                <div class="graph-info">
+                    <p class="info-text">
+                        <span class="label">점 좌표:</span>
+                        <span id="point-coords">(1.0, 1.0)</span>
+                    </p>
+                    <p class="info-text">
+                        <span class="label">접선 방정식:</span>
+                        <span id="tangent-equation">y = 2x - 1</span>
+                    </p>
+                </div>
+            </div>
+            <div class="smartphone-home-button"></div>
+        </div>
+    </div>
+
+    <script src="js/gradient-color.js"></script>
+    <script src="js/graph.js"></script>
+</body>
+</html>
