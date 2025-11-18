@@ -1,0 +1,183 @@
+/**
+ * Smartphone UI Styling
+ * Virtual smartphone display positioned at bottom-right
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Smartphone Container - 우측 하단 배치 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    width: 380px;
+    height: 760px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    position: relative;
+    border: 3px solid #2a2a2a;
+}
+
+/* Notch */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* Camera */
+.smartphone-frame::after {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    z-index: 11;
+}
+
+/* Smartphone Screen */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 15px;
+    position: relative;
+}
+
+/* Custom Scrollbar */
+.smartphone-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.smartphone-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Bottom Bar (Home Indicator) */
+.smartphone-bottom-bar {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: #444;
+    border-radius: 2px;
+}
+
+/* Connection Status */
+.connection-status {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 20px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    z-index: 999;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.status-text {
+    color: #333;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: static;
+        margin: 0 auto;
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 380px;
+        height: 700px;
+    }
+
+    .connection-status {
+        position: static;
+        margin: 0 auto 20px;
+        width: fit-content;
+    }
+
+    body {
+        flex-direction: column;
+        padding: 10px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 400px) {
+    .smartphone-frame {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 100px);
+        border-radius: 30px;
+    }
+}

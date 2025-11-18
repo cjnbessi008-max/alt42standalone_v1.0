@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inverse Reflection - 역함수 시각화</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/visualization.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+</head>
+<body>
+    <!-- Smartphone Container (우측 하단에 배치) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- Smartphone Screen -->
+            <div class="smartphone-screen">
+                <!-- App Header -->
+                <div class="app-header">
+                    <h1>🪞 Inverse Reflection</h1>
+                    <p class="subtitle">역함수를 거울처럼 반사시켜 보세요</p>
+                </div>
+
+                <!-- Problem Display -->
+                <div class="problem-section">
+                    <div class="problem-info">
+                        <span class="problem-label">원함수</span>
+                        <span class="function-display" id="originalFunction">f(x) = 2x + 3</span>
+                    </div>
+                    <div class="problem-info">
+                        <span class="problem-label">역함수</span>
+                        <span class="function-display inverse" id="inverseFunction">f⁻¹(x) = (x - 3) / 2</span>
+                    </div>
+                </div>
+
+                <!-- Visualization Canvas -->
+                <div class="canvas-container">
+                    <canvas id="reflectionCanvas" width="350" height="350"></canvas>
+
+                    <!-- Interactive Point Marker -->
+                    <div class="point-marker" id="pointMarker" style="display: none;"></div>
+
+                    <!-- Reflection Animation Overlay -->
+                    <svg class="reflection-overlay" id="reflectionOverlay">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10"
+                                    refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#FF9800" />
+                            </marker>
+                        </defs>
+                        <line id="reflectionLine" x1="0" y1="0" x2="0" y2="0"
+                              stroke="#FF9800" stroke-width="2" stroke-dasharray="5,5"
+                              marker-end="url(#arrowhead)" style="display: none;" />
+                    </svg>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls-section">
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" id="showGrid" checked>
+                            <span>격자 표시</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="showReflectionLine" checked>
+                            <span>반사선 (y=x)</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="enableAnimation" checked>
+                            <span>애니메이션</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <button class="btn-primary" id="showReflectionBtn">
+                            점 반사 시연
+                        </button>
+                        <button class="btn-secondary" id="clearBtn">
+                            초기화
+                        </button>
+                    </div>
+
+                    <!-- Hint Section -->
+                    <div class="hint-section" id="hintSection" style="display: none;">
+                        <div class="hint-header">💡 힌트</div>
+                        <div class="hint-content" id="hintContent"></div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="instructions">
+                    <p>📍 그래프 위의 점을 클릭하여 반사를 확인하세요</p>
+                    <p>🔄 원함수의 점 (a, b)는 역함수에서 (b, a)로 반사됩니다</p>
+                </div>
+            </div>
+
+            <!-- Smartphone Bottom Bar -->
+            <div class="smartphone-bottom-bar"></div>
+        </div>
+    </div>
+
+    <!-- Connection Status Indicator -->
+    <div class="connection-status" id="connectionStatus">
+        <span class="status-dot"></span>
+        <span class="status-text">Moodle 연결됨</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api-client.js"></script>
+    <script src="js/math-utils.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
