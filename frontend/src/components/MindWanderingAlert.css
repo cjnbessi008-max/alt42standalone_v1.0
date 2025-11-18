@@ -1,0 +1,189 @@
+/* Mind Wandering Alert Styles */
+
+.mw-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.mw-alert-overlay.visible {
+  opacity: 1;
+}
+
+.mw-alert-container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.mw-alert-overlay.visible .mw-alert-container {
+  transform: scale(1);
+}
+
+/* Alert type colors */
+.mw-alert-container.gentle_reminder {
+  border-left: 4px solid #6366f1;
+}
+
+.mw-alert-container.focus_reminder {
+  border-left: 4px solid #f59e0b;
+}
+
+.mw-alert-container.break_suggestion {
+  border-left: 4px solid #10b981;
+}
+
+.mw-alert-container.help_offer {
+  border-left: 4px solid #ef4444;
+}
+
+/* Header */
+.mw-alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.mw-alert-icon {
+  font-size: 32px;
+}
+
+.mw-alert-language-toggle {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mw-alert-language-toggle:hover {
+  background: #e5e7eb;
+}
+
+/* Content */
+.mw-alert-content {
+  margin-bottom: 20px;
+}
+
+.mw-alert-message {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.mw-alert-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Actions */
+.mw-alert-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mw-alert-button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mw-alert-button.primary {
+  background: #6366f1;
+  color: white;
+}
+
+.mw-alert-button.primary:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.mw-alert-button.secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.mw-alert-button.secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Footer */
+.mw-alert-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.mw-alert-confidence {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .mw-alert-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .mw-alert-message {
+    font-size: 16px;
+  }
+
+  .mw-alert-actions {
+    flex-direction: column;
+  }
+
+  .mw-alert-button {
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mw-alert-overlay.visible .mw-alert-container {
+  animation: slideIn 0.3s ease;
+}
