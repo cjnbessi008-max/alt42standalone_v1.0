@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Length - 도형의 숨은 길이 찾기</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Desktop Interface -->
+    <div class="desktop-container">
+        <header class="desktop-header">
+            <h1>🔦 Hidden Length</h1>
+            <p class="subtitle">도형의 숨은 길이를 빛줄기로 찾아보세요</p>
+        </header>
+
+        <div class="desktop-content">
+            <!-- Left Panel: Instructions & Progress -->
+            <aside class="left-panel">
+                <div class="panel-section">
+                    <h2>📚 학습 진행 상황</h2>
+                    <div id="progress-summary" class="progress-summary">
+                        <div class="stat-card">
+                            <span class="stat-label">완료한 문제</span>
+                            <span class="stat-value" id="completed-count">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">숙련도</span>
+                            <span class="stat-value" id="mastery-score">0%</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">정답률</span>
+                            <span class="stat-value" id="accuracy-rate">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>🎯 문제 선택</h2>
+                    <div id="shape-list" class="shape-list">
+                        <!-- Dynamically loaded shape problems -->
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>💡 도움말</h2>
+                    <div class="help-content">
+                        <p>빛줄기를 활성화하면 숨겨진 길이를 시각적으로 확인할 수 있습니다.</p>
+                        <p>피타고라스 정리: a² + b² = c²</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center: Instructions -->
+            <main class="center-panel">
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-content">
+                        <h2>🎓 Hidden Length에 오신 것을 환영합니다!</h2>
+                        <p>이 앱에서는 다양한 도형의 숨은 길이를 찾는 연습을 할 수 있습니다.</p>
+
+                        <div class="features">
+                            <div class="feature-card">
+                                <div class="feature-icon">🔦</div>
+                                <h3>빛줄기 힌트</h3>
+                                <p>빛줄기를 활성화하여 숨은 길이를 시각적으로 확인하세요</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">📐</div>
+                                <h3>다양한 도형</h3>
+                                <p>삼각형, 사각형, 복합 도형 등 다양한 문제를 풀어보세요</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">📊</div>
+                                <h3>진도 추적</h3>
+                                <p>학습 진행 상황과 숙련도를 확인하세요</p>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" onclick="startLearning()">학습 시작하기</button>
+                    </div>
+                </div>
+
+                <div class="moodle-info" id="moodle-info" style="display: none;">
+                    <h3>🔗 Moodle 연동</h3>
+                    <p>학습 결과가 자동으로 Moodle 성적표에 기록됩니다.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone (Bottom Right) -->
+    <div class="smartphone-container" id="smartphone">
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <button class="btn-back" onclick="backToList()">← 뒤로</button>
+                    <h3 id="current-shape-title">문제를 선택하세요</h3>
+                    <button class="btn-hint" onclick="toggleHint()">💡</button>
+                </div>
+
+                <div class="app-content">
+                    <!-- Shape Visualization Canvas -->
+                    <div class="canvas-container">
+                        <canvas id="shape-canvas" width="350" height="400"></canvas>
+                        <div id="hint-overlay" class="hint-overlay" style="display: none;">
+                            <p id="hint-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- Control Panel -->
+                    <div class="control-panel">
+                        <div class="problem-description">
+                            <p id="problem-description">왼쪽에서 문제를 선택하여 시작하세요</p>
+                        </div>
+
+                        <div class="light-beam-control">
+                            <label class="switch">
+                                <input type="checkbox" id="light-beam-toggle" onchange="toggleLightBeam()">
+                                <span class="slider"></span>
+                            </label>
+                            <label for="light-beam-toggle">🔦 빛줄기 활성화</label>
+                        </div>
+
+                        <div class="answer-input">
+                            <label for="answer">숨은 길이는?</label>
+                            <input type="number" id="answer" step="0.01" placeholder="답을 입력하세요">
+                            <button class="btn-submit" onclick="submitAnswer()">제출</button>
+                        </div>
+
+                        <div id="feedback" class="feedback" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smartphone Home Button -->
+            <div class="smartphone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/shapes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

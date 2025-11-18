@@ -1,0 +1,69 @@
+# Hidden Length - Git Ignore File
+
+# Environment configuration
+.env
+*.env
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+error_log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.cache
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# PHP
+vendor/
+composer.lock
+
+# Database dumps
+*.sql.gz
+*.sql.bak
+backup/
+
+# Uploads and user data (if any)
+public/uploads/
+public/assets/uploads/
+
+# Node modules (if using any build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build files
+dist/
+build/
+
+# Test coverage
+coverage/
+.coverage
+htmlcov/
+
+# Sensitive information
+config/secrets.php
+*.key
+*.pem
+*.p12
+credentials.json
