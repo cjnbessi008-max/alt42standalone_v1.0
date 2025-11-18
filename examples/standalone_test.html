@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag-to-Slope 독립 실행 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .iframe-container {
+            width: 100%;
+            height: 700px;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        button:hover {
+            background-color: #1976D2;
+        }
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .log {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+        }
+        .log-time {
+            color: #64b5f6;
+        }
+        .log-type {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Drag-to-Slope 독립 실행 테스트</h1>
+
+        <div class="test-section">
+            <h2>테스트 시나리오</h2>
+            <div class="info-box">
+                <p><strong>목적:</strong> Moodle 연동 없이 독립적으로 Drag-to-Slope 앱을 테스트합니다.</p>
+                <p><strong>사용법:</strong></p>
+                <ol>
+                    <li>아래 버튼을 클릭하여 다양한 함수를 로드합니다</li>
+                    <li>iframe 내의 그래프를 드래그하여 접선을 확인합니다</li>
+                    <li>postMessage 통신 로그를 확인합니다</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>함수 선택</h2>
+            <div class="controls">
+                <button onclick="loadFunction('x^2', '2차 함수')">2차 함수 (x²)</button>
+                <button onclick="loadFunction('x^3 - 3*x^2 + 2', '3차 함수')">3차 함수</button>
+                <button onclick="loadFunction('sin(x)', '삼각함수')">삼각함수 (sin x)</button>
+                <button onclick="loadFunction('e^x', '지수함수')">지수함수 (eˣ)</button>
+                <button onclick="loadFunction('1/x', '분수함수')">분수함수 (1/x)</button>
+                <button onclick="loadFunction('x^2 * sin(x)', '복합함수')">복합함수</button>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>앱 화면</h2>
+            <div class="iframe-container">
+                <iframe id="app-iframe" src=""></iframe>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>postMessage 통신 로그</h2>
+            <div class="log" id="message-log">
+                <div class="log-entry">로그 시작...</div>
+            </div>
+            <button onclick="clearLog()" style="margin-top: 10px; background-color: #666;">로그 지우기</button>
+        </div>
+    </div>
+
+    <script>
+        // iframe URL 설정 (로컬 개발 서버 또는 빌드된 파일)
+        const APP_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000'  // 개발 서버
+            : '../dist/index.html';     // 빌드된 파일
+
+        const iframe = document.getElementById('app-iframe');
+        const logDiv = document.getElementById('message-log');
+
+        // 로그 함수
+        function addLog(type, message, data) {
+            const time = new Date().toLocaleTimeString('ko-KR');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">[${time}]</span>
+                <span class="log-type">${type}:</span>
+                ${message}
+                ${data ? `<pre style="margin: 5px 0; color: #fff59d;">${JSON.stringify(data, null, 2)}</pre>` : ''}
+            `;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        // 로그 지우기
+        function clearLog() {
+            logDiv.innerHTML = '<div class="log-entry">로그 시작...</div>';
+        }
+
+        // 함수 로드
+        function loadFunction(expression, title) {
+            const params = new URLSearchParams({
+                problemId: 'test-' + Date.now(),
+                function: expression,
+                xMin: -10,
+                xMax: 10,
+                yMin: -10,
+                yMax: 10,
+                title: title || expression,
+                instructions: '그래프를 드래그하여 접선을 확인하세요'
+            });
+
+            const url = APP_BASE_URL + (APP_BASE_URL.includes('?') ? '&' : '?') + params.toString();
+            iframe.src = url;
+
+            addLog('LOAD', `함수 로드: ${title}`, { expression });
+        }
+
+        // postMessage 수신
+        window.addEventListener('message', function(event) {
+            // 로컬 개발에서는 origin 검증 생략
+            // if (event.origin !== 'http://localhost:3000') return;
+
+            const data = event.data;
+
+            switch(data.type) {
+                case 'DRAG_TO_SLOPE_READY':
+                    addLog('READY', '앱이 준비되었습니다');
+                    break;
+
+                case 'DRAG_TO_SLOPE_PROGRESS':
+                    addLog('PROGRESS', `진행률: ${data.progress}%`, {
+                        progress: data.progress,
+                        details: data.details
+                    });
+                    break;
+
+                case 'DRAG_TO_SLOPE_RESPONSE':
+                    addLog('RESPONSE', '학습 결과 수신', {
+                        problemId: data.data.problemId,
+                        interactions: data.data.interactions.length,
+                        completed: data.data.completed,
+                        sample: data.data.interactions.slice(0, 3) // 처음 3개만 표시
+                    });
+                    break;
+
+                default:
+                    addLog('UNKNOWN', '알 수 없는 메시지 타입', data);
+            }
+        });
+
+        // 앱에 명령 전송 (테스트용)
+        function sendCommand(command) {
+            iframe.contentWindow.postMessage({
+                type: 'MOODLE_COMMAND',
+                payload: command
+            }, '*');
+            addLog('SEND', '명령 전송', command);
+        }
+
+        // 전역 함수로 노출 (콘솔에서 테스트 가능)
+        window.sendCommand = sendCommand;
+
+        // 페이지 로드 시 기본 함수 로드
+        window.addEventListener('load', function() {
+            loadFunction('x^2', '2차 함수');
+            addLog('INIT', '테스트 페이지 초기화 완료');
+        });
+    </script>
+</body>
+</html>
