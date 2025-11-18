@@ -1,0 +1,434 @@
+/**
+ * Student Interface Styles
+ * Condition Verification System
+ */
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 24px 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.student-info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.student-name {
+    font-weight: 600;
+}
+
+.student-grade {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Main content */
+.main-content {
+    padding: 32px;
+}
+
+.problem-header {
+    margin-bottom: 24px;
+}
+
+.problem-header h2 {
+    font-size: 28px;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.problem-meta {
+    display: flex;
+    gap: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.difficulty-easy {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.difficulty-medium {
+    background: #feebc8;
+    color: #7c2d12;
+}
+
+.difficulty-hard {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.problem-description {
+    background: #f7fafc;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    border-left: 4px solid #667eea;
+}
+
+/* Reading timer */
+.reading-timer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+}
+
+.timer-icon {
+    font-size: 28px;
+}
+
+.timer-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#reading-time {
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.min-time-indicator {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.9;
+    margin-left: 8px;
+}
+
+.reading-timer.time-met {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+/* Problem content */
+.problem-content {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.problem-content h3 {
+    font-size: 20px;
+    color: #2d3748;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 8px;
+}
+
+.problem-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2d3748;
+    white-space: pre-wrap;
+}
+
+/* Conditions section */
+.conditions-section {
+    margin-bottom: 32px;
+}
+
+.conditions-section h3 {
+    font-size: 20px;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.conditions-instruction {
+    background: #ebf8ff;
+    border: 1px solid #90cdf4;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #2c5282;
+}
+
+.conditions-instruction strong {
+    color: #2a4365;
+    font-weight: 600;
+}
+
+.conditions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.condition-item {
+    display: flex;
+    gap: 12px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-left-width: 6px;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.condition-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(4px);
+}
+
+.condition-item.critical {
+    border-color: #fc8181;
+    background: #fff5f5;
+}
+
+.condition-item.checked {
+    background: #f0fff4;
+    border-color: #48bb78;
+}
+
+.condition-checkbox {
+    flex-shrink: 0;
+}
+
+.condition-checkbox input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.condition-text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.critical-badge {
+    display: inline-block;
+    background: #fc8181;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* Progress indicator */
+.progress-indicator {
+    background: #f7fafc;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 8px;
+}
+
+#progress-count {
+    color: #667eea;
+    font-size: 18px;
+}
+
+.progress-bar {
+    background: #e2e8f0;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 6px;
+}
+
+/* Submission section */
+.submission-section {
+    background: #f7fafc;
+    padding: 24px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+}
+
+.submission-requirements {
+    margin-bottom: 20px;
+}
+
+.submission-requirements h4 {
+    font-size: 16px;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.submission-requirements ul {
+    list-style: none;
+    padding: 0;
+}
+
+.submission-requirements li {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.submission-requirements li.incomplete {
+    background: #fff5f5;
+    color: #742a2a;
+}
+
+.submission-requirements li.complete {
+    background: #f0fff4;
+    color: #22543d;
+    font-weight: 600;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.submit-button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.help-text {
+    text-align: center;
+    font-size: 13px;
+    color: #718096;
+    margin-top: 12px;
+}
+
+/* Animations */
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.condition-item.checked .condition-checkbox input {
+    animation: checkmark 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .header {
+        padding: 16px 20px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .problem-header h2 {
+        font-size: 22px;
+    }
+
+    .reading-timer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .condition-item {
+        flex-direction: column;
+    }
+}
