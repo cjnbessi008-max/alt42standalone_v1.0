@@ -1,0 +1,205 @@
+/* 스마트폰 프레임 컨테이너 - 우측 하단 고정 */
+.smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+  width: 320px;
+  height: 640px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 15px;
+  position: relative;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 4px #3a3a3a,
+    inset 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+/* 노치 (상단 카메라 부분) */
+.smartphone-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 25px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 2;
+}
+
+/* 카메라 */
+.smartphone-frame::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  border: 2px solid #444;
+  z-index: 3;
+}
+
+/* 스피커 */
+.smartphone-speaker {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-70px);
+  width: 40px;
+  height: 5px;
+  background: #333;
+  border-radius: 3px;
+  z-index: 3;
+}
+
+/* 화면 영역 */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 홈 버튼 (하단 인디케이터) */
+.smartphone-home-button {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* 반응형 - 작은 화면에서는 크기 축소 */
+@media (max-width: 768px) {
+  .smartphone-container {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .smartphone-frame {
+    width: 240px;
+    height: 480px;
+    border-radius: 30px;
+    padding: 12px;
+  }
+
+  .smartphone-frame::before {
+    width: 90px;
+    height: 20px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .smartphone-frame::after {
+    width: 8px;
+    height: 8px;
+    top: 6px;
+  }
+
+  .smartphone-speaker {
+    width: 30px;
+    height: 4px;
+    top: 6px;
+    transform: translateX(-50px);
+  }
+
+  .smartphone-screen {
+    border-radius: 20px;
+  }
+
+  .smartphone-home-button {
+    width: 70px;
+    height: 3px;
+    bottom: 6px;
+  }
+}
+
+/* 드래그 가능하게 하기 위한 헤더 */
+.smartphone-drag-handle {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  cursor: move;
+  z-index: 5;
+}
+
+/* 최소화/최대화 버튼 */
+.smartphone-controls {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  gap: 5px;
+  z-index: 5;
+}
+
+.smartphone-control-btn {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.smartphone-control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 최소화 상태 */
+.smartphone-frame.minimized {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.smartphone-frame.minimized .smartphone-screen,
+.smartphone-frame.minimized::before,
+.smartphone-frame.minimized::after,
+.smartphone-frame.minimized .smartphone-speaker,
+.smartphone-frame.minimized .smartphone-home-button,
+.smartphone-frame.minimized .smartphone-controls {
+  display: none;
+}
+
+.smartphone-frame.minimized::before {
+  content: '📱';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 100%;
+  height: 100%;
+  position: static;
+  transform: none;
+  border-radius: 50%;
+  background: #1a1a1a;
+}
