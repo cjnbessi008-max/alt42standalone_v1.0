@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>눈 추적 집중도 감지 시스템 - 데모</title>
+
+    <!-- WebGazer.js -->
+    <script src="https://webgazer.cs.brown.edu/webgazer.js"></script>
+
+    <!-- Local JavaScript modules -->
+    <script src="frontend/js/api-client.js"></script>
+    <script src="frontend/js/blink-detector.js"></script>
+    <script src="frontend/js/attention-analyzer.js"></script>
+    <script src="frontend/js/eye-tracker.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-inactive {
+            background: #ccc;
+        }
+
+        .status-active {
+            background: #4caf50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .metric {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metric-label {
+            color: #666;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50 0%, #8bc34a 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .progress-fill.low {
+            background: linear-gradient(90deg, #f44336 0%, #e91e63 100%);
+        }
+
+        .progress-fill.medium {
+            background: linear-gradient(90deg, #ff9800 0%, #ffc107 100%);
+        }
+
+        .button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .button-primary {
+            background: #4caf50;
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #45a049;
+        }
+
+        .button-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .button-danger:hover {
+            background: #da190b;
+        }
+
+        .button-secondary {
+            background: #2196f3;
+            color: white;
+        }
+
+        .button-secondary:hover {
+            background: #0b7dda;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .alerts-container {
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .alert {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ff9800;
+            color: #856404;
+        }
+
+        .alert-critical {
+            background: #f8d7da;
+            border-color: #f44336;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #2196f3;
+            color: #0c5460;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        #webgazerVideoContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👁️ 눈 추적 집중도 감지 시스템</h1>
+        <p>실시간 눈 깜빡임 및 시선 패턴 분석을 통한 학습 집중도 모니터링</p>
+    </div>
+
+    <div class="container">
+        <!-- 상태 패널 -->
+        <div class="card">
+            <h2>시스템 상태</h2>
+            <div class="metric">
+                <span class="metric-label">
+                    <span class="status-indicator" id="status-indicator"></span>
+                    추적 상태
+                </span>
+                <span class="metric-value" id="tracking-status">비활성</span>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="button button-primary" id="start-btn" onclick="startTracking()">
+                    🎯 추적 시작
+                </button>
+                <button class="button button-danger" id="stop-btn" onclick="stopTracking()" disabled>
+                    ⏹️ 추적 중지
+                </button>
+                <button class="button button-secondary" onclick="calibrate()">
+                    🎛️ 캘리브레이션
+                </button>
+            </div>
+        </div>
+
+        <!-- 집중도 점수 -->
+        <div class="card">
+            <h2>집중도 점수</h2>
+            <div class="metric">
+                <span class="metric-label">현재 점수</span>
+                <span class="metric-value" id="attention-score">--</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="attention-progress" style="width: 0%">
+                    0%
+                </div>
+            </div>
+            <div style="margin-top: 10px; font-size: 14px; color: #666;">
+                <span id="attention-level">--</span>
+            </div>
+        </div>
+
+        <!-- 눈 깜빡임 분석 -->
+        <div class="card">
+            <h2>👁️ 눈 깜빡임 분석</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="blink-count">0</div>
+                    <div class="stat-label">총 깜빡임</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="blink-rate">0</div>
+                    <div class="stat-label">분당 횟수</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="blink-status">--</div>
+                    <div class="stat-label">상태</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 시선 분석 -->
+        <div class="card">
+            <h2>👀 시선 분석</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="gaze-ratio">0%</div>
+                    <div class="stat-label">화면 내 시선</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="gaze-status">--</div>
+                    <div class="stat-label">상태</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 경고 및 알림 -->
+        <div class="card full-width">
+            <h2>⚠️ 경고 및 알림</h2>
+            <div class="alerts-container" id="alerts-container">
+                <p style="color: #999; text-align: center;">아직 경고가 없습니다</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let eyeTracker = null;
+        let attentionAnalyzer = null;
+        let blinkDetector = null;
+        let isTracking = false;
+        let analysisInterval = null;
+
+        // UI 업데이트
+        function updateUI(stats, analysis) {
+            // 상태
+            document.getElementById('tracking-status').textContent = isTracking ? '활성' : '비활성';
+            const statusIndicator = document.getElementById('status-indicator');
+            statusIndicator.className = 'status-indicator ' + (isTracking ? 'status-active' : 'status-inactive');
+
+            if (!stats || !analysis) return;
+
+            // 집중도 점수
+            if (analysis.attention) {
+                const score = analysis.attention.score;
+                document.getElementById('attention-score').textContent = score;
+
+                const progress = document.getElementById('attention-progress');
+                progress.style.width = score + '%';
+                progress.textContent = score + '%';
+
+                // 색상 변경
+                progress.className = 'progress-fill';
+                if (score < 50) {
+                    progress.className += ' low';
+                } else if (score < 80) {
+                    progress.className += ' medium';
+                }
+
+                // 레벨
+                const levelMap = {
+                    'high': '높은 집중도 🎯',
+                    'medium': '보통 집중도 👍',
+                    'low': '낮은 집중도 ⚠️',
+                    'critical': '매우 낮은 집중도 🚨'
+                };
+                document.getElementById('attention-level').textContent = levelMap[analysis.attention.level] || '--';
+            }
+
+            // 눈 깜빡임
+            if (stats.blinks) {
+                document.getElementById('blink-count').textContent = stats.blinks.totalBlinks || 0;
+                document.getElementById('blink-rate').textContent = (stats.blinks.blinkRate || 0).toFixed(1);
+
+                const statusMap = {
+                    'optimal': '최적 ✅',
+                    'normal': '정상 👍',
+                    'insufficient': '부족 ⚠️',
+                    'excessive': '과다 ⚠️'
+                };
+                document.getElementById('blink-status').textContent = statusMap[analysis.blinks?.status] || '--';
+            }
+
+            // 시선
+            if (analysis.gaze) {
+                document.getElementById('gaze-ratio').textContent = analysis.gaze.onScreenPercentage + '%';
+                document.getElementById('gaze-status').textContent = analysis.gaze.status === 'focused' ? '집중 👁️' : '분산 ⚠️';
+            }
+        }
+
+        // 경고 추가
+        function addAlert(alert) {
+            const container = document.getElementById('alerts-container');
+
+            // 첫 경고면 placeholder 제거
+            if (container.querySelector('p')) {
+                container.innerHTML = '';
+            }
+
+            const alertEl = document.createElement('div');
+            alertEl.className = 'alert alert-' + alert.severity;
+
+            const message = document.createElement('span');
+            message.textContent = alert.data.message || alert.type;
+
+            const time = document.createElement('small');
+            time.textContent = new Date(alert.timestamp).toLocaleTimeString('ko-KR');
+
+            alertEl.appendChild(message);
+            alertEl.appendChild(time);
+
+            container.insertBefore(alertEl, container.firstChild);
+
+            // 최대 10개까지만 표시
+            while (container.children.length > 10) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        // 추적 시작
+        async function startTracking() {
+            if (isTracking) return;
+
+            try {
+                document.getElementById('start-btn').disabled = true;
+
+                // Eye tracker 초기화
+                eyeTracker = new EyeTracker({
+                    samplingRate: 100,
+                    saveData: false, // 데모에서는 서버에 저장하지 않음
+                    showVideo: true,
+                    showPrediction: true,
+                    onGaze: (data) => {
+                        if (attentionAnalyzer) {
+                            const event = {
+                                timestamp: data.timestamp,
+                                gaze_x: data.gaze.x,
+                                gaze_y: data.gaze.y,
+                                gaze_on_screen: data.gazeOnScreen,
+                                face_direction: data.face.direction,
+                                face_detected: true,
+                                blink_detected: data.blink ? data.blink.blinkDetected : false,
+                                blink_duration: data.blink ? data.blink.blinkDuration : null
+                            };
+                            attentionAnalyzer.addEvent(event);
+                        }
+                    }
+                });
+
+                await eyeTracker.init();
+
+                // Attention analyzer 초기화
+                attentionAnalyzer = new AttentionAnalyzer({
+                    onAlert: (alert) => {
+                        addAlert(alert);
+                    }
+                });
+
+                // 추적 시작
+                await eyeTracker.start();
+
+                isTracking = true;
+                document.getElementById('start-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+
+                // 주기적 분석
+                analysisInterval = setInterval(() => {
+                    if (attentionAnalyzer) {
+                        const analysis = attentionAnalyzer.analyze();
+                        const stats = eyeTracker.getStatistics();
+                        updateUI(stats, analysis);
+                    }
+                }, 1000);
+
+                console.log('Eye tracking started!');
+
+            } catch (error) {
+                console.error('Failed to start tracking:', error);
+                alert('추적을 시작할 수 없습니다: ' + error.message);
+                document.getElementById('start-btn').disabled = false;
+            }
+        }
+
+        // 추적 중지
+        async function stopTracking() {
+            if (!isTracking) return;
+
+            try {
+                if (analysisInterval) {
+                    clearInterval(analysisInterval);
+                    analysisInterval = null;
+                }
+
+                if (eyeTracker) {
+                    await eyeTracker.stop();
+                }
+
+                isTracking = false;
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+
+                // 최종 통계 표시
+                const stats = eyeTracker.getStatistics();
+                const analysis = attentionAnalyzer.analyze();
+                updateUI(stats, analysis);
+
+                console.log('Eye tracking stopped. Final stats:', stats);
+
+            } catch (error) {
+                console.error('Failed to stop tracking:', error);
+            }
+        }
+
+        // 캘리브레이션
+        function calibrate() {
+            if (!eyeTracker) {
+                alert('먼저 추적을 시작해주세요.');
+                return;
+            }
+
+            alert('화면에 나타나는 점들을 순서대로 클릭해주세요.\n정확한 시선 추적을 위해 각 점을 5회 클릭해주세요.');
+            // WebGazer의 내장 캘리브레이션 사용
+        }
+
+        // 페이지 언로드 시 정리
+        window.addEventListener('beforeunload', () => {
+            if (isTracking) {
+                stopTracking();
+            }
+        });
+    </script>
+</body>
+</html>
