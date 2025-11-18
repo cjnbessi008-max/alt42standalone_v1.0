@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaos Harmony - 학습 패턴 시각화</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <header>
+            <h1>Chaos Harmony</h1>
+            <p class="subtitle">규칙성 없는 듯한 패턴 속에서 발견하는 학습의 감성</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="form-group">
+                <label for="studentId">학생 ID:</label>
+                <input type="number" id="studentId" placeholder="학생 ID 입력">
+            </div>
+
+            <div class="form-group">
+                <label for="quizId">퀴즈 ID:</label>
+                <input type="number" id="quizId" placeholder="퀴즈 ID 입력">
+            </div>
+
+            <div class="button-group">
+                <button id="loadQuiz" class="btn btn-primary">퀴즈 불러오기</button>
+                <button id="syncMoodle" class="btn btn-secondary">Moodle 동기화</button>
+                <button id="toggleVisualization" class="btn btn-accent">시각화 토글</button>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>현재 상태</h3>
+            <div id="statusInfo" class="status-info">
+                <p>시스템 대기 중...</p>
+            </div>
+        </div>
+
+        <div class="quiz-panel" id="quizPanel" style="display: none;">
+            <h3>퀴즈 문제</h3>
+            <div id="questionList" class="question-list"></div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Screen (Bottom Right) -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <!-- Phone Frame -->
+            <div class="phone-frame">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span class="time" id="phoneTime">12:34</span>
+                    <span class="icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </span>
+                </div>
+
+                <!-- Screen Content -->
+                <div class="phone-screen">
+                    <!-- Chaos Harmony Visualization -->
+                    <div class="app-header">
+                        <h2>Chaos Harmony</h2>
+                        <p class="emotion-label" id="emotionLabel">중립</p>
+                    </div>
+
+                    <!-- Main Canvas for Pattern Visualization -->
+                    <canvas id="chaosCanvas" width="300" height="500"></canvas>
+
+                    <!-- Pattern Info Overlay -->
+                    <div class="pattern-info" id="patternInfo">
+                        <div class="pattern-item">
+                            <span class="pattern-name">성공 리듬</span>
+                            <div class="pattern-bar">
+                                <div class="pattern-fill" id="successRhythm" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="pattern-item">
+                            <span class="pattern-name">고민의 파동</span>
+                            <div class="pattern-bar">
+                                <div class="pattern-fill" id="struggleWave" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="pattern-item">
+                            <span class="pattern-name">속도 패턴</span>
+                            <div class="pattern-bar">
+                                <div class="pattern-fill" id="speedPattern" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="stats-panel">
+                        <div class="stat-item">
+                            <span class="stat-label">총 시도</span>
+                            <span class="stat-value" id="totalAttempts">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">정답률</span>
+                            <span class="stat-value" id="accuracy">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Home Button -->
+                <div class="home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api-client.js"></script>
+    <script src="js/chaos-harmony.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

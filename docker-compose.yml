@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: chaos_harmony_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: chaos_harmony
+      MYSQL_USER: ${MYSQL_USER:-chaos_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-chaos_pass}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - chaos_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PHP 7.1.9 with Apache
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chaos_harmony_web
+    restart: unless-stopped
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: chaos_harmony
+      DB_USER: ${MYSQL_USER:-chaos_user}
+      DB_PASS: ${MYSQL_PASSWORD:-chaos_pass}
+      MOODLE_URL: ${MOODLE_URL:-http://localhost/moodle}
+      MOODLE_TOKEN: ${MOODLE_TOKEN:-}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-*}
+    volumes:
+      - ./frontend:/var/www/html
+      - ./backend:/var/www/html/backend
+    ports:
+      - "8080:80"
+    networks:
+      - chaos_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # phpMyAdmin (optional, for database management)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: chaos_harmony_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+    ports:
+      - "8081:80"
+    networks:
+      - chaos_network
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  chaos_network:
+    driver: bridge
