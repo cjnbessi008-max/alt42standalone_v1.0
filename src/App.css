@@ -1,0 +1,229 @@
+/**
+ * Main App Styles
+ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.status-indicator.connected {
+  background: #34c759;
+  box-shadow: 0 0 8px rgba(52, 199, 89, 0.5);
+}
+
+.status-indicator.disconnected {
+  background: #ff9500;
+  box-shadow: 0 0 8px rgba(255, 149, 0, 0.5);
+}
+
+.status-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Info Panel */
+.info-panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-panel h2 {
+  font-size: 24px;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.info-panel h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 12px;
+  margin-top: 24px;
+}
+
+.info-panel h3:first-of-type {
+  margin-top: 0;
+}
+
+.info-panel ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-panel li {
+  padding: 8px 0;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.info-panel li::before {
+  content: '•';
+  color: #667eea;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  font-family: monospace;
+}
+
+/* Current Term Info */
+.current-term-info {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 24px;
+}
+
+.term-details {
+  margin-top: 12px;
+}
+
+.term-details p {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 15px;
+}
+
+.term-details strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Tech Stack */
+.tech-stack {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 24px;
+}
+
+.tech-stack ul {
+  margin-top: 12px;
+}
+
+.tech-stack li {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app {
+    padding: 12px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 22px;
+  }
+
+  .info-panel {
+    padding: 20px;
+  }
+
+  .info-panel h2 {
+    font-size: 20px;
+  }
+
+  .info-panel h3 {
+    font-size: 16px;
+  }
+
+  .info-panel li {
+    font-size: 14px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .app {
+    background: white;
+  }
+
+  .smartphone-container {
+    display: none;
+  }
+}

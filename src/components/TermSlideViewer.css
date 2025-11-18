@@ -1,0 +1,95 @@
+/**
+ * TermSlideViewer Styles
+ */
+
+.term-slide-viewer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  position: relative;
+}
+
+/* Progress bar */
+.progress-bar-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: #e0e0e0;
+  z-index: 10;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #007aff 0%, #5ac8fa 100%);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-text {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Term container */
+.term-slide-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* No terms message */
+.no-terms-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
+  text-align: center;
+  color: #999;
+}
+
+.no-terms-message p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.no-terms-subtitle {
+  margin-top: 8px !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #ccc !important;
+}
+
+/* Loading state */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top-color: #007aff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

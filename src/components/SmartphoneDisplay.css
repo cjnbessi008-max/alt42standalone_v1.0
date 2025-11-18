@@ -1,0 +1,116 @@
+/**
+ * SmartphoneDisplay Styles
+ * Realistic smartphone appearance with shadow and border
+ */
+
+.smartphone-container {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.smartphone-container.smartphone-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-container.smartphone-bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-container.smartphone-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-container.smartphone-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.smartphone-frame {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+}
+
+.smartphone-bottom-left .smartphone-frame {
+  transform-origin: bottom left;
+}
+
+.smartphone-top-right .smartphone-frame {
+  transform-origin: top right;
+}
+
+.smartphone-top-left .smartphone-frame {
+  transform-origin: top left;
+}
+
+.smartphone-frame:hover {
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Notch (for modern phones) */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 24px;
+  background: #1a1a1a;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+/* Speaker */
+.smartphone-speaker {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #0a0a0a;
+  border-radius: 3px;
+  z-index: 11;
+}
+
+/* Screen */
+.smartphone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Home button */
+.smartphone-home-button {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-container {
+    display: none;
+  }
+}
