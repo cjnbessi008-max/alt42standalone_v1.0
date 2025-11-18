@@ -1,15 +1,17 @@
 {
   "name": "geospiral-frontend",
-  "version": "1.0.0",
-  "description": "Geo Spiral - Geometric Sequence Spiral Visualization",
+  "version": "2.0.0",
+  "description": "Geo Spiral - Geometric Sequence Spiral Visualization (Standalone)",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
     "react-scripts": "5.0.1",
     "axios": "^1.6.0",
     "d3": "^7.8.5",
-    "canvas-confetti": "^1.9.2"
+    "canvas-confetti": "^1.9.2",
+    "recharts": "^2.10.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,5 +35,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

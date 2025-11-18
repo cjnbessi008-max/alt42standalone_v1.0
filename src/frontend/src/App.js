@@ -1,55 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-import VirtualPhone from './components/VirtualPhone';
-import SpiralVisualization from './components/SpiralVisualization';
-import SequenceSelector from './components/SequenceSelector';
-import { getSequences, getSequence, saveProgress } from './utils/api';
+
+import LandingPage from './components/LandingPage';
+import Login from './components/Login';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import VisualizationPage from './components/VisualizationPage';
+import Leaderboard from './components/Leaderboard';
+import { isAuthenticated, getCurrentUser } from './utils/api';
 
 function App() {
-  const [sequences, setSequences] = useState([]);
-  const [selectedSequence, setSelectedSequence] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadSequences();
+    loadUser();
   }, []);
 
-  const loadSequences = async () => {
+  const loadUser = async () => {
     try {
-      setLoading(true);
-      const data = await getSequences();
-      setSequences(data);
-      if (data.length > 0) {
-        setSelectedSequence(data[0]);
+      if (isAuthenticated()) {
+        const userData = await getCurrentUser();
+        setUser(userData.user);
       }
     } catch (err) {
-      setError(err.message);
+      console.error('Failed to load user:', err);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleSequenceChange = async (sequenceId) => {
-    try {
-      const sequence = await getSequence(sequenceId);
-      setSelectedSequence(sequence);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  const handleComplete = async () => {
-    if (selectedSequence) {
-      try {
-        await saveProgress(selectedSequence.id, {
-          status: 'completed',
-          score: 100
-        });
-        alert('축하합니다! 시각화를 완료했습니다.');
-      } catch (err) {
-        console.error('Failed to save progress:', err);
-      }
     }
   };
 
@@ -62,42 +40,30 @@ function App() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="app-error">
-        <h2>오류 발생</h2>
-        <p>{error}</p>
-        <button onClick={loadSequences}>다시 시도</button>
-      </div>
-    );
-  }
-
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Geo Spiral</h1>
-        <p>등비수열 나선형 시각화</p>
-      </header>
-
-      <main className="app-main">
-        <div className="app-controls">
-          <SequenceSelector
-            sequences={sequences}
-            selectedSequence={selectedSequence}
-            onSequenceChange={handleSequenceChange}
-          />
-        </div>
-
-        <VirtualPhone position="bottom-right">
-          {selectedSequence && (
-            <SpiralVisualization
-              sequence={selectedSequence}
-              onComplete={handleComplete}
-            />
-          )}
-        </VirtualPhone>
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage user={user} />} />
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/dashboard" /> : <Login onLogin={loadUser} />}
+        />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/dashboard" /> : <Register onRegister={loadUser} />}
+        />
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard user={user} onUserUpdate={loadUser} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/visualize/:sequenceId"
+          element={user ? <VisualizationPage user={user} /> : <Navigate to="/login" />}
+        />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
 
