@@ -1,0 +1,44 @@
+# Vector Star Map - Git Ignore
+
+# Configuration files with sensitive data
+config/config.php.local
+config/database.php.local
+
+# Environment files
+.env
+.env.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# PHP
+vendor/
+composer.lock
+*.log
+
+# Database
+*.sql.backup
+*.db
+
+# Temporary files
+tmp/
+temp/
+cache/
+*.tmp
+*.cache
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Node modules (if using any build tools)
+node_modules/
+package-lock.json
+
+# OS files
+Thumbs.db
+Desktop.ini
