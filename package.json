@@ -1,0 +1,37 @@
+{
+  "name": "triangle-similarity-scaling",
+  "version": "1.0.0",
+  "description": "Interactive Triangle Similarity Scaling Learning System",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "db:setup": "psql -d triangle_similarity -f database/schema.sql",
+    "db:seed": "psql -d triangle_similarity -f database/seeds/demo_data.sql"
+  },
+  "keywords": [
+    "education",
+    "geometry",
+    "triangle",
+    "similarity",
+    "moodle",
+    "lms"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
