@@ -1,0 +1,143 @@
+[
+  {
+    "id": "linear-1",
+    "title": "1차 함수 기본",
+    "description": "기울기가 2이고 y절편이 3인 직선의 방정식을 그래프로 표현하세요.",
+    "equation": {
+      "type": "linear",
+      "a": 2,
+      "b": 3,
+      "xMin": -5,
+      "xMax": 5,
+      "yMin": -10,
+      "yMax": 15
+    },
+    "initialEquation": "y = 2x + 3",
+    "hints": [
+      "기울기(a)는 직선의 가파른 정도를 나타냅니다.",
+      "y절편(b)는 y축과 만나는 점입니다."
+    ]
+  },
+  {
+    "id": "quadratic-1",
+    "title": "2차 함수 - 포물선",
+    "description": "위로 볼록한 포물선을 그려보세요.",
+    "equation": {
+      "type": "quadratic",
+      "a": -1,
+      "b": 0,
+      "c": 4,
+      "xMin": -5,
+      "xMax": 5,
+      "yMin": -10,
+      "yMax": 10
+    },
+    "initialEquation": "y = -x² + 4",
+    "hints": [
+      "a < 0이면 아래로 볼록합니다.",
+      "꼭짓점은 (0, c)입니다."
+    ]
+  },
+  {
+    "id": "circle-1",
+    "title": "원의 방정식",
+    "description": "중심이 (0, 0)이고 반지름이 3인 원을 그려보세요.",
+    "equation": {
+      "type": "circle",
+      "h": 0,
+      "k": 0,
+      "r": 3,
+      "xMin": -5,
+      "xMax": 5,
+      "yMin": -5,
+      "yMax": 5
+    },
+    "initialEquation": "x² + y² = 9",
+    "hints": [
+      "원의 일반형: (x-h)² + (y-k)² = r²",
+      "중심 (h, k), 반지름 r"
+    ]
+  },
+  {
+    "id": "sine-1",
+    "title": "사인 함수",
+    "description": "기본 사인 함수의 그래프를 그려보세요.",
+    "equation": {
+      "type": "sine",
+      "a": 1,
+      "b": 1,
+      "c": 0,
+      "d": 0,
+      "xMin": -6.28,
+      "xMax": 6.28,
+      "yMin": -2,
+      "yMax": 2
+    },
+    "initialEquation": "y = sin(x)",
+    "hints": [
+      "주기는 2π입니다.",
+      "진폭은 1입니다."
+    ]
+  },
+  {
+    "id": "cosine-1",
+    "title": "코사인 함수",
+    "description": "진폭이 2이고 주기가 π인 코사인 함수를 그려보세요.",
+    "equation": {
+      "type": "cosine",
+      "a": 2,
+      "b": 2,
+      "c": 0,
+      "d": 0,
+      "xMin": -6.28,
+      "xMax": 6.28,
+      "yMin": -3,
+      "yMax": 3
+    },
+    "initialEquation": "y = 2cos(2x)",
+    "hints": [
+      "진폭 = |a|",
+      "주기 = 2π/|b|"
+    ]
+  },
+  {
+    "id": "exponential-1",
+    "title": "지수 함수",
+    "description": "기본 지수 함수의 그래프를 그려보세요.",
+    "equation": {
+      "type": "exponential",
+      "a": 1,
+      "b": 1,
+      "c": 0,
+      "xMin": -3,
+      "xMax": 3,
+      "yMin": -1,
+      "yMax": 20
+    },
+    "initialEquation": "y = e^x",
+    "hints": [
+      "e ≈ 2.71828",
+      "항상 양수입니다."
+    ]
+  },
+  {
+    "id": "logarithm-1",
+    "title": "로그 함수",
+    "description": "자연로그 함수의 그래프를 그려보세요.",
+    "equation": {
+      "type": "logarithm",
+      "a": 1,
+      "b": 1,
+      "c": 0,
+      "xMin": 0.1,
+      "xMax": 10,
+      "yMin": -3,
+      "yMax": 3
+    },
+    "initialEquation": "y = ln(x)",
+    "hints": [
+      "정의역: x > 0",
+      "지수함수의 역함수입니다."
+    ]
+  }
+]
