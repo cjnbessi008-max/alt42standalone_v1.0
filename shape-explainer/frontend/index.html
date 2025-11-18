@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape Explainer - 도형 성질 설명기</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Virtual Smartphone Frame (positioned at bottom right) -->
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <!-- Header -->
+                <header class="app-header">
+                    <h1 class="app-title">도형 탐험</h1>
+                    <div class="status-bar">
+                        <span class="battery-icon">🔋</span>
+                        <span class="time" id="currentTime"></span>
+                    </div>
+                </header>
+
+                <!-- Main Content Area -->
+                <main class="app-content">
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state">
+                        <div class="spinner"></div>
+                        <p>문제를 불러오는 중...</p>
+                    </div>
+
+                    <!-- Question Display -->
+                    <div id="questionContainer" class="question-container hidden">
+                        <div class="question-text" id="questionText"></div>
+                    </div>
+
+                    <!-- Shape Canvas -->
+                    <div id="shapeCanvas" class="shape-canvas hidden">
+                        <canvas id="animationCanvas" width="300" height="300"></canvas>
+                        <div class="canvas-overlay" id="canvasOverlay"></div>
+                    </div>
+
+                    <!-- Properties Panel -->
+                    <div id="propertiesPanel" class="properties-panel hidden">
+                        <h3 class="panel-title">도형의 성질</h3>
+                        <ul class="properties-list" id="propertiesList"></ul>
+                    </div>
+
+                    <!-- Controls -->
+                    <div id="controls" class="controls hidden">
+                        <button class="btn btn-primary" id="playAnimation">
+                            <span class="icon">▶️</span> 애니메이션 재생
+                        </button>
+                        <button class="btn btn-secondary" id="pauseAnimation" disabled>
+                            <span class="icon">⏸️</span> 일시정지
+                        </button>
+                        <button class="btn btn-secondary" id="resetAnimation">
+                            <span class="icon">🔄</span> 처음부터
+                        </button>
+                        <button class="btn btn-success" id="showProperties">
+                            <span class="icon">📋</span> 성질 보기
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </main>
+
+                <!-- Footer -->
+                <footer class="app-footer">
+                    <button class="nav-btn" id="homeBtn">🏠</button>
+                    <button class="nav-btn" id="helpBtn">❓</button>
+                    <button class="nav-btn" id="settingsBtn">⚙️</button>
+                </footer>
+            </div>
+
+            <!-- Smartphone Hardware (Home button, etc.) -->
+            <div class="home-button"></div>
+        </div>
+
+        <!-- Debug Panel (for development) -->
+        <div class="debug-panel" id="debugPanel">
+            <h4>Debug Info</h4>
+            <div id="debugInfo"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/shapes/ShapeRenderer.js"></script>
+    <script src="js/shapes/AnimationEngine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
