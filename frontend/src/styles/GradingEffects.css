@@ -1,0 +1,254 @@
+/**
+ * Visual Effects for Grading Results
+ * - Success: Pulse effect with green glow
+ * - Error: Crack effect with red shake
+ */
+
+/* Success Pulse Effect */
+.grading-result {
+  position: relative;
+  padding: 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.grading-result.success {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border: 2px solid #4caf50;
+}
+
+.grading-result.error {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  border: 2px solid #f44336;
+}
+
+/* Success Pulse Animation */
+@keyframes success-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 10px rgba(76, 175, 80, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+  }
+}
+
+.grading-result.success.animate {
+  animation: success-pulse 0.8s ease-out;
+}
+
+/* Success Glow Effect */
+@keyframes success-glow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+.grading-result.success.animate::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #4caf50, #8bc34a, #4caf50);
+  border-radius: 12px;
+  z-index: -1;
+  animation: success-glow 0.8s ease-out;
+  opacity: 0.5;
+}
+
+/* Error Crack Effect */
+@keyframes error-shake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px) rotate(-1deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px) rotate(1deg);
+  }
+}
+
+.grading-result.error.animate {
+  animation: error-shake 0.6s ease-in-out;
+}
+
+/* Crack Lines Effect */
+.crack-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.crack-line {
+  position: absolute;
+  background: #f44336;
+  opacity: 0;
+  transform-origin: center;
+}
+
+.crack-line.crack-1 {
+  width: 2px;
+  height: 60%;
+  top: 20%;
+  left: 30%;
+  transform: rotate(15deg);
+}
+
+.crack-line.crack-2 {
+  width: 2px;
+  height: 50%;
+  top: 10%;
+  left: 60%;
+  transform: rotate(-20deg);
+}
+
+.crack-line.crack-3 {
+  width: 80%;
+  height: 2px;
+  top: 50%;
+  left: 10%;
+  transform: rotate(-5deg);
+}
+
+@keyframes crack-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.grading-result.error.animate .crack-line {
+  animation: crack-appear 0.6s ease-out;
+}
+
+.grading-result.error.animate .crack-line.crack-1 {
+  animation-delay: 0s;
+}
+
+.grading-result.error.animate .crack-line.crack-2 {
+  animation-delay: 0.1s;
+}
+
+.grading-result.error.animate .crack-line.crack-3 {
+  animation-delay: 0.2s;
+}
+
+/* Icon Animations */
+.result-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+@keyframes icon-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.grading-result.animate .result-icon {
+  animation: icon-pop 0.5s ease-out;
+}
+
+/* Score Counter Animation */
+@keyframes score-count {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.score-display {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.grading-result.animate .score-display {
+  animation: score-count 0.6s ease-out 0.3s both;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .grading-result.animate,
+  .grading-result.animate::before,
+  .grading-result.animate .crack-line,
+  .grading-result.animate .result-icon,
+  .grading-result.animate .score-display {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Feedback Message */
+.feedback-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@keyframes feedback-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grading-result.animate .feedback-message {
+  animation: feedback-slide 0.5s ease-out 0.5s both;
+}
+
+/* High Contrast Mode for Accessibility */
+@media (prefers-contrast: high) {
+  .grading-result.success {
+    background: #e8f5e9;
+    border: 3px solid #2e7d32;
+  }
+
+  .grading-result.error {
+    background: #ffebee;
+    border: 3px solid #c62828;
+  }
+}
