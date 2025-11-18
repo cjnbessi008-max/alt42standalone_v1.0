@@ -1,0 +1,297 @@
+/* 오버레이 */
+.idle-break-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: idle-break-fade-in 0.3s ease-out;
+  backdrop-filter: blur(4px);
+}
+
+.idle-break-overlay--animating .idle-break-container {
+  animation: idle-break-slide-up 0.4s ease-out;
+}
+
+/* 컨테이너 */
+.idle-break-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-align: center;
+}
+
+/* 헤더 */
+.idle-break-header {
+  margin-bottom: 32px;
+}
+
+.idle-break-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: idle-break-bounce 2s infinite;
+}
+
+.idle-break-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: white;
+}
+
+.idle-break-description {
+  font-size: 18px;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* 타이머 */
+.idle-break-timer {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 32px;
+}
+
+.idle-break-timer-circle {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.idle-break-timer-bg {
+  opacity: 0.2;
+}
+
+.idle-break-timer-progress {
+  transition: stroke-dashoffset 1s linear;
+}
+
+.idle-break-timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.idle-break-timer-seconds {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.idle-break-timer-label {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* 지침 */
+.idle-break-instructions {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.idle-break-instruction {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.idle-break-instruction--active {
+  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 1;
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.idle-break-instruction--completed {
+  opacity: 0.3;
+}
+
+.idle-break-instruction-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.idle-break-instruction--active .idle-break-instruction-number {
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: idle-break-pulse 2s infinite;
+}
+
+.idle-break-instruction-text {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* 액션 버튼 */
+.idle-break-actions {
+  margin-top: 24px;
+}
+
+.idle-break-skip-button {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.idle-break-skip-button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.idle-break-skip-button:active {
+  transform: translateY(0);
+}
+
+/* 진행률 바 */
+.idle-break-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+}
+
+.idle-break-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+  transition: width 1s linear;
+}
+
+/* 애니메이션 */
+@keyframes idle-break-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes idle-break-slide-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes idle-break-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes idle-break-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .idle-break-container {
+    padding: 32px 24px;
+  }
+
+  .idle-break-icon {
+    font-size: 48px;
+  }
+
+  .idle-break-title {
+    font-size: 24px;
+  }
+
+  .idle-break-description {
+    font-size: 16px;
+  }
+
+  .idle-break-timer {
+    width: 120px;
+    height: 120px;
+  }
+
+  .idle-break-timer-seconds {
+    font-size: 36px;
+  }
+
+  .idle-break-instruction-text {
+    font-size: 14px;
+  }
+}
+
+/* 접근성 */
+@media (prefers-reduced-motion: reduce) {
+  .idle-break-overlay,
+  .idle-break-container,
+  .idle-break-icon,
+  .idle-break-instruction,
+  .idle-break-instruction-number,
+  .idle-break-timer-progress,
+  .idle-break-progress-fill {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* 고대비 모드 */
+@media (prefers-contrast: high) {
+  .idle-break-container {
+    border: 2px solid white;
+  }
+
+  .idle-break-instruction {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .idle-break-skip-button {
+    border-width: 3px;
+  }
+}
