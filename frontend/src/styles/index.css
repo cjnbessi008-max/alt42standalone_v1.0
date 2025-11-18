@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  /* 함수 블록 스타일 */
+  .function-block {
+    @apply px-6 py-4 rounded-lg shadow-md cursor-move transition-all;
+    @apply bg-gradient-to-br from-blue-500 to-blue-600 text-white;
+    @apply hover:shadow-lg hover:scale-105;
+    @apply border-2 border-blue-400;
+  }
+
+  .function-block.dragging {
+    @apply opacity-50;
+  }
+
+  /* 조립 영역 스타일 */
+  .composition-zone {
+    @apply min-h-[100px] p-4 rounded-lg border-2 border-dashed border-gray-300;
+    @apply bg-white transition-colors;
+  }
+
+  .composition-zone.drag-over {
+    @apply border-blue-500 bg-blue-50;
+  }
+
+  /* 스마트폰 시뮬레이터 */
+  .smartphone-frame {
+    @apply fixed bottom-4 right-4 w-[375px] h-[667px];
+    @apply bg-black rounded-[40px] shadow-2xl p-3;
+    @apply border-8 border-gray-800;
+  }
+
+  .smartphone-screen {
+    @apply w-full h-full bg-white rounded-[32px] overflow-hidden;
+  }
+
+  /* 결과 표시 */
+  .result-display {
+    @apply p-4 bg-green-50 border-2 border-green-300 rounded-lg;
+    @apply font-mono text-lg;
+  }
+}
