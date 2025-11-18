@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dot Collector - 부분 넓이 누적 학습</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/dotcollector.css">
+</head>
+<body>
+    <!-- Main Container with Smartphone Frame -->
+    <div class="smartphone-frame">
+        <div class="smartphone-screen">
+            <!-- App Header -->
+            <header class="app-header">
+                <h1>🔵 Dot Collector</h1>
+                <div class="score-display">
+                    <span id="score">점수: 0</span>
+                    <span id="progress">진행: 0/0</span>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="app-content">
+                <!-- Question Display -->
+                <div id="question-section" class="section">
+                    <div class="question-card">
+                        <h2 id="question-title">문제를 불러오는 중...</h2>
+                        <p id="question-text" class="question-text"></p>
+                        <div id="shape-display" class="shape-display">
+                            <!-- Dynamic shape visualization will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dot Collection Area -->
+                <div id="dot-collector-section" class="section">
+                    <div class="collector-container">
+                        <h3>부분 넓이를 도트로 표시하세요</h3>
+                        <div class="accumulated-area-display">
+                            <span>누적 넓이: <strong id="accumulated-area">0</strong> <span id="unit">cm²</span></span>
+                        </div>
+
+                        <!-- Dot Grid Canvas -->
+                        <canvas id="dot-canvas" width="300" height="300"></canvas>
+
+                        <!-- Control Buttons -->
+                        <div class="controls">
+                            <button id="add-dot-btn" class="btn btn-primary">+ 도트 추가</button>
+                            <button id="remove-dot-btn" class="btn btn-secondary">- 도트 제거</button>
+                            <button id="clear-dots-btn" class="btn btn-warning">초기화</button>
+                        </div>
+
+                        <!-- Dot Value Input -->
+                        <div class="dot-value-input">
+                            <label for="dot-value">도트 값:</label>
+                            <input type="number" id="dot-value" value="1" min="0.1" step="0.1">
+                            <span id="unit-label">cm²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Answer Submission -->
+                <div id="answer-section" class="section">
+                    <div class="answer-container">
+                        <h3>답안 제출</h3>
+                        <div class="answer-input-group">
+                            <label for="final-answer">최종 답:</label>
+                            <input type="number" id="final-answer" placeholder="넓이를 입력하세요" step="0.01">
+                            <span id="answer-unit">cm²</span>
+                        </div>
+                        <button id="submit-answer-btn" class="btn btn-success btn-large">답안 제출</button>
+                    </div>
+                </div>
+
+                <!-- Feedback Section -->
+                <div id="feedback-section" class="section hidden">
+                    <div class="feedback-card">
+                        <div id="feedback-content"></div>
+                        <button id="next-question-btn" class="btn btn-primary">다음 문제</button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- App Footer -->
+            <footer class="app-footer">
+                <p>KAIST Touch Math Academy - Dot Collector v1.0</p>
+            </footer>
+        </div>
+
+        <!-- Smartphone Home Button -->
+        <div class="smartphone-home-btn"></div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/api.js"></script>
+    <script src="js/dotcollector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

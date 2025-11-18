@@ -1,0 +1,110 @@
+/* Smartphone Frame Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Smartphone Frame - positioned at bottom right */
+.smartphone-frame {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 375px;
+    height: 667px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 3px #2a2a2a,
+                0 0 0 6px #1a1a1a;
+    z-index: 1000;
+    animation: slideInFromBottom 0.5s ease-out;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Smartphone Screen */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide scrollbar but keep functionality */
+.smartphone-screen::-webkit-scrollbar {
+    width: 4px;
+}
+
+.smartphone-screen::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.smartphone-screen::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+/* Home Button */
+.smartphone-home-btn {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #3a3a3a 0%, #1a1a1a 100%);
+    border-radius: 50%;
+    border: 2px solid #2a2a2a;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .smartphone-frame {
+        position: static;
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+
+    body {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .smartphone-frame {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 40px);
+        border-radius: 30px;
+        padding: 12px;
+    }
+}
