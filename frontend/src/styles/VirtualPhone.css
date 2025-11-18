@@ -1,0 +1,182 @@
+/* Virtual Smartphone Styles */
+
+.virtual-phone {
+  perspective: 1000px;
+}
+
+.phone-frame {
+  position: relative;
+  width: 375px;
+  height: 750px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Notch */
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 30px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+/* Screen */
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 44px;
+  background: linear-gradient(to bottom, #f8f9fa, #fff);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #000;
+  border-bottom: 1px solid #f0f0f0;
+  z-index: 5;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+/* Screen Content */
+.screen-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+  position: relative;
+}
+
+.screen-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.screen-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.screen-content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+/* Home Indicator */
+.home-indicator {
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+
+.home-indicator::after {
+  content: '';
+  width: 140px;
+  height: 5px;
+  background: #000;
+  border-radius: 2.5px;
+  opacity: 0.3;
+}
+
+/* Hardware Buttons */
+.power-button {
+  position: absolute;
+  right: -3px;
+  top: 120px;
+  width: 3px;
+  height: 80px;
+  background: linear-gradient(to right, #555, #888);
+  border-radius: 2px 0 0 2px;
+}
+
+.volume-up {
+  position: absolute;
+  left: -3px;
+  top: 100px;
+  width: 3px;
+  height: 50px;
+  background: linear-gradient(to left, #555, #888);
+  border-radius: 0 2px 2px 0;
+}
+
+.volume-down {
+  position: absolute;
+  left: -3px;
+  top: 160px;
+  width: 3px;
+  height: 50px;
+  background: linear-gradient(to left, #555, #888);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .phone-frame {
+    width: 320px;
+    height: 640px;
+    border-radius: 32px;
+    padding: 10px;
+  }
+
+  .phone-notch {
+    width: 140px;
+    height: 26px;
+  }
+
+  .phone-screen {
+    border-radius: 26px;
+  }
+}
