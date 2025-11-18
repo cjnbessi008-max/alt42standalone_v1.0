@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "플레이리스트1: 코딩할 때",
+    "keywords": ["코딩", "프로그래밍", "개발", "집중", "설계"],
+    "link": "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+    "description": "설계 감각 끌어올릴 때",
+    "hidden": false
+  },
+  {
+    "id": 2,
+    "name": "플레이리스트2: 수학 공부",
+    "keywords": ["수학", "공부", "학습", "집중", "연습"],
+    "link": "https://www.youtube.com/watch?v=5qap5aO4i9A",
+    "description": "수학 문제 풀 때",
+    "hidden": false
+  },
+  {
+    "id": 3,
+    "name": "플레이리스트3: 깊은 집중",
+    "keywords": ["집중", "몰입", "심화학습", "암기", "이해"],
+    "link": "https://www.youtube.com/watch?v=DWcJFNfaw9c",
+    "description": "깊이 생각해야 할 때",
+    "hidden": false
+  },
+  {
+    "id": 4,
+    "name": "플레이리스트4: 영어 공부",
+    "keywords": ["영어", "언어", "리스닝", "독해", "공부"],
+    "link": "https://www.youtube.com/watch?v=lTRiuFIWV54",
+    "description": "영어 학습할 때",
+    "hidden": false
+  },
+  {
+    "id": 5,
+    "name": "플레이리스트5: 과학 탐구",
+    "keywords": ["과학", "물리", "화학", "생물", "실험"],
+    "link": "https://www.youtube.com/watch?v=6UAKUx3NTtM",
+    "description": "과학 공부할 때",
+    "hidden": false
+  }
+]
