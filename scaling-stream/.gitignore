@@ -1,0 +1,45 @@
+# Scaling Stream .gitignore
+
+# Configuration files with sensitive data
+config/config.php
+config/database.php
+
+# Keep sample files
+!config/*.sample.php
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Cache
+cache/
+*.cache
+
+# User uploads (if any)
+uploads/
+
+# Backup files
+*.bak
+*.backup

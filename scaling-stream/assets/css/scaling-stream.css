@@ -1,0 +1,332 @@
+/**
+ * Scaling Stream Visualization Styles
+ * Visual representation of similarity scaling
+ */
+
+/* Scaling Canvas */
+.scaling-canvas {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+.shape-container {
+    position: relative;
+    height: 150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Shape Styles */
+.shape {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.shape.original {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.shape.scaled {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
+    transform-origin: center;
+}
+
+/* Shape Animations */
+.shape.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.shape.streaming {
+    animation: stream 3s ease-in-out infinite;
+}
+
+@keyframes stream {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(-10px) scale(1.2);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+    }
+    75% {
+        transform: translateY(10px) scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+.shape-label {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Scale Indicator */
+.scale-indicator {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.scale-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.scale-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 50%;
+}
+
+.scale-value {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Question Display */
+.question-display {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-display h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.question-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Answer Options */
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.answer-option {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.answer-option:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+    transform: translateX(4px);
+}
+
+.answer-option.correct {
+    border-color: #4CAF50;
+    background: #e8f5e9;
+}
+
+.answer-option.incorrect {
+    border-color: #f44336;
+    background: #ffebee;
+}
+
+.answer-option.selected {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+/* Shape Variations */
+.shape.circle {
+    border-radius: 50% !important;
+}
+
+.shape.triangle {
+    width: 0;
+    height: 0;
+    background: transparent !important;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 52px solid #667eea;
+    box-shadow: none !important;
+}
+
+.shape.triangle.scaled {
+    border-bottom-color: #f5576c;
+}
+
+.shape.star {
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Similarity Indicator */
+.similarity-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.similarity-badge.high {
+    background: #e8f5e9;
+    color: #4CAF50;
+}
+
+.similarity-badge.medium {
+    background: #fff3e0;
+    color: #FF9800;
+}
+
+.similarity-badge.low {
+    background: #ffebee;
+    color: #f44336;
+}
+
+/* Particle Effect */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #667eea;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 2s ease-out forwards;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Comparison View */
+.comparison-view {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.comparison-item {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.comparison-item h4 {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.comparison-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .shape-container {
+        height: 120px;
+    }
+
+    .shape.original,
+    .shape.scaled {
+        width: 50px;
+        height: 50px;
+    }
+
+    .question-content {
+        font-size: 12px;
+    }
+
+    .answer-option {
+        font-size: 11px;
+        padding: 10px;
+    }
+}

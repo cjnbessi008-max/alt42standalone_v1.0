@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scaling Stream - 닮음 스케일링 시각화</title>
+    <link rel="stylesheet" href="assets/css/smartphone.css">
+    <link rel="stylesheet" href="assets/css/scaling-stream.css">
+</head>
+<body>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Scaling Stream</h1>
+            <p class="subtitle">닮음 스케일링을 시각적으로 체감하는 학습 도구</p>
+        </div>
+
+        <div class="controls">
+            <button id="loadQuestionBtn" class="btn btn-primary">문제 불러오기</button>
+            <button id="startStreamBtn" class="btn btn-success">스트리밍 시작</button>
+            <button id="pauseStreamBtn" class="btn btn-warning">일시정지</button>
+            <button id="resetBtn" class="btn btn-secondary">초기화</button>
+        </div>
+
+        <div class="info-panel">
+            <div class="stat-card">
+                <h3>현재 문제</h3>
+                <p id="currentQuestion">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>스케일 비율</h3>
+                <p id="currentScale">1.0x</p>
+            </div>
+            <div class="stat-card">
+                <h3>닮음 정도</h3>
+                <p id="similarityScore">-</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display (Bottom Right) -->
+    <div id="smartphone" class="smartphone-container">
+        <!-- Phone Frame -->
+        <div class="phone-frame">
+            <!-- Top Notch -->
+            <div class="phone-notch">
+                <div class="notch-speaker"></div>
+                <div class="notch-camera"></div>
+            </div>
+
+            <!-- Screen -->
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span class="time" id="phoneTime">10:42</span>
+                    <div class="status-icons">
+                        <span class="icon-signal">📶</span>
+                        <span class="icon-wifi">📶</span>
+                        <span class="icon-battery">🔋</span>
+                    </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="app-content">
+                    <div class="app-header">
+                        <h2>Scaling Stream</h2>
+                    </div>
+
+                    <!-- Scaling Visualization Canvas -->
+                    <div class="scaling-canvas" id="scalingCanvas">
+                        <div class="shape-container" id="shapeContainer">
+                            <!-- Original Shape -->
+                            <div class="shape original" id="originalShape">
+                                <div class="shape-label">원본</div>
+                            </div>
+
+                            <!-- Scaled Shape -->
+                            <div class="shape scaled" id="scaledShape">
+                                <div class="shape-label">스케일</div>
+                            </div>
+                        </div>
+
+                        <!-- Scale Indicator -->
+                        <div class="scale-indicator" id="scaleIndicator">
+                            <div class="scale-bar">
+                                <div class="scale-progress" id="scaleProgress"></div>
+                            </div>
+                            <div class="scale-value" id="scaleValue">1.0x</div>
+                        </div>
+                    </div>
+
+                    <!-- Question Display -->
+                    <div class="question-display" id="questionDisplay">
+                        <h3>문제</h3>
+                        <div class="question-content" id="questionContent">
+                            문제를 불러오려면 '문제 불러오기' 버튼을 클릭하세요.
+                        </div>
+                    </div>
+
+                    <!-- Answer Options -->
+                    <div class="answer-options" id="answerOptions">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Navigation Bar -->
+                <div class="nav-bar">
+                    <div class="nav-btn">◀</div>
+                    <div class="nav-btn">⚫</div>
+                    <div class="nav-btn">▢</div>
+                </div>
+            </div>
+
+            <!-- Home Button -->
+            <div class="phone-button"></div>
+        </div>
+
+        <!-- Drag Handle -->
+        <div class="drag-handle">⋮⋮</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/api-client.js"></script>
+    <script src="assets/js/scaling-stream.js"></script>
+    <script src="assets/js/smartphone-ui.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
