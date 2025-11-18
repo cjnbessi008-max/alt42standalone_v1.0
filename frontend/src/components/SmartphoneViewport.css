@@ -1,0 +1,132 @@
+/**
+ * SmartphoneViewport Styles
+ */
+
+.smartphone-viewport {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+
+.smartphone-viewport.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-viewport.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-viewport.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-viewport.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.smartphone-viewport.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.smartphone-frame {
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 15px 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.smartphone-notch {
+  width: 120px;
+  height: 24px;
+  background: #1a1a1a;
+  border-radius: 0 0 15px 15px;
+  margin: -15px auto 8px;
+  position: relative;
+  z-index: 1001;
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.smartphone-notch::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.smartphone-screen {
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.smartphone-home-indicator {
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin: 8px auto -5px;
+}
+
+.smartphone-viewport-simple {
+  position: fixed;
+  z-index: 1000;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-viewport {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    top: auto;
+    margin: 20px auto;
+  }
+
+  .smartphone-frame {
+    transform: scale(0.8);
+  }
+}
+
+/* Accessibility */
+.smartphone-viewport:focus-within {
+  outline: 2px solid #4CAF50;
+  outline-offset: 4px;
+}
+
+/* Animation for appearance */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.smartphone-viewport.animate-in {
+  animation: slideInFromRight 0.5s ease-out;
+}

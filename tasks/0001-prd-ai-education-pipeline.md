@@ -263,6 +263,17 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - Conversational UI SHOULD use natural language processing
 - System SHOULD provide both text and voice input options
 
+**FR-5.7: One-Frame Case Visualization** (Priority 1)
+- System MUST generate One-Frame Case visualizations that compress multiple solution paths or case scenarios into a single animated view
+- System MUST support multiple layout algorithms (tree, grid, radial, flow) for organizing cases
+- System MUST provide animation options (sequential, parallel, radial) to guide student attention
+- System MUST display visualizations in a virtual smartphone viewport (default: bottom-right position)
+- System MUST track student interactions with each case node (views, clicks, time spent)
+- System MUST support various content types (text, images, SVG, interactive elements) within each case
+- System SHOULD highlight recommended solution paths based on difficulty and student level
+- System SHOULD integrate with LMS (Moodle) to receive problem data and send progress updates
+- System SHOULD provide accessibility features (keyboard navigation, screen reader support, animation controls)
+
 ### Phase 6: Integration & Deployment (시스템 완성)
 
 **FR-6.1: API Generation**

@@ -1,0 +1,147 @@
+/**
+ * OneFrameCaseViewer Styles
+ */
+
+.one-frame-case-viewer {
+  position: relative;
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.case-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.case-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.case-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.case-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.case-connection {
+  stroke: #bdbdbd;
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.3s ease;
+}
+
+.case-connection.recommended {
+  stroke: #4CAF50;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 4px rgba(76, 175, 80, 0.4));
+}
+
+.case-nodes-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 100px);
+  min-height: 400px;
+}
+
+.case-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.case-stats {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.stat-item {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-item::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4CAF50;
+}
+
+/* Animation states */
+.one-frame-case-viewer.animating {
+  pointer-events: none;
+}
+
+.one-frame-case-viewer.animating .case-node {
+  animation: fadeInScale 0.5s ease-out forwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .one-frame-case-viewer {
+    padding: 12px;
+  }
+
+  .case-title {
+    font-size: 18px;
+  }
+
+  .case-description {
+    font-size: 13px;
+  }
+
+  .case-controls {
+    bottom: 5px;
+    padding: 8px 12px;
+  }
+
+  .stat-item {
+    font-size: 11px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .case-connection,
+  .case-node {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .one-frame-case-viewer {
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .case-controls {
+    display: none;
+  }
+}
