@@ -1,0 +1,25 @@
+{
+  "moodle": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "moodle",
+    "user": "moodle_user",
+    "password": "your_password_here",
+    "charset": "utf8mb4",
+    "version": "5.7"
+  },
+  "analytics": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "student_analytics",
+    "user": "analytics_user",
+    "password": "your_password_here"
+  },
+  "analysis_settings": {
+    "top_tier_percentage": 10,
+    "min_activities_for_analysis": 5,
+    "thinking_time_weight": 0.3,
+    "accuracy_weight": 0.4,
+    "consistency_weight": 0.3
+  }
+}

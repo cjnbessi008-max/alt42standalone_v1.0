@@ -1,0 +1,24 @@
+# Python Dependencies for Student Performance Analysis System
+
+# Database Connectors
+mysql-connector-python==8.0.33
+psycopg2-binary==2.9.6
+
+# Data Analysis
+numpy==1.24.3
+pandas==2.0.2
+
+# Web Framework
+Flask==2.3.2
+Flask-CORS==4.0.0
+
+# Configuration
+python-dotenv==1.0.0
+
+# Utilities
+python-dateutil==2.8.2
+
+# Optional: For advanced visualizations (if needed later)
+# matplotlib==3.7.1
+# seaborn==0.12.2
+# plotly==5.14.1
