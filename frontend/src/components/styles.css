@@ -1,0 +1,395 @@
+/* Timeline Visualization Styles */
+.timeline-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.timeline-container.loading,
+.timeline-container.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  font-size: 18px;
+  color: #666;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 16px;
+}
+
+/* Timeline Header */
+.timeline-header {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.timeline-header h2 {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.summary-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.summary-stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-stats .label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-stats .value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.summary-stats .value.completed {
+  color: #4CAF50;
+}
+
+.summary-stats .value.incomplete {
+  color: #FF9800;
+}
+
+/* Timeline Events */
+.timeline-events {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.timeline-event {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-left: 4px solid #ddd;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  background: #fafafa;
+  transition: all 0.2s;
+}
+
+.timeline-event:hover {
+  background: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.event-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.event-content {
+  flex: 1;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.event-type {
+  font-weight: 600;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.event-time {
+  font-size: 12px;
+  color: #666;
+  font-family: 'Courier New', monospace;
+}
+
+.event-timing {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.event-data {
+  font-size: 14px;
+  color: #666;
+  font-family: 'Courier New', monospace;
+}
+
+/* Timeline Analytics */
+.timeline-analytics {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-analytics h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.analytics-card {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.analytics-card .card-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2196F3;
+  margin-bottom: 8px;
+}
+
+.analytics-card .card-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Student Progress Dashboard */
+.student-progress-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-loading,
+.dashboard-error,
+.dashboard-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 18px;
+  color: #666;
+}
+
+.dashboard-error {
+  color: #f44336;
+}
+
+/* Progress Overview */
+.progress-overview {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.progress-overview h2 {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.progress-card {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: #fff;
+}
+
+.progress-card:nth-child(2) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.progress-card:nth-child(3) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.progress-card:nth-child(4) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.progress-card:nth-child(5) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.progress-card:nth-child(6) {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.card-icon {
+  font-size: 40px;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.card-label {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.card-progress {
+  margin-top: 8px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-bar.success {
+  background: #4CAF50;
+}
+
+/* Recent Sessions */
+.recent-sessions {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recent-sessions h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.sessions-table {
+  width: 100%;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: 16px;
+  padding: 12px;
+  align-items: center;
+}
+
+.table-header {
+  font-weight: 600;
+  color: #666;
+  border-bottom: 2px solid #e0e0e0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-row {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+.table-row:hover {
+  background: #fafafa;
+}
+
+.col {
+  font-size: 14px;
+  color: #333;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.correct {
+  background: #e8f5e9;
+  color: #4CAF50;
+}
+
+.status-badge.incorrect {
+  background: #ffebee;
+  color: #f44336;
+}
+
+.status-badge.incomplete {
+  background: #fff3e0;
+  color: #FF9800;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .summary-stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .analytics-grid,
+  .progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .table-header .col:not(:first-child) {
+    display: none;
+  }
+
+  .table-row .col {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .table-row .col:not(:first-child)::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #666;
+  }
+}
