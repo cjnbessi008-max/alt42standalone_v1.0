@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blossom Sequence - AI 수학 학습 앱</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="container">
+            <h1>🌸 Blossom Sequence</h1>
+            <div class="user-info" id="userInfo">
+                <span id="userName">Guest</span>
+                <button id="logoutBtn" class="btn-secondary">로그아웃</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <div class="container">
+            <!-- Login Screen -->
+            <div id="loginScreen" class="screen active">
+                <div class="login-container">
+                    <h2>로그인</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">사용자명</label>
+                            <input type="text" id="username" name="username" required placeholder="아이디를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요">
+                        </div>
+                        <button type="submit" class="btn-primary">로그인</button>
+                        <p class="register-link">
+                            계정이 없으신가요? <a href="#" id="showRegister">회원가입</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <div id="dashboardScreen" class="screen">
+                <div class="dashboard-container">
+                    <h2>학습 대시보드</h2>
+
+                    <!-- Student Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>완료한 문제</h3>
+                            <p class="stat-value" id="totalCompleted">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>평균 정확도</h3>
+                            <p class="stat-value" id="avgAccuracy">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>현재 레벨</h3>
+                            <p class="stat-value" id="currentLevel">1</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>학습 시간</h3>
+                            <p class="stat-value" id="totalTime">0분</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Recommendation -->
+                    <div class="recommendation-section">
+                        <h3>🤖 AI 추천 문제</h3>
+                        <div id="recommendedProblem" class="recommendation-card">
+                            <p class="loading">추천 문제를 생성하고 있습니다...</p>
+                        </div>
+                        <button id="startRecommendedBtn" class="btn-primary btn-large">추천 문제 시작하기</button>
+                    </div>
+
+                    <!-- Manual Selection -->
+                    <div class="manual-section">
+                        <h3>직접 선택하기</h3>
+                        <div class="sequence-selection">
+                            <div class="form-group">
+                                <label for="sequenceType">수열 타입</label>
+                                <select id="sequenceType" class="form-control">
+                                    <option value="fibonacci">피보나치 수열</option>
+                                    <option value="arithmetic">등차수열</option>
+                                    <option value="geometric">등비수열</option>
+                                    <option value="square">제곱수</option>
+                                    <option value="prime">소수</option>
+                                    <option value="custom">사용자 정의</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="difficulty">난이도</label>
+                                <select id="difficulty" class="form-control">
+                                    <option value="1">매우 쉬움</option>
+                                    <option value="2">쉬움</option>
+                                    <option value="3" selected>보통</option>
+                                    <option value="4">어려움</option>
+                                    <option value="5">매우 어려움</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="petalCount">꽃잎 개수</label>
+                                <input type="number" id="petalCount" class="form-control" value="8" min="4" max="12">
+                            </div>
+                            <button id="startManualBtn" class="btn-secondary btn-large">시작하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="gameScreen" class="screen">
+                <div class="game-container">
+                    <!-- Problem Info -->
+                    <div class="problem-info">
+                        <div class="info-item">
+                            <span class="label">수열 타입:</span>
+                            <span id="currentSequenceType" class="value">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">난이도:</span>
+                            <span id="currentDifficulty" class="value">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">진행도:</span>
+                            <span id="currentProgress" class="value">0/10</span>
+                        </div>
+                        <div class="timer">
+                            <span class="label">⏱️</span>
+                            <span id="timer" class="value">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Virtual Smartphone Display (우측 하단) -->
+                    <div class="smartphone-wrapper">
+                        <div class="smartphone-device">
+                            <div class="smartphone-screen">
+                                <!-- Canvas for Blossom Animation -->
+                                <div id="blossomCanvasContainer">
+                                    <canvas id="blossomCanvas" width="320" height="480"></canvas>
+                                </div>
+
+                                <!-- Sequence Display -->
+                                <div class="sequence-display">
+                                    <div id="sequenceNumbers" class="sequence-numbers"></div>
+                                </div>
+
+                                <!-- Answer Input -->
+                                <div class="answer-section">
+                                    <label for="answerInput">다음 숫자는?</label>
+                                    <input type="number" id="answerInput" class="answer-input" placeholder="답을 입력하세요">
+                                    <button id="submitAnswerBtn" class="btn-submit">제출</button>
+                                </div>
+
+                                <!-- Feedback -->
+                                <div id="feedbackArea" class="feedback-area"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="game-controls">
+                        <button id="hintBtn" class="btn-hint">💡 힌트</button>
+                        <button id="skipBtn" class="btn-skip">⏭️ 건너뛰기</button>
+                        <button id="exitGameBtn" class="btn-exit">🚪 나가기</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="resultsScreen" class="screen">
+                <div class="results-container">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="results-summary">
+                        <div class="result-item">
+                            <span class="result-label">정답률</span>
+                            <span class="result-value" id="resultAccuracy">0%</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">소요 시간</span>
+                            <span class="result-value" id="resultTime">0:00</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">맞춘 문제</span>
+                            <span class="result-value" id="resultCorrect">0/10</span>
+                        </div>
+                    </div>
+
+                    <!-- Performance Analysis -->
+                    <div class="performance-analysis">
+                        <h3>📊 성과 분석</h3>
+                        <div id="analysisText" class="analysis-text"></div>
+                    </div>
+
+                    <!-- Next Recommendation -->
+                    <div class="next-recommendation">
+                        <h3>🤖 다음 추천</h3>
+                        <div id="nextRecommendation" class="recommendation-text"></div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button id="retryBtn" class="btn-primary">다시 도전</button>
+                        <button id="dashboardBtn" class="btn-secondary">대시보드로</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2025 KAIST Touch Math Academy | Blossom Sequence AI Learning Platform</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/blossom.js"></script>
+    <script src="js/recommendation.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
