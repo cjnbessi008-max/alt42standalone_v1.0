@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Testing
+coverage/
+.nyc_output/
+
+# PHP
+composer.phar
+composer.lock
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database
+*.sql.backup
+*.db
+
+# Moodle specific (if Moodle is in the same repo)
+moodledata/
+config.php.backup
