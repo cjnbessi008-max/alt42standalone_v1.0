@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Wave - 독립 실행 데모</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <style>
+        .demo-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-controls h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .function-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .function-btn {
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .function-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .function-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #5568d3;
+        }
+
+        .function-btn strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .function-btn small {
+            display: block;
+            opacity: 0.8;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 메인 컨텐츠 영역 -->
+        <div class="main-content">
+            <header>
+                <h1>Change Wave</h1>
+                <p class="subtitle">독립 실행 데모 - 다양한 함수를 체험해보세요</p>
+            </header>
+
+            <div class="info-panel">
+                <h2 id="problem-title">이차함수의 변화 관찰하기</h2>
+                <p id="problem-description">f(x) = x² 함수의 변화를 관찰하세요. 재생 버튼을 눌러 파동을 시작하세요.</p>
+            </div>
+
+            <div class="controls">
+                <button id="btn-play" class="btn btn-primary">▶ 재생</button>
+                <button id="btn-pause" class="btn btn-secondary">⏸ 일시정지</button>
+                <button id="btn-reset" class="btn btn-secondary">↻ 리셋</button>
+                <div class="speed-control">
+                    <label for="speed">속도:</label>
+                    <input type="range" id="speed" min="0.1" max="3" step="0.1" value="1">
+                    <span id="speed-value">1.0x</span>
+                </div>
+            </div>
+
+            <!-- 데모용 함수 선택 -->
+            <div class="demo-controls">
+                <h3>🎯 함수 선택</h3>
+                <div class="function-selector">
+                    <button class="function-btn active" data-func="x * x" data-name="f(x) = x²" data-range="-5,5,-2,25">
+                        <strong>이차함수</strong>
+                        <small>f(x) = x²</small>
+                    </button>
+                    <button class="function-btn" data-func="x * x * x - 3 * x" data-name="f(x) = x³ - 3x" data-range="-3,3,-5,5">
+                        <strong>삼차함수</strong>
+                        <small>f(x) = x³ - 3x</small>
+                    </button>
+                    <button class="function-btn" data-func="sin(x)" data-name="f(x) = sin(x)" data-range="-6.28,6.28,-1.5,1.5">
+                        <strong>사인 함수</strong>
+                        <small>f(x) = sin(x)</small>
+                    </button>
+                    <button class="function-btn" data-func="cos(x)" data-name="f(x) = cos(x)" data-range="-6.28,6.28,-1.5,1.5">
+                        <strong>코사인 함수</strong>
+                        <small>f(x) = cos(x)</small>
+                    </button>
+                    <button class="function-btn" data-func="pow(2, x)" data-name="f(x) = 2ˣ" data-range="-2,4,-1,16">
+                        <strong>지수함수</strong>
+                        <small>f(x) = 2ˣ</small>
+                    </button>
+                    <button class="function-btn" data-func="abs(x)" data-name="f(x) = |x|" data-range="-5,5,-1,5">
+                        <strong>절댓값 함수</strong>
+                        <small>f(x) = |x|</small>
+                    </button>
+                    <button class="function-btn" data-func="2 * x + 1" data-name="f(x) = 2x + 1" data-range="-5,5,-10,11">
+                        <strong>일차함수</strong>
+                        <small>f(x) = 2x + 1</small>
+                    </button>
+                    <button class="function-btn" data-func="sqrt(abs(x))" data-name="f(x) = √|x|" data-range="-5,5,-1,3">
+                        <strong>제곱근 함수</strong>
+                        <small>f(x) = √|x|</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측 하단 가상 스마트폰 화면 -->
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="status-bar">
+                    <span class="time" id="current-time">12:00</span>
+                    <span class="battery">🔋</span>
+                </div>
+
+                <div class="app-content">
+                    <h3 class="app-title">Change Wave</h3>
+
+                    <!-- Canvas for Change Wave visualization -->
+                    <canvas id="waveCanvas" width="300" height="400"></canvas>
+
+                    <div class="function-info">
+                        <p><strong>함수:</strong> <span id="function-expr">f(x) = x²</span></p>
+                        <p><strong>현재 x:</strong> <span id="current-x">0</span></p>
+                        <p><strong>현재 f(x):</strong> <span id="current-y">0</span></p>
+                        <p><strong>변화율:</strong> <span id="derivative">0</span></p>
+                    </div>
+                </div>
+
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/changewave.js"></script>
+    <script>
+        // 현재 시간 업데이트
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('current-time').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // 앱 초기화
+        window.addEventListener('DOMContentLoaded', () => {
+            initChangeWave();
+
+            // 함수 선택 버튼 이벤트
+            const functionBtns = document.querySelectorAll('.function-btn');
+
+            functionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 활성화 클래스 토글
+                    functionBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // 함수 정보 가져오기
+                    const funcExpr = btn.getAttribute('data-func');
+                    const funcName = btn.getAttribute('data-name');
+                    const range = btn.getAttribute('data-range').split(',').map(Number);
+
+                    // 제목 업데이트
+                    const category = btn.querySelector('strong').textContent;
+                    document.getElementById('problem-title').textContent = category + ' 관찰하기';
+                    document.getElementById('problem-description').textContent =
+                        `${funcName} 함수의 변화를 파동으로 경험하세요. 재생 버튼을 눌러 시작하세요.`;
+
+                    // Change Wave에 함수 설정
+                    changeWave.setFunction(
+                        funcExpr,
+                        funcName,
+                        range[0], // x_min
+                        range[1], // x_max
+                        range[2], // y_min
+                        range[3]  // y_max
+                    );
+                });
+            });
+        });
+    </script>
+</body>
+</html>

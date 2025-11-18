@@ -1,0 +1,290 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.info-panel {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.info-panel h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.info-panel p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 컨트롤 버튼 */
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #dee2e6;
+}
+
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.speed-control label {
+    font-weight: 600;
+    color: #333;
+}
+
+.speed-control input[type="range"] {
+    width: 120px;
+}
+
+#speed-value {
+    font-weight: 600;
+    color: #667eea;
+    min-width: 50px;
+}
+
+/* 가상 스마트폰 프레임 - 우측 하단 고정 */
+.smartphone-frame {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 340px;
+    height: 680px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+    transform: translateY(-5px);
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상태바 */
+.status-bar {
+    background: #f8f9fa;
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.time {
+    font-weight: 600;
+}
+
+.battery {
+    font-size: 1rem;
+}
+
+/* 앱 컨텐츠 */
+.app-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+}
+
+.app-title {
+    text-align: center;
+    color: #667eea;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Canvas 스타일 */
+#waveCanvas {
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* 함수 정보 */
+.function-info {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.function-info p {
+    margin: 8px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.function-info strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.function-info span {
+    color: #333;
+    font-weight: 500;
+}
+
+/* 홈 인디케이터 (iPhone 스타일) */
+.home-indicator {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.home-indicator::before {
+    content: '';
+    width: 120px;
+    height: 4px;
+    background: #d1d1d6;
+    border-radius: 2px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .smartphone-frame {
+        width: 280px;
+        height: 560px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    #waveCanvas {
+        height: 320px;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-frame {
+        width: 240px;
+        height: 480px;
+    }
+
+    #waveCanvas {
+        height: 260px;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* 로딩 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}

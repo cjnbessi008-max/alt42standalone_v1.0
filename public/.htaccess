@@ -1,0 +1,81 @@
+# Change Wave - Apache Configuration
+
+# 디렉토리 인덱스 비활성화
+Options -Indexes
+
+# RewriteEngine 활성화
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
+
+# Gzip 압축
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/json
+</IfModule>
+
+# 캐시 설정
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # HTML
+    ExpiresByType text/html "access plus 1 hour"
+
+    # CSS
+    ExpiresByType text/css "access plus 1 month"
+
+    # JavaScript
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+
+    # 이미지
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
+
+# MIME 타입
+<IfModule mod_mime.c>
+    AddType application/javascript js
+    AddType text/css css
+    AddType image/svg+xml svg
+</IfModule>
+
+# 보안 헤더
+<IfModule mod_headers.c>
+    # XSS 보호
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Content-Type 스니핑 방지
+    Header set X-Content-Type-Options "nosniff"
+
+    # Clickjacking 방지 (필요시 주석 해제)
+    # Header set X-Frame-Options "SAMEORIGIN"
+
+    # CORS 허용 (필요시 주석 해제)
+    # Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# PHP 파일 직접 접근 금지 (public 디렉토리에는 PHP 없어야 함)
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# .htaccess 자체 보호
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Git 파일 보호
+<DirectoryMatch "\.git">
+    Order allow,deny
+    Deny from all
+</DirectoryMatch>
+
+# 에러 페이지 (선택사항)
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
