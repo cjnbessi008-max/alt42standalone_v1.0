@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개념-문제 매칭 시각화 시스템</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 개념-문제 매칭 시각화 시스템</h1>
+            <p class="subtitle">Moodle LMS 연동 학습 개념 및 문제 관계 분석</p>
+        </header>
+
+        <nav class="toolbar">
+            <div class="toolbar-left">
+                <button id="syncBtn" class="btn btn-primary">
+                    <span class="icon">🔄</span> Moodle 동기화
+                </button>
+                <select id="categoryFilter" class="select">
+                    <option value="">전체 카테고리</option>
+                    <option value="수학-분수">수학-분수</option>
+                    <option value="수학-소수">수학-소수</option>
+                    <option value="수학-도형">수학-도형</option>
+                </select>
+                <select id="difficultyFilter" class="select">
+                    <option value="">전체 난이도</option>
+                    <option value="beginner">초급</option>
+                    <option value="intermediate">중급</option>
+                    <option value="advanced">고급</option>
+                </select>
+            </div>
+            <div class="toolbar-right">
+                <button id="layoutBtn" class="btn btn-secondary">
+                    <span class="icon">🔀</span> 레이아웃 변경
+                </button>
+                <button id="resetBtn" class="btn btn-secondary">
+                    <span class="icon">↻</span> 초기화
+                </button>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="panel">
+                    <h2>📊 통계</h2>
+                    <div id="statistics">
+                        <div class="stat-item">
+                            <span class="stat-label">총 개념:</span>
+                            <span class="stat-value" id="conceptCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">총 문제:</span>
+                            <span class="stat-value" id="problemCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">매핑 관계:</span>
+                            <span class="stat-value" id="mappingCount">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>🔍 선택된 노드</h2>
+                    <div id="nodeDetails">
+                        <p class="placeholder">노드를 클릭하여 상세 정보를 확인하세요.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>📌 범례</h2>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4CAF50;"></div>
+                            <span>개념 (Concept)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #2196F3;"></div>
+                            <span>문제 (Problem)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="border-top: 2px solid #666;"></div>
+                            <span>직접 연결</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line" style="border-top: 2px dashed #999;"></div>
+                            <span>관련 연결</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visualization-area">
+                <div id="graph-container">
+                    <svg id="graph"></svg>
+                </div>
+                <div class="controls">
+                    <button id="zoomInBtn" class="control-btn" title="확대">+</button>
+                    <button id="zoomOutBtn" class="control-btn" title="축소">−</button>
+                    <button id="fitBtn" class="control-btn" title="화면 맞춤">⊡</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="student-panel" id="studentPanel" style="display: none;">
+            <h2>📈 학생 진도 분석</h2>
+            <div class="student-controls">
+                <label>학생 ID: <input type="number" id="studentIdInput" placeholder="학생 ID 입력"></label>
+                <button id="loadProgressBtn" class="btn btn-primary">진도 불러오기</button>
+            </div>
+            <div id="progressChart"></div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>데이터를 불러오는 중...</p>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/api.js"></script>
+</body>
+</html>
