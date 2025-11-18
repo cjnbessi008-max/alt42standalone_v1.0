@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secant Beam Visualization - 평균변화율 시각화</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Secant Beam 시각화</h1>
+            <p class="subtitle">평균변화율을 빛나는 줄기로 표현</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="function-select">함수 선택:</label>
+                <select id="function-select">
+                    <option value="x2">f(x) = x²</option>
+                    <option value="x3">f(x) = x³</option>
+                    <option value="sin">f(x) = sin(x)</option>
+                    <option value="exp">f(x) = eˣ</option>
+                    <option value="custom">사용자 정의</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="custom-function-group" style="display: none;">
+                <label for="custom-function">사용자 정의 함수:</label>
+                <input type="text" id="custom-function" placeholder="예: x * x + 2 * x + 1">
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <input type="checkbox" id="auto-animate">
+                    자동 애니메이션
+                </label>
+            </div>
+
+            <button id="reset-btn" class="btn-primary">초기화</button>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="canvas-wrapper">
+            <canvas id="graph-canvas"></canvas>
+
+            <!-- Mobile phone frame (right-bottom corner) -->
+            <div class="mobile-frame">
+                <div class="mobile-screen">
+                    <div class="mobile-content">
+                        <h3>📱 모바일 뷰</h3>
+                        <canvas id="mobile-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Panel -->
+        <div class="info-panel">
+            <div class="info-section">
+                <h3>선택된 점</h3>
+                <div id="point-info">
+                    <div class="point-display">
+                        <strong>점 A:</strong> <span id="point-a">선택하세요</span>
+                    </div>
+                    <div class="point-display">
+                        <strong>점 B:</strong> <span id="point-b">선택하세요</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section highlight">
+                <h3>평균변화율</h3>
+                <div id="slope-info">
+                    <div class="slope-display">
+                        <strong>기울기 (m):</strong> <span id="slope-value">-</span>
+                    </div>
+                    <div class="formula-display">
+                        <strong>공식:</strong> <span id="slope-formula">Δy / Δx</span>
+                    </div>
+                    <div class="secant-equation">
+                        <strong>할선 방정식:</strong> <span id="secant-equation">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>사용 방법</h3>
+                <ol class="instructions">
+                    <li>그래프에서 <strong>첫 번째 점</strong>을 클릭하세요</li>
+                    <li>그래프에서 <strong>두 번째 점</strong>을 클릭하세요</li>
+                    <li>두 점 사이의 <strong>빛나는 할선</strong>이 표시됩니다</li>
+                    <li>평균변화율(기울기)이 자동 계산됩니다</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/math-functions.js"></script>
+    <script src="js/graph-renderer.js"></script>
+    <script src="js/secant-beam.js"></script>
+    <script src="js/mobile-sync.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
