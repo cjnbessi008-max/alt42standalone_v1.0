@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI 기반 수학 학습 추천 시스템">
+    <meta name="theme-color" content="#667eea">
+
+    <title>Alt42 - AI 학습 추천 시스템</title>
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/icon-192.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="app-container">
+        <!-- 헤더 -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1>🎯 Alt42 학습 시스템</h1>
+                <div class="user-info">
+                    <span class="user-name" id="userName">학습자</span>
+                    <span class="user-level" id="userLevel">Lv.1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="main-content">
+            <!-- 왼쪽: 학습 영역 -->
+            <section class="learning-section">
+                <!-- 추천 문제 카드 -->
+                <div class="problem-card">
+                    <div class="card-header">
+                        <h2>🎲 오늘의 추천 문제</h2>
+                        <div class="recommendation-badge">
+                            <span id="recommendationType">AI 추천</span>
+                        </div>
+                    </div>
+
+                    <div class="problem-content" id="problemContent">
+                        <div class="problem-meta">
+                            <span class="difficulty" id="problemDifficulty">중급</span>
+                            <span class="category" id="problemCategory">대수학</span>
+                            <span class="points" id="problemPoints">+10 점</span>
+                        </div>
+
+                        <div class="problem-text" id="problemText">
+                            문제를 불러오는 중...
+                        </div>
+
+                        <div class="problem-input">
+                            <input type="text" id="answerInput" placeholder="답을 입력하세요..." />
+                            <button class="btn-submit" id="submitBtn">제출</button>
+                        </div>
+
+                        <div class="problem-hint" id="problemHint" style="display: none;">
+                            <strong>💡 힌트:</strong> <span id="hintText"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="btn-secondary" id="hintBtn">힌트 보기</button>
+                        <button class="btn-secondary" id="skipBtn">다음 문제</button>
+                    </div>
+                </div>
+
+                <!-- 학습 진행 그래프 (Area Color) -->
+                <div class="graph-card">
+                    <h3>📈 학습 진행도 (로그 스케일)</h3>
+                    <div class="graph-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 추천 이유 섹션 -->
+                <div class="recommendation-reason">
+                    <h3>🤖 왜 이 문제를 추천했을까요?</h3>
+                    <div class="reason-content" id="reasonContent">
+                        <p>당신의 학습 패턴을 분석하여 최적의 문제를 추천합니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 오른쪽: 대시보드 & 스마트폰 -->
+            <aside class="dashboard-section">
+                <!-- 학습 통계 -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="totalProblems">0</div>
+                        <div class="stat-label">푼 문제</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-value" id="correctRate">0%</div>
+                        <div class="stat-label">정답률</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="streak">0</div>
+                        <div class="stat-label">연속 학습</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-value" id="totalPoints">0</div>
+                        <div class="stat-label">획득 점수</div>
+                    </div>
+                </div>
+
+                <!-- 추천 문제 목록 -->
+                <div class="recommended-list">
+                    <h3>📚 추천 문제 목록</h3>
+                    <div class="problem-list" id="recommendedList">
+                        <!-- 동적으로 생성됨 -->
+                    </div>
+                </div>
+
+                <!-- 가상 스마트폰 화면 -->
+                <div class="smartphone-display">
+                    <div class="smartphone-frame">
+                        <div class="smartphone-notch"></div>
+                        <div class="smartphone-screen">
+                            <div class="phone-header">
+                                <span class="phone-time" id="phoneTime">10:30</span>
+                                <div class="phone-status">
+                                    <span>📶</span>
+                                    <span>🔋</span>
+                                </div>
+                            </div>
+
+                            <div class="phone-content">
+                                <h4>모바일 학습</h4>
+                                <div class="mobile-problem" id="mobileProblem">
+                                    <p>현재 문제가 여기에 표시됩니다</p>
+                                </div>
+
+                                <!-- 미니 그래프 -->
+                                <div class="mini-graph">
+                                    <canvas id="miniChart"></canvas>
+                                </div>
+
+                                <div class="mobile-stats">
+                                    <div class="mini-stat">
+                                        <span class="mini-label">오늘</span>
+                                        <span class="mini-value" id="todayCount">0</span>
+                                    </div>
+                                    <div class="mini-stat">
+                                        <span class="mini-label">정답</span>
+                                        <span class="mini-value" id="todayCorrect">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 결과 모달 -->
+        <div class="modal" id="resultModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="resultTitle">결과</h2>
+                    <button class="modal-close" id="modalClose">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="result-icon" id="resultIcon">✅</div>
+                    <p class="result-message" id="resultMessage">정답입니다!</p>
+                    <div class="result-explanation" id="resultExplanation"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-primary" id="nextProblemBtn">다음 문제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 모듈 -->
+    <script src="js/storage.js"></script>
+    <script src="js/problem-database.js"></script>
+    <script src="js/recommendation-engine.js"></script>
+    <script src="js/learning-analytics.js"></script>
+    <script src="js/graph-manager.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Service Worker 등록 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker registered', reg))
+                .catch(err => console.log('Service Worker registration failed', err));
+        }
+    </script>
+</body>
+</html>
