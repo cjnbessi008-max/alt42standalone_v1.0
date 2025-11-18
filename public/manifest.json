@@ -1,0 +1,38 @@
+{
+  "short_name": "Transform Scene",
+  "name": "Transform Scene - 함수 변환 시각화 학습",
+  "description": "수학 함수의 변환을 시각적으로 학습하는 교육용 애플리케이션",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "ko",
+  "dir": "ltr",
+  "categories": ["education", "mathematics"],
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "type": "image/png",
+      "sizes": "360x640"
+    }
+  ]
+}

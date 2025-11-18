@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#667eea" />
+  <meta name="description" content="함수 변환을 시각적으로 학습하는 수학 교육 앱" />
+  <meta name="keywords" content="수학, 함수, 변환, 그래프, 교육, Moodle" />
+  <meta name="author" content="KAIST Touch Math Academy" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Transform Scene - 함수 변환 학습" />
+  <meta property="og:description" content="함수의 이동, 대칭, 확대/축소를 애니메이션으로 배우세요" />
+  <meta property="og:type" content="website" />
+
+  <title>Transform Scene - 함수 변환 학습</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" as="script" crossorigin>
+
+  <style>
+    /* 초기 로딩 스타일 */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      color: white;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <noscript>이 앱을 사용하려면 JavaScript를 활성화해야 합니다.</noscript>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-logo">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" stroke="white" stroke-width="4" fill="none" />
+        <path d="M25 50 Q37.5 25, 50 50 T75 50" stroke="white" stroke-width="4" fill="none" />
+      </svg>
+    </div>
+    <div class="loading-text">Transform Scene</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Root -->
+  <div id="root"></div>
+
+  <!-- 로딩 스크린 제거 스크립트 -->
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+          setTimeout(function() {
+            loadingScreen.remove();
+          }, 500);
+        }
+      }, 500);
+    });
+  </script>
+</body>
+</html>
