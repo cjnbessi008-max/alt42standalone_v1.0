@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 - Intersection Burst Graph Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <h1>ALT42 Education System</h1>
+            <div class="lms-status">
+                <span class="status-indicator" id="lmsStatus"></span>
+                <span id="lmsText">LMS 연동 대기중...</span>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Left Panel: Controls -->
+            <aside class="controls-panel">
+                <h2>그래프 컨트롤</h2>
+
+                <div class="control-group">
+                    <h3>문제 정보</h3>
+                    <div id="problemInfo" class="info-box">
+                        <p>문제를 불러오는 중...</p>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>개념 그래프</h3>
+                    <button id="addNodeBtn" class="btn btn-primary">노드 추가</button>
+                    <button id="addEdgeBtn" class="btn btn-primary">엣지 추가</button>
+                    <button id="clearBtn" class="btn btn-secondary">초기화</button>
+                </div>
+
+                <div class="control-group">
+                    <h3>교점 효과</h3>
+                    <label>
+                        <input type="checkbox" id="burstEnabled" checked>
+                        Burst 효과 활성화
+                    </label>
+                    <label>
+                        파티클 수: <span id="particleCount">30</span>
+                        <input type="range" id="particleSlider" min="10" max="100" value="30">
+                    </label>
+                    <label>
+                        폭발 강도: <span id="intensityValue">1.0</span>
+                        <input type="range" id="intensitySlider" min="0.5" max="3.0" step="0.1" value="1.0">
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <h3>통계</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">노드:</span>
+                            <span id="nodeCount" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">엣지:</span>
+                            <span id="edgeCount" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">교점:</span>
+                            <span id="intersectionCount" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center: Main Graph View -->
+            <main class="main-view">
+                <div class="graph-container">
+                    <canvas id="graphCanvas"></canvas>
+                    <div class="canvas-overlay">
+                        <div class="help-text">
+                            클릭하여 노드를 선택하세요 | 드래그로 노드 이동
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Panel: Virtual Smartphone Display -->
+            <aside class="smartphone-panel">
+                <h2>학생 뷰 (모바일)</h2>
+                <div class="smartphone-frame">
+                    <div class="smartphone-screen">
+                        <div class="smartphone-header">
+                            <div class="time">14:23</div>
+                            <div class="status-icons">
+                                <span>📶</span>
+                                <span>🔋</span>
+                            </div>
+                        </div>
+
+                        <div class="smartphone-content">
+                            <div class="app-header">
+                                <h3>개념 지도</h3>
+                                <p class="subtitle">수학 개념 관계 학습</p>
+                            </div>
+
+                            <div class="mobile-graph-container">
+                                <canvas id="mobileGraphCanvas"></canvas>
+                            </div>
+
+                            <div class="interaction-hint">
+                                <div class="hint-item">
+                                    <span class="icon">💡</span>
+                                    <span>교점을 터치하면 관계를 확인할 수 있어요</span>
+                                </div>
+                            </div>
+
+                            <div class="mobile-stats">
+                                <div class="mobile-stat">
+                                    <span class="label">발견한 관계</span>
+                                    <span id="mobileIntersectionCount" class="value">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="smartphone-nav">
+                            <div class="nav-btn">◀</div>
+                            <div class="nav-btn home">⬤</div>
+                            <div class="nav-btn">▣</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Intersection Detail Modal -->
+    <div id="intersectionModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>교점 정보</h2>
+            <div id="intersectionDetails"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lms-connector.js"></script>
+    <script src="burst-effect.js"></script>
+    <script src="graph-visualizer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
