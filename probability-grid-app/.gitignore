@@ -1,0 +1,41 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sql.gz
+*.sql.zip
+backups/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+cache/
+.cache/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# PHP
+vendor/
+composer.lock

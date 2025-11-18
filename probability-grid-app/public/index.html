@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="확률 격자 학습 앱 - Probability Grid Learning App">
+    <title>Probability Grid - 확률 공간 시각화</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234CAF50'/><text y='75' font-size='75' fill='white'>🎲</text></svg>">
+</head>
+<body>
+    <!-- Main container (hidden initially, shown in smartphone display) -->
+    <div id="app-container" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>확률 격자 (Probability Grid)</h1>
+            <div id="problem-title" class="problem-title"></div>
+        </header>
+
+        <!-- Problem description -->
+        <section class="problem-section">
+            <div id="problem-description" class="problem-description">
+                문제를 불러오는 중...
+            </div>
+        </section>
+
+        <!-- Grid container -->
+        <section class="grid-section">
+            <div id="probability-grid-container" class="grid-container"></div>
+        </section>
+
+        <!-- Answer input section -->
+        <section class="answer-section">
+            <div class="answer-input-group">
+                <label for="answer-input">답을 입력하세요 (확률값):</label>
+                <input
+                    type="text"
+                    id="answer-input"
+                    class="answer-input"
+                    placeholder="예: 0.25 또는 25%"
+                />
+                <button id="submit-btn" class="submit-btn">제출</button>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+        </section>
+
+        <!-- Student info (for LTI sessions) -->
+        <section id="student-info" class="student-info" style="display: none;">
+            <small>학생: <span id="student-name"></span></small>
+        </section>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>불러오는 중...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/components/ProbabilityGrid.js"></script>
+    <script src="../src/components/SmartphoneDisplay.js"></script>
+    <script src="../src/api/client.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
