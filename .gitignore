@@ -1,0 +1,58 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Database
+*.sql.backup
+*.sqlite
+*.db
+
+# Dependencies
+vendor/
+node_modules/
+
+# Build files
+dist/
+build/
+
+# Upload directories
+uploads/
+storage/
+
+# PHP
+composer.phar
+composer.lock
+
+# Test files
+coverage/
+.phpunit.result.cache

@@ -1,0 +1,336 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+    padding: 40px 20px;
+    color: white;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.main-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.main-content p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* 스마트폰 컨테이너 - 우측 하단 고정 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+}
+
+/* 스마트폰 디자인 */
+.smartphone {
+    width: 320px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 15px;
+    position: relative;
+    border: 8px solid #2d2d2d;
+    box-shadow:
+        0 0 0 2px #000,
+        0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* 상단바 */
+.status-bar {
+    height: 25px;
+    background: #000;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 11px;
+}
+
+.time {
+    font-weight: 600;
+}
+
+.battery {
+    font-size: 10px;
+}
+
+/* 앱 화면 */
+.app-screen {
+    background: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%);
+    height: 555px;
+    border-radius: 0 0 25px 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 스크롤바 스타일 */
+.app-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.app-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.app-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+/* 앱 헤더 */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 방정식 표시 */
+.equation-display {
+    background: #fff;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.equation-label {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.equation-text {
+    font-size: 1.3em;
+    font-family: 'Courier New', monospace;
+    color: #2d3748;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    background: #f7fafc;
+    border-radius: 8px;
+}
+
+/* 근의 정보 */
+.root-info {
+    background: #fff;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.root-count-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.root-count-label {
+    font-size: 0.95em;
+    color: #666;
+    font-weight: 600;
+}
+
+.root-count-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: #667eea;
+    min-width: 40px;
+    text-align: center;
+    background: #f0f4ff;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.root-values {
+    font-size: 0.85em;
+    color: #4a5568;
+    margin-top: 10px;
+    padding: 10px;
+    background: #f7fafc;
+    border-radius: 8px;
+    min-height: 30px;
+}
+
+/* Wave 컨테이너 */
+.wave-container {
+    position: relative;
+    margin: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+#waveCanvas {
+    display: block;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(180deg, #e0e7ff 0%, #f0f4ff 100%);
+}
+
+.wave-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #667eea;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.wave-message.active {
+    opacity: 1;
+}
+
+/* 변화 로그 */
+.change-log {
+    margin: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-height: 150px;
+    overflow: hidden;
+}
+
+.log-header {
+    padding: 12px 15px;
+    background: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.9em;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.log-content {
+    padding: 10px 15px;
+    max-height: 105px;
+    overflow-y: auto;
+}
+
+.log-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.log-content::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 2px;
+}
+
+.log-entry {
+    padding: 6px 0;
+    font-size: 0.8em;
+    color: #718096;
+    border-bottom: 1px solid #f0f4ff;
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry.highlight {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* 홈 버튼 */
+.home-button {
+    width: 50px;
+    height: 50px;
+    background: #2d2d2d;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid #1a1a1a;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.home-button:hover {
+    background: #3d3d3d;
+}
+
+/* 반응형 - 작은 화면 */
+@media (max-width: 768px) {
+    .smartphone-container {
+        bottom: 10px;
+        right: 10px;
+        transform: scale(0.8);
+        transform-origin: bottom right;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-container {
+        transform: scale(0.6);
+    }
+
+    .main-content h1 {
+        font-size: 1.8em;
+    }
+
+    .main-content p {
+        font-size: 1em;
+    }
+}

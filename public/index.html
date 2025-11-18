@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alt42 - Root Wave Notification</title>
+    <link rel="stylesheet" href="../src/css/smartphone.css">
+    <link rel="stylesheet" href="../src/css/wave-animation.css">
+</head>
+<body>
+    <!-- 메인 컨텐츠 영역 -->
+    <div class="main-content">
+        <h1>Alt42 - 수학 학습 시스템</h1>
+        <p>Moodle LMS와 연동된 실시간 근 변화 감지 시스템</p>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <!-- 스마트폰 상단바 -->
+            <div class="status-bar">
+                <span class="time" id="currentTime">12:00</span>
+                <span class="battery">🔋 100%</span>
+            </div>
+
+            <!-- 앱 화면 -->
+            <div class="app-screen">
+                <div class="app-header">
+                    <h2>Root Wave</h2>
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span>연결됨</span>
+                    </div>
+                </div>
+
+                <!-- 현재 방정식 표시 -->
+                <div class="equation-display" id="equationDisplay">
+                    <div class="equation-label">현재 방정식:</div>
+                    <div class="equation-text" id="equationText">대기 중...</div>
+                </div>
+
+                <!-- 근의 개수 표시 -->
+                <div class="root-info">
+                    <div class="root-count-container">
+                        <div class="root-count-label">근의 개수:</div>
+                        <div class="root-count-value" id="rootCount">-</div>
+                    </div>
+                    <div class="root-values" id="rootValues"></div>
+                </div>
+
+                <!-- Wave 애니메이션 캔버스 -->
+                <div class="wave-container" id="waveContainer">
+                    <canvas id="waveCanvas" width="280" height="150"></canvas>
+                    <div class="wave-message" id="waveMessage"></div>
+                </div>
+
+                <!-- 변화 로그 -->
+                <div class="change-log">
+                    <div class="log-header">변화 기록:</div>
+                    <div class="log-content" id="logContent">
+                        <div class="log-entry">시스템 시작</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 하단 버튼 -->
+            <div class="home-button"></div>
+        </div>
+    </div>
+
+    <!-- Wave 효과 오버레이 (전체 화면) -->
+    <div class="wave-overlay" id="waveOverlay">
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+        <div class="ripple"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../src/js/wave-animation.js"></script>
+    <script src="../src/js/root-detector.js"></script>
+    <script src="../src/js/moodle-connector.js"></script>
+    <script src="../src/js/app.js"></script>
+</body>
+</html>
