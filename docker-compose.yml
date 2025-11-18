@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  # MySQL Database (Compatible with Moodle 3.7)
+  mysql:
+    image: mysql:5.7
+    container_name: peak-thinking-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: peak_thinking_db
+      MYSQL_USER: peak_user
+      MYSQL_PASSWORD: peak_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Redis for session and cache
+  redis:
+    image: redis:7-alpine
+    container_name: peak-thinking-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # Backend API (Node.js)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: peak-thinking-backend
+    environment:
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: peak_thinking_db
+      DB_USER: peak_user
+      DB_PASSWORD: peak_password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      ANALYTICS_API_URL: http://analytics-engine:8001
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # Analytics Engine (Python FastAPI)
+  analytics-engine:
+    build:
+      context: ./analytics-engine
+      dockerfile: Dockerfile
+    container_name: peak-thinking-analytics
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: peak_thinking_db
+      DB_USER: peak_user
+      DB_PASSWORD: peak_password
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mysql
+    volumes:
+      - ./analytics-engine:/app
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: peak-thinking-frontend
+    environment:
+      VITE_API_URL: http://localhost:3000
+      VITE_WS_URL: ws://localhost:3000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:
+  redis_data:
