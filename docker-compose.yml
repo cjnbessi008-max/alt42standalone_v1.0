@@ -1,0 +1,109 @@
+version: '3.8'
+
+services:
+  # Thinking Routine Engine API
+  thinking-routine-api:
+    build:
+      context: ./thinking-routine-engine
+      dockerfile: ../docker/Dockerfile.api
+    container_name: thinking-routine-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MOODLE_DB_HOST=${MOODLE_DB_HOST:-mysql}
+      - MOODLE_DB_PORT=${MOODLE_DB_PORT:-3306}
+      - MOODLE_DB_NAME=${MOODLE_DB_NAME:-moodle}
+      - MOODLE_DB_USER=${MOODLE_DB_USER:-moodle}
+      - MOODLE_DB_PASSWORD=${MOODLE_DB_PASSWORD}
+      - APP_DB_HOST=postgres
+      - APP_DB_PORT=5432
+      - APP_DB_NAME=thinking_routine
+      - APP_DB_USER=postgres
+      - APP_DB_PASSWORD=${POSTGRES_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - thinking-routine-network
+    restart: unless-stopped
+
+  # PostgreSQL for analytics database
+  postgres:
+    image: postgres:15-alpine
+    container_name: thinking-routine-postgres
+    environment:
+      - POSTGRES_DB=thinking_routine
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - thinking-routine-network
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: thinking-routine-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - thinking-routine-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Optional: MySQL 5.7 for Moodle (if running locally)
+  mysql:
+    image: mysql:5.7
+    container_name: moodle-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=moodle
+      - MYSQL_USER=moodle
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-moodle}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - thinking-routine-network
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Optional: Moodle 3.7 (for testing)
+  moodle:
+    image: moodlehq/moodle-php-apache:7.1
+    container_name: moodle-app
+    environment:
+      - MOODLE_DB_HOST=mysql
+      - MOODLE_DB_NAME=moodle
+      - MOODLE_DB_USER=moodle
+      - MOODLE_DB_PASSWORD=${MYSQL_PASSWORD:-moodle}
+      - MOODLE_DB_PORT=3306
+    volumes:
+      - moodle_data:/var/www/html
+      - ./moodle-integration/local/thinkroutine:/var/www/html/local/thinkroutine
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - thinking-routine-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  mysql_data:
+  moodle_data:
+
+networks:
+  thinking-routine-network:
+    driver: bridge
