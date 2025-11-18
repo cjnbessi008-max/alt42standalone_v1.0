@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: numconst_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: number_constellation
+      MYSQL_USER: numconst
+      MYSQL_PASSWORD: numconst123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - numconst_network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # PHP 7.1.9 + Apache Web Server
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: numconst_web
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: mysql
+      DB_NAME: number_constellation
+      DB_USER: numconst
+      DB_PASS: numconst123
+      API_KEY: your-secret-api-key-here
+      CORS_ORIGIN: "*"
+    volumes:
+      - ../backend:/var/www/html/api
+      - ../frontend:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - numconst_network
+
+  # PHPMyAdmin (optional, for database management)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0
+    container_name: numconst_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - numconst_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  numconst_network:
+    driver: bridge

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Constellation - 수의 별자리</title>
+    <link rel="stylesheet" href="../src/styles/main.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container -->
+    <div id="smartphone-container">
+        <div class="smartphone-frame">
+            <div class="smartphone-notch"></div>
+            <div class="smartphone-screen">
+                <!-- App Content -->
+                <div id="app">
+                    <header class="app-header">
+                        <h1 class="app-title">⭐ Number Constellation</h1>
+                        <div class="app-subtitle">수의 별자리</div>
+                    </header>
+
+                    <!-- Problem Instructions -->
+                    <div id="instruction-panel" class="instruction-panel">
+                        <p id="instruction-text">문제를 불러오는 중...</p>
+                        <div id="problem-info" class="problem-info">
+                            <span id="problem-type"></span>
+                            <span id="number-range"></span>
+                            <span id="difficulty"></span>
+                        </div>
+                    </div>
+
+                    <!-- Constellation Canvas -->
+                    <div id="constellation-container">
+                        <canvas id="constellation-canvas"></canvas>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="controls-panel">
+                        <div class="score-display">
+                            <span>점수: <span id="score">0</span>%</span>
+                            <span>선택: <span id="selected-count">0</span></span>
+                        </div>
+                        <div class="button-group">
+                            <button id="reset-btn" class="btn btn-secondary">초기화</button>
+                            <button id="submit-btn" class="btn btn-primary">제출</button>
+                        </div>
+                    </div>
+
+                    <!-- Result Modal -->
+                    <div id="result-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <h2 id="result-title">결과</h2>
+                            <p id="result-message"></p>
+                            <div id="result-details"></div>
+                            <button id="close-modal-btn" class="btn btn-primary">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="smartphone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/utils/math.js"></script>
+    <script src="../src/utils/api.js"></script>
+    <script src="../src/components/constellation.js"></script>
+    <script src="../src/components/app.js"></script>
+</body>
+</html>
