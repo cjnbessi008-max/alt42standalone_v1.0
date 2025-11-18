@@ -1,0 +1,34 @@
+{
+  "name": "alt42-expansion-mode",
+  "version": "1.0.0",
+  "description": "Interactive learning webapp with Expansion Mode - integrates with Moodle LMS",
+  "main": "src/backend/server.js",
+  "scripts": {
+    "start": "node src/backend/server.js",
+    "dev:backend": "nodemon src/backend/server.js",
+    "dev:frontend": "cd src/frontend && npm start",
+    "build:frontend": "cd src/frontend && npm run build",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "install:all": "npm install && cd src/frontend && npm install"
+  },
+  "keywords": [
+    "education",
+    "moodle",
+    "lms",
+    "expansion-mode",
+    "interactive-learning"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
+  }
+}
