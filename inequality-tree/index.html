@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inequality Tree - 부등식 트리 시각화</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- D3.js for Tree Visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Math Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- 메인 컨테이너 (스마트폰 화면 시뮬레이션) -->
+    <div class="smartphone-container">
+        <!-- 헤더 -->
+        <header class="app-header">
+            <h1 class="app-title">🌳 Inequality Tree</h1>
+            <div class="header-info">
+                <span class="difficulty-badge" id="difficultyBadge">중급</span>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 -->
+        <main class="app-content">
+            <!-- 문제 표시 영역 -->
+            <section class="problem-section">
+                <div class="problem-header">
+                    <h2>문제</h2>
+                    <button class="btn-icon" id="btnNewProblem" title="새 문제">
+                        🔄
+                    </button>
+                </div>
+                <div class="problem-display">
+                    <div class="inequality-expression" id="inequalityExpression">
+                        <!-- MathJax로 렌더링될 부등식 -->
+                        \(2x + 3 < 5\)
+                    </div>
+                </div>
+                <p class="problem-instruction">
+                    부등식을 풀어보세요. 트리를 탭하여 각 단계를 확인할 수 있습니다.
+                </p>
+            </section>
+
+            <!-- 트리 시각화 영역 -->
+            <section class="tree-section">
+                <div class="tree-header">
+                    <h3>풀이 과정 트리</h3>
+                    <div class="tree-controls">
+                        <button class="btn-small" id="btnExpandAll">전체 펼치기</button>
+                        <button class="btn-small" id="btnCollapseAll">전체 접기</button>
+                    </div>
+                </div>
+                <div class="tree-container" id="treeContainer">
+                    <!-- D3.js로 생성될 트리 -->
+                    <svg id="treeSvg"></svg>
+                </div>
+            </section>
+
+            <!-- 답안 입력 영역 -->
+            <section class="answer-section">
+                <div class="answer-header">
+                    <h3>답안 입력</h3>
+                    <div class="attempt-counter">
+                        시도: <span id="attemptCount">0</span>회
+                    </div>
+                </div>
+                <div class="answer-input-group">
+                    <input
+                        type="text"
+                        id="answerInput"
+                        class="answer-input"
+                        placeholder="예: x < 1"
+                        autocomplete="off"
+                    />
+                    <button class="btn-primary" id="btnSubmit">제출</button>
+                </div>
+                <div class="feedback-area" id="feedbackArea">
+                    <!-- 피드백 메시지가 여기에 표시됩니다 -->
+                </div>
+            </section>
+
+            <!-- 힌트 영역 (접이식) -->
+            <section class="hint-section" id="hintSection" style="display: none;">
+                <div class="hint-toggle" id="hintToggle">
+                    <span>💡 힌트 보기</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="hint-content" id="hintContent" style="display: none;">
+                    <ul class="hint-list" id="hintList">
+                        <!-- 힌트가 동적으로 추가됩니다 -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 통계 영역 -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value" id="statCorrect">0</div>
+                    <div class="stat-label">정답</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statAttempted">0</div>
+                    <div class="stat-label">시도</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="statTime">0s</div>
+                    <div class="stat-label">소요시간</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="app-footer">
+            <p>Powered by Inequality Tree v1.0 | KAIST Touch Math Academy</p>
+        </footer>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>문제를 불러오는 중...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/inequality-parser.js"></script>
+    <script src="js/tree-builder.js"></script>
+    <script src="js/tree-visualizer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
