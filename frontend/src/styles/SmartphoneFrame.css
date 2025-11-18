@@ -1,0 +1,156 @@
+/* Smartphone Frame Container */
+.smartphone-container {
+  position: fixed;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+/* Position variants */
+.smartphone-container.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-container.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-container.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-container.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.smartphone-container.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+  width: 320px;
+  height: 640px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Notch */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.speaker {
+  width: 60px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 3px;
+}
+
+.camera {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #1a1a2e 0%, #0a0a0f 100%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Screen */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Home Indicator */
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-frame {
+    width: 280px;
+    height: 560px;
+    border-radius: 35px;
+    padding: 10px;
+  }
+
+  .smartphone-notch {
+    width: 150px;
+    height: 25px;
+  }
+
+  .smartphone-container.bottom-right,
+  .smartphone-container.bottom-left {
+    bottom: 10px;
+  }
+
+  .smartphone-container.bottom-right {
+    right: 10px;
+  }
+
+  .smartphone-container.bottom-left {
+    left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .smartphone-frame {
+    width: 240px;
+    height: 480px;
+    border-radius: 30px;
+    padding: 8px;
+  }
+
+  .smartphone-notch {
+    width: 120px;
+    height: 20px;
+  }
+
+  .speaker {
+    width: 50px;
+    height: 5px;
+  }
+
+  .camera {
+    width: 10px;
+    height: 10px;
+  }
+}
