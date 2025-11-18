@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        canvas {
+            border: 2px solid #4A90E2;
+            margin: 10px;
+            background: white;
+        }
+        button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #3a7bc8;
+        }
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .icon-item {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ALT42 PWA 아이콘 생성기</h1>
+        <p>아래 버튼을 클릭하여 각 아이콘을 다운로드하세요.</p>
+
+        <button onclick="generateAllIcons()">모든 아이콘 생성</button>
+
+        <div class="icons-grid" id="iconsGrid"></div>
+    </div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4A90E2');
+            gradient.addColorStop(1, '#7B68EE');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Draw graph nodes (circles)
+            const nodeRadius = size * 0.08;
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const orbitRadius = size * 0.28;
+
+            // Draw connecting lines
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = size * 0.02;
+            for (let i = 0; i < 4; i++) {
+                const angle1 = (i / 4) * Math.PI * 2 - Math.PI / 2;
+                const angle2 = ((i + 1) / 4) * Math.PI * 2 - Math.PI / 2;
+                const x1 = centerX + Math.cos(angle1) * orbitRadius;
+                const y1 = centerY + Math.sin(angle1) * orbitRadius;
+                const x2 = centerX + Math.cos(angle2) * orbitRadius;
+                const y2 = centerY + Math.sin(angle2) * orbitRadius;
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // Draw center node
+            ctx.fillStyle = '#FFD700';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, nodeRadius * 1.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Draw outer nodes
+            for (let i = 0; i < 4; i++) {
+                const angle = (i / 4) * Math.PI * 2 - Math.PI / 2;
+                const x = centerX + Math.cos(angle) * orbitRadius;
+                const y = centerY + Math.sin(angle) * orbitRadius;
+
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(x, y, nodeRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw burst effect (particles)
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = orbitRadius * 0.5;
+                const x = centerX + Math.cos(angle) * distance;
+                const y = centerY + Math.sin(angle) * distance;
+                const particleSize = nodeRadius * 0.4;
+
+                ctx.beginPath();
+                ctx.arc(x, y, particleSize, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Add border
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = size * 0.015;
+            ctx.strokeRect(0, 0, size, size);
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function generateIcon(size) {
+            const canvas = document.createElement('canvas');
+            drawIcon(canvas, size);
+
+            const container = document.createElement('div');
+            container.className = 'icon-item';
+
+            const label = document.createElement('div');
+            label.textContent = `${size}x${size}`;
+            label.style.marginBottom = '10px';
+
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = '다운로드';
+            downloadBtn.onclick = () => downloadCanvas(canvas, `icon-${size}x${size}.png`);
+
+            container.appendChild(label);
+            container.appendChild(canvas);
+            container.appendChild(downloadBtn);
+
+            return container;
+        }
+
+        function generateAllIcons() {
+            const grid = document.getElementById('iconsGrid');
+            grid.innerHTML = '';
+
+            sizes.forEach(size => {
+                const iconItem = generateIcon(size);
+                grid.appendChild(iconItem);
+            });
+        }
+
+        // Generate icons on load
+        window.addEventListener('load', generateAllIcons);
+    </script>
+</body>
+</html>

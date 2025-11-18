@@ -2,8 +2,24 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>ALT42 - Intersection Burst Graph Visualizer</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Interactive concept graph visualization with intersection burst effects for educational learning">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ALT42 Graph">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192x192.png">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +29,15 @@
             <h1>ALT42 Education System</h1>
             <div class="lms-status">
                 <span class="status-indicator" id="lmsStatus"></span>
-                <span id="lmsText">LMS 연동 대기중...</span>
+                <span id="lmsText">독립형 모드</span>
+            </div>
+            <div class="app-controls">
+                <button id="installBtn" class="btn-install" style="display: none;">
+                    📥 앱 설치
+                </button>
+                <span class="offline-indicator" id="offlineIndicator" style="display: none;">
+                    ⚠️ 오프라인
+                </span>
             </div>
         </header>
 
@@ -142,9 +166,26 @@
     </div>
 
     <!-- Scripts -->
-    <script src="lms-connector.js"></script>
+    <script src="storage-manager.js"></script>
+    <script src="sample-problems.js"></script>
     <script src="burst-effect.js"></script>
     <script src="graph-visualizer.js"></script>
-    <script src="app.js"></script>
+    <script src="pwa-controller.js"></script>
+    <script src="app-standalone.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('[PWA] Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('[PWA] Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
