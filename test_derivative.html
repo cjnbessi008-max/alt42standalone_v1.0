@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivative Pulse Test - Touch Math</title>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .test-section {
+            margin: 30px 0;
+        }
+
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        #testGraph {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-test {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-test:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .test-results {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .test-results ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .test-results li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .test-results li:last-child {
+            border-bottom: none;
+        }
+
+        .pass {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .fail {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Derivative Pulse Test Suite</h1>
+
+        <div class="status info">
+            <strong>Test Objective:</strong> Verify that the derivative function does NOT cause graph "pulse" or shrinking.
+            <br><br>
+            <strong>Expected Behavior:</strong> When "Show Derivative" is clicked, the derivative line should appear smoothly without the graph jumping, shrinking, or flickering.
+        </div>
+
+        <div class="test-section">
+            <h2>Test Graph</h2>
+            <div id="testGraph"></div>
+
+            <div class="controls">
+                <button class="btn-test" onclick="runTest1()">Test 1: x²</button>
+                <button class="btn-test" onclick="runTest2()">Test 2: sin(x)</button>
+                <button class="btn-test" onclick="runTest3()">Test 3: x³</button>
+                <button class="btn-test" onclick="runTest4()">Test 4: exp(x)</button>
+                <button class="btn-reset" onclick="resetGraph()">Reset</button>
+            </div>
+
+            <div id="statusMessage"></div>
+        </div>
+
+        <div class="test-results">
+            <h3>Test Results</h3>
+            <ul id="testResultsList">
+                <li>Click test buttons to run derivative pulse tests...</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Technical Details</h2>
+            <p><strong>Fix Applied:</strong></p>
+            <ul>
+                <li>Using <code>Plotly.react()</code> instead of <code>Plotly.update()</code></li>
+                <li>Pre-calculating combined Y-axis range before adding derivative</li>
+                <li>Maintaining fixed axis ranges during updates</li>
+                <li>No DOM re-rendering during derivative addition</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/graphing.js"></script>
+    <script>
+        const calculator = new GraphCalculator('testGraph');
+        const testResults = [];
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        function addTestResult(testName, passed, details) {
+            testResults.push({ testName, passed, details });
+            updateResultsList();
+        }
+
+        function updateResultsList() {
+            const list = document.getElementById('testResultsList');
+            list.innerHTML = testResults.map(result => `
+                <li>
+                    <span class="${result.passed ? 'pass' : 'fail'}">
+                        ${result.passed ? '✓ PASS' : '✗ FAIL'}
+                    </span>
+                    - ${result.testName}: ${result.details}
+                </li>
+            `).join('');
+        }
+
+        function resetGraph() {
+            calculator.clear();
+            showStatus('Graph cleared. Ready for testing.', 'info');
+        }
+
+        async function runTest(testName, functionExpr) {
+            showStatus(`Running ${testName}...`, 'info');
+
+            try {
+                // Plot function
+                calculator.plotFunction(functionExpr);
+                await sleep(500);
+
+                // Capture graph state before derivative
+                const graphBefore = document.querySelector('#testGraph .plotly');
+                const rectBefore = graphBefore ? graphBefore.getBoundingClientRect() : null;
+
+                // Show derivative
+                calculator.showDerivative();
+                await sleep(500);
+
+                // Capture graph state after derivative
+                const graphAfter = document.querySelector('#testGraph .plotly');
+                const rectAfter = graphAfter ? graphAfter.getBoundingClientRect() : null;
+
+                // Check if graph size remained stable
+                let sizeStable = true;
+                let details = '';
+
+                if (rectBefore && rectAfter) {
+                    const widthDiff = Math.abs(rectAfter.width - rectBefore.width);
+                    const heightDiff = Math.abs(rectAfter.height - rectBefore.height);
+
+                    sizeStable = widthDiff < 2 && heightDiff < 2; // Allow 2px tolerance
+                    details = `Width change: ${widthDiff.toFixed(2)}px, Height change: ${heightDiff.toFixed(2)}px`;
+                } else {
+                    details = 'Graph rendered successfully';
+                }
+
+                if (sizeStable) {
+                    showStatus(`✓ ${testName} PASSED - No pulse detected!`, 'success');
+                    addTestResult(testName, true, details);
+                } else {
+                    showStatus(`✗ ${testName} FAILED - Graph pulse detected!`, 'fail');
+                    addTestResult(testName, false, `Pulse detected! ${details}`);
+                }
+
+            } catch (error) {
+                showStatus(`✗ ${testName} FAILED - Error: ${error.message}`, 'fail');
+                addTestResult(testName, false, `Error: ${error.message}`);
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Test functions
+        async function runTest1() {
+            await runTest('Test 1: Quadratic (x²)', 'x^2');
+        }
+
+        async function runTest2() {
+            await runTest('Test 2: Sine Wave', 'sin(x)');
+        }
+
+        async function runTest3() {
+            await runTest('Test 3: Cubic (x³)', 'x^3');
+        }
+
+        async function runTest4() {
+            await runTest('Test 4: Exponential', 'exp(x)');
+        }
+
+        // Auto-run first test
+        window.addEventListener('load', () => {
+            showStatus('Test suite loaded. Click a test button to begin.', 'info');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    min-height: calc(100vh - 40px);
+}
+
+.desktop-area {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.desktop-area h1 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.desktop-area .instruction {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Virtual Smartphone Frame - Fixed to bottom right */
+.smartphone-frame {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    height: 720px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    border: 8px solid #2a2a2a;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 15px 15px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.problem-info {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.graph-container {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#plotlyGraph {
+    width: 100%;
+    height: 100%;
+}
+
+.controls {
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.function-input {
+    margin-bottom: 12px;
+}
+
+.function-input label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.function-input input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    transition: border-color 0.3s;
+}
+
+.function-input input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.btn-outline {
+    background: white;
+    color: #666;
+    border: 2px solid #ddd;
+}
+
+.btn-outline:hover {
+    border-color: #999;
+    color: #333;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.info-panel {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.info-panel p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.current-function span,
+.derivative-function span {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.derivative-function span {
+    color: #48bb78;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .smartphone-frame {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .desktop-area {
+        text-align: center;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

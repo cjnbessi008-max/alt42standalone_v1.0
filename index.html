@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touch Math - Graph Calculator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="desktop-area">
+            <h1>Touch Math Academy - Interactive Graph Calculator</h1>
+            <p class="instruction">Use the virtual smartphone on the right to interact with the graph calculator.</p>
+        </div>
+
+        <!-- Virtual Smartphone Display (Right Bottom) -->
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <h2>Graph Calculator</h2>
+                    <div class="problem-info" id="problemInfo">
+                        Loading problem...
+                    </div>
+                </div>
+
+                <div class="graph-container" id="graphContainer">
+                    <div id="plotlyGraph"></div>
+                </div>
+
+                <div class="controls">
+                    <div class="function-input">
+                        <label for="functionInput">Function f(x) =</label>
+                        <input type="text" id="functionInput" value="x^2" placeholder="e.g., x^2, sin(x)">
+                    </div>
+
+                    <div class="button-group">
+                        <button id="plotBtn" class="btn btn-primary">Plot Graph</button>
+                        <button id="derivativeBtn" class="btn btn-secondary">Show Derivative</button>
+                        <button id="resetBtn" class="btn btn-outline">Reset</button>
+                    </div>
+
+                    <div class="info-panel" id="infoPanel">
+                        <p class="current-function">f(x) = <span id="currentFunction">x²</span></p>
+                        <p class="derivative-function" id="derivativeDisplay" style="display: none;">
+                            f'(x) = <span id="derivativeFunctionText"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/graphing.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
