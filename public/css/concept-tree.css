@@ -1,0 +1,283 @@
+/* Concept Tree Visualization Styles */
+
+.concept-tree-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    display: none;
+    z-index: 100;
+    animation: fadeIn 0.3s ease;
+}
+
+.concept-tree-container.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.tree-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+}
+
+#tree-svg {
+    min-height: 100%;
+}
+
+/* Close Button */
+.close-tree-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+    z-index: 101;
+}
+
+.close-tree-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* Tree Node Styles */
+.tree-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tree-node circle {
+    fill: #667eea;
+    stroke: #fff;
+    stroke-width: 3;
+    filter: url(#glow);
+    transition: all 0.3s ease;
+}
+
+.tree-node:hover circle {
+    fill: #764ba2;
+    r: 32;
+    filter: url(#glow) drop-shadow(0 0 10px #764ba2);
+}
+
+.tree-node text {
+    fill: white;
+    font-size: 12px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.tree-node.root circle {
+    fill: #f093fb;
+    r: 35;
+}
+
+.tree-node.level-1 circle {
+    fill: #667eea;
+    r: 28;
+}
+
+.tree-node.level-2 circle {
+    fill: #4facfe;
+    r: 24;
+}
+
+.tree-node.level-3 circle {
+    fill: #43e97b;
+    r: 20;
+}
+
+/* Tree Branch Lines */
+.tree-branch {
+    stroke: #667eea;
+    stroke-width: 2;
+    fill: none;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.tree-branch.animating {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawLine 1s ease forwards;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.tree-branch:hover {
+    stroke: #764ba2;
+    stroke-width: 3;
+    opacity: 1;
+}
+
+/* Concept Info Box */
+.concept-info {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 200px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 102;
+    animation: popIn 0.3s ease;
+}
+
+.concept-info.visible {
+    display: block;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.concept-info h4 {
+    color: #667eea;
+    margin-bottom: 8px;
+    font-size: 1em;
+}
+
+.concept-info p {
+    color: #333;
+    font-size: 0.85em;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.concept-info .concept-level {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: 600;
+}
+
+/* Loading Animation */
+.tree-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.tree-loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Tree Legend */
+.tree-legend {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.75em;
+}
+
+.tree-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.tree-legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid white;
+}
+
+/* Node Animations */
+@keyframes nodeAppear {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tree-node {
+    animation: nodeAppear 0.5s ease backwards;
+}
+
+.tree-node:nth-child(1) { animation-delay: 0.1s; }
+.tree-node:nth-child(2) { animation-delay: 0.2s; }
+.tree-node:nth-child(3) { animation-delay: 0.3s; }
+.tree-node:nth-child(4) { animation-delay: 0.4s; }
+.tree-node:nth-child(5) { animation-delay: 0.5s; }
+
+/* Empty State */
+.tree-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.tree-empty-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.tree-empty-text {
+    font-size: 1.2em;
+    opacity: 0.8;
+}

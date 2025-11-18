@@ -1,0 +1,227 @@
+/* Virtual Smartphone UI - Bottom Right Corner */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.smartphone-container:hover {
+    transform: scale(1.02);
+}
+
+/* Phone Frame */
+.smartphone-frame {
+    width: 320px;
+    height: 600px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        inset 0 0 6px rgba(255,255,255,0.1);
+    position: relative;
+}
+
+/* Phone Notch (Top) */
+.phone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+.phone-notch::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 5px;
+    background: #333;
+    border-radius: 3px;
+}
+
+/* Phone Screen */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Screen Header */
+.screen-header {
+    background: rgba(0,0,0,0.3);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 0.85em;
+    backdrop-filter: blur(10px);
+}
+
+.app-title {
+    font-weight: 600;
+}
+
+.time {
+    font-weight: 500;
+}
+
+/* Problem Display Area */
+.problem-display {
+    background: white;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.problem-display h3 {
+    color: #667eea;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.problem-content {
+    color: #333;
+    line-height: 1.6;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.problem-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.number-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    user-select: none;
+}
+
+.number-badge:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.number-badge:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.number-badge.selected {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Screen Footer */
+.screen-footer {
+    background: rgba(0,0,0,0.3);
+    padding: 12px;
+    backdrop-filter: blur(10px);
+    margin-top: auto;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-btn {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+}
+
+.nav-btn:hover {
+    background: rgba(255,255,255,0.5);
+    transform: scale(1.1);
+}
+
+/* Phone Physical Buttons */
+.phone-button {
+    position: absolute;
+    background: #0a0a0a;
+    border-radius: 3px;
+}
+
+.phone-button-power {
+    right: -3px;
+    top: 100px;
+    width: 6px;
+    height: 60px;
+}
+
+.phone-button-volume-up {
+    left: -3px;
+    top: 100px;
+    width: 6px;
+    height: 40px;
+}
+
+.phone-button-volume-down {
+    left: -3px;
+    top: 150px;
+    width: 6px;
+    height: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .smartphone-container {
+        bottom: 10px;
+        right: 10px;
+        transform: scale(0.8);
+        transform-origin: bottom right;
+    }
+
+    .smartphone-container:hover {
+        transform: scale(0.82);
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-container {
+        transform: scale(0.6);
+    }
+
+    .smartphone-container:hover {
+        transform: scale(0.62);
+    }
+}
