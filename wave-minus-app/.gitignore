@@ -1,0 +1,35 @@
+# 로그 파일
+logs/
+*.log
+
+# 설정 파일 (보안)
+php/config.php
+
+# 임시 파일
+*.tmp
+*.cache
+*.swp
+*~
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# IDE 파일
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 백업 파일
+*.bak
+*.backup
+backup/
+
+# Node modules (필요시)
+node_modules/
+package-lock.json
+
+# PHP Composer (필요시)
+vendor/
+composer.lock

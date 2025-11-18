@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Minus - 집합 차집합 학습</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 메인 콘텐츠 영역 -->
+        <div class="main-content">
+            <h1>Wave Minus - 집합 차집합 학습</h1>
+            <p class="description">집합 간 차집합을 파도처럼 밀려나가는 효과로 학습해보세요!</p>
+        </div>
+
+        <!-- 우측 하단 스마트폰 화면 -->
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="screen-header">
+                    <div class="status-bar">
+                        <span class="time">10:30</span>
+                        <div class="icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+                    <h2 class="app-title">집합 차집합</h2>
+                </div>
+
+                <div class="screen-content">
+                    <!-- 문제 표시 영역 -->
+                    <div class="problem-area">
+                        <div class="problem-text">
+                            <p><strong>문제:</strong> A - B를 구하세요</p>
+                        </div>
+                    </div>
+
+                    <!-- 집합 시각화 영역 -->
+                    <div class="sets-container">
+                        <div class="set-display">
+                            <h3>집합 A</h3>
+                            <div class="set-items" id="setA">
+                                <!-- JavaScript로 동적 생성 -->
+                            </div>
+                        </div>
+
+                        <div class="operator">
+                            <span class="minus-sign">−</span>
+                        </div>
+
+                        <div class="set-display">
+                            <h3>집합 B</h3>
+                            <div class="set-items" id="setB">
+                                <!-- JavaScript로 동적 생성 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 결과 집합 -->
+                    <div class="result-container">
+                        <h3>결과 (A - B)</h3>
+                        <div class="set-items result" id="result">
+                            <!-- JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+
+                    <!-- 컨트롤 버튼 -->
+                    <div class="controls">
+                        <button id="playBtn" class="btn btn-primary">애니메이션 실행</button>
+                        <button id="resetBtn" class="btn btn-secondary">초기화</button>
+                        <button id="newProblemBtn" class="btn btn-success">새 문제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/waveminus.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
