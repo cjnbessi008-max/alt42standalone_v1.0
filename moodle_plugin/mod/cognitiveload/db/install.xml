@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/cognitiveload/db" VERSION="20251118" COMMENT="Cognitive Load Analysis Module">
+  <TABLES>
+    <!-- Main module instance table -->
+    <TABLE NAME="cognitiveload" COMMENT="Cognitive load analysis instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 문제별 인지 부하 캐시 -->
+    <TABLE NAME="cogload_cache" COMMENT="Cached cognitive load scores">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="intrinsic_load" TYPE="number" LENGTH="5" DECIMALS="2" NOTNULL="true"/>
+        <FIELD NAME="extraneous_load" TYPE="number" LENGTH="5" DECIMALS="2" NOTNULL="true"/>
+        <FIELD NAME="germane_load" TYPE="number" LENGTH="5" DECIMALS="2" NOTNULL="true"/>
+        <FIELD NAME="total_score" TYPE="number" LENGTH="5" DECIMALS="2" NOTNULL="true"/>
+        <FIELD NAME="difficulty_level" TYPE="char" LENGTH="20" NOTNULL="true"/>
+        <FIELD NAME="problem_type" TYPE="char" LENGTH="50" NOTNULL="true"/>
+        <FIELD NAME="analyzed_at" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid_fk" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="questionid_idx" UNIQUE="false" FIELDS="questionid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 학생별 인지 부하 메트릭 -->
+    <TABLE NAME="cogload_student_metrics" COMMENT="Student cognitive load metrics">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="quizattemptid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Time in seconds"/>
+        <FIELD NAME="num_attempts" TYPE="int" LENGTH="5" NOTNULL="true"/>
+        <FIELD NAME="hints_used" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="perceived_difficulty" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="1-5 scale, student self-report"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="true"/>
+        <FIELD NAME="cognitive_load_experienced" TYPE="number" LENGTH="5" DECIMALS="2" NOTNULL="false" COMMENT="Calculated from behavior"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="questionid_fk" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="questionid_idx" UNIQUE="false" FIELDS="questionid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 문제 상세 분석 결과 -->
+    <TABLE NAME="cogload_analysis" COMMENT="Detailed problem analysis">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="concept_count" TYPE="int" LENGTH="5" NOTNULL="true"/>
+        <FIELD NAME="relationship_count" TYPE="int" LENGTH="5" NOTNULL="true"/>
+        <FIELD NAME="required_steps" TYPE="int" LENGTH="5" NOTNULL="true"/>
+        <FIELD NAME="prerequisite_concepts" TYPE="text" NOTNULL="false" COMMENT="JSON array of concept IDs"/>
+        <FIELD NAME="visual_complexity" TYPE="int" LENGTH="2" NOTNULL="true"/>
+        <FIELD NAME="linguistic_complexity" TYPE="number" LENGTH="5" DECIMALS="2"/>
+        <FIELD NAME="abstraction_level" TYPE="int" LENGTH="2" NOTNULL="true"/>
+        <FIELD NAME="ai_analysis" TYPE="text" NOTNULL="false" COMMENT="JSON of AI analysis results"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="questionid_fk" TYPE="foreign" FIELDS="questionid" REFTABLE="question" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="questionid_unique" UNIQUE="true" FIELDS="questionid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
