@@ -1,0 +1,293 @@
+/**
+ * Smooth vs Steps Activity - Styles
+ * Smartphone frame UI with animation canvas
+ */
+
+/* Main container */
+.smoothsteps-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 700px;
+    padding: 20px;
+    position: relative;
+}
+
+/* Smartphone frame - positioned at bottom right */
+.smartphone-frame {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    height: 760px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    z-index: 1000;
+}
+
+/* Smartphone notch */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 25px;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+}
+
+/* Smartphone home button indicator */
+.smartphone-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+}
+
+/* Screen area */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2) inset;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Animation controls */
+.animation-controls {
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.animation-controls h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Control buttons */
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.control-buttons button {
+    padding: 8px 16px;
+    font-size: 13px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(245, 87, 108, 0.4);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    color: white;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 167, 38, 0.4);
+}
+
+.control-buttons button:active {
+    transform: translateY(0);
+}
+
+/* Canvas area */
+#probabilityCanvas {
+    width: 100%;
+    height: auto;
+    flex: 1;
+    background: #ffffff;
+    display: block;
+}
+
+/* Explanation panel */
+.explanation-panel {
+    background: #f8f9fa;
+    padding: 15px;
+    border-top: 2px solid #dee2e6;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.explanation-box {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.explanation-box:last-child {
+    margin-bottom: 0;
+}
+
+.continuous-box {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-left: 4px solid #2196F3;
+}
+
+.discrete-box {
+    background: linear-gradient(135deg, #fbe9e7 0%, #ffccbc 100%);
+    border-left: 4px solid #FF5722;
+}
+
+.explanation-box h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.explanation-box p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1024px) {
+    .smartphone-frame {
+        position: static;
+        margin: 0 auto;
+        bottom: auto;
+        right: auto;
+    }
+
+    .smoothsteps-container {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-frame {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        min-height: 600px;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .smartphone-screen {
+        border-radius: 15px;
+    }
+
+    .animation-controls h3 {
+        font-size: 14px;
+    }
+
+    .control-buttons button {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+    .explanation-box h4 {
+        font-size: 12px;
+    }
+
+    .explanation-box p {
+        font-size: 11px;
+    }
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.smartphone-frame {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Loading state */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loading::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scrollbar styling for explanation panel */
+.explanation-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.explanation-panel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.explanation-panel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.explanation-panel::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

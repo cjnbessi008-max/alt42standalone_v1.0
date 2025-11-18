@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="12" cy="12" r="11" fill="#667eea" opacity="0.1"/>
+
+  <!-- Smooth curve (continuous) -->
+  <path d="M 2 18 Q 7 8, 12 12 T 22 18" stroke="#2196F3" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Step bars (discrete) -->
+  <rect x="2" y="15" width="2" height="3" fill="#FF5722" opacity="0.8"/>
+  <rect x="6" y="12" width="2" height="6" fill="#FF5722" opacity="0.8"/>
+  <rect x="10" y="10" width="2" height="8" fill="#FF5722" opacity="0.8"/>
+  <rect x="14" y="12" width="2" height="6" fill="#FF5722" opacity="0.8"/>
+  <rect x="18" y="14" width="2" height="4" fill="#FF5722" opacity="0.8"/>
+
+  <!-- Border circle -->
+  <circle cx="12" cy="12" r="11" stroke="#667eea" stroke-width="1" fill="none"/>
+</svg>
