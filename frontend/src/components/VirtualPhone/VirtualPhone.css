@@ -1,0 +1,189 @@
+.virtual-phone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.virtual-phone {
+  position: relative;
+  width: 320px;
+  height: 640px;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.phone-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+  border-radius: 40px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px);
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.phone-home-button {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+.problem-content {
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.problem-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+}
+
+.problem-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 20px 0;
+}
+
+.step-indicator {
+  display: inline-block;
+  background: #007AFF;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.current-step {
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.current-step p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.input-area {
+  margin-top: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.problem-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.problem-input:focus {
+  border-color: #007AFF;
+}
+
+.submit-button {
+  padding: 12px 24px;
+  background: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-button:hover {
+  background: #0051D5;
+}
+
+.submit-button:active {
+  transform: scale(0.98);
+}
+
+.problem-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.problem-meta span {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.difficulty {
+  background: #FFE5E5;
+  color: #FF3B30;
+}
+
+.subject {
+  background: #E5F1FF;
+  color: #007AFF;
+}
+
+.no-problem {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .virtual-phone-container {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .virtual-phone {
+    width: 280px;
+    height: 560px;
+  }
+}
