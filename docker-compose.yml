@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:5.7
+    container_name: mathgarden-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mathematical_garden
+      MYSQL_USER: mathgarden
+      MYSQL_PASSWORD: mathgarden123
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - mathgarden-network
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mathgarden-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: mathgarden
+      DB_PASSWORD: mathgarden123
+      DB_NAME: mathematical_garden
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - '3001:3001'
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - mathgarden-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # Frontend (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: mathgarden-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: http://localhost:3001/api/v1
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+    networks:
+      - mathgarden-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  mysql-data:
+
+networks:
+  mathgarden-network:
+    driver: bridge

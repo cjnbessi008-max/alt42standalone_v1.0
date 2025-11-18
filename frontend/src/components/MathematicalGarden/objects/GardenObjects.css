@@ -1,0 +1,151 @@
+.garden-object {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.garden-object:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.garden-object.selected {
+  filter: drop-shadow(0 6px 12px rgba(102, 126, 234, 0.5));
+  z-index: 100;
+}
+
+/* Flower Specific */
+.flower-svg {
+  transition: transform 0.3s ease;
+}
+
+.flower-object:hover .flower-svg {
+  transform: scale(1.05);
+}
+
+.flower-petals ellipse {
+  transform-origin: 50px 50px;
+  transition: all 0.3s ease;
+}
+
+.flower-object:hover .flower-petals ellipse {
+  opacity: 1;
+}
+
+.pulse-animation {
+  animation: centerPulse 1s ease-in-out infinite;
+}
+
+@keyframes centerPulse {
+  0%, 100% {
+    r: 12;
+    opacity: 1;
+  }
+  50% {
+    r: 14;
+    opacity: 0.8;
+  }
+}
+
+@keyframes petalPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.flower-label {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Tree Specific */
+.tree-svg {
+  transition: transform 0.3s ease;
+}
+
+.tree-object:hover .tree-svg {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.tree-svg ellipse {
+  transition: opacity 0.3s ease;
+}
+
+.tree-object:hover .tree-svg ellipse {
+  opacity: 1 !important;
+}
+
+/* Bush Specific */
+.bush-svg {
+  transition: transform 0.3s ease;
+}
+
+.bush-object:hover .bush-svg {
+  transform: scale(1.05);
+}
+
+.bush-svg circle {
+  transition: all 0.3s ease;
+}
+
+.bush-object:hover .bush-svg circle {
+  opacity: 1 !important;
+}
+
+/* Selection Ring */
+.selection-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.rotating-ring {
+  transform-origin: center;
+  animation: rotateRing 4s linear infinite;
+}
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Interactive Feedback */
+.garden-object {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.garden-object:active {
+  transform: translate(-50%, -50%) scale(0.95) !important;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .garden-object,
+  .flower-svg,
+  .tree-svg,
+  .bush-svg,
+  .rotating-ring {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile Touch Improvements */
+@media (hover: none) and (pointer: coarse) {
+  .garden-object {
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+  }
+
+  .garden-object.selected {
+    filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.6));
+  }
+}
