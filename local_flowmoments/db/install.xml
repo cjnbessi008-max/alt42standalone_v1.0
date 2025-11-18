@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/flowmoments/db" VERSION="20251118" COMMENT="XMLDB file for Flow Moments plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Student behavior tracking table -->
+    <TABLE NAME="local_flowmoments_tracking" COMMENT="Tracks student behavior during problem solving">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course module ID"/>
+        <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Quiz/Activity attempt ID"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Question ID"/>
+        <FIELD NAME="eventtype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Event type (click, scroll, input, submit, etc.)"/>
+        <FIELD NAME="eventdata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data for the event"/>
+        <FIELD NAME="timespent" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Unix timestamp"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Record creation time"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid, courseid"/>
+        <INDEX NAME="cmid" UNIQUE="false" FIELDS="cmid"/>
+        <INDEX NAME="timestamp" UNIQUE="false" FIELDS="timestamp"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Flow moments detection results table -->
+    <TABLE NAME="local_flowmoments_detected" COMMENT="Stores detected flow moments">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course module ID"/>
+        <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Quiz/Activity attempt ID"/>
+        <FIELD NAME="questionid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Question ID"/>
+        <FIELD NAME="flowscore" TYPE="number" LENGTH="5" NOTNULL="true" SEQUENCE="false" DECIMALS="2" COMMENT="Flow state score (0-100)"/>
+        <FIELD NAME="starttime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Flow moment start time"/>
+        <FIELD NAME="endtime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Flow moment end time"/>
+        <FIELD NAME="duration" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Duration in seconds"/>
+        <FIELD NAME="indicators" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="JSON data of flow indicators"/>
+        <FIELD NAME="complexity" TYPE="int" LENGTH="3" NOTNULL="true" SEQUENCE="false" COMMENT="Problem complexity (1-10)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Record creation time"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="false" FIELDS="userid, courseid"/>
+        <INDEX NAME="flowscore" UNIQUE="false" FIELDS="flowscore"/>
+        <INDEX NAME="starttime" UNIQUE="false" FIELDS="starttime"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Analytics summary table -->
+    <TABLE NAME="local_flowmoments_summary" COMMENT="Aggregated flow analytics per user/course">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="totalflowmoments" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Total flow moments detected"/>
+        <FIELD NAME="avgflowscore" TYPE="number" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2" COMMENT="Average flow score"/>
+        <FIELD NAME="totalflowtime" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Total time in flow (seconds)"/>
+        <FIELD NAME="lastflowtime" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Last flow moment timestamp"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Last update time"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Record creation time"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid" UNIQUE="true" FIELDS="userid, courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
