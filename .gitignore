@@ -1,0 +1,39 @@
+# Dependencies
+vendor/
+node_modules/
+
+# Environment & Config
+.env
+config/config.local.php
+
+# Logs
+*.log
+error_log
+install.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+*.backup
+*.sql.gz
+
+# Cache
+cache/
+temp/
+tmp/
