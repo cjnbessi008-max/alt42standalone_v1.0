@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai_education_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_education
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: ai_education_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Python FastAPI Orchestrator
+  orchestrator:
+    build:
+      context: ./backend/pipeline_orchestrator
+      dockerfile: ../../docker/Dockerfile.orchestrator
+    container_name: ai_education_orchestrator
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/ai_education
+      - REDIS_URL=redis://redis:6379
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/pipeline_orchestrator:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Node.js API Gateway
+  api_gateway:
+    build:
+      context: ./backend/api_gateway
+      dockerfile: ../../docker/Dockerfile.api
+    container_name: ai_education_api_gateway
+    environment:
+      - PORT=3001
+      - ORCHESTRATOR_URL=http://orchestrator:8000
+      - NODE_ENV=development
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend/api_gateway:/app
+      - /app/node_modules
+    depends_on:
+      - orchestrator
+    command: npm run dev
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: ai_education_frontend
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api_gateway
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  postgres_data:
+  redis_data:
