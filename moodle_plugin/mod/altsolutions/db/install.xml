@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/altsolutions/db" VERSION="20251118" COMMENT="XMLDB file for Moodle mod/altsolutions">
+  <TABLES>
+    <!-- 메인 활동 테이블 -->
+    <TABLE NAME="altsolutions" COMMENT="Alternative Solutions activity instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Activity name"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Activity description"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="problemtext" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Main problem statement"/>
+        <FIELD NAME="problemformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="minsteps" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="3" SEQUENCE="false" COMMENT="Minimum number of solution steps"/>
+        <FIELD NAME="minalternatives" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="2" SEQUENCE="false" COMMENT="Minimum alternatives per step"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- 문제 단계 테이블 -->
+    <TABLE NAME="altsolutions_steps" COMMENT="Problem solving steps">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="altsolutionsid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="stepnumber" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="Step order"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="hinttext" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Hint for this step"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="altsolutionsid" TYPE="foreign" FIELDS="altsolutionsid" REFTABLE="altsolutions" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="altsolutions_stepnumber" UNIQUE="false" FIELDS="altsolutionsid, stepnumber"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 학생 응답 테이블 -->
+    <TABLE NAME="altsolutions_attempts" COMMENT="Student attempts and solutions">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="altsolutionsid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="stepid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="approach" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Student's chosen approach"/>
+        <FIELD NAME="solution" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Student's solution"/>
+        <FIELD NAME="confidence" TYPE="int" LENGTH="3" NOTNULL="false" SEQUENCE="false" COMMENT="Confidence level 1-5"/>
+        <FIELD NAME="timespent" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="altsolutionsid" TYPE="foreign" FIELDS="altsolutionsid" REFTABLE="altsolutions" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="stepid" TYPE="foreign" FIELDS="stepid" REFTABLE="altsolutions_steps" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_step" UNIQUE="false" FIELDS="userid, stepid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- 대안적 접근 방법 테이블 -->
+    <TABLE NAME="altsolutions_alternatives" COMMENT="Alternative approaches explored by students">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="attemptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="alternativenumber" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Description of alternative approach"/>
+        <FIELD NAME="reasoning" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Why this approach might work"/>
+        <FIELD NAME="selected" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="1 if selected as final approach"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="attemptid" TYPE="foreign" FIELDS="attemptid" REFTABLE="altsolutions_attempts" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- 성찰 기록 테이블 -->
+    <TABLE NAME="altsolutions_reflections" COMMENT="Student reflections on problem solving">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="altsolutionsid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="mosteffective" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Most effective approach"/>
+        <FIELD NAME="learned" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="What was learned"/>
+        <FIELD NAME="wouldchange" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="What would be changed"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="altsolutionsid" TYPE="foreign" FIELDS="altsolutionsid" REFTABLE="altsolutions" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_activity" UNIQUE="true" FIELDS="userid, altsolutionsid"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>
