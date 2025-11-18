@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Melody - Interactive Learning App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Side: Instructions and Controls -->
+        <div class="control-panel">
+            <div class="header">
+                <h1>🎵 Number Melody</h1>
+                <p class="subtitle">Touch numbers to create musical patterns</p>
+            </div>
+
+            <div class="problem-info">
+                <h2 id="problem-title">Loading...</h2>
+                <p id="problem-description">Please wait while we load your problem...</p>
+                <div class="difficulty-badge">
+                    <span id="difficulty-level">Level: -</span>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <h3>Your Progress</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-attempts">0</div>
+                        <div class="stat-label">Attempts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="correct-attempts">0</div>
+                        <div class="stat-label">Correct</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="current-sequence">
+                <h3>Your Sequence:</h3>
+                <div id="sequence-display" class="sequence-display">
+                    <span class="empty-sequence">Tap numbers to start...</span>
+                </div>
+                <button id="clear-btn" class="btn btn-secondary">Clear</button>
+                <button id="submit-btn" class="btn btn-primary" disabled>Submit Answer</button>
+            </div>
+
+            <div class="timer">
+                <span class="timer-label">Time:</span>
+                <span id="timer-display">0:00</span>
+            </div>
+        </div>
+
+        <!-- Right Side: Virtual Smartphone Display -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- Smartphone Frame -->
+                <div class="smartphone-frame">
+                    <!-- Notch -->
+                    <div class="notch">
+                        <div class="speaker"></div>
+                        <div class="camera"></div>
+                    </div>
+
+                    <!-- Screen -->
+                    <div class="screen">
+                        <!-- App Screen Content -->
+                        <div class="app-screen">
+                            <!-- Status Bar -->
+                            <div class="status-bar">
+                                <span class="status-time">9:41</span>
+                                <div class="status-icons">
+                                    <span class="icon-signal">📶</span>
+                                    <span class="icon-wifi">📡</span>
+                                    <span class="icon-battery">🔋</span>
+                                </div>
+                            </div>
+
+                            <!-- App Content -->
+                            <div class="app-content">
+                                <div class="app-header">
+                                    <div class="app-icon">🎵</div>
+                                    <h2 class="app-title">Number Melody</h2>
+                                </div>
+
+                                <!-- Number Grid -->
+                                <div id="number-grid" class="number-grid">
+                                    <!-- Numbers will be dynamically inserted here -->
+                                </div>
+
+                                <!-- Feedback Area -->
+                                <div id="feedback-area" class="feedback-area">
+                                    <div class="feedback-message"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Home Button -->
+                    <div class="home-button"></div>
+                </div>
+
+                <!-- Power Button -->
+                <div class="power-button"></div>
+
+                <!-- Volume Buttons -->
+                <div class="volume-up"></div>
+                <div class="volume-down"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements (hidden) -->
+    <div id="audio-container" style="display: none;">
+        <!-- Sound files will be loaded dynamically -->
+    </div>
+
+    <!-- Result Modal -->
+    <div id="result-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Result</h2>
+            </div>
+            <div class="modal-body">
+                <div id="modal-icon" class="result-icon"></div>
+                <p id="modal-message">Great job!</p>
+            </div>
+            <div class="modal-footer">
+                <button id="next-problem-btn" class="btn btn-primary">Next Problem</button>
+                <button id="try-again-btn" class="btn btn-secondary">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="sounds.js"></script>
+</body>
+</html>
