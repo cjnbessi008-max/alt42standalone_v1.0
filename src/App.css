@@ -1,0 +1,492 @@
+/**
+ * Main App Styles
+ * Unit Compass Application
+ */
+
+:root {
+  --primary-color: #2196F3;
+  --secondary-color: #4CAF50;
+  --danger-color: #F44336;
+  --warning-color: #FF9800;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --background: #f5f5f5;
+  --card-background: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-large: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--background);
+  line-height: 1.6;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Loading State */
+.app.loading {
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-color), #1976D2);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Banners */
+.error-banner,
+.demo-banner {
+  padding: 15px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.error-banner {
+  background-color: #ffebee;
+  color: var(--danger-color);
+  border-bottom: 2px solid var(--danger-color);
+}
+
+.demo-banner {
+  background-color: #fff3e0;
+  color: var(--warning-color);
+  border-bottom: 2px solid var(--warning-color);
+}
+
+/* Main Content */
+.app-main {
+  flex: 1;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Left Panel - Problem Display */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Problem Display */
+.problem-display {
+  background: var(--card-background);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.problem-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.problem-description {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.problem-target {
+  background-color: #f0f7ff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.problem-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button {
+  background-color: var(--primary-color);
+  color: white;
+  flex: 1;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.hint-button {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.hint-button:hover {
+  background-color: #F57C00;
+}
+
+.secondary-button {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+.secondary-button:hover {
+  background-color: #555;
+}
+
+.hint-box {
+  background-color: #fffbf0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--warning-color);
+}
+
+.hint-box h4 {
+  margin-bottom: 8px;
+  color: var(--warning-color);
+}
+
+.feedback-box {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.feedback-box.correct {
+  background-color: #e8f5e9;
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+}
+
+.feedback-box.incorrect {
+  background-color: #ffebee;
+  color: var(--danger-color);
+  border: 2px solid var(--danger-color);
+}
+
+.attempts-counter {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Progress Tracker */
+.progress-section {
+  background: var(--card-background);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.progress-tracker h3 {
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.progress-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-card {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.stat-percentage {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.last-activity {
+  margin-top: 15px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.completion-badge {
+  margin-top: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Right Panel - Mobile Frame */
+.right-panel {
+  position: sticky;
+  top: 20px;
+}
+
+.mobile-frame {
+  background: linear-gradient(145deg, #333, #555);
+  padding: 20px 15px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-large);
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.mobile-screen {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.mobile-home-button {
+  width: 50px;
+  height: 50px;
+  background: #444;
+  border-radius: 50%;
+  margin: 15px auto 0;
+  border: 3px solid #666;
+}
+
+/* Unit Compass */
+.unit-compass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vector-info {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.vector-info p {
+  margin: 5px 0;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Footer */
+.app-footer {
+  background-color: var(--card-background);
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.session-info {
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-container {
+    grid-template-columns: 1fr;
+  }
+
+  .right-panel {
+    position: static;
+  }
+
+  .mobile-frame {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .app-main {
+    padding: 15px;
+  }
+
+  .problem-display,
+  .progress-section {
+    padding: 20px;
+  }
+
+  .problem-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .problem-actions {
+    flex-direction: column;
+  }
+
+  .mobile-frame {
+    padding: 15px 10px;
+    border-radius: 20px;
+  }
+
+  .mobile-screen {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-main {
+    padding: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.problem-display,
+.progress-section,
+.mobile-frame {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Print Styles */
+@media print {
+  .app-header,
+  .app-footer,
+  .mobile-frame,
+  .actions {
+    display: none;
+  }
+
+  .problem-display {
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+  }
+}
