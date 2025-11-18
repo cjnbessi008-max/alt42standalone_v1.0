@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavy Term - 가상 스마트폰 수학 학습 앱</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- LMS Integration Panel (Left side for demo purposes) -->
+        <div class="lms-panel">
+            <h2>Moodle LMS 연동</h2>
+            <div class="lms-controls">
+                <div class="form-group">
+                    <label for="courseId">Course ID:</label>
+                    <input type="number" id="courseId" placeholder="Moodle Course ID">
+                </div>
+                <div class="form-group">
+                    <label for="questionId">Question ID:</label>
+                    <input type="number" id="questionId" placeholder="Moodle Question ID">
+                </div>
+                <button id="loadQuestion" class="btn-primary">문제 불러오기</button>
+                <button id="demoQuestion" class="btn-secondary">데모 문제 로드</button>
+            </div>
+
+            <div class="problem-info">
+                <h3>현재 문제:</h3>
+                <div id="problemDisplay" class="problem-display">
+                    문제를 불러오려면 위의 버튼을 클릭하세요.
+                </div>
+            </div>
+
+            <div class="physics-controls">
+                <h3>중력 설정:</h3>
+                <div class="form-group">
+                    <label for="gravityStrength">중력 강도:</label>
+                    <input type="range" id="gravityStrength" min="0" max="20" value="9.8" step="0.1">
+                    <span id="gravityValue">9.8</span>
+                </div>
+                <div class="form-group">
+                    <label for="gravityMultiplier">크기별 중력 배수:</label>
+                    <input type="range" id="gravityMultiplier" min="1" max="5" value="2" step="0.1">
+                    <span id="multiplierValue">2.0</span>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="enableGravity" checked>
+                        중력 효과 활성화
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="enableCollisions" checked>
+                        충돌 감지 활성화
+                    </label>
+                </div>
+                <button id="resetPhysics" class="btn-warning">물리 효과 리셋</button>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone (Bottom right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <!-- Smartphone Header -->
+                <div class="smartphone-header">
+                    <div class="status-bar">
+                        <span class="time">12:34</span>
+                        <div class="status-icons">
+                            <span class="signal">📶</span>
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+                    <div class="app-header">
+                        <h1>Heavy Term</h1>
+                        <span class="app-subtitle">수학 항 중력 체험</span>
+                    </div>
+                </div>
+
+                <!-- Smartphone Screen (Canvas for physics) -->
+                <div class="smartphone-screen" id="smartphoneScreen">
+                    <canvas id="physicsCanvas"></canvas>
+
+                    <!-- Terms will be rendered here as DOM elements -->
+                    <div id="termsContainer" class="terms-container"></div>
+
+                    <!-- Instructions overlay -->
+                    <div id="instructions" class="instructions">
+                        <p>📱 터치하거나 드래그하여 항을 이동하세요</p>
+                        <p>📊 항이 클수록 중력이 더 강해집니다!</p>
+                    </div>
+                </div>
+
+                <!-- Smartphone Footer (Home button) -->
+                <div class="smartphone-footer">
+                    <div class="home-button"></div>
+                </div>
+            </div>
+
+            <!-- Debug Info -->
+            <div class="debug-info">
+                <h4>디버그 정보:</h4>
+                <div id="debugInfo">
+                    <p>활성 항: <span id="activeTerms">0</span></p>
+                    <p>FPS: <span id="fps">0</span></p>
+                    <p>중력: <span id="currentGravity">9.8</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/physics.js"></script>
+    <script src="assets/js/term.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

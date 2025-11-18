@@ -1,0 +1,445 @@
+/**
+ * Heavy Term - Main Stylesheet
+ * Virtual smartphone UI with physics-based term interaction
+ */
+
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #7b68ee;
+    --success-color: #50c878;
+    --warning-color: #ffa500;
+    --danger-color: #ff6b6b;
+    --bg-color: #f5f7fa;
+    --text-color: #333;
+    --border-color: #ddd;
+    --smartphone-bg: #1a1a1a;
+    --screen-bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    height: 100vh;
+    align-items: stretch;
+}
+
+/* LMS Panel (Left side) */
+.lms-panel {
+    flex: 0 0 400px;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.lms-panel h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+.lms-panel h3 {
+    color: var(--secondary-color);
+    margin: 20px 0 15px;
+    font-size: 18px;
+}
+
+.lms-controls,
+.physics-controls {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="number"]:focus,
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group input[type="range"] {
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.form-group span {
+    display: inline-block;
+    min-width: 50px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #3a7bc8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #6a5acd;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(123, 104, 238, 0.4);
+}
+
+.btn-warning {
+    background: var(--warning-color);
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #ff8c00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+}
+
+.problem-info {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.problem-display {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    padding: 15px;
+    min-height: 80px;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Virtual Smartphone Container (Bottom Right) */
+.smartphone-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: relative;
+}
+
+.smartphone-frame {
+    width: 375px;
+    background: var(--smartphone-bg);
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* Smartphone Header */
+.smartphone-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 25px 25px 0 0;
+    padding: 10px 15px;
+    color: white;
+}
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.status-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.app-header {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.app-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.app-subtitle {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Smartphone Screen */
+.smartphone-screen {
+    background: var(--screen-bg);
+    height: 550px;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+}
+
+#physicsCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.terms-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* Term Elements */
+.term {
+    position: absolute;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-weight: bold;
+    cursor: grab;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.term:active {
+    cursor: grabbing;
+}
+
+.term.dragging {
+    opacity: 0.8;
+    transform: scale(1.1);
+    z-index: 1000;
+}
+
+/* Size variants - larger terms have stronger gravity */
+.term.size-1 { font-size: 14px; }
+.term.size-2 { font-size: 16px; }
+.term.size-3 { font-size: 18px; }
+.term.size-4 { font-size: 20px; }
+.term.size-5 { font-size: 22px; }
+.term.size-6 { font-size: 24px; }
+.term.size-7 { font-size: 26px; }
+.term.size-8 { font-size: 28px; }
+.term.size-9 { font-size: 30px; }
+.term.size-10 {
+    font-size: 34px;
+    background: linear-gradient(135deg, #ff6b6b, #ffa500);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Instructions Overlay */
+.instructions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(74, 144, 226, 0.95);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+    animation: fadeOut 5s forwards;
+}
+
+.instructions p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* Smartphone Footer */
+.smartphone-footer {
+    background: var(--smartphone-bg);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    border-radius: 0 0 25px 25px;
+}
+
+.home-button {
+    width: 50px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+/* Debug Info */
+.debug-info {
+    background: rgba(0, 0, 0, 0.8);
+    color: #0f0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    width: 375px;
+}
+
+.debug-info h4 {
+    color: #0ff;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.debug-info p {
+    margin: 5px 0;
+}
+
+.debug-info span {
+    color: #ff0;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .main-container {
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .lms-panel {
+        flex: none;
+        width: 100%;
+    }
+
+    .smartphone-container {
+        align-items: center;
+        margin-top: 20px;
+    }
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast notifications */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.toast.success { border-left: 4px solid var(--success-color); }
+.toast.error { border-left: 4px solid var(--danger-color); }
+.toast.warning { border-left: 4px solid var(--warning-color); }
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
