@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Truth Rhythm - 명제의 참/거짓을 리듬으로 배우는 교육용 앱">
+    <title>Truth Rhythm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 좌측 영역 (선택사항) -->
+        <div class="left-panel">
+            <h1>Truth Rhythm</h1>
+            <p>명제의 참/거짓을 리듬으로 배워보세요!</p>
+        </div>
+
+        <!-- 우측 하단 - 스마트폰 UI -->
+        <div class="smartphone-container">
+            <!-- 스마트폰 프레임 -->
+            <div class="smartphone-frame">
+                <!-- 상태바 -->
+                <div class="status-bar">
+                    <span class="time" id="statusTime">09:41</span>
+                    <div class="status-icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+
+                <!-- 앱 화면 -->
+                <div class="app-screen" id="appScreen">
+                    <!-- 로그인 화면 -->
+                    <div class="screen login-screen active" id="loginScreen">
+                        <div class="app-header">
+                            <h2>Truth Rhythm</h2>
+                            <p class="subtitle">리듬으로 배우는 참/거짓</p>
+                        </div>
+                        <div class="login-form">
+                            <input type="text" id="usernameInput" placeholder="사용자 이름" class="input-field">
+                            <button class="btn btn-primary" id="loginBtn">시작하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 메인 화면 -->
+                    <div class="screen main-screen" id="mainScreen">
+                        <div class="app-header">
+                            <h2>Truth Rhythm</h2>
+                            <div class="user-info" id="userInfo">
+                                <span class="username" id="displayUsername">사용자</span>
+                                <button class="btn-icon" id="logoutBtn">🚪</button>
+                            </div>
+                        </div>
+
+                        <!-- 진도 현황 -->
+                        <div class="progress-card">
+                            <div class="stat">
+                                <div class="stat-label">정확도</div>
+                                <div class="stat-value" id="accuracyRate">0%</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">연속 정답</div>
+                                <div class="stat-value" id="currentStreak">0</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">최고 기록</div>
+                                <div class="stat-value" id="bestStreak">0</div>
+                            </div>
+                        </div>
+
+                        <!-- 메뉴 -->
+                        <div class="menu-grid">
+                            <button class="menu-item" id="startQuizBtn">
+                                <span class="menu-icon">🎯</span>
+                                <span class="menu-label">퀴즈 시작</span>
+                            </button>
+                            <button class="menu-item" id="practiceBtn">
+                                <span class="menu-icon">📝</span>
+                                <span class="menu-label">연습하기</span>
+                            </button>
+                            <button class="menu-item" id="statsBtn">
+                                <span class="menu-icon">📊</span>
+                                <span class="menu-label">통계 보기</span>
+                            </button>
+                            <button class="menu-item" id="settingsBtn">
+                                <span class="menu-icon">⚙️</span>
+                                <span class="menu-label">설정</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 퀴즈 화면 -->
+                    <div class="screen quiz-screen" id="quizScreen">
+                        <div class="app-header">
+                            <button class="btn-back" id="backBtn">← 뒤로</button>
+                            <h3>퀴즈</h3>
+                            <div class="quiz-progress">
+                                <span id="quizProgress">1/10</span>
+                            </div>
+                        </div>
+
+                        <!-- 문제 표시 -->
+                        <div class="question-card">
+                            <div class="question-text" id="questionText">
+                                문제를 불러오는 중...
+                            </div>
+                        </div>
+
+                        <!-- 답변 버튼 -->
+                        <div class="answer-buttons">
+                            <button class="btn btn-true" id="trueBtn">
+                                <span class="btn-icon">✓</span>
+                                <span class="btn-text">참 (True)</span>
+                            </button>
+                            <button class="btn btn-false" id="falseBtn">
+                                <span class="btn-icon">✗</span>
+                                <span class="btn-text">거짓 (False)</span>
+                            </button>
+                        </div>
+
+                        <!-- 피드백 영역 -->
+                        <div class="feedback-area" id="feedbackArea">
+                            <!-- 동적으로 생성 -->
+                        </div>
+                    </div>
+
+                    <!-- 결과 화면 -->
+                    <div class="screen result-screen" id="resultScreen">
+                        <div class="app-header">
+                            <h3>결과</h3>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon" id="resultIcon">🎉</div>
+                            <h2 class="result-title" id="resultTitle">훌륭해요!</h2>
+                            <div class="result-stats">
+                                <div class="result-stat">
+                                    <div class="result-stat-label">맞춘 문제</div>
+                                    <div class="result-stat-value" id="correctCount">0</div>
+                                </div>
+                                <div class="result-stat">
+                                    <div class="result-stat-label">전체 문제</div>
+                                    <div class="result-stat-value" id="totalCount">0</div>
+                                </div>
+                                <div class="result-stat">
+                                    <div class="result-stat-label">정확도</div>
+                                    <div class="result-stat-value" id="resultAccuracy">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <button class="btn btn-primary" id="retryBtn">다시 도전</button>
+                                <button class="btn btn-secondary" id="homeBtn">홈으로</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 홈 버튼 -->
+                <div class="home-button">
+                    <div class="home-indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/sound.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

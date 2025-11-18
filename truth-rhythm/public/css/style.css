@@ -1,0 +1,583 @@
+/* Truth Rhythm - Main Stylesheet */
+
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #7B68EE;
+    --success-color: #50C878;
+    --error-color: #FF6B6B;
+    --warning-color: #FFB347;
+    --bg-color: #F5F7FA;
+    --text-color: #2C3E50;
+    --border-color: #E0E0E0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    /* 스마트폰 스타일 */
+    --phone-width: 375px;
+    --phone-height: 667px;
+    --phone-bg: #000;
+    --screen-bg: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* 메인 컨테이너 */
+.main-container {
+    display: flex;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 좌측 패널 */
+.left-panel {
+    flex: 1;
+    padding: 40px;
+    color: white;
+}
+
+.left-panel h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.left-panel p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* 스마트폰 컨테이너 - 우측 하단 배치 */
+.smartphone-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background: var(--phone-bg);
+    border-radius: 40px;
+    box-shadow: var(--shadow-lg);
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 상태바 */
+.status-bar {
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+/* 앱 화면 */
+.app-screen {
+    background: var(--screen-bg);
+    height: calc(100% - 45px);
+    border-radius: 25px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* 화면 전환 */
+.screen {
+    display: none;
+    padding: 20px;
+    height: 100%;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 앱 헤더 */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.app-header h2,
+.app-header h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.username {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 버튼 스타일 */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #3a7bc8;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.btn-true {
+    background: var(--success-color);
+    color: white;
+    font-size: 1.2rem;
+    padding: 20px;
+}
+
+.btn-true:hover {
+    background: #3fb968;
+}
+
+.btn-false {
+    background: var(--error-color);
+    color: white;
+    font-size: 1.2rem;
+    padding: 20px;
+}
+
+.btn-false:hover {
+    background: #ee5a5a;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+/* 입력 필드 */
+.input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 로그인 화면 */
+.login-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form {
+    margin-top: 30px;
+}
+
+/* 진도 카드 */
+.progress-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* 메뉴 그리드 */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.menu-item {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.menu-icon {
+    font-size: 2.5rem;
+}
+
+.menu-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* 문제 카드 */
+.question-card {
+    background: var(--bg-color);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.question-text {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* 답변 버튼 */
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* 피드백 영역 */
+.feedback-area {
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feedback-correct {
+    background: rgba(80, 200, 120, 0.1);
+    color: var(--success-color);
+}
+
+.feedback-incorrect {
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--error-color);
+}
+
+.feedback-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.feedback-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.feedback-explanation {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* 결과 화면 */
+.result-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.result-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.result-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.result-stat {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.result-stat-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.result-stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 홈 버튼 */
+.home-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.home-indicator {
+    width: 120px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+}
+
+/* 로딩 오버레이 */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    color: white;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 스크롤바 스타일 */
+.app-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.app-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.app-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.app-screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 퀴즈 진행 상황 */
+.quiz-progress {
+    background: var(--primary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .left-panel {
+        display: none;
+    }
+
+    .smartphone-container {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-container {
+        width: 100%;
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 100%;
+        height: calc(100vh - 40px);
+        border-radius: 20px;
+    }
+}
+
+/* 애니메이션 효과 */
+.pulse {
+    animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
