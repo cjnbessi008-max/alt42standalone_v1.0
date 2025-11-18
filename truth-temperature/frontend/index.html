@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth Temperature - 부등식 학습 앱</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <div class="truthtemp-container">
+        <div class="main-content">
+            <h1 style="color: #1e3a8a; margin-bottom: 10px;">Truth Temperature</h1>
+            <p style="color: #666; margin-bottom: 30px;">
+                부등식이 참이면 따뜻하게, 거짓이면 차갑게! 온도로 배우는 수학
+            </p>
+
+            <h3>부등식 문제</h3>
+            <div id="problem-display">
+                <div class="problem-card" data-problem-id="1">
+                    <p class="question-text">5 + 3은 10보다 작습니까?</p>
+                    <p class="inequality-expression">5 + 3 &lt; 10</p>
+
+                    <div class="answer-buttons">
+                        <button class="btn btn-success answer-btn" data-answer="true">
+                            참 (True)
+                        </button>
+                        <button class="btn btn-danger answer-btn" data-answer="false">
+                            거짓 (False)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="result-message" class="alert" style="display: none;"></div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 10px;">
+                <h4 style="color: #1e3a8a; margin-bottom: 10px;">💡 사용 방법</h4>
+                <ul style="color: #666;">
+                    <li>각 문제의 부등식을 보고 참(True)인지 거짓(False)인지 선택하세요</li>
+                    <li>우측 하단 스마트폰 화면에서 온도를 확인하세요</li>
+                    <li>부등식이 <strong>참</strong>이면 따뜻한 온도(30°C ~ 50°C)</li>
+                    <li>부등식이 <strong>거짓</strong>이면 차가운 온도(-20°C ~ 10°C)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-screen">
+                    <div class="smartphone-header">
+                        <span class="app-title">Truth Temperature</span>
+                    </div>
+                    <div class="smartphone-content">
+                        <div class="temperature-display">
+                            <div class="thermometer">
+                                <div class="thermometer-fill" id="thermometer-fill"></div>
+                            </div>
+                            <div class="temperature-value" id="temperature-value">
+                                <span class="temp-number">--</span>°C
+                            </div>
+                            <div class="temperature-status" id="temperature-status">
+                                대기 중...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample problems data (in production, this would come from Moodle/API)
+        var problems = [
+            {
+                id: 1,
+                question_text: '5 + 3은 10보다 작습니까?',
+                inequality_expression: '5 + 3 < 10',
+                left_side: '5 + 3',
+                right_side: '10',
+                operator: '<',
+                correct_answer: true
+            },
+            {
+                id: 2,
+                question_text: '15는 20보다 큽니까?',
+                inequality_expression: '15 > 20',
+                left_side: '15',
+                right_side: '20',
+                operator: '>',
+                correct_answer: false
+            },
+            {
+                id: 3,
+                question_text: '2 × 6은 12와 같습니까?',
+                inequality_expression: '2 × 6 = 12',
+                left_side: '2 * 6',
+                right_side: '12',
+                operator: '=',
+                correct_answer: true
+            },
+            {
+                id: 4,
+                question_text: '25 - 10은 20보다 작거나 같습니까?',
+                inequality_expression: '25 - 10 ≤ 20',
+                left_side: '25 - 10',
+                right_side: '20',
+                operator: '<=',
+                correct_answer: true
+            },
+            {
+                id: 5,
+                question_text: '100 ÷ 5는 25보다 작습니까?',
+                inequality_expression: '100 ÷ 5 < 25',
+                left_side: '100 / 5',
+                right_side: '25',
+                operator: '<',
+                correct_answer: false
+            }
+        ];
+
+        var userid = 1;  // Demo user ID
+        var username = 'demo_user';
+    </script>
+    <script src="js/smartphone.js"></script>
+</body>
+</html>
