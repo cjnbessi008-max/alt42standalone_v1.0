@@ -1,0 +1,133 @@
+.set-dance-container {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, #f0f9ff, #e0f2fe);
+}
+
+.condition-label {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.condition-badge {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.sets-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.set-section {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.set-section.matching {
+  border: 2px solid #4ade80;
+}
+
+.set-section.not-matching {
+  border: 2px solid #f87171;
+}
+
+.set-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1f2937;
+}
+
+.set-section.matching .set-title {
+  color: #059669;
+}
+
+.set-section.not-matching .set-title {
+  color: #dc2626;
+}
+
+.elements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  min-height: 100px;
+}
+
+.element-card {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.element-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.element-card.matching {
+  border: 3px solid #22c55e;
+}
+
+.element-card.not-matching {
+  border: 3px solid #ef4444;
+}
+
+.element-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.element-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* 빈 그리드 상태 */
+.elements-grid:empty::after {
+  content: '조건에 맞는 원소가 없습니다';
+  display: block;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+  padding: 20px;
+  grid-column: 1 / -1;
+}
+
+/* 스크롤바 스타일 */
+.set-dance-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.set-dance-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.set-dance-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.set-dance-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,204 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.app-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 8px 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.title-icon {
+  font-size: 56px;
+  animation: dance 2s ease-in-out infinite;
+}
+
+@keyframes dance {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+
+.app-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.problem-header {
+  margin-bottom: 20px;
+}
+
+.current-problem-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.current-problem-desc {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.condition-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 12px;
+}
+
+.control-button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.control-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.control-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.condition-counter {
+  font-size: 14px;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1400px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .app-title {
+    font-size: 32px;
+  }
+
+  .title-icon {
+    font-size: 40px;
+  }
+
+  .app-subtitle {
+    font-size: 14px;
+  }
+
+  .current-problem-title {
+    font-size: 20px;
+  }
+
+  .current-problem-desc {
+    font-size: 14px;
+  }
+
+  .condition-controls {
+    flex-direction: column;
+  }
+
+  .control-button {
+    width: 100%;
+  }
+
+  .stats-panel {
+    grid-template-columns: 1fr;
+  }
+}

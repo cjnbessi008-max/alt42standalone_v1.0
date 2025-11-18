@@ -1,0 +1,115 @@
+.problem-selector {
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.selector-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.problem-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+}
+
+.problem-card:hover {
+  border-color: #667eea;
+  background: #f0f9ff;
+}
+
+.problem-card.active {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.problem-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.problem-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.problem-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.problem-description {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  border-radius: 0 4px 4px 0;
+}
+
+@media (max-width: 768px) {
+  .problem-selector {
+    margin-bottom: 16px;
+  }
+
+  .problem-card {
+    padding: 12px;
+  }
+
+  .problem-number {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .problem-title {
+    font-size: 14px;
+  }
+
+  .problem-description {
+    font-size: 12px;
+  }
+}
