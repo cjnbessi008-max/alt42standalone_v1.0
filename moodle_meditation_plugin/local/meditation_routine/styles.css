@@ -1,0 +1,228 @@
+/* Meditation Routine Styles */
+
+.meditation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.meditation-overlay.active {
+    opacity: 1;
+}
+
+.meditation-container {
+    max-width: 600px;
+    padding: 40px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.meditation-header h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    font-weight: 300;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.meditation-header p {
+    font-size: 1em;
+    color: #a0a0a0;
+    margin-bottom: 40px;
+}
+
+/* Breathing Animation */
+.breathing-animation {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 40px;
+}
+
+.breathing-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.4) 0%, rgba(118, 75, 162, 0.4) 100%);
+    box-shadow: 0 0 40px rgba(102, 126, 234, 0.6),
+                0 0 80px rgba(118, 75, 162, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.1);
+    animation: breathe 4s ease-in-out infinite;
+}
+
+.breathing-circle-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+    animation: breathe-inner 4s ease-in-out infinite;
+}
+
+.breathing-circle.pulse {
+    animation: pulse-once 1s ease-in-out;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+@keyframes breathe-inner {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse-once {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Meditation Prompt */
+.meditation-prompt {
+    margin-bottom: 30px;
+    min-height: 80px;
+}
+
+.prompt-emoji {
+    display: block;
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.prompt-text {
+    font-size: 1.3em;
+    font-weight: 300;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+/* Countdown Display */
+.countdown-display {
+    margin-bottom: 40px;
+}
+
+.countdown-number {
+    display: inline-block;
+    font-size: 4em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Footer */
+.meditation-footer {
+    margin-top: 40px;
+}
+
+.btn-skip {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-skip:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .meditation-container {
+        padding: 20px;
+    }
+
+    .meditation-header h2 {
+        font-size: 1.5em;
+    }
+
+    .breathing-animation {
+        width: 150px;
+        height: 150px;
+    }
+
+    .countdown-number {
+        font-size: 3em;
+    }
+
+    .prompt-text {
+        font-size: 1.1em;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .breathing-circle,
+    .breathing-circle-inner,
+    .prompt-emoji {
+        animation: none;
+    }
+
+    .meditation-overlay {
+        transition: none;
+    }
+}
+
+/* Dark theme compatibility */
+body.theme-dark .meditation-header h2,
+body.theme-dark .countdown-number {
+    background: linear-gradient(135deg, #8b9efc 0%, #9d7ec4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
