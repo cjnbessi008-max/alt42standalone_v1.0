@@ -1,0 +1,46 @@
+.spring-visualizer {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  background: linear-gradient(to bottom, #f0f4ff 0%, #ffffff 100%);
+  border-radius: 16px;
+  border: 2px solid #e0e7ff;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.spring-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Animation for container */
+.spring-visualizer {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Accessibility: High contrast mode */
+@media (prefers-contrast: high) {
+  .spring-visualizer {
+    border: 3px solid #000;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .spring-visualizer {
+    height: 180px;
+  }
+}
