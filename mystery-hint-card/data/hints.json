@@ -1,0 +1,51 @@
+{
+  "problemId": "fraction-addition-001",
+  "problemTitle": "분수 더하기: 1/4 + 2/4",
+  "cards": [
+    {
+      "id": 1,
+      "title": "힌트 1: 분수의 기본",
+      "shape": "🍕",
+      "shapeType": "pizza",
+      "text": "피자를 4조각으로 나누면, 각 조각은 1/4입니다.",
+      "unlocked": false
+    },
+    {
+      "id": 2,
+      "title": "힌트 2: 분모 확인",
+      "shape": "🔢",
+      "shapeType": "numbers",
+      "text": "두 분수의 분모가 같으면(4), 분자만 더하면 됩니다!",
+      "unlocked": false
+    },
+    {
+      "id": 3,
+      "title": "힌트 3: 시각화",
+      "shape": "🎨",
+      "shapeType": "visual",
+      "text": "1조각(1/4) + 2조각(2/4) = 3조각(3/4)",
+      "unlocked": false
+    },
+    {
+      "id": 4,
+      "title": "힌트 4: 계산 방법",
+      "shape": "➕",
+      "shapeType": "math",
+      "text": "1 + 2 = 3이므로, 1/4 + 2/4 = 3/4입니다.",
+      "unlocked": false
+    },
+    {
+      "id": 5,
+      "title": "힌트 5: 정답 확인",
+      "shape": "✅",
+      "shapeType": "answer",
+      "text": "정답: 3/4 (0.75 또는 75%와 같습니다)",
+      "unlocked": false
+    }
+  ],
+  "settings": {
+    "sequential": true,
+    "allowSkip": false,
+    "maxUnlocks": 5
+  }
+}

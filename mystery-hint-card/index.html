@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미스터리 힌트 카드 - KAIST Touch Math</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- 메인 컨텐츠 영역 (데모용 배경) -->
+    <div class="main-content">
+        <div class="demo-header">
+            <h1>🎓 KAIST Touch Math Academy</h1>
+            <p>문제를 풀기 위한 힌트 카드를 확인하세요</p>
+        </div>
+
+        <div class="problem-section">
+            <h2>문제: 분수 더하기</h2>
+            <div class="problem-content">
+                <p>다음 분수를 더하세요:</p>
+                <div class="math-problem">
+                    <span class="fraction">
+                        <span class="numerator">1</span>
+                        <span class="denominator">4</span>
+                    </span>
+                    <span class="operator">+</span>
+                    <span class="fraction">
+                        <span class="numerator">2</span>
+                        <span class="denominator">4</span>
+                    </span>
+                    <span class="operator">=</span>
+                    <span class="answer-box">?</span>
+                </div>
+                <p class="hint-instruction">💡 힌트가 필요하면 우측 하단의 미스터리 카드를 열어보세요!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스마트폰 시뮬레이터 (우측 하단 고정) -->
+    <div class="phone-simulator">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- 카드 앱 헤더 -->
+                <div class="app-header">
+                    <div class="app-title">
+                        <span class="icon">🔍</span>
+                        <span>미스터리 힌트 카드</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0 / 5 카드 개봉</div>
+                </div>
+
+                <!-- 카드 컨테이너 -->
+                <div class="cards-container" id="cardsContainer">
+                    <!-- 카드들이 JavaScript로 동적 생성됨 -->
+                </div>
+
+                <!-- 리셋 버튼 -->
+                <div class="app-footer">
+                    <button class="reset-btn" id="resetBtn">🔄 처음부터 다시</button>
+                </div>
+            </div>
+            <div class="phone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/cards.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
