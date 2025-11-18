@@ -1,0 +1,47 @@
+# Slope Heat Map - .gitignore
+
+# Configuration files with sensitive data
+config.php.local
+config.local.php
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+logs/
+error.log
+access.log
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.tmp
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# PHP
+vendor/
+composer.lock
+
+# Cache
+cache/
+*.cache
+
+# Temporary files
+temp/
+tmp/
