@@ -1,0 +1,482 @@
+/**
+ * Magnitude Sound - 스타일시트
+ * 우측 하단 가상 스마트폰 UI 및 메인 레이아웃
+ */
+
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --accent-color: #ec4899;
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --border-color: #e2e8f0;
+    --phone-bg: #1f2937;
+    --screen-bg: #ffffff;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* 메인 콘텐츠 */
+.main-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-right: 400px; /* 스마트폰 공간 확보 */
+}
+
+.header {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.problem-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.problem-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+#problem-text {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-color);
+    border-radius: 0.5rem;
+}
+
+.problem-info {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.badge {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.instructions {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.instructions h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.instructions ol {
+    margin-left: 1.5rem;
+    line-height: 2;
+}
+
+.instructions li {
+    margin-bottom: 0.5rem;
+}
+
+/* 우측 하단 스마트폰 컨테이너 */
+.phone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 스마트폰 프레임 */
+.phone-frame {
+    width: 360px;
+    height: 720px;
+    background: var(--phone-bg);
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* 노치 */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background: var(--phone-bg);
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* 스마트폰 화면 */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--screen-bg);
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상태바 */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    height: 30px;
+}
+
+.status-icons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* 앱 콘텐츠 */
+.app-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.app-header h2 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+/* 캔버스 컨테이너 */
+.canvas-container {
+    position: relative;
+    margin: 0 auto 1rem;
+    width: 300px;
+    height: 300px;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#vector-canvas {
+    display: block;
+    background: #ffffff;
+    cursor: crosshair;
+    border: 2px solid var(--border-color);
+    border-radius: 1rem;
+}
+
+.canvas-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* 벡터 정보 */
+.vector-info {
+    background: var(--bg-color);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row .label {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.info-row .value {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* 사운드 정보 */
+.sound-info {
+    background: linear-gradient(135deg, #667eea15, #764ba215);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.sound-indicator {
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+
+.sound-indicator:last-child {
+    margin-bottom: 0;
+}
+
+.indicator-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.2rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.indicator-value {
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.waveform-badge {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* 버튼 */
+.submit-btn,
+.reset-btn {
+    width: 100%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.reset-btn {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.reset-btn:hover {
+    background: #e2e8f0;
+}
+
+/* 홈 인디케이터 */
+.home-indicator {
+    height: 5px;
+    width: 120px;
+    background: #cbd5e1;
+    border-radius: 10px;
+    margin: 0.5rem auto;
+}
+
+/* 오디오 초기화 오버레이 */
+.audio-init-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.audio-init-overlay.hidden {
+    display: none;
+}
+
+.audio-init-dialog {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.audio-init-dialog h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.audio-init-dialog p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.audio-init-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.audio-init-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .main-content {
+        padding-right: 2rem;
+    }
+
+    .phone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 2rem auto;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .phone-frame {
+        width: 320px;
+        height: 640px;
+    }
+
+    .canvas-container {
+        width: 260px;
+        height: 260px;
+    }
+
+    #vector-canvas {
+        width: 260px;
+        height: 260px;
+    }
+}
+
+/* 시간 업데이트 애니메이션 */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.time {
+    animation: pulse 2s infinite;
+}
