@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Speed Ball - 순간변화율 학습</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <!-- Smartphone Frame -->
+    <div class="smartphone-container">
+        <div class="smartphone-header">
+            <div class="smartphone-notch"></div>
+        </div>
+        <div class="smartphone-screen">
+            <div class="smartphone-content">
+                <!-- App Container -->
+                <div class="app-container">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-time" id="currentTime">9:41</div>
+                        <div class="status-icons">
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- App Header -->
+                    <div class="app-header">
+                        <div class="app-title">Instant Speed Ball</div>
+                        <div class="app-subtitle">순간변화율 시각화 학습</div>
+                    </div>
+
+                    <!-- Problem Info -->
+                    <div class="problem-info">
+                        <div class="problem-title" id="problemTitle">문제를 불러오는 중...</div>
+                        <div class="problem-description" id="problemDescription"></div>
+                    </div>
+
+                    <!-- Simulation Area -->
+                    <div class="simulation-area">
+                        <!-- Ball Animation Canvas -->
+                        <div class="canvas-container">
+                            <canvas id="ballCanvas"></canvas>
+                            <div class="ground-line"></div>
+                        </div>
+
+                        <!-- Real-time Metrics -->
+                        <div class="time-display">
+                            시간: <span class="time-value" id="timeValue">0.00</span> 초
+                        </div>
+
+                        <div class="metrics-display">
+                            <div class="metric-card">
+                                <div class="metric-label">위치</div>
+                                <div class="metric-value">
+                                    <span id="positionValue">0.00</span>
+                                    <span class="metric-unit">m</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">순간속도</div>
+                                <div class="metric-value">
+                                    <span id="velocityValue">0.00</span>
+                                    <span class="metric-unit">m/s</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Velocity Graph -->
+                        <div class="graph-container">
+                            <div class="graph-title">속도-시간 그래프</div>
+                            <canvas id="velocityGraph"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="controls">
+                        <div class="control-buttons">
+                            <button class="btn btn-primary" id="btnStart">시작</button>
+                            <button class="btn btn-secondary" id="btnPause" disabled>일시정지</button>
+                            <button class="btn btn-secondary" id="btnReset">초기화</button>
+                        </div>
+                    </div>
+
+                    <!-- Answer Section (shown only for question types) -->
+                    <div class="answer-section" id="answerSection" style="display: none;">
+                        <div class="answer-label" id="questionText">질문이 여기에 표시됩니다</div>
+                        <div class="answer-input-group">
+                            <input type="number" class="answer-input" id="answerInput"
+                                   placeholder="답을 입력하세요" step="0.01">
+                            <button class="btn-submit" id="btnSubmit">제출</button>
+                        </div>
+                        <div class="feedback" id="feedback"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ball-physics.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

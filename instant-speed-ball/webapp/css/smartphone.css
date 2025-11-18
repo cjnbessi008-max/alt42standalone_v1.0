@@ -1,0 +1,89 @@
+/* Smartphone Frame Styles */
+.smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 375px;
+  height: 667px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.smartphone-header {
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.smartphone-notch {
+  width: 150px;
+  height: 20px;
+  background: #000;
+  border-radius: 0 0 15px 15px;
+}
+
+.smartphone-screen {
+  width: 100%;
+  height: calc(100% - 30px);
+  background: #ffffff;
+  border-radius: 0 0 25px 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.smartphone-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Status Bar */
+.status-bar {
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  color: white;
+  font-size: 12px;
+}
+
+.status-time {
+  font-weight: 600;
+}
+
+.status-icons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-container {
+    width: 320px;
+    height: 568px;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .smartphone-container {
+    width: 280px;
+    height: 500px;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 30px;
+    padding: 10px;
+  }
+}
