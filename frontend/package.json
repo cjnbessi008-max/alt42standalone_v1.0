@@ -1,0 +1,32 @@
+{
+  "name": "key-condition-highlighter",
+  "version": "1.0.0",
+  "description": "Key Condition Auto-Highlighting for Probability and Combinatorics Problems",
+  "main": "src/index.tsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.3.0"
+  },
+  "keywords": [
+    "education",
+    "mathematics",
+    "probability",
+    "highlighting",
+    "AI"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT"
+}

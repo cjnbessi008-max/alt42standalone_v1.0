@@ -1,0 +1,528 @@
+/**
+ * Key Condition Highlighter Styles
+ * Mobile-first responsive design with accessibility features
+ */
+
+/* ============================================================================
+   Container & Layout
+   ============================================================================ */
+
+.highlighted-problem-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile viewport (smartphone screen) */
+@media (min-width: 375px) {
+  .highlighted-problem-container {
+    max-width: 375px; /* Standard smartphone width */
+    padding: 1.5rem;
+  }
+}
+
+/* Tablet and desktop */
+@media (min-width: 768px) {
+  .highlighted-problem-container {
+    max-width: 800px;
+    padding: 2rem;
+  }
+}
+
+/* ============================================================================
+   Problem Header
+   ============================================================================ */
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.problem-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.condition-count {
+  font-size: 0.875rem;
+  color: #666;
+  background: #f5f5f5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .problem-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================================================
+   Problem Content
+   ============================================================================ */
+
+.problem-content {
+  margin-bottom: 2rem;
+}
+
+.problem-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #2c3e50;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Increase text size for better mobile readability */
+@media (max-width: 480px) {
+  .problem-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
+
+/* ============================================================================
+   Highlights - Base Styles
+   ============================================================================ */
+
+mark.highlight {
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  border: 2px solid transparent;
+  text-decoration: none;
+  font-weight: inherit;
+}
+
+/* Hover state */
+mark.highlight:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Active (tooltip open) state */
+mark.highlight.active {
+  border-style: solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus state for keyboard navigation (accessibility) */
+mark.highlight:focus {
+  outline: 3px solid #4CAF50;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   Highlights - Condition Type Colors
+   ============================================================================ */
+
+/* Independence (독립성) - Blue theme */
+.highlight-independence {
+  background-color: #E3F2FD;
+  color: #0D47A1;
+  border-color: #1976D2;
+}
+
+.highlight-independence.active {
+  background-color: #BBDEFB;
+}
+
+/* Constraint (제약조건) - Yellow/Amber theme */
+.highlight-constraint {
+  background-color: #FFF3CD;
+  color: #856404;
+  border-color: #FFC107;
+}
+
+.highlight-constraint.active {
+  background-color: #FFE082;
+}
+
+/* Assumption (가정) - Green theme */
+.highlight-assumption {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  border-color: #4CAF50;
+}
+
+.highlight-assumption.active {
+  background-color: #C8E6C9;
+}
+
+/* Requirement (요구사항) - Purple theme */
+.highlight-requirement {
+  background-color: #F3E5F5;
+  color: #6A1B9A;
+  border-color: #9C27B0;
+}
+
+.highlight-requirement.active {
+  background-color: #E1BEE7;
+}
+
+/* Exception (예외) - Red theme */
+.highlight-exception {
+  background-color: #FFEBEE;
+  color: #C62828;
+  border-color: #EF5350;
+}
+
+.highlight-exception.active {
+  background-color: #FFCDD2;
+}
+
+/* Sample Space (표본공간) - Orange theme */
+.highlight-sample_space {
+  background-color: #FFF8E1;
+  color: #F57F17;
+  border-color: #FFEB3B;
+}
+
+.highlight-sample_space.active {
+  background-color: #FFECB3;
+}
+
+/* Event (사건) - Teal theme */
+.highlight-event {
+  background-color: #E0F2F1;
+  color: #00695C;
+  border-color: #26A69A;
+}
+
+.highlight-event.active {
+  background-color: #B2DFDB;
+}
+
+/* Probability (확률) - Pink theme */
+.highlight-probability {
+  background-color: #FCE4EC;
+  color: #AD1457;
+  border-color: #EC407A;
+}
+
+.highlight-probability.active {
+  background-color: #F8BBD0;
+}
+
+/* ============================================================================
+   Highlights - Importance Levels
+   ============================================================================ */
+
+.importance-critical {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 3px;
+}
+
+.importance-high {
+  font-weight: 600;
+}
+
+.importance-medium {
+  font-weight: 500;
+}
+
+.importance-low {
+  font-weight: 400;
+}
+
+/* ============================================================================
+   Tooltip
+   ============================================================================ */
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  z-index: 1000;
+  background: #ffffff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  min-width: 250px;
+  max-width: 90vw;
+  animation: tooltipFadeIn 0.2s ease;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+/* Tooltip arrow */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #ffffff;
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 6px 6px 0 0;
+}
+
+.tooltip-icon {
+  font-size: 1.25rem;
+}
+
+.tooltip-type {
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+}
+
+.tooltip-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.tooltip-close:hover {
+  background: #e0e0e0;
+}
+
+.tooltip-content {
+  padding: 1rem;
+}
+
+.tooltip-text {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #333;
+  font-weight: 500;
+}
+
+.tooltip-explanation {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #666;
+}
+
+.tooltip-meta {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.importance-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.importance-badge.importance-critical {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.importance-badge.importance-high {
+  background: #FFF3CD;
+  color: #856404;
+}
+
+.importance-badge.importance-medium {
+  background: #E3F2FD;
+  color: #0D47A1;
+}
+
+.importance-badge.importance-low {
+  background: #F5F5F5;
+  color: #666;
+}
+
+/* Mobile tooltip adjustments */
+@media (max-width: 480px) {
+  .tooltip {
+    min-width: 200px;
+    font-size: 0.875rem;
+  }
+
+  .tooltip-content {
+    padding: 0.75rem;
+  }
+}
+
+/* ============================================================================
+   Legend
+   ============================================================================ */
+
+.condition-legend {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.condition-legend h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.legend-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.legend-color {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  border: 2px solid;
+  flex-shrink: 0;
+}
+
+.legend-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  color: #555;
+  font-weight: 500;
+}
+
+/* Mobile legend adjustments */
+@media (max-width: 480px) {
+  .legend-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   Footer
+   ============================================================================ */
+
+.problem-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-highlights-btn {
+  padding: 0.5rem 1rem;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clear-highlights-btn:hover {
+  background: #e0e0e0;
+  border-color: #bbb;
+}
+
+.clear-highlights-btn:active {
+  transform: scale(0.98);
+}
+
+/* ============================================================================
+   Accessibility - High Contrast Mode
+   ============================================================================ */
+
+@media (prefers-contrast: high) {
+  mark.highlight {
+    border-width: 3px;
+  }
+
+  .tooltip {
+    border-width: 3px;
+  }
+}
+
+/* ============================================================================
+   Accessibility - Reduced Motion
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  mark.highlight,
+  .tooltip,
+  .clear-highlights-btn {
+    transition: none;
+    animation: none;
+  }
+
+  mark.highlight:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================================
+   Print Styles
+   ============================================================================ */
+
+@media print {
+  .highlighted-problem-container {
+    box-shadow: none;
+  }
+
+  .tooltip,
+  .problem-footer {
+    display: none;
+  }
+
+  mark.highlight {
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}

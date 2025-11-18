@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Condition Highlighter - Demo</title>
+    <style>
+        /**
+         * Inline demo styles (simplified version for standalone demo)
+         */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .demo-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        @media (min-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .problem-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .problem-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Highlights */
+        mark.highlight {
+            padding: 0.125rem 0.25rem;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        mark.highlight:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Condition types */
+        .highlight-constraint {
+            background-color: #FFF3CD;
+            color: #856404;
+            border-color: #FFC107;
+            font-weight: 700;
+        }
+
+        .highlight-probability {
+            background-color: #FCE4EC;
+            color: #AD1457;
+            border-color: #EC407A;
+            font-weight: 600;
+        }
+
+        .highlight-assumption {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            border-color: #4CAF50;
+        }
+
+        .highlight-independence {
+            background-color: #E3F2FD;
+            color: #0D47A1;
+            border-color: #1976D2;
+            font-weight: 700;
+        }
+
+        .highlight-event {
+            background-color: #E0F2F1;
+            color: #00695C;
+            border-color: #26A69A;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            z-index: 1000;
+            background: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            min-width: 250px;
+            max-width: 90vw;
+        }
+
+        mark.highlight.active .tooltip {
+            display: block;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #ffffff;
+        }
+
+        .tooltip-type {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip-text {
+            font-size: 0.9375rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .tooltip-explanation {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Legend */
+        .legend {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            border: 2px solid;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .demo-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .problem-card {
+                padding: 1.5rem;
+            }
+
+            .problem-text {
+                font-size: 1rem;
+            }
+        }
+
+        .condition-count {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>🎯 Key Condition Auto-Highlighter</h1>
+        <p>확률 및 조합론 문제의 핵심 조건 자동 강조 시스템</p>
+    </div>
+
+    <div class="demo-container">
+        <!-- Korean Problem Example -->
+        <div class="problem-card">
+            <h2>예제 1: 확률 문제 (한국어) <span class="condition-count">2개 조건</span></h2>
+            <div class="problem-text">
+                주머니에 빨간 공 3개와 파란 공 5개가 들어있다.
+                이 주머니에서 임의로 2개의 공을 동시에 꺼낼 때,
+                <mark class="highlight highlight-probability">
+                    두 공이 모두 같은 색일 확률을 구하시오
+                    <span class="tooltip">
+                        <div class="tooltip-type">📊 확률</div>
+                        <div class="tooltip-text">두 공이 모두 같은 색일 확률을 구하시오</div>
+                        <div class="tooltip-explanation">확률값 또는 확률 계산과 관련된 조건입니다.</div>
+                    </span>
+                </mark>.
+                <mark class="highlight highlight-constraint">
+                    단, 각 공을 선택할 확률은 모두 같다
+                    <span class="tooltip">
+                        <div class="tooltip-type">⚠️ 제약조건</div>
+                        <div class="tooltip-text">단, 각 공을 선택할 확률은 모두 같다</div>
+                        <div class="tooltip-explanation">문제 해결을 위해 반드시 고려해야 할 제약 조건입니다.</div>
+                    </span>
+                </mark>.
+            </div>
+
+            <div class="legend">
+                <h3>핵심 조건 범례</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color highlight-constraint"></span>
+                        <span>⚠️ 제약조건</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color highlight-probability"></span>
+                        <span>📊 확률</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English Problem Example -->
+        <div class="problem-card">
+            <h2>Example 2: Probability Problem (English) <span class="condition-count">2 conditions</span></h2>
+            <div class="problem-text">
+                A bag contains 3 red balls and 5 blue balls.
+                If we randomly select 2 balls simultaneously,
+                <mark class="highlight highlight-probability">
+                    find the probability that both balls are the same color
+                    <span class="tooltip">
+                        <div class="tooltip-type">📊 Probability</div>
+                        <div class="tooltip-text">find the probability that both balls are the same color</div>
+                        <div class="tooltip-explanation">Probability value or calculation related condition.</div>
+                    </span>
+                </mark>.
+                <mark class="highlight highlight-assumption">
+                    Assume that each ball has an equal probability of being selected
+                    <span class="tooltip">
+                        <div class="tooltip-type">ℹ️ Assumption</div>
+                        <div class="tooltip-text">Assume that each ball has an equal probability of being selected</div>
+                        <div class="tooltip-explanation">Given assumption or precondition in the problem.</div>
+                    </span>
+                </mark>.
+            </div>
+
+            <div class="legend">
+                <h3>Key Condition Legend</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color highlight-assumption"></span>
+                        <span>ℹ️ Assumption</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color highlight-probability"></span>
+                        <span>📊 Probability</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complex Problem Example -->
+        <div class="problem-card">
+            <h2>예제 3: 복잡한 확률 문제 <span class="condition-count">3개 조건</span></h2>
+            <div class="problem-text">
+                <mark class="highlight highlight-event">
+                    두 개의 주사위를 동시에 던질 때
+                    <span class="tooltip">
+                        <div class="tooltip-type">🎯 사건</div>
+                        <div class="tooltip-text">두 개의 주사위를 동시에 던질 때</div>
+                        <div class="tooltip-explanation">특정 사건 또는 경우를 정의합니다.</div>
+                    </span>
+                </mark>,
+                나온 두 눈의 합이 7이 될
+                <mark class="highlight highlight-probability">
+                    확률은 얼마인가
+                    <span class="tooltip">
+                        <div class="tooltip-type">📊 확률</div>
+                        <div class="tooltip-text">확률은 얼마인가</div>
+                        <div class="tooltip-explanation">확률값 또는 확률 계산과 관련된 조건입니다.</div>
+                    </span>
+                </mark>?
+                <mark class="highlight highlight-independence">
+                    단, 각 주사위는 독립적으로 던져진다
+                    <span class="tooltip">
+                        <div class="tooltip-type">🔗 독립성</div>
+                        <div class="tooltip-text">단, 각 주사위는 독립적으로 던져진다</div>
+                        <div class="tooltip-explanation">사건들이 서로 영향을 주지 않는 독립적인 관계입니다.</div>
+                    </span>
+                </mark>.
+            </div>
+
+            <div class="legend">
+                <h3>핵심 조건 범례</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color highlight-event"></span>
+                        <span>🎯 사건</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color highlight-probability"></span>
+                        <span>📊 확률</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color highlight-independence"></span>
+                        <span>🔗 독립성</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combination Problem Example -->
+        <div class="problem-card">
+            <h2>예제 4: 조합 문제 <span class="condition-count">2개 조건</span></h2>
+            <div class="problem-text">
+                10명의 학생 중에서
+                <mark class="highlight highlight-event">
+                    대표 3명을 선출
+                    <span class="tooltip">
+                        <div class="tooltip-type">🎯 사건</div>
+                        <div class="tooltip-text">대표 3명을 선출</div>
+                        <div class="tooltip-explanation">특정 사건 또는 경우를 정의합니다.</div>
+                    </span>
+                </mark>하려고 한다.
+                가능한 모든 경우의 수는?
+                <mark class="highlight highlight-constraint">
+                    단, 순서는 고려하지 않는다
+                    <span class="tooltip">
+                        <div class="tooltip-type">⚠️ 제약조건</div>
+                        <div class="tooltip-text">단, 순서는 고려하지 않는다</div>
+                        <div class="tooltip-explanation">문제 해결을 위해 반드시 고려해야 할 제약 조건입니다.</div>
+                    </span>
+                </mark>.
+            </div>
+
+            <div class="legend">
+                <h3>핵심 조건 범례</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color highlight-event"></span>
+                        <span>🎯 사건</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color highlight-constraint"></span>
+                        <span>⚠️ 제약조건</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple click handling for highlights
+        document.querySelectorAll('mark.highlight').forEach(mark => {
+            mark.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Toggle active class
+                const wasActive = this.classList.contains('active');
+
+                // Remove active from all marks
+                document.querySelectorAll('mark.highlight.active').forEach(m => {
+                    m.classList.remove('active');
+                });
+
+                // Add active to clicked mark if it wasn't active
+                if (!wasActive) {
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Close tooltip when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('mark.highlight')) {
+                document.querySelectorAll('mark.highlight.active').forEach(m => {
+                    m.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
