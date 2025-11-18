@@ -1,0 +1,313 @@
+/* 휴식 제안 모달 스타일 */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 헤더 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #7f8c8d;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #f5f5f5;
+  color: #2c3e50;
+}
+
+/* 본문 */
+.modal-body {
+  padding: 32px;
+}
+
+/* 스트레스 레벨 표시 */
+.stress-indicator {
+  margin-bottom: 24px;
+}
+
+.stress-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+}
+
+.stress-bar-container {
+  width: 100%;
+  height: 12px;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.stress-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-out, background-color 0.3s;
+}
+
+.stress-value {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* 이유 컨테이너 */
+.reason-container {
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.reason-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #34495e;
+}
+
+/* 활동 목록 */
+.activities-container {
+  margin-bottom: 24px;
+}
+
+.activities-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #2c3e50;
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 활동 카드 */
+.activity-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.activity-card:hover {
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+  transform: translateY(-2px);
+}
+
+.activity-card.selected {
+  border-color: #3498db;
+  background-color: #ebf5fb;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.activity-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.activity-duration {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3498db;
+  background-color: #ebf5fb;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.activity-description {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #7f8c8d;
+  margin: 8px 0;
+}
+
+.activity-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.activity-type,
+.activity-difficulty {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.activity-type {
+  background-color: #e8f5e9;
+  color: #27ae60;
+}
+
+.activity-difficulty {
+  background-color: #fff3e0;
+  color: #e67e22;
+}
+
+/* 카운트다운 */
+.countdown-container {
+  text-align: center;
+  padding: 16px;
+  background-color: #fff8e1;
+  border-radius: 8px;
+}
+
+.countdown-text {
+  margin: 0;
+  font-size: 14px;
+  color: #f39c12;
+  font-weight: 600;
+}
+
+/* 푸터 */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 24px 32px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-secondary {
+  background-color: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.button-secondary:hover {
+  background-color: #bdc3c7;
+  color: #34495e;
+}
+
+.button-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.button-primary:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 16px 20px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .activity-card {
+    padding: 12px;
+  }
+}
