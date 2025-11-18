@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래직업 탐험대 🚀 - AI 시대 나의 미래는?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .chat-container {
+            padding: 30px;
+            min-height: 400px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 15px 15px 15px 0;
+            margin-right: 50px;
+            position: relative;
+        }
+
+        .bot-message::before {
+            content: "🤖";
+            position: absolute;
+            left: -35px;
+            top: 10px;
+            font-size: 24px;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 15px;
+            margin-left: 50px;
+            text-align: right;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .choice-btn {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 15px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .choice-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .choice-btn:active {
+            transform: scale(0.98);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .result-card h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .result-card h3 {
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .result-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .result-card li::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+        }
+
+        .restart-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .typing-indicator {
+            display: inline-block;
+            padding: 15px 20px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            margin-right: 50px;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .chat-container {
+                padding: 20px;
+            }
+
+            .bot-message {
+                margin-right: 20px;
+            }
+
+            .user-message {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 미래직업 탐험대</h1>
+            <p>AI 시대, 나는 어떤 능력으로 빛날까?</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <!-- 대화가 여기에 동적으로 추가됩니다 -->
+        </div>
+    </div>
+
+    <script>
+        // 대화 데이터 구조 (하드코딩)
+        const conversationData = {
+            start: {
+                id: 'start',
+                message: "안녕! 나는 미래직업 탐험 가이드봇이야! 🤖\n\n2030년대에는 지금 없는 직업들이 엄청 많이 생길 거야. AI 시대에 어떤 능력을 키우면 좋을지, 그리고 너에게 어울리는 미래 직업은 뭔지 알아볼까?\n\n준비됐어? 시작해볼게!",
+                buttons: [
+                    { text: "좋아! 궁금해! 🎯", next: 'q1' },
+                    { text: "AI 시대가 뭔데? 🤔", next: 'explain_ai' }
+                ]
+            },
+            explain_ai: {
+                id: 'explain_ai',
+                message: "좋은 질문이야! 😊\n\nAI(인공지능) 시대란 컴퓨터가 사람처럼 생각하고 배울 수 있게 된 시대를 말해. 챗GPT처럼 대화하는 AI, 그림 그리는 AI, 음악 만드는 AI... 엄청 많아!\n\n하지만 걱정 마! AI가 모든 일을 대신하는 게 아니라, **사람과 AI가 협력**하는 시대가 올 거야.\n\n그래서 중요한 건:\n✨ 창의적으로 생각하기\n✨ 문제를 발견하고 해결하기\n✨ AI를 도구로 잘 활용하기\n\n이런 능력들이 정말 중요해!",
+                buttons: [
+                    { text: "오~ 이해했어! 시작하자! 🚀", next: 'q1' }
+                ]
+            },
+            q1: {
+                id: 'q1',
+                message: "첫 번째 질문! 🎨\n\n너는 평소에 뭐 할 때 가장 재미있어?",
+                buttons: [
+                    { text: "새로운 걸 만들거나 그릴 때 🎨", next: 'q2', category: 'creative' },
+                    { text: "문제 풀거나 패턴 찾을 때 🧩", next: 'q2', category: 'analytical' },
+                    { text: "사람들이랑 이야기하고 도울 때 💬", next: 'q2', category: 'social' },
+                    { text: "자연이나 동물 관찰할 때 🌿", next: 'q2', category: 'nature' }
+                ]
+            },
+            q2: {
+                id: 'q2',
+                message: "두 번째 질문! 💡\n\n미래에 어떤 문제를 해결하고 싶어?",
+                buttons: [
+                    { text: "환경 문제나 기후 변화 🌍", next: 'q3', interest: 'environment' },
+                    { text: "사람들 건강과 행복 💊", next: 'q3', interest: 'health' },
+                    { text: "더 편리하고 재미있는 기술 📱", next: 'q3', interest: 'technology' },
+                    { text: "교육과 배움의 방법 📚", next: 'q3', interest: 'education' }
+                ]
+            },
+            q3: {
+                id: 'q3',
+                message: "세 번째 질문! 🎯\n\n일할 때 어떤 스타일이 더 좋을 것 같아?",
+                buttons: [
+                    { text: "혼자 집중해서 깊게 파고들기 🔍", next: 'q4', style: 'solo' },
+                    { text: "팀과 협력하며 같이 만들기 👥", next: 'q4', style: 'team' },
+                    { text: "여러 일을 동시에 다루기 🎪", next: 'q4', style: 'multi' },
+                    { text: "계속 새로운 도전하기 🚀", next: 'q4', style: 'adventure' }
+                ]
+            },
+            q4: {
+                id: 'q4',
+                message: "마지막 질문! ⚡\n\nAI 시대에 가장 중요하다고 생각하는 능력은?",
+                buttons: [
+                    { text: "창의적 사고와 상상력 💭", next: 'result', skill: 'creative_thinking' },
+                    { text: "비판적 사고와 분석력 🔬", next: 'result', skill: 'critical_thinking' },
+                    { text: "공감과 소통 능력 💝", next: 'result', skill: 'empathy' },
+                    { text: "적응력과 배우는 능력 📖", next: 'result', skill: 'adaptability' }
+                ]
+            },
+            result: {
+                id: 'result',
+                message: "분석 완료! 🎉",
+                isResult: true
+            }
+        };
+
+        // 미래 직업 데이터베이스
+        const futureJobs = {
+            'creative-environment': {
+                title: '기후 변화 크리에이터 🌍',
+                description: '환경 문제를 창의적인 콘텐츠로 알리고, 사람들의 행동 변화를 이끌어내는 직업이야!',
+                why: 'AI가 데이터를 분석하지만, 사람들의 마음을 움직이는 건 창의적인 메시지야.',
+                skills: ['스토리텔링', '영상/디자인 기술', '환경 지식', 'SNS 마케팅']
+            },
+            'creative-health': {
+                title: '헬스케어 경험 디자이너 💊',
+                description: '병원과 치료를 더 편하고 재미있게 만드는 경험을 디자인하는 직업!',
+                why: 'AI가 진단을 돕지만, 환자의 경험을 디자인하는 건 사람만이 할 수 있어.',
+                skills: ['UX/UI 디자인', '심리학', '의료 기술 이해', '공감 능력']
+            },
+            'creative-technology': {
+                title: 'XR 경험 디자이너 🥽',
+                description: '가상현실(VR)과 증강현실(AR)로 놀라운 경험을 만드는 직업!',
+                why: 'AI가 기술을 발전시키지만, 감동적인 경험은 인간의 창의력이 만들어.',
+                skills: ['3D 디자인', 'XR 기술', '스토리텔링', '사용자 경험 설계']
+            },
+            'creative-education': {
+                title: '에듀테인먼트 크리에이터 📚',
+                description: '교육과 엔터테인먼트를 결합해서 재미있게 배우는 콘텐츠를 만드는 직업!',
+                why: 'AI가 개인 맞춤 학습을 돕지만, 흥미와 동기를 불러일으키는 건 창의적 콘텐츠야.',
+                skills: ['콘텐츠 제작', '교육학', '게임 디자인', '창의적 사고']
+            },
+            'analytical-environment': {
+                title: '도시 기후 데이터 과학자 🌆',
+                description: '도시의 기후 데이터를 분석해서 더 살기 좋은 도시를 만드는 직업!',
+                why: 'AI가 데이터를 처리하지만, 복잡한 문제를 발견하고 해결책을 찾는 건 사람의 통찰력이야.',
+                skills: ['데이터 분석', '환경 과학', 'AI/ML', '문제 해결 능력']
+            },
+            'analytical-health': {
+                title: '개인 맞춤 의료 코디네이터 🧬',
+                description: 'AI와 유전자 데이터를 활용해 각 사람에게 딱 맞는 건강 관리를 설계하는 직업!',
+                why: 'AI가 유전자를 분석하지만, 개인의 삶의 방식과 결합하는 건 전문가의 판단이 필요해.',
+                skills: ['생명과학', '데이터 분석', '의료 윤리', '상담 능력']
+            },
+            'analytical-technology': {
+                title: 'AI 윤리 검증가 🤖',
+                description: 'AI가 공정하고 안전하게 작동하는지 검증하고, 문제를 찾아내는 직업!',
+                why: 'AI를 만드는 것보다 AI가 올바르게 작동하는지 판단하는 게 더 중요해질 거야.',
+                skills: ['AI 기술 이해', '윤리학', '논리적 사고', '테스트 기술']
+            },
+            'analytical-education': {
+                title: '학습 데이터 분석가 📊',
+                description: '학생들의 학습 패턴을 분석해서 더 효과적인 교육 방법을 찾는 직업!',
+                why: 'AI가 학습 데이터를 모으지만, 교육적 통찰을 얻는 건 전문가의 분석 능력이야.',
+                skills: ['데이터 분석', '교육학', '통계', '비판적 사고']
+            },
+            'social-environment': {
+                title: '커뮤니티 지속가능성 코치 🌱',
+                description: '지역 커뮤니티가 환경 친화적으로 변화하도록 돕고 이끄는 직업!',
+                why: 'AI가 정보를 제공하지만, 사람들을 설득하고 행동으로 이끄는 건 소통 능력이야.',
+                skills: ['커뮤니케이션', '환경 지식', '리더십', '프로젝트 관리']
+            },
+            'social-health': {
+                title: '정신 건강 웰니스 코치 🧘',
+                description: 'AI 도구를 활용하면서 사람들의 정신 건강과 웰빙을 돕는 직업!',
+                why: 'AI가 패턴을 분석하지만, 진정한 공감과 치유는 사람만이 줄 수 있어.',
+                skills: ['심리상담', '공감 능력', '디지털 헬스케어', '경청']
+            },
+            'social-technology': {
+                title: '디지털 커뮤니티 빌더 👥',
+                description: '온라인에서 사람들이 연결되고 협력하는 건강한 커뮤니티를 만드는 직업!',
+                why: 'AI가 매칭을 도와주지만, 진짜 관계와 문화를 만드는 건 사람의 역할이야.',
+                skills: ['커뮤니티 관리', 'SNS 기술', '소통 능력', '갈등 조정']
+            },
+            'social-education': {
+                title: '평생 학습 내비게이터 🧭',
+                description: '각 사람에게 맞는 평생 학습 경로를 함께 설계하고 응원하는 직업!',
+                why: 'AI가 학습 자료를 추천하지만, 동기부여와 격려는 사람이 해야 해.',
+                skills: ['상담', '교육 기술', '코칭', '경력 개발']
+            },
+            'nature-environment': {
+                title: '도시 농업 혁신가 🌾',
+                description: '도시에서 지속가능한 농업을 실현하고, 기술과 자연을 연결하는 직업!',
+                why: 'AI가 최적의 재배 조건을 찾아주지만, 자연과 공생하는 방법은 사람이 설계해야 해.',
+                skills: ['농업 기술', '생태학', 'IoT 센서', '지속가능성']
+            },
+            'nature-health': {
+                title: '자연 치유 프로그램 기획자 🏞️',
+                description: '자연을 활용한 치유 프로그램을 기획하고 운영하는 직업!',
+                why: 'AI가 건강 데이터를 분석하지만, 자연과 인간의 조화는 깊은 이해가 필요해.',
+                skills: ['자연 치유', '프로그램 기획', '심리학', '환경 지식']
+            },
+            'nature-technology': {
+                title: '바이오미메틱스 연구원 🦋',
+                description: '자연에서 영감을 받아 새로운 기술을 개발하는 직업!',
+                why: 'AI가 데이터를 처리하지만, 자연의 원리를 관찰하고 적용하는 건 인간의 통찰이야.',
+                skills: ['생물학', '공학', '관찰력', '창의적 사고']
+            },
+            'nature-education': {
+                title: '환경 교육 콘텐츠 기획자 🌳',
+                description: '자연과 환경에 대한 교육 프로그램과 콘텐츠를 만드는 직업!',
+                why: 'AI가 정보를 제공하지만, 자연에 대한 감수성을 키우는 건 경험 설계가 중요해.',
+                skills: ['환경 교육', '콘텐츠 제작', '커뮤니케이션', '자연 지식']
+            }
+        };
+
+        // AI 시대 핵심 능력 설명
+        const aiSkills = {
+            creative_thinking: {
+                title: '창의적 사고 💭',
+                description: 'AI가 할 수 없는 인간만의 능력!',
+                howTo: [
+                    '다양한 분야의 책과 콘텐츠 접하기',
+                    '왜? 라는 질문을 자주 하기',
+                    '일상의 문제를 새로운 방식으로 해결해보기',
+                    '예술, 음악, 글쓰기 같은 창작 활동 하기'
+                ]
+            },
+            critical_thinking: {
+                title: '비판적 사고 🔬',
+                description: 'AI의 결과를 판단하고 검증하는 능력!',
+                howTo: [
+                    '정보의 출처와 근거 확인하는 습관',
+                    '논리적 오류 찾아보기',
+                    '다양한 관점에서 문제 바라보기',
+                    '토론과 논쟁 활동에 참여하기'
+                ]
+            },
+            empathy: {
+                title: '공감과 소통 💝',
+                description: 'AI가 대신할 수 없는 인간 관계의 핵심!',
+                howTo: [
+                    '다른 사람의 입장에서 생각해보기',
+                    '경청하는 연습하기',
+                    '감정을 표현하고 이해하기',
+                    '다양한 사람들과 협업 프로젝트 하기'
+                ]
+            },
+            adaptability: {
+                title: '적응력과 학습 능력 📖',
+                description: '변화하는 세상에서 가장 중요한 능력!',
+                howTo: [
+                    '새로운 도구와 기술을 두려워하지 않기',
+                    '실패를 배움의 기회로 여기기',
+                    '다양한 분야에 호기심 갖기',
+                    '평생 학습하는 마인드셋 키우기'
+                ]
+            }
+        };
+
+        // 상태 관리
+        let currentNode = 'start';
+        let userChoices = {
+            category: '',
+            interest: '',
+            style: '',
+            skill: ''
+        };
+        let questionCount = 0;
+        const totalQuestions = 4;
+
+        // DOM 요소
+        const chatContainer = document.getElementById('chatContainer');
+        const progressBar = document.getElementById('progressBar');
+
+        // 메시지 추가 함수
+        function addMessage(text, isBot = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = isBot ? 'bot-message' : 'user-message';
+            contentDiv.innerHTML = text.replace(/\n/g, '<br>');
+
+            messageDiv.appendChild(contentDiv);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 타이핑 인디케이터 추가
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message';
+            typingDiv.id = 'typing-indicator';
+
+            const indicatorDiv = document.createElement('div');
+            indicatorDiv.className = 'typing-indicator';
+            indicatorDiv.innerHTML = '<span></span><span></span><span></span>';
+
+            typingDiv.appendChild(indicatorDiv);
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 타이핑 인디케이터 제거
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        // 버튼 추가 함수
+        function addButtons(buttons) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.className = 'buttons-container';
+
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.textContent = button.text;
+                btn.onclick = () => handleChoice(button);
+                buttonsContainer.appendChild(btn);
+            });
+
+            messageDiv.appendChild(buttonsContainer);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 선택 처리 함수
+        function handleChoice(button) {
+            // 사용자 선택 저장
+            if (button.category) userChoices.category = button.category;
+            if (button.interest) userChoices.interest = button.interest;
+            if (button.style) userChoices.style = button.style;
+            if (button.skill) userChoices.skill = button.skill;
+
+            // 사용자 메시지 표시
+            addMessage(button.text, false);
+
+            // 모든 버튼 비활성화
+            const allButtons = document.querySelectorAll('.choice-btn');
+            allButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+
+            // 진행률 업데이트
+            if (button.next === 'q2' || button.next === 'q3' || button.next === 'q4' || button.next === 'result') {
+                questionCount++;
+                updateProgress();
+            }
+
+            // 다음 메시지 표시 (딜레이 포함)
+            setTimeout(() => {
+                showTypingIndicator();
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    showNextNode(button.next);
+                }, 1000);
+            }, 500);
+        }
+
+        // 진행률 업데이트
+        function updateProgress() {
+            const progress = (questionCount / totalQuestions) * 100;
+            progressBar.style.width = progress + '%';
+        }
+
+        // 다음 노드 표시
+        function showNextNode(nodeId) {
+            currentNode = nodeId;
+            const node = conversationData[nodeId];
+
+            if (node.isResult) {
+                showResult();
+            } else {
+                addMessage(node.message);
+                setTimeout(() => {
+                    addButtons(node.buttons);
+                }, 300);
+            }
+        }
+
+        // 결과 표시
+        function showResult() {
+            // 직업 선택 로직
+            const jobKey = `${userChoices.category}-${userChoices.interest}`;
+            const job = futureJobs[jobKey] || futureJobs['creative-technology']; // 기본값
+
+            const skillInfo = aiSkills[userChoices.skill];
+
+            // 결과 메시지 생성
+            let resultHTML = `
+                <div class="result-card">
+                    <h2>🎉 ${job.title}</h2>
+                    <p style="font-size: 18px; margin: 15px 0;">${job.description}</p>
+
+                    <h3>💡 왜 이 직업이 미래에 중요할까?</h3>
+                    <p>${job.why}</p>
+
+                    <h3>🎯 필요한 능력들</h3>
+                    <ul>
+                        ${job.skills.map(skill => `<li>${skill}</li>`).join('')}
+                    </ul>
+
+                    <h3>⚡ 너가 선택한 핵심 능력: ${skillInfo.title}</h3>
+                    <p>${skillInfo.description}</p>
+
+                    <h3>📚 이렇게 키워보자!</h3>
+                    <ul>
+                        ${skillInfo.howTo.map(how => `<li>${how}</li>`).join('')}
+                    </ul>
+
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.3);">
+                        <p style="font-size: 16px;">
+                            <strong>기억해!</strong> AI 시대에는 AI를 도구로 활용하면서도,
+                            인간만이 가진 <strong>창의성, 공감, 비판적 사고</strong>가 가장 중요해.
+                            지금부터 이런 능력들을 키워나가면, 어떤 미래가 와도 너는 빛날 수 있어! ✨
+                        </p>
+                    </div>
+
+                    <button class="restart-btn" onclick="restart()">🔄 다시 시작하기</button>
+                </div>
+            `;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = resultHTML;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // 재시작 함수
+        function restart() {
+            currentNode = 'start';
+            userChoices = {
+                category: '',
+                interest: '',
+                style: '',
+                skill: ''
+            };
+            questionCount = 0;
+            chatContainer.innerHTML = '';
+            updateProgress();
+            init();
+        }
+
+        // 초기화
+        function init() {
+            const startNode = conversationData[currentNode];
+            addMessage(startNode.message);
+            setTimeout(() => {
+                addButtons(startNode.buttons);
+            }, 500);
+        }
+
+        // 페이지 로드 시 시작
+        window.addEventListener('load', () => {
+            setTimeout(init, 300);
+        });
+    </script>
+</body>
+</html>
