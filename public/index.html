@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도형 보조선 자동 생성기 - Shape Guide Lines Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header>
+                <h1>🔷 도형 보조선 자동 생성기</h1>
+                <p class="subtitle">평행선·수선이 자동으로 생성되는 기하학 학습 도구</p>
+            </header>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-group">
+                    <label for="shape-type">도형 유형:</label>
+                    <select id="shape-type">
+                        <option value="triangle">삼각형</option>
+                        <option value="quadrilateral">사각형</option>
+                        <option value="polygon">다각형</option>
+                        <option value="custom">자유 그리기</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="show-parallel" checked>
+                        평행선 표시
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="show-perpendicular" checked>
+                        수선 표시
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label>
+                        <input type="checkbox" id="show-labels" checked>
+                        라벨 표시
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <button id="clear-btn" class="btn btn-secondary">초기화</button>
+                    <button id="save-btn" class="btn btn-primary">저장</button>
+                </div>
+            </div>
+
+            <!-- Drawing Instructions -->
+            <div class="instructions">
+                <h3>📝 사용 방법</h3>
+                <ul>
+                    <li><strong>삼각형/사각형:</strong> 도형 유형을 선택하고 화면을 클릭하여 꼭짓점을 찍으세요</li>
+                    <li><strong>자유 그리기:</strong> 마우스로 클릭하여 점을 추가하고, 더블클릭으로 완성하세요</li>
+                    <li><strong>보조선:</strong> 평행선(하늘색)과 수선(빨간색)이 자동으로 생성됩니다</li>
+                    <li><strong>스마트폰 뷰:</strong> 우측 하단의 모바일 화면에서 결과를 확인하세요</li>
+                </ul>
+            </div>
+
+            <!-- Saved Shapes List -->
+            <div class="saved-shapes">
+                <h3>💾 저장된 도형</h3>
+                <div id="shapes-list" class="shapes-list"></div>
+            </div>
+        </div>
+
+        <!-- Smartphone View - Fixed Bottom Right -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div class="screen-header">
+                        <span class="screen-title">도형 보조선 뷰어</span>
+                    </div>
+                    <canvas id="mobile-canvas" width="320" height="520"></canvas>
+                    <div class="screen-footer">
+                        <div class="guide-legend">
+                            <span class="legend-item">
+                                <span class="color-box parallel"></span>
+                                평행선
+                            </span>
+                            <span class="legend-item">
+                                <span class="color-box perpendicular"></span>
+                                수선
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Canvas (hidden, for shape creation) -->
+    <div class="desktop-canvas-container">
+        <h3>🎨 도형 그리기 영역</h3>
+        <canvas id="desktop-canvas" width="800" height="600"></canvas>
+    </div>
+
+    <script src="shape-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
