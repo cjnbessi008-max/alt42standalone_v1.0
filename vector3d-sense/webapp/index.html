@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector 3D Sense - 3D 벡터 학습</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container (Bottom Right) -->
+    <div id="virtual-phone" class="virtual-phone bottom-right">
+        <div class="phone-frame">
+            <!-- Phone Header (Status Bar) -->
+            <div class="phone-header">
+                <span class="time">9:41</span>
+                <div class="status-icons">
+                    <span class="signal">📶</span>
+                    <span class="wifi">📡</span>
+                    <span class="battery">🔋</span>
+                </div>
+            </div>
+
+            <!-- Phone Screen Content -->
+            <div class="phone-screen">
+                <!-- Loading Indicator -->
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>문제를 로드하는 중...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
+                <!-- Problem Header -->
+                <div class="problem-header">
+                    <h1 id="problem-title">Vector 3D Sense</h1>
+                    <p id="problem-description">벡터의 관계를 3D 공간에서 탐험하세요</p>
+                    <div id="problem-difficulty" class="difficulty"></div>
+                </div>
+
+                <!-- 3D Visualization Container -->
+                <div id="vector3d-container" class="visualization-container"></div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="controls-row">
+                        <button id="reset-view" class="btn btn-secondary">
+                            <span class="icon">🔄</span>
+                            시점 초기화
+                        </button>
+                        <button id="show-result" class="btn btn-info">
+                            <span class="icon">💡</span>
+                            결과 보기
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Answer Input Section -->
+                <div class="answer-section">
+                    <h3>답안 입력</h3>
+                    <div class="vector-input">
+                        <div class="input-group">
+                            <label for="answer-x">X:</label>
+                            <input type="number" id="answer-x" step="0.1" placeholder="0.0">
+                        </div>
+                        <div class="input-group">
+                            <label for="answer-y">Y:</label>
+                            <input type="number" id="answer-y" step="0.1" placeholder="0.0">
+                        </div>
+                        <div class="input-group">
+                            <label for="answer-z">Z:</label>
+                            <input type="number" id="answer-z" step="0.1" placeholder="0.0">
+                        </div>
+                    </div>
+                    <button id="submit-answer" class="btn btn-primary">
+                        <span class="icon">✓</span>
+                        답안 제출
+                    </button>
+                </div>
+
+                <!-- Submission Result -->
+                <div id="submission-result" class="submission-result" style="display: none;"></div>
+
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h4>사용 방법</h4>
+                    <ul>
+                        <li>🖱️ 마우스로 드래그하여 회전</li>
+                        <li>🔍 스크롤하여 확대/축소</li>
+                        <li>👆 오른쪽 버튼으로 이동</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Phone Home Button -->
+            <div class="phone-footer">
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="js/vector3d-engine.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+/**
+ * Vector 3D Sense - Styles
+ * Virtual smartphone display with 3D visualization
+ *
+ * @package    vector3d_sense
+ * @copyright  2025 KAIST Touch Math Academy
+ */
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Virtual Phone Container */
+.virtual-phone {
+    position: fixed;
+    z-index: 1000;
+}
+
+.virtual-phone.bottom-right {
+    bottom: 20px;
+    right: 20px;
+}
+
+.virtual-phone.bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.virtual-phone.top-right {
+    top: 20px;
+    right: 20px;
+}
+
+.virtual-phone.top-left {
+    top: 20px;
+    left: 20px;
+}
+
+/* Phone Frame (iPhone X style) */
+.phone-frame {
+    width: 375px;
+    height: 812px;
+    background: #000;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 3px #333,
+                0 0 0 6px #000;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.7);
+    transform-origin: bottom right;
+}
+
+/* Phone Header (Status Bar) */
+.phone-header {
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+    color: #fff;
+    font-size: 14px;
+    border-radius: 28px 28px 0 0;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+/* Phone Screen */
+.phone-screen {
+    flex: 1;
+    background: #f5f5f5;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 0;
+    position: relative;
+}
+
+/* Scrollbar Styling */
+.phone-screen::-webkit-scrollbar {
+    width: 4px;
+}
+
+.phone-screen::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.phone-screen::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+/* Phone Footer (Home Indicator) */
+.phone-footer {
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    border-radius: 0 0 28px 28px;
+}
+
+.home-indicator {
+    width: 134px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+/* Loading Indicator */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+    background: #ff4444;
+    color: #fff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Problem Header */
+.problem-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.problem-header h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.problem-header p {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 10px;
+}
+
+.difficulty {
+    color: #ffd700;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 3D Visualization Container */
+.visualization-container {
+    width: 100%;
+    height: 300px;
+    background: #f0f0f0;
+    position: relative;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Control Panel */
+.control-panel {
+    padding: 15px;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.controls-row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+/* Buttons */
+.btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: #fff;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.icon {
+    font-size: 16px;
+}
+
+/* Answer Section */
+.answer-section {
+    padding: 20px;
+    background: #fff;
+}
+
+.answer-section h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.vector-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Submission Result */
+.submission-result {
+    margin: 15px;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+.submission-result.correct {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: #fff;
+}
+
+.submission-result.incorrect {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    color: #fff;
+}
+
+.submission-result h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.submission-result p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Instructions */
+.instructions {
+    padding: 20px;
+    background: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+}
+
+.instructions h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.instructions li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: #666;
+    border-bottom: 1px solid #eee;
+}
+
+.instructions li:last-child {
+    border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .phone-frame {
+        transform: scale(0.5);
+    }
+}
+
+@media (max-width: 480px) {
+    .virtual-phone {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 0 auto;
+    }
+
+    .phone-frame {
+        transform: scale(0.9);
+        transform-origin: center;
+    }
+}
+
+/* Desktop Full Screen Mode (Optional) */
+body.fullscreen .phone-frame {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    transform: scale(1);
+}
+
+body.fullscreen .phone-header,
+body.fullscreen .phone-footer {
+    display: none;
+}
+
+body.fullscreen .visualization-container {
+    height: 500px;
+}
