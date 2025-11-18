@@ -1,0 +1,307 @@
+.virtual-phone {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+.phone-frame {
+  width: 340px;
+  height: 680px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 12px;
+  position: relative;
+  border: 2px solid #333;
+}
+
+.phone-header {
+  position: relative;
+  height: 40px;
+  background: #000;
+  border-radius: 28px 28px 0 0;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.phone-camera {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+}
+
+.phone-speaker {
+  width: 50px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px 0;
+  font-size: 12px;
+  color: #fff;
+}
+
+.phone-time {
+  font-weight: 600;
+}
+
+.phone-icons {
+  display: flex;
+  gap: 4px;
+}
+
+.phone-screen {
+  height: calc(100% - 52px);
+  background: #fff;
+  border-radius: 0 0 28px 28px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.phone-screen::-webkit-scrollbar {
+  width: 4px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+.phone-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.phone-content {
+  padding: 20px;
+}
+
+.question-display {
+  margin-bottom: 20px;
+}
+
+.question-title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.question-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.difficulty,
+.type {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.difficulty {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.type {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.question-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+/* Interval Summary Section */
+.interval-summary-section {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-radius: 16px;
+  padding: 16px;
+  border: 2px solid #667eea30;
+}
+
+.summary-header {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.intervals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.interval-card {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.interval-type-badge {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.interval-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.range-value {
+  color: #667eea;
+}
+
+.range-separator {
+  color: #999;
+  font-size: 14px;
+}
+
+.range-unit {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.interval-context {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  padding: 6px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.confidence-meter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.confidence-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  min-width: 50px;
+}
+
+.confidence-bar {
+  flex: 1;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.confidence-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #667eea;
+  min-width: 40px;
+  text-align: right;
+}
+
+.no-intervals {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 13px;
+}
+
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+@media (max-width: 1400px) {
+  .virtual-phone {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 20px auto;
+  }
+}
