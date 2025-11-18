@@ -1,0 +1,34 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend UI for AI Education System",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "zustand": "^4.4.7",
+    "@mui/material": "^5.15.0",
+    "@mui/icons-material": "^5.15.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.6.2",
+    "socket.io-client": "^4.6.2",
+    "d3": "^7.8.5",
+    "react-hook-form": "^7.49.2",
+    "yup": "^1.3.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "vitest": "^1.0.4"
+  }
+}
