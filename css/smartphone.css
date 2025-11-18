@@ -1,0 +1,348 @@
+/* ==================== */
+/* 스마트폰 컨테이너 */
+/* ==================== */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ==================== */
+/* 스마트폰 디자인 */
+/* ==================== */
+
+.smartphone {
+    width: 340px;
+    height: 680px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    position: relative;
+    border: 3px solid #333;
+}
+
+.smartphone::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 5px;
+    background: #444;
+    border-radius: 3px;
+}
+
+/* ==================== */
+/* 스마트폰 헤더 (상태바) */
+/* ==================== */
+
+.phone-header {
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-size: 0.75em;
+    margin-bottom: 5px;
+}
+
+.phone-header .time {
+    font-weight: 600;
+}
+
+.phone-header .icons {
+    display: flex;
+    gap: 8px;
+}
+
+/* ==================== */
+/* 스마트폰 화면 */
+/* ==================== */
+
+.phone-screen {
+    background: linear-gradient(to bottom, #ffffff 0%, #f5f7fa 100%);
+    height: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==================== */
+/* 앱 헤더 */
+/* ==================== */
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+}
+
+.problem-info {
+    font-size: 0.85em;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+/* ==================== */
+/* 수식 표시 영역 */
+/* ==================== */
+
+.equation-display {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #ecf0f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.equation {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #2c3e50;
+    font-family: 'Georgia', serif;
+}
+
+.equation sub {
+    font-size: 0.6em;
+    color: #3498db;
+}
+
+.equation #resultDisplay {
+    color: #2ecc71;
+    font-weight: 900;
+}
+
+/* ==================== */
+/* Flow 애니메이션 컨테이너 */
+/* ==================== */
+
+.flow-container {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+#flowSvg {
+    display: block;
+    margin: 0 auto;
+}
+
+/* SVG 요소 스타일 */
+.flow-path {
+    fill: none;
+    stroke: #3498db;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.flow-circle {
+    fill: #3498db;
+    transition: all 0.3s;
+}
+
+.flow-circle.active {
+    fill: #2ecc71;
+    filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.8));
+}
+
+.flow-text {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    fill: #2c3e50;
+}
+
+.flow-value {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    fill: #e74c3c;
+}
+
+/* ==================== */
+/* 단계별 설명 */
+/* ==================== */
+
+.step-explanation {
+    background: white;
+    border-top: 2px solid #ecf0f1;
+    padding: 15px;
+}
+
+.step-header {
+    font-weight: 700;
+    color: #3498db;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.step-content {
+    color: #34495e;
+    font-size: 0.9em;
+    line-height: 1.5;
+    min-height: 40px;
+}
+
+/* ==================== */
+/* 진행률 표시 */
+/* ==================== */
+
+.progress-bar {
+    height: 30px;
+    background: #ecf0f1;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db 0%, #2ecc71 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.9em;
+}
+
+/* ==================== */
+/* 스마트폰 홈 버튼 */
+/* ==================== */
+
+.phone-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #2c3e50;
+    margin: 10px auto 0;
+    border: 3px solid #34495e;
+    position: relative;
+}
+
+.phone-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #7f8c8d;
+    border-radius: 3px;
+}
+
+/* ==================== */
+/* 반응형 디자인 */
+/* ==================== */
+
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: static;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .smartphone {
+        width: 100%;
+        max-width: 340px;
+    }
+}
+
+@media (max-height: 800px) {
+    .smartphone {
+        height: 550px;
+    }
+
+    .phone-screen {
+        height: 480px;
+    }
+
+    .flow-container {
+        padding: 10px;
+    }
+
+    #flowSvg {
+        height: 300px;
+    }
+}
+
+/* ==================== */
+/* 드래그 가능한 스마트폰 */
+/* ==================== */
+
+.smartphone.draggable {
+    cursor: move;
+}
+
+.smartphone.dragging {
+    opacity: 0.8;
+    cursor: grabbing;
+}

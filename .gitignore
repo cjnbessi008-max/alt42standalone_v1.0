@@ -1,0 +1,64 @@
+# ==========================================
+# Log Flow .gitignore
+# ==========================================
+
+# 설정 파일
+config.php
+.env
+
+# 로그 파일
+logs/
+*.log
+
+# 캐시
+cache/
+*.cache
+
+# 임시 파일
+temp/
+tmp/
+*.tmp
+
+# 데이터베이스
+*.sql.backup
+*.sql.gz
+
+# 세션 파일
+sessions/
+
+# 업로드 파일
+uploads/
+
+# IDE 설정
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js (향후 사용 가능)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# PHP
+vendor/
+composer.lock
+
+# 백업 파일
+*.bak
+*.backup
+*~
+
+# 컴파일된 파일
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so

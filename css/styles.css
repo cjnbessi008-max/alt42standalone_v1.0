@@ -1,0 +1,310 @@
+/* ==================== */
+/* 전역 스타일 */
+/* ==================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --text-color: #34495e;
+    --border-radius: 8px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+/* ==================== */
+/* 컨트롤 패널 */
+/* ==================== */
+
+.control-panel {
+    max-width: 500px;
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.header h1 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+/* ==================== */
+/* 입력 섹션 */
+/* ==================== */
+
+.input-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.input-section h3 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.moodle-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    border: 2px solid var(--light-color);
+}
+
+.status-indicator {
+    font-size: 0.9em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: var(--warning-color);
+    color: white;
+    font-weight: 600;
+}
+
+.status-indicator.connected {
+    background: var(--secondary-color);
+}
+
+.status-indicator.error {
+    background: var(--danger-color);
+}
+
+.problem-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.problem-input label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-top: 10px;
+}
+
+.problem-input input[type="text"],
+.problem-input input[type="number"] {
+    padding: 10px;
+    border: 2px solid var(--light-color);
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.problem-input input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* ==================== */
+/* 버튼 스타일 */
+/* ==================== */
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-calculate {
+    background: var(--secondary-color);
+    color: white;
+    margin-top: 15px;
+}
+
+.btn-calculate:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-reset {
+    background: var(--danger-color);
+    color: white;
+    margin-top: 10px;
+}
+
+.btn-reset:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==================== */
+/* 애니메이션 컨트롤 */
+/* ==================== */
+
+.animation-controls {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+.animation-controls h3 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.animation-controls label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.animation-controls input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.animation-controls input[type="range"] {
+    width: 150px;
+    margin: 0 10px;
+}
+
+#speedValue {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ==================== */
+/* 계산 로그 */
+/* ==================== */
+
+.log-panel {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--border-radius);
+}
+
+.log-panel h3 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.calculation-log {
+    background: white;
+    border: 2px solid var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.log-entry {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--light-color);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry .timestamp {
+    color: #7f8c8d;
+    font-size: 0.85em;
+}
+
+.log-entry .message {
+    color: var(--text-color);
+    margin-left: 10px;
+}
+
+/* ==================== */
+/* 반응형 디자인 */
+/* ==================== */
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .control-panel {
+        max-width: 100%;
+    }
+
+    .header h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* ==================== */
+/* 스크롤바 스타일 */
+/* ==================== */
+
+.calculation-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calculation-log::-webkit-scrollbar-track {
+    background: var(--light-color);
+    border-radius: 4px;
+}
+
+.calculation-log::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.calculation-log::-webkit-scrollbar-thumb:hover {
+    background: #2980b9;
+}

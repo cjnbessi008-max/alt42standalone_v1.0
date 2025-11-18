@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Flow - 로그 계산 애니메이션</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- 메인 컨트롤 패널 -->
+    <div class="control-panel">
+        <div class="header">
+            <h1>🌊 Log Flow Animation</h1>
+            <p class="subtitle">로그 계산 과정을 물흐르듯 시각화</p>
+        </div>
+
+        <div class="input-section">
+            <h3>📚 Moodle 문제 정보</h3>
+            <div class="moodle-status">
+                <span class="status-indicator" id="moodleStatus">연결 대기 중...</span>
+                <button id="connectMoodle" class="btn-primary">Moodle 연결</button>
+            </div>
+
+            <div class="problem-input">
+                <label for="problemId">문제 ID:</label>
+                <input type="text" id="problemId" placeholder="예: log_101">
+
+                <label for="logBase">밑 (base):</label>
+                <input type="number" id="logBase" value="2" min="2" max="10">
+
+                <label for="logValue">진수 (value):</label>
+                <input type="number" id="logValue" value="8" min="1">
+
+                <button id="calculateBtn" class="btn-calculate">계산 시작</button>
+                <button id="resetBtn" class="btn-reset">초기화</button>
+            </div>
+        </div>
+
+        <div class="animation-controls">
+            <h3>⚙️ 애니메이션 설정</h3>
+            <label>
+                <input type="checkbox" id="autoPlay" checked>
+                자동 재생
+            </label>
+            <label>
+                속도: <input type="range" id="speedControl" min="0.5" max="3" step="0.5" value="1">
+                <span id="speedValue">1x</span>
+            </label>
+            <label>
+                <input type="checkbox" id="showSteps" checked>
+                단계별 설명 표시
+            </label>
+        </div>
+
+        <div class="log-panel">
+            <h3>📊 계산 로그</h3>
+            <div id="calculationLog" class="calculation-log"></div>
+        </div>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <!-- 스마트폰 헤더 -->
+            <div class="phone-header">
+                <div class="time">14:23</div>
+                <div class="icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <!-- 스마트폰 화면 컨텐츠 -->
+            <div class="phone-screen">
+                <div class="app-header">
+                    <h2>Log Calculator</h2>
+                    <div class="problem-info" id="problemInfo">
+                        <span class="badge">대기 중</span>
+                    </div>
+                </div>
+
+                <!-- 로그 수식 표시 -->
+                <div class="equation-display" id="equationDisplay">
+                    <div class="equation">
+                        log<sub id="baseDisplay">?</sub>(<span id="valueDisplay">?</span>) = <span id="resultDisplay">?</span>
+                    </div>
+                </div>
+
+                <!-- Log Flow 애니메이션 영역 -->
+                <div class="flow-container" id="flowContainer">
+                    <svg id="flowSvg" width="100%" height="400" viewBox="0 0 300 400">
+                        <!-- 애니메이션 경로가 동적으로 생성됨 -->
+                    </svg>
+                </div>
+
+                <!-- 단계별 설명 -->
+                <div class="step-explanation" id="stepExplanation">
+                    <div class="step-header">💡 계산 과정</div>
+                    <div class="step-content" id="stepContent">
+                        문제를 입력하고 '계산 시작' 버튼을 눌러주세요.
+                    </div>
+                </div>
+
+                <!-- 진행률 표시 -->
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 홈 버튼 -->
+            <div class="phone-button"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript 파일들 -->
+    <script src="js/logCalculator.js"></script>
+    <script src="js/logFlowAnimation.js"></script>
+    <script src="js/moodleIntegration.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
