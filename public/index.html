@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Shuffle - Quiz System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="header">
+                <h1>📚 Data Shuffle Quiz System</h1>
+                <p class="subtitle">LMS 연동 문제 셔플 시스템</p>
+            </header>
+
+            <div class="control-panel">
+                <div class="form-group">
+                    <label for="quizId">Quiz ID:</label>
+                    <input type="number" id="quizId" value="101" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="studentId">Student ID:</label>
+                    <input type="number" id="studentId" value="1001" min="1">
+                </div>
+
+                <div class="form-group">
+                    <button id="loadQuizBtn" class="btn btn-primary">
+                        📝 Load Shuffled Quiz
+                    </button>
+                    <button id="resetBtn" class="btn btn-secondary">
+                        🔄 Reset
+                    </button>
+                </div>
+
+                <div id="statusMessage" class="status-message"></div>
+            </div>
+
+            <div class="info-panel">
+                <h2>📊 System Information</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Technology Stack:</span>
+                        <span class="info-value">PHP 7.1.9 + MySQL 5.7</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">LMS Integration:</span>
+                        <span class="info-value">Moodle 3.7</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Shuffle Algorithm:</span>
+                        <span class="info-value">Fisher-Yates (Seeded)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" id="systemStatus">Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shuffle-info" id="shuffleInfo" style="display: none;">
+                <h3>🔀 Shuffle Information</h3>
+                <div id="shuffleDetails"></div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <div id="mobileContent" class="mobile-content">
+                        <div class="welcome-screen">
+                            <div class="welcome-icon">📱</div>
+                            <h2>Virtual Smartphone</h2>
+                            <p>학생 퀴즈 화면</p>
+                            <p class="help-text">좌측에서 Quiz를 로드하세요</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-home-button"></div>
+            </div>
+            <div class="smartphone-label">Student View</div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading shuffled quiz...</p>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
