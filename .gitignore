@@ -1,0 +1,45 @@
+# PHP
+vendor/
+composer.lock
+
+# 환경 설정
+.env
+src/config/config.local.php
+
+# 데이터베이스
+*.sql.gz
+*.sql.zip
+
+# 로그
+*.log
+logs/
+error_log
+
+# 임시 파일
+*.tmp
+*.bak
+*.swp
+*~
+
+# 캐시
+cache/
+tmp/
+
+# 업로드 파일
+uploads/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Audio files (사용자가 직접 추가해야 함)
+src/assets/audio/*.mp3
+src/assets/audio/*.ogg
+src/assets/audio/*.wav
+!src/assets/audio/README.md

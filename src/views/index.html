@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALT42 - Area Learning App</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/smartphone.css">
+</head>
+<body>
+    <!-- 가상 스마트폰 컨테이너 (우측 하단) -->
+    <div class="smartphone-container">
+        <div class="smartphone-screen">
+            <!-- 상태바 -->
+            <div class="status-bar">
+                <span class="time" id="statusTime">9:41</span>
+                <div class="icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <!-- 앱 헤더 -->
+            <div class="app-header">
+                <h1>넓이 학습 앱</h1>
+                <p>도형을 그려서 넓이를 완성하세요</p>
+            </div>
+
+            <!-- 메인 콘텐츠 -->
+            <div class="app-content">
+                <!-- 문제 영역 -->
+                <div class="question-area">
+                    <div class="question-title">문제</div>
+                    <div class="question-data" id="questionData">
+                        <p>다음 직사각형의 넓이를 구하세요.</p>
+                        <p><strong>가로:</strong> 5 cm</p>
+                        <p><strong>세로:</strong> 3 cm</p>
+                    </div>
+                </div>
+
+                <!-- 그리기 영역 -->
+                <div class="drawing-area">
+                    <div class="drawing-title">
+                        <span>도형 그리기</span>
+                        <span class="progress-indicator" id="progressIndicator">0%</span>
+                    </div>
+
+                    <canvas id="drawingCanvas" width="335" height="300"></canvas>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" id="resetBtn">다시 그리기</button>
+                        <button class="btn btn-primary" id="submitBtn">제출하기</button>
+                    </div>
+
+                    <!-- 볼륨 컨트롤 -->
+                    <div class="volume-control">
+                        <label>
+                            <span class="chime-icon">🔔</span>
+                            종소리 볼륨:
+                        </label>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                        <span class="chime-status" id="chimeStatus">활성화</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 완성 오버레이 -->
+    <div class="completion-overlay" id="completionOverlay">
+        <div class="completion-message pulse">
+            <h2>🎉 완성!</h2>
+            <p>넓이를 성공적으로 완성했습니다!</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/area-chime.js"></script>
+    <script src="../assets/js/area-detector.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
