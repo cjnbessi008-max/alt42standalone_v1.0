@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # MySQL 데이터베이스 (Moodle DB)
+  mysql:
+    image: mysql:5.7
+    container_name: stat-art-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodlepass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - stat-art-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API (Node.js + Express)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stat-art-backend
+    environment:
+      PORT: 3001
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_USER: moodle
+      DB_PASSWORD: moodlepass
+      DB_NAME: moodle
+      DB_PORT: 3306
+      MOODLE_URL: ${MOODLE_URL:-https://moodle.example.com}
+      MOODLE_TOKEN: ${MOODLE_TOKEN:-your_token_here}
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - stat-art-network
+    command: npm run dev
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: stat-art-frontend
+    environment:
+      REACT_APP_API_URL: http://localhost:3001/api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - stat-art-network
+    command: npm start
+
+networks:
+  stat-art-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
