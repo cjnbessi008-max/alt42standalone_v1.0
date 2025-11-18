@@ -1,0 +1,126 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id                  String               @id @default(uuid())
+  name                String
+  email               String               @unique
+  passwordHash        String
+  gradeLevel          String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  attempts            StudentAttempt[]
+  behaviorEvents      BehaviorEvent[]
+  overthinkingEvents  OverthinkingEvent[]
+  teachers            TeacherStudent[]
+
+  @@map("students")
+}
+
+model Teacher {
+  id         String           @id @default(uuid())
+  name       String
+  email      String           @unique
+  passwordHash String
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  students   TeacherStudent[]
+
+  @@map("teachers")
+}
+
+model TeacherStudent {
+  teacherId String
+  studentId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@id([teacherId, studentId])
+  @@map("teacher_students")
+}
+
+model Problem {
+  id                   String               @id @default(uuid())
+  title                String
+  description          String
+  difficultyLevel      Int                  @default(3) // 1-5
+  problemType          String               @default("short_answer") // multiple_choice, short_answer, calculation
+  correctAnswer        String
+  avgSolveTimeSeconds  Int                  @default(180)
+  hints                Json?                // Array of {level: number, text: string}
+  createdAt            DateTime             @default(now())
+  attempts             StudentAttempt[]
+  behaviorEvents       BehaviorEvent[]
+  overthinkingEvents   OverthinkingEvent[]
+
+  @@map("problems")
+}
+
+model StudentAttempt {
+  id                   String              @id @default(uuid())
+  studentId            String
+  problemId            String
+  answer               String?
+  isCorrect            Boolean?
+  timeSpentSeconds     Int
+  answerModifications  Int                 @default(0)
+  hintLevelUsed        Int                 @default(0)
+  startedAt            DateTime
+  submittedAt          DateTime?
+  createdAt            DateTime            @default(now())
+  student              Student             @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  problem              Problem             @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  behaviorEvents       BehaviorEvent[]
+  overthinkingEvents   OverthinkingEvent[]
+
+  @@index([studentId, startedAt])
+  @@index([problemId])
+  @@index([studentId, problemId, submittedAt])
+  @@map("student_attempts")
+}
+
+model BehaviorEvent {
+  id         String          @id @default(uuid())
+  studentId  String
+  problemId  String
+  attemptId  String?
+  eventType  String          // click, input_change, focus, blur, scroll, hover
+  eventData  Json?           // Additional context
+  timestamp  DateTime        @default(now())
+  student    Student         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  problem    Problem         @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  attempt    StudentAttempt? @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, problemId, timestamp])
+  @@map("behavior_events")
+}
+
+model OverthinkingEvent {
+  id                 String          @id @default(uuid())
+  studentId          String
+  problemId          String
+  attemptId          String?
+  score              Int             // 0-100
+  confidence         String          // low, medium, high
+  triggers           Json            // Array of trigger strings
+  recommendation     String          // observe, hint, alert_teacher
+  interventionTaken  String?         // hint_shown, teacher_alerted, none
+  studentResponse    String?         // hint_accepted, hint_declined, teacher_helped
+  detectedAt         DateTime        @default(now())
+  resolvedAt         DateTime?
+  student            Student         @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  problem            Problem         @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  attempt            StudentAttempt? @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@index([studentId, detectedAt])
+  @@index([resolvedAt])
+  @@map("overthinking_events")
+}
