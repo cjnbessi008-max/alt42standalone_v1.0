@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: condition_morph_db
+    environment:
+      POSTGRES_DB: alt42_condition_morph
+      POSTGRES_USER: alt42
+      POSTGRES_PASSWORD: secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alt42"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - condition_morph_network
+
+  # Redis Cache & Pub/Sub
+  redis:
+    image: redis:7-alpine
+    container_name: condition_morph_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - condition_morph_network
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: condition_morph_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Database
+      DATABASE_URL: postgresql://alt42:secure_password@postgres:5432/alt42_condition_morph
+      # Redis
+      REDIS_URL: redis://redis:6379/0
+      # Moodle Integration
+      MOODLE_URL: ${MOODLE_URL:-https://lms.kaist.ac.kr}
+      MOODLE_TOKEN: ${MOODLE_TOKEN:-your_token_here}
+      MOODLE_DB_HOST: ${MOODLE_DB_HOST:-moodle_db}
+      MOODLE_DB_USER: ${MOODLE_DB_USER:-readonly}
+      MOODLE_DB_PASSWORD: ${MOODLE_DB_PASSWORD:-password}
+      # Application Settings
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      PYTHONUNBUFFERED: 1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - ./docs:/docs:ro
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - condition_morph_network
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: condition_morph_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+      REACT_APP_WS_URL: ws://localhost:8000
+      NODE_ENV: development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm start
+    depends_on:
+      - backend
+    networks:
+      - condition_morph_network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  condition_morph_network:
+    driver: bridge
