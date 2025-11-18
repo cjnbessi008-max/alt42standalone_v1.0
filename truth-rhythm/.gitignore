@@ -14,8 +14,10 @@ public/sounds/*.ogg
 !public/sounds/README.md
 
 # Database backups
-*.sql
 database/backups/
+database/*-backup-*.sql
+# Allow schema.sql
+!database/schema.sql
 
 # IDE and Editor files
 .vscode/
