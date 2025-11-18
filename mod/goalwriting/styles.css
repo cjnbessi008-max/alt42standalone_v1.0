@@ -1,0 +1,219 @@
+/**
+ * CSS styles for mod_goalwriting
+ *
+ * @package    mod_goalwriting
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Main container */
+.path-mod-goalwriting {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Goal writing form */
+.goalwriting-form textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.goalwriting-form textarea:focus {
+    border-color: #0f6cbf;
+    outline: none;
+    box-shadow: 0 0 5px rgba(15, 108, 191, 0.3);
+}
+
+/* Word count display */
+.word-count {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Status badges */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.badge-success {
+    background-color: #5cb85c;
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Feedback box */
+.feedback-box {
+    background-color: #ffffcc;
+    border-left: 4px solid #ffeb3b;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+/* Grade display */
+.grade-display {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0f6cbf;
+    margin-top: 10px;
+}
+
+/* Form buttons */
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.form-buttons input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+/* Submissions table */
+.path-mod-goalwriting .generaltable {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.path-mod-goalwriting .generaltable th {
+    background-color: #f5f5f5;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+.path-mod-goalwriting .generaltable td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.path-mod-goalwriting .generaltable tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Feedback form for teachers */
+.feedback-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.feedback-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.feedback-form textarea,
+.feedback-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .path-mod-goalwriting {
+        padding: 10px;
+    }
+
+    .goalwriting-form textarea {
+        min-height: 150px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons input[type="submit"] {
+        width: 100%;
+    }
+
+    .path-mod-goalwriting .generaltable {
+        font-size: 12px;
+    }
+
+    .path-mod-goalwriting .generaltable th,
+    .path-mod-goalwriting .generaltable td {
+        padding: 8px;
+    }
+}
+
+/* Activity intro box */
+.path-mod-goalwriting .mod_introbox {
+    margin-bottom: 20px;
+}
+
+/* Problem text box */
+.path-mod-goalwriting .generalbox {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+}
+
+/* Back button */
+.path-mod-goalwriting .btn-secondary {
+    margin-bottom: 15px;
+}
+
+/* Accessibility improvements */
+.goalwriting-form label,
+.feedback-form label {
+    cursor: pointer;
+}
+
+.goalwriting-form textarea:focus,
+.feedback-form textarea:focus,
+.feedback-form input:focus {
+    outline: 2px solid #0f6cbf;
+    outline-offset: 2px;
+}
+
+/* Loading states */
+.goalwriting-loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* Error messages */
+.goalwriting-error {
+    color: #d32f2f;
+    padding: 10px;
+    background-color: #ffebee;
+    border-left: 4px solid #d32f2f;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+/* Success messages */
+.goalwriting-success {
+    color: #388e3c;
+    padding: 10px;
+    background-color: #e8f5e9;
+    border-left: 4px solid #388e3c;
+    margin: 10px 0;
+    border-radius: 4px;
+}
