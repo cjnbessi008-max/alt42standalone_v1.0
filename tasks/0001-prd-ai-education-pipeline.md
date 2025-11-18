@@ -348,7 +348,7 @@ The following are explicitly **NOT** part of this implementation:
 2. **Custom Authentication**: Uses existing KAIST authentication; no custom auth system
 3. **Payment Processing**: Not an e-commerce system
 4. **Social Features**: No chat, forums, or social networking features
-5. **Third-party LMS Integration**: Standalone system initially; LTI integration is future work
+5. **Advanced LMS Features**: MVP supports basic Moodle LTI 1.3 integration; advanced LMS features (grade sync, deep linking, assignment creation) are future work
 
 ### Technical Limitations Accepted for MVP
 
@@ -580,9 +580,11 @@ The following are explicitly **NOT** part of this implementation:
 - Code Generation: Jinja2 templates + AST manipulation
 
 **Database**:
-- Primary: PostgreSQL 15+ (with JSONB support)
+- Primary: MySQL 5.7+ (Moodle compatibility, JSON column support) OR PostgreSQL 15+ (with JSONB support)
+- ORM: Sequelize (Node.js) / SQLAlchemy (Python) for database abstraction
 - Caching: Redis 7+
 - Graph Storage (future): Neo4j (for ontologies)
+- **Note**: MySQL 5.7 recommended for Moodle LTI deployments; PostgreSQL for standalone deployments
 
 **DevOps**:
 - Containerization: Docker + Docker Compose
@@ -711,10 +713,13 @@ Examples: [few-shot examples for consistency]
 ### 7.6 Integration Points
 
 **Existing KAIST Systems**:
-1. **Authentication**: Integrate with KAIST SSO (SAML/OAuth)
-2. **Student Database**: Read-only access to student roster
-3. **Grade System**: Optional export of student progress/grades
-4. **LMS Integration**: Embed generated modules in existing LMS (future)
+1. **Authentication**: Integrate with KAIST SSO (SAML/OAuth) OR Moodle LTI 1.3 authentication
+2. **Student Database**: Read-only access to student roster (or via LTI claims)
+3. **Grade System**: Optional export of student progress/grades (LTI Assignment and Grade Services)
+4. **LMS Integration**:
+   - **MVP**: Moodle 3.7+ via LTI 1.3 (tool provider)
+   - **Phase 2**: Deep linking, content item selection
+   - **Phase 3**: Multi-LMS support (Canvas, Blackboard)
 
 **Third-Party Services**:
 1. **Claude API**: Primary AI reasoning engine
@@ -956,10 +961,11 @@ If after 6 months:
     - **Impact**: Native app development scope
     - **Needed by**: Phase 2
 
-14. **Third-party LMS Integration**
-    - **Question**: Which LMS platforms need integration? (Canvas, Moodle, Blackboard, custom?)
-    - **Impact**: LTI implementation effort
+14. **Advanced Multi-LMS Integration**
+    - **Question**: Beyond Moodle 3.7, which other LMS platforms need integration? (Canvas, Blackboard, custom?)
+    - **Impact**: Multi-LMS abstraction layer complexity
     - **Needed by**: Phase 3
+    - **Note**: MVP targets Moodle 3.7 with LTI 1.3
 
 ### Assumptions Made (To be validated)
 

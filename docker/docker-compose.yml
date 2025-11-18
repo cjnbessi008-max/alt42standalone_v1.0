@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database (Moodle compatible)
+  mysql:
+    image: mysql:5.7
+    container_name: ai_education_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ai_education
+      MYSQL_USER: ai_user
+      MYSQL_PASSWORD: ai_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - ai_education_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: ai_education_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ai_education_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # API Gateway (Node.js)
+  api-gateway:
+    build:
+      context: ../backend/api-gateway
+      dockerfile: Dockerfile
+    container_name: ai_education_api_gateway
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: mysql://ai_user:ai_password@mysql:3306/ai_education
+      REDIS_URL: redis://redis:6379
+      AI_PIPELINE_URL: http://ai-pipeline:8000
+      JWT_SECRET: your-secret-key-change-in-production
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ai_education_network
+    volumes:
+      - ../backend/api-gateway:/app
+      - /app/node_modules
+    command: npm run dev
+
+  # AI Pipeline (Python FastAPI)
+  ai-pipeline:
+    build:
+      context: ../backend/ai-pipeline
+      dockerfile: Dockerfile
+    container_name: ai_education_ai_pipeline
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: mysql+pymysql://ai_user:ai_password@mysql:3306/ai_education
+      REDIS_URL: redis://redis:6379
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      SECRET_KEY: your-secret-key-change-in-production
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - ai_education_network
+    volumes:
+      - ../backend/ai-pipeline:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.dev
+    container_name: ai_education_frontend
+    environment:
+      VITE_API_URL: http://localhost:3000
+      VITE_LTI_ENABLED: "true"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gateway
+    networks:
+      - ai_education_network
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ai_education_network:
+    driver: bridge
