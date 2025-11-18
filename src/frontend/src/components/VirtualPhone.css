@@ -1,0 +1,128 @@
+.virtual-phone-wrapper {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.virtual-phone-wrapper.bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.virtual-phone-wrapper.bottom-left {
+  bottom: 2rem;
+  left: 2rem;
+}
+
+.virtual-phone-wrapper.top-right {
+  top: 2rem;
+  right: 2rem;
+}
+
+.virtual-phone-wrapper.top-left {
+  top: 2rem;
+  left: 2rem;
+}
+
+.virtual-phone {
+  position: relative;
+  animation: phoneFloat 3s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.phone-frame {
+  width: 375px;
+  height: 667px;
+  background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+  border-radius: 40px;
+  padding: 20px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 8px #0a0a0a,
+    0 0 0 10px #2c2c2c;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 25px;
+  background: #000;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 10;
+}
+
+.phone-speaker {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  z-index: 11;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.phone-home-button {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.phone-shadow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .virtual-phone-wrapper {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    top: auto;
+    margin: 0 auto;
+  }
+
+  .phone-frame {
+    width: 320px;
+    height: 568px;
+  }
+}

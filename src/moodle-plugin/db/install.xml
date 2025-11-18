@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/geospiral/db" VERSION="20250118" COMMENT="XMLDB file for Moodle blocks/geospiral"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="block_geospiral_sequences" COMMENT="Geometric sequences for visualization">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="sequence_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="geometric" SEQUENCE="false"/>
+        <FIELD NAME="first_term" TYPE="number" LENGTH="20" NOTNULL="true" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="common_ratio" TYPE="number" LENGTH="20" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="common_difference" TYPE="number" LENGTH="20" NOTNULL="false" DECIMALS="6" SEQUENCE="false"/>
+        <FIELD NAME="num_terms" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="10" SEQUENCE="false"/>
+        <FIELD NAME="spiral_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="logarithmic" SEQUENCE="false"/>
+        <FIELD NAME="created_by" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sequence_type_idx" UNIQUE="false" FIELDS="sequence_type"/>
+        <INDEX NAME="created_by_idx" UNIQUE="false" FIELDS="created_by"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="block_geospiral_progress" COMMENT="Student progress tracking">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="sequenceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="completion_status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="in_progress" SEQUENCE="false"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="interaction_count" TYPE="int" LENGTH="11" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="last_interaction" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="5" NOTNULL="false" DECIMALS="2" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="sequenceid_fk" TYPE="foreign" FIELDS="sequenceid" REFTABLE="block_geospiral_sequences" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="user_sequence_course_idx" UNIQUE="true" FIELDS="userid,sequenceid,courseid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="block_geospiral_interactions" COMMENT="Interaction history">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="sequenceid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="interaction_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="interaction_data" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="sequenceid_fk" TYPE="foreign" FIELDS="sequenceid" REFTABLE="block_geospiral_sequences" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="timecreated_idx" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

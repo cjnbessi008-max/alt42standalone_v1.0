@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: geospiral_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: moodle_geospiral
+      MYSQL_USER: moodle
+      MYSQL_PASSWORD: moodle123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    command: --default-authentication-plugin=mysql_native_password
+
+  # PHP 7.1.9 with Apache
+  php:
+    build:
+      context: ./config
+      dockerfile: Dockerfile.php
+    container_name: geospiral_php
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/backend:/var/www/html
+      - ./src/moodle-plugin:/var/www/moodle/blocks/geospiral
+    environment:
+      DB_HOST: mysql
+      DB_NAME: moodle_geospiral
+      DB_USER: moodle
+      DB_PASSWORD: moodle123
+
+  # Moodle 3.7
+  moodle:
+    image: moodlehq/moodle-php-apache:7.1
+    container_name: geospiral_moodle
+    depends_on:
+      - mysql
+    ports:
+      - "8081:80"
+    volumes:
+      - moodle_data:/var/www/html
+      - moodle_data_files:/var/www/moodledata
+      - ./src/moodle-plugin:/var/www/html/blocks/geospiral
+    environment:
+      MOODLE_DATABASE_TYPE: mysqli
+      MOODLE_DATABASE_HOST: mysql
+      MOODLE_DATABASE_NAME: moodle_geospiral
+      MOODLE_DATABASE_USER: moodle
+      MOODLE_DATABASE_PASSWORD: moodle123
+
+  # Node.js Frontend Development Server
+  frontend:
+    image: node:16-alpine
+    container_name: geospiral_frontend
+    working_dir: /app
+    volumes:
+      - ./src/frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm start"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  mysql_data:
+  moodle_data:
+  moodle_data_files:
