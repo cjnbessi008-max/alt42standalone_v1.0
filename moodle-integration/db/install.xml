@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/alt42_focus/db" VERSION="20251118" COMMENT="XMLDB file for Alt42 Focus Tracking plugin"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_alt42_focus_sessions" COMMENT="Moodle-API session mappings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Moodle user ID"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Moodle course ID"/>
+        <FIELD NAME="moduleid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Module identifier"/>
+        <FIELD NAME="session_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="API session ID"/>
+        <FIELD NAME="student_identifier" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Student ID for API"/>
+        <FIELD NAME="session_start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Session start timestamp"/>
+        <FIELD NAME="session_end" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Session end timestamp"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="session_id" UNIQUE="false" FIELDS="session_id"/>
+        <INDEX NAME="userid_moduleid" UNIQUE="false" FIELDS="userid,moduleid"/>
+        <INDEX NAME="student_identifier" UNIQUE="false" FIELDS="student_identifier"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="local_alt42_focus_config" COMMENT="Plugin configuration per course">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Moodle course ID"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Focus tracking enabled"/>
+        <FIELD NAME="auto_breaks" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Auto breaks enabled"/>
+        <FIELD NAME="idle_timeout" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="120" SEQUENCE="false" COMMENT="Idle timeout in seconds"/>
+        <FIELD NAME="break_frequency" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="30" SEQUENCE="false" COMMENT="Break frequency in minutes"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid_unique" UNIQUE="true" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

@@ -1,0 +1,427 @@
+/**
+ * Mental Alignment Routine Styles
+ * Styling for the 10-second mental alignment routine modal
+ */
+
+.mar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: mar-fade-in 0.3s ease-out;
+}
+
+@keyframes mar-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mar-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: mar-slide-up 0.3s ease-out;
+}
+
+@keyframes mar-slide-up {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.mar-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.mar-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.mar-description {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+/* Loading & Error */
+.mar-loading,
+.mar-error {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.mar-error {
+  color: #e74c3c;
+}
+
+/* Start Screen */
+.mar-start-screen {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.mar-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: mar-pulse 2s ease-in-out infinite;
+}
+
+@keyframes mar-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.mar-instruction {
+  font-size: 18px;
+  color: #555;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+/* Running Screen */
+.mar-running-screen {
+  text-align: center;
+}
+
+.mar-timer {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 32px;
+}
+
+.mar-timer-circle {
+  width: 100%;
+  height: 100%;
+}
+
+.mar-timer-progress {
+  transition: stroke-dasharray 0.5s linear;
+}
+
+.mar-timer-text {
+  font-weight: 700;
+}
+
+/* Animation Area */
+.mar-animation {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.breathing-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4A90E2, #7ED321);
+  animation: mar-breathe 6s ease-in-out infinite;
+}
+
+@keyframes mar-breathe {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.stretching-figure,
+.eye-icon {
+  font-size: 80px;
+  animation: mar-stretch 3s ease-in-out infinite;
+}
+
+@keyframes mar-stretch {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  25% {
+    transform: scaleY(1.1) translateY(-10px);
+  }
+  75% {
+    transform: scaleY(0.9) translateY(10px);
+  }
+}
+
+/* Instruction Container */
+.mar-instruction-container {
+  min-height: 80px;
+}
+
+.mar-current-instruction {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 16px 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mar-step-indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.mar-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: all 0.3s ease;
+}
+
+.mar-step-dot.active {
+  width: 12px;
+  height: 12px;
+  background-color: #4A90E2;
+}
+
+/* Rating Screen */
+.mar-rating-screen {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.mar-complete-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: mar-bounce 0.6s ease-out;
+}
+
+@keyframes mar-bounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.mar-rating-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.mar-rating-question {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.mar-rating-stars {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mar-star {
+  font-size: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: grayscale(100%);
+  opacity: 0.4;
+}
+
+.mar-star:hover {
+  transform: scale(1.2);
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.mar-star.selected {
+  filter: grayscale(0%);
+  opacity: 1;
+  animation: mar-star-select 0.3s ease;
+}
+
+@keyframes mar-star-select {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Buttons */
+.mar-button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.mar-button {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.mar-button-primary {
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+}
+
+.mar-button-primary:hover {
+  background: linear-gradient(135deg, #357ABD, #2868A6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.mar-button-primary:active {
+  transform: translateY(0);
+}
+
+.mar-button-secondary {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.mar-button-secondary:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .mar-modal {
+    padding: 24px;
+  }
+
+  .mar-title {
+    font-size: 24px;
+  }
+
+  .mar-icon {
+    font-size: 60px;
+  }
+
+  .mar-timer {
+    width: 160px;
+    height: 160px;
+  }
+
+  .mar-current-instruction {
+    font-size: 18px;
+  }
+
+  .mar-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-width: 120px;
+  }
+
+  .mar-star {
+    font-size: 32px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mar-overlay,
+  .mar-modal,
+  .mar-icon,
+  .breathing-circle,
+  .stretching-figure,
+  .eye-icon,
+  .mar-step-dot,
+  .mar-complete-icon,
+  .mar-star,
+  .mar-button {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .mar-modal {
+    background: #2c2c2c;
+  }
+
+  .mar-title,
+  .mar-current-instruction,
+  .mar-rating-title {
+    color: #f5f5f5;
+  }
+
+  .mar-description,
+  .mar-instruction,
+  .mar-rating-question {
+    color: #ccc;
+  }
+
+  .mar-button-secondary {
+    background: #3c3c3c;
+    color: #ccc;
+  }
+
+  .mar-button-secondary:hover {
+    background: #4c4c4c;
+    color: #f5f5f5;
+  }
+
+  .mar-step-dot {
+    background-color: #555;
+  }
+
+  .mar-timer-bg {
+    stroke: #444;
+  }
+}
