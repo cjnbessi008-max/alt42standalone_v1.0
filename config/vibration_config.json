@@ -1,0 +1,228 @@
+{
+  "version": "1.0.0",
+  "description": "LMS Vibration Alert Configuration for Wrong Answer Scenarios",
+  "default_settings": {
+    "enabled": true,
+    "trigger_on_wrong_answer": true,
+    "trigger_on_correct_answer": false,
+    "intensity_level": 5,
+    "duration_ms": 200,
+    "pattern": "double_pulse",
+    "risk_threshold": "medium"
+  },
+  "patterns": {
+    "short_pulse": {
+      "name": "Short Pulse",
+      "description": "Single short vibration for minor errors",
+      "pulses": [200],
+      "use_case": "wrong_answer",
+      "intensity_default": 3,
+      "recommended_for": ["low_risk", "first_attempt"]
+    },
+    "double_pulse": {
+      "name": "Double Pulse",
+      "description": "Double pulse for medium-risk wrong answers",
+      "pulses": [100, 50, 100],
+      "use_case": "wrong_answer",
+      "intensity_default": 5,
+      "recommended_for": ["medium_risk", "multiple_attempts"]
+    },
+    "warning_pattern": {
+      "name": "Warning Pattern",
+      "description": "Triple pulse for high-risk situations",
+      "pulses": [150, 75, 150, 75, 150],
+      "use_case": "warning",
+      "intensity_default": 7,
+      "recommended_for": ["high_risk", "critical_concept"]
+    },
+    "critical_alert": {
+      "name": "Critical Alert",
+      "description": "Strong pattern for critical errors",
+      "pulses": [200, 100, 200, 100, 200, 100, 200],
+      "use_case": "critical",
+      "intensity_default": 9,
+      "recommended_for": ["very_high_risk", "prerequisite_failure"]
+    },
+    "success_pulse": {
+      "name": "Success Pulse",
+      "description": "Positive feedback for correct answers",
+      "pulses": [200],
+      "use_case": "correct_answer",
+      "intensity_default": 4,
+      "recommended_for": ["correct", "achievement"]
+    },
+    "encouragement": {
+      "name": "Encouragement",
+      "description": "Light triple tap for encouragement",
+      "pulses": [50, 50, 50, 50, 50],
+      "use_case": "encouragement",
+      "intensity_default": 3,
+      "recommended_for": ["motivation", "hint"]
+    }
+  },
+  "risk_levels": {
+    "low": {
+      "threshold": 0.0,
+      "max_threshold": 0.4,
+      "default_pattern": "short_pulse",
+      "description": "Minor error, first attempt",
+      "intensity_modifier": -1
+    },
+    "medium": {
+      "threshold": 0.4,
+      "max_threshold": 0.7,
+      "default_pattern": "double_pulse",
+      "description": "Multiple attempts or moderate concept importance",
+      "intensity_modifier": 0
+    },
+    "high": {
+      "threshold": 0.7,
+      "max_threshold": 1.0,
+      "default_pattern": "warning_pattern",
+      "description": "Critical concept or many failed attempts",
+      "intensity_modifier": 2
+    }
+  },
+  "intensity_multipliers": {
+    "1": 0.3,
+    "2": 0.4,
+    "3": 0.5,
+    "4": 0.6,
+    "5": 0.7,
+    "6": 0.8,
+    "7": 0.9,
+    "8": 1.0,
+    "9": 1.1,
+    "10": 1.2
+  },
+  "risk_assessment": {
+    "factors": {
+      "attempt_count": {
+        "weight": 0.4,
+        "scoring": {
+          "1": 0.1,
+          "2": 0.2,
+          "3": 0.3,
+          "4+": 0.4
+        }
+      },
+      "concept_importance": {
+        "weight": 0.3,
+        "range": [0.0, 1.0],
+        "description": "Importance of the concept (0.0 = low, 1.0 = high)"
+      },
+      "difficulty_level": {
+        "weight": 0.2,
+        "scoring": {
+          "easy": 0.0,
+          "medium": 0.1,
+          "hard": 0.2
+        }
+      },
+      "time_spent": {
+        "weight": 0.1,
+        "thresholds": {
+          "quick": {
+            "max_seconds": 60,
+            "score": 0.0
+          },
+          "moderate": {
+            "max_seconds": 180,
+            "score": 0.05
+          },
+          "extended": {
+            "max_seconds": 300,
+            "score": 0.1
+          },
+          "prolonged": {
+            "min_seconds": 300,
+            "score": 0.1
+          }
+        }
+      }
+    },
+    "max_score": 1.0
+  },
+  "module_specific_overrides": {
+    "example_module_id": {
+      "enabled": true,
+      "pattern": "warning_pattern",
+      "intensity_level": 6,
+      "risk_threshold": "low"
+    }
+  },
+  "accessibility": {
+    "respect_reduced_motion": true,
+    "respect_user_preference": true,
+    "fallback_to_visual": true,
+    "allow_disable": true,
+    "test_mode": {
+      "enabled": false,
+      "pattern": "short_pulse",
+      "description": "Gentle test pattern for users to verify device support"
+    }
+  },
+  "analytics": {
+    "log_events": true,
+    "track_device_support": true,
+    "track_user_preference": true,
+    "track_effectiveness": true,
+    "aggregate_by": ["module", "risk_level", "pattern", "student_grade"]
+  },
+  "feature_flags": {
+    "enable_vibration": true,
+    "enable_correct_answer_feedback": false,
+    "enable_encouragement_vibration": false,
+    "enable_adaptive_intensity": true,
+    "enable_pattern_learning": false
+  },
+  "ui_settings": {
+    "show_vibration_indicator": true,
+    "show_risk_badge": true,
+    "show_device_support_warning": true,
+    "allow_user_settings": true
+  },
+  "grade_level_adjustments": {
+    "elementary": {
+      "intensity_modifier": -2,
+      "preferred_patterns": ["short_pulse", "encouragement"],
+      "max_intensity": 6
+    },
+    "middle_school": {
+      "intensity_modifier": -1,
+      "preferred_patterns": ["short_pulse", "double_pulse"],
+      "max_intensity": 7
+    },
+    "high_school": {
+      "intensity_modifier": 0,
+      "preferred_patterns": ["double_pulse", "warning_pattern"],
+      "max_intensity": 8
+    },
+    "college": {
+      "intensity_modifier": 1,
+      "preferred_patterns": ["double_pulse", "warning_pattern", "critical_alert"],
+      "max_intensity": 10
+    }
+  },
+  "performance": {
+    "debounce_ms": 500,
+    "max_vibrations_per_minute": 10,
+    "cooldown_between_vibrations_ms": 2000
+  },
+  "localization": {
+    "supported_languages": ["en", "ko", "es", "fr", "de", "ja", "zh"],
+    "default_language": "en",
+    "feedback_messages": {
+      "en": {
+        "device_not_supported": "Haptic feedback not supported on this device",
+        "user_disabled": "Haptic feedback is disabled in settings",
+        "vibration_triggered": "Haptic feedback provided"
+      },
+      "ko": {
+        "device_not_supported": "이 기기에서는 진동 알림이 지원되지 않습니다",
+        "user_disabled": "설정에서 진동 알림이 비활성화되어 있습니다",
+        "vibration_triggered": "진동 알림이 제공되었습니다"
+      }
+    }
+  }
+}
