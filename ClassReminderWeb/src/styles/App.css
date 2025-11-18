@@ -1,0 +1,21 @@
+.app {
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.main-content {
+  padding-bottom: 40px;
+}
+
+.selectors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .selectors-grid {
+    grid-template-columns: 1fr;
+  }
+}

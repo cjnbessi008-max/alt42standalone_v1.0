@@ -1,0 +1,45 @@
+.selector-card {
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.selector-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.selector {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selector:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selector:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.selector option {
+  padding: 8px;
+}
+
+@media (max-width: 768px) {
+  .selector-card h3 {
+    font-size: 16px;
+  }
+
+  .selector {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
