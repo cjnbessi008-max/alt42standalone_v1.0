@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Union - Demo (Standalone)</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/color-union.css">
+    <style>
+        /* Demo-specific styles */
+        .demo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-weight: 600;
+            z-index: 9999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .demo-banner a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .demo-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            max-width: 300px;
+            z-index: 1000;
+        }
+
+        .demo-info h3 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+        }
+
+        .demo-info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .demo-info .stats {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .demo-info .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+
+        .demo-info .stat-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .demo-info .stat-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        🎨 Color Union - 데모 모드 | Moodle 연동 없이 테스트 가능합니다
+    </div>
+
+    <!-- Demo Info Panel -->
+    <div class="demo-info">
+        <h3>📊 학습 정보</h3>
+        <p>이 모드는 Moodle 없이 Color Union을 테스트할 수 있습니다.</p>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">현재 점수:</span>
+                <span class="stat-value" id="demoScore">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">정답률:</span>
+                <span class="stat-value" id="demoAccuracy">0%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">진행 상황:</span>
+                <span class="stat-value" id="demoProgress">0/10</span>
+            </div>
+        </div>
+
+        <p style="margin-top: 15px; font-size: 12px; color: #999;">
+            💡 실제 사용시에는 Moodle LMS와 연동됩니다.
+        </p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <span class="time">10:24</span>
+                        <div class="status-icons">
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- App Content -->
+                    <div class="app-content">
+                        <header class="app-header">
+                            <h1>Color Union</h1>
+                            <p class="subtitle">색감이 섞이며 확장되는 합집합</p>
+                        </header>
+
+                        <!-- Problem Display -->
+                        <div class="problem-section">
+                            <div class="problem-text">
+                                <h2>문제 <span id="problemNumber">1</span></h2>
+                                <p id="problemDescription">두 집합의 합집합을 찾아보세요!</p>
+                            </div>
+                        </div>
+
+                        <!-- Color Union Visualization Area -->
+                        <div class="visualization-area">
+                            <!-- Set A -->
+                            <div class="set-container" id="setA">
+                                <div class="set-label">집합 A</div>
+                                <div class="color-circle" id="colorA" data-color="#FF6B6B">
+                                    <div class="element-list" id="elementsA"></div>
+                                </div>
+                            </div>
+
+                            <!-- Union Symbol -->
+                            <div class="union-symbol">∪</div>
+
+                            <!-- Set B -->
+                            <div class="set-container" id="setB">
+                                <div class="set-label">집합 B</div>
+                                <div class="color-circle" id="colorB" data-color="#4ECDC4">
+                                    <div class="element-list" id="elementsB"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Union Result Display -->
+                        <div class="result-area">
+                            <div class="result-label">A ∪ B =</div>
+                            <div class="union-circle" id="unionResult">
+                                <div class="element-list" id="elementsUnion"></div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Controls -->
+                        <div class="controls-section">
+                            <button class="btn btn-primary" id="showUnionBtn">
+                                <span>합집합 보기</span>
+                            </button>
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <span>초기화</span>
+                            </button>
+                            <button class="btn btn-success" id="nextProblemBtn" style="display: none;">
+                                <span>다음 문제</span>
+                            </button>
+                        </div>
+
+                        <!-- Feedback Area -->
+                        <div class="feedback-area" id="feedbackArea"></div>
+
+                        <!-- Progress Indicator -->
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                            <span class="progress-text" id="progressText">0/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/color-union.js"></script>
+    <script src="js/animation.js"></script>
+
+    <!-- Demo mode - override save functions -->
+    <script>
+        // Override save functions for demo mode
+        ColorUnionApp.prototype.saveProgress = async function() {
+            // Demo mode - just log to console
+            console.log('Demo Mode: Progress saved locally');
+            this.updateDemoStats();
+            return Promise.resolve({ success: true });
+        };
+
+        ColorUnionApp.prototype.saveFinalResults = async function() {
+            // Demo mode - just log to console
+            console.log('Demo Mode: Final results saved locally');
+            this.updateDemoStats();
+            return Promise.resolve({ success: true });
+        };
+
+        // Add demo stats update
+        ColorUnionApp.prototype.updateDemoStats = function() {
+            document.getElementById('demoScore').textContent = this.score;
+            document.getElementById('demoProgress').textContent =
+                `${this.currentProblem}/${this.totalProblems}`;
+
+            const totalAnswers = this.userAnswers.length;
+            const correctAnswers = this.userAnswers.filter(a => a.isCorrect).length;
+            const accuracy = totalAnswers > 0
+                ? Math.round((correctAnswers / totalAnswers) * 100)
+                : 0;
+
+            document.getElementById('demoAccuracy').textContent = `${accuracy}%`;
+        };
+    </script>
+</body>
+</html>

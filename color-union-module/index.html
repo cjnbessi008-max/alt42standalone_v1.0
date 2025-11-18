@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Union - 집합의 합집합</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/color-union.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <span class="time">10:24</span>
+                        <div class="status-icons">
+                            <span class="battery">🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- App Content -->
+                    <div class="app-content">
+                        <header class="app-header">
+                            <h1>Color Union</h1>
+                            <p class="subtitle">색감이 섞이며 확장되는 합집합</p>
+                        </header>
+
+                        <!-- Problem Display -->
+                        <div class="problem-section">
+                            <div class="problem-text">
+                                <h2>문제 <span id="problemNumber">1</span></h2>
+                                <p id="problemDescription">두 집합의 합집합을 찾아보세요!</p>
+                            </div>
+                        </div>
+
+                        <!-- Color Union Visualization Area -->
+                        <div class="visualization-area">
+                            <!-- Set A -->
+                            <div class="set-container" id="setA">
+                                <div class="set-label">집합 A</div>
+                                <div class="color-circle" id="colorA" data-color="#FF6B6B">
+                                    <div class="element-list" id="elementsA"></div>
+                                </div>
+                            </div>
+
+                            <!-- Union Symbol -->
+                            <div class="union-symbol">∪</div>
+
+                            <!-- Set B -->
+                            <div class="set-container" id="setB">
+                                <div class="set-label">집합 B</div>
+                                <div class="color-circle" id="colorB" data-color="#4ECDC4">
+                                    <div class="element-list" id="elementsB"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Union Result Display -->
+                        <div class="result-area">
+                            <div class="result-label">A ∪ B =</div>
+                            <div class="union-circle" id="unionResult">
+                                <div class="element-list" id="elementsUnion"></div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Controls -->
+                        <div class="controls-section">
+                            <button class="btn btn-primary" id="showUnionBtn">
+                                <span>합집합 보기</span>
+                            </button>
+                            <button class="btn btn-secondary" id="resetBtn">
+                                <span>초기화</span>
+                            </button>
+                            <button class="btn btn-success" id="nextProblemBtn" style="display: none;">
+                                <span>다음 문제</span>
+                            </button>
+                        </div>
+
+                        <!-- Answer Input Area -->
+                        <div class="answer-section" style="display: none;">
+                            <label for="answerInput">합집합의 원소 개수:</label>
+                            <input type="number" id="answerInput" min="0" max="20">
+                            <button class="btn btn-check" id="checkAnswerBtn">확인</button>
+                        </div>
+
+                        <!-- Feedback Area -->
+                        <div class="feedback-area" id="feedbackArea"></div>
+
+                        <!-- Progress Indicator -->
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                            <span class="progress-text" id="progressText">0/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/color-union.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/moodle-integration.js"></script>
+</body>
+</html>
