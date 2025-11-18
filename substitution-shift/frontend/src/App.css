@@ -1,0 +1,201 @@
+/* App Styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Main content */
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px 20px;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.app-header h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tagline {
+  font-size: 18px;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Instructions */
+.instructions {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.instructions h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  font-size: 16px;
+  color: #5a6c7d;
+  padding: 12px 0;
+  padding-left: 30px;
+  position: relative;
+  line-height: 1.6;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.instructions li:last-child {
+  border-bottom: none;
+}
+
+.instructions li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Status messages */
+.status-message {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  margin: 40px 0;
+}
+
+.status-message p {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-top: 16px;
+}
+
+.status-message.error p {
+  color: #e74c3c;
+}
+
+/* Spinner animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Retry button */
+.retry-button {
+  margin-top: 20px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.retry-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.retry-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 40px 16px 16px;
+  }
+
+  .app-header h1 {
+    font-size: 36px;
+  }
+
+  .tagline {
+    font-size: 16px;
+  }
+
+  .instructions {
+    padding: 24px;
+  }
+
+  .instructions h2 {
+    font-size: 20px;
+  }
+
+  .instructions li {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .tagline {
+    font-size: 14px;
+  }
+
+  .instructions {
+    padding: 20px;
+  }
+
+  .instructions h2 {
+    font-size: 18px;
+  }
+}
+
+/* When smartphone is visible, adjust main content */
+@media (min-width: 769px) {
+  .main-content {
+    padding-right: 380px; /* Make room for smartphone simulator */
+  }
+}
