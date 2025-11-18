@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Mode Learning - Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #718096;
+      font-size: 16px;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 24px;
+    }
+
+    .learning-area {
+      background: white;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      min-height: 600px;
+      transition: all 0.3s ease;
+    }
+
+    .learning-area.focused {
+      box-shadow: 0 0 0 4px #10b981, 0 10px 40px rgba(16, 185, 129, 0.3);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: #1a202c;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #e5e7eb;
+    }
+
+    .status-indicator.active {
+      background: #10b981;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .metric-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .focus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    .focus-badge.focused {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .focus-badge.normal {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .focus-badge.distracted {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .video-preview {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .video-preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-preview canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .timer {
+      font-size: 48px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      color: #10b981;
+      padding: 24px;
+      background: #d1fae515;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    .learning-content h2 {
+      color: #1a202c;
+      margin-bottom: 16px;
+    }
+
+    .learning-content p {
+      color: #4b5563;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .info-box {
+      background: #eff6ff;
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .info-box h3 {
+      color: #1e40af;
+      margin-bottom: 12px;
+    }
+
+    .info-box ol {
+      color: #1e3a8a;
+      margin-left: 20px;
+    }
+
+    .info-box li {
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🎓 Focus Mode Learning - 데모</h1>
+      <p>눈 깜빡임 감지를 통한 AI 기반 집중도 추적 시스템</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Learning Area -->
+      <div class="learning-area" id="learningArea">
+        <div class="learning-content">
+          <h2>학습 콘텐츠</h2>
+
+          <div class="info-box" id="startInfo">
+            <h3>👋 시작하기</h3>
+            <ol>
+              <li>오른쪽 사이드바의 "🚀 시작하기" 버튼을 클릭하세요</li>
+              <li>카메라 권한을 허용하세요</li>
+              <li>화면을 집중해서 보세요</li>
+              <li>눈 깜빡임이 줄어들면 자동으로 집중 모드가 활성화됩니다!</li>
+            </ol>
+          </div>
+
+          <div id="focusAlert" style="display: none;">
+            <div class="info-box" style="background: #d1fae5; border-color: #10b981;">
+              <h3 style="color: #065f46;">🎯 집중 모드 활성화!</h3>
+              <p style="color: #047857; margin: 0;">
+                훌륭해요! 높은 집중도를 유지하고 계십니다. 계속해서 좋은 학습 상태를 유지하세요!
+              </p>
+            </div>
+          </div>
+
+          <p>
+            이 시스템은 MediaPipe Face Mesh를 사용하여 실시간으로 얼굴의 눈 영역을 감지하고,
+            Eye Aspect Ratio (EAR) 알고리즘으로 눈 깜빡임을 탐지합니다.
+          </p>
+
+          <p>
+            <strong>집중 상태 기준:</strong><br>
+            🎯 집중: 분당 10회 이하<br>
+            😊 정상: 분당 15-20회<br>
+            😵 산만: 분당 25회 이상
+          </p>
+
+          <p>
+            집중 모드가 활성화되면 이 학습 영역에 녹색 테두리가 표시되고,
+            집중 시간이 타이머로 기록됩니다.
+          </p>
+
+          <p>
+            <strong>프라이버시:</strong> 모든 비디오 처리는 브라우저에서 로컬로 수행되며,
+            서버로 영상이 전송되지 않습니다. 오직 익명화된 메트릭(깜빡임 횟수 등)만
+            선택적으로 전송됩니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Controls -->
+        <div class="card">
+          <h3>
+            <span class="status-indicator" id="statusIndicator"></span>
+            제어판
+          </h3>
+          <div class="controls">
+            <button class="btn btn-primary" id="startBtn" onclick="startTracking()">
+              🚀 시작하기
+            </button>
+            <button class="btn btn-danger" id="stopBtn" onclick="stopTracking()" style="display: none;">
+              ⏹️ 중지
+            </button>
+          </div>
+        </div>
+
+        <!-- Focus State -->
+        <div class="card">
+          <h3>🎯 집중 상태</h3>
+          <div id="focusState">
+            <span class="focus-badge normal">⏱️ 측정 대기 중</span>
+          </div>
+          <div id="focusTimer" style="display: none;">
+            <div class="timer">00:00</div>
+          </div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="card">
+          <h3>📊 메트릭</h3>
+          <div class="metric">
+            <span class="metric-label">깜빡임/분</span>
+            <span class="metric-value" id="blinkRate">0.0</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">총 깜빡임</span>
+            <span class="metric-value" id="totalBlinks">0</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">신뢰도</span>
+            <span class="metric-value" id="confidence">0%</span>
+          </div>
+        </div>
+
+        <!-- Video Preview -->
+        <div class="card">
+          <h3>📹 카메라 프리뷰</h3>
+          <div class="video-preview">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple demo implementation
+    let isTracking = false;
+    let blinkCount = 0;
+    let focusStartTime = null;
+    let timerInterval = null;
+    let simulationInterval = null;
+
+    function startTracking() {
+      isTracking = true;
+      document.getElementById('startBtn').style.display = 'none';
+      document.getElementById('stopBtn').style.display = 'inline-flex';
+      document.getElementById('statusIndicator').classList.add('active');
+      document.getElementById('startInfo').style.display = 'none';
+
+      // Request camera access
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          const video = document.getElementById('video');
+          video.srcObject = stream;
+
+          // Start simulation (in production, this would be real MediaPipe detection)
+          startSimulation();
+        })
+        .catch(err => {
+          alert('카메라 접근 권한이 필요합니다: ' + err.message);
+          stopTracking();
+        });
+    }
+
+    function stopTracking() {
+      isTracking = false;
+      document.getElementById('startBtn').style.display = 'inline-flex';
+      document.getElementById('stopBtn').style.display = 'none';
+      document.getElementById('statusIndicator').classList.remove('active');
+
+      // Stop camera
+      const video = document.getElementById('video');
+      if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+      }
+
+      // Clear intervals
+      if (simulationInterval) clearInterval(simulationInterval);
+      if (timerInterval) clearInterval(timerInterval);
+
+      // Reset state
+      blinkCount = 0;
+      focusStartTime = null;
+      updateUI('normal', 0, 0, 0);
+    }
+
+    function startSimulation() {
+      // Simulate blink detection (in production, use MediaPipe)
+      simulationInterval = setInterval(() => {
+        if (!isTracking) return;
+
+        // Simulate varying blink rates
+        const random = Math.random();
+        let blinksPerMinute;
+
+        if (random < 0.3) {
+          // 30% chance: focused (low blink rate)
+          blinksPerMinute = 8 + Math.random() * 4; // 8-12
+        } else if (random < 0.8) {
+          // 50% chance: normal
+          blinksPerMinute = 15 + Math.random() * 5; // 15-20
+        } else {
+          // 20% chance: distracted
+          blinksPerMinute = 25 + Math.random() * 10; // 25-35
+        }
+
+        // Simulate blink
+        if (Math.random() < 0.3) {
+          blinkCount++;
+        }
+
+        // Determine focus state
+        let state = 'normal';
+        if (blinksPerMinute <= 10) {
+          state = 'focused';
+        } else if (blinksPerMinute >= 25) {
+          state = 'distracted';
+        }
+
+        // Calculate confidence (increases over time)
+        const confidence = Math.min(100, (blinkCount / 10) * 100);
+
+        updateUI(state, blinksPerMinute, blinkCount, confidence);
+      }, 1000);
+    }
+
+    function updateUI(state, blinksPerMinute, totalBlinks, confidence) {
+      // Update metrics
+      document.getElementById('blinkRate').textContent = blinksPerMinute.toFixed(1);
+      document.getElementById('totalBlinks').textContent = totalBlinks;
+      document.getElementById('confidence').textContent = Math.round(confidence) + '%';
+
+      // Update focus state
+      const focusStateEl = document.getElementById('focusState');
+      const focusTimerEl = document.getElementById('focusTimer');
+      const focusAlertEl = document.getElementById('focusAlert');
+      const learningArea = document.getElementById('learningArea');
+
+      if (state === 'focused') {
+        focusStateEl.innerHTML = '<span class="focus-badge focused">🎯 집중 중</span>';
+        focusTimerEl.style.display = 'block';
+        focusAlertEl.style.display = 'block';
+        learningArea.classList.add('focused');
+
+        if (!focusStartTime) {
+          focusStartTime = Date.now();
+          startTimer();
+        }
+      } else {
+        if (state === 'normal') {
+          focusStateEl.innerHTML = '<span class="focus-badge normal">👀 정상</span>';
+        } else {
+          focusStateEl.innerHTML = '<span class="focus-badge distracted">😵 산만함</span>';
+        }
+        focusTimerEl.style.display = 'none';
+        focusAlertEl.style.display = 'none';
+        learningArea.classList.remove('focused');
+
+        if (focusStartTime) {
+          stopTimer();
+          focusStartTime = null;
+        }
+      }
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (!focusStartTime) return;
+
+        const elapsed = Math.floor((Date.now() - focusStartTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+
+        const timerEl = document.querySelector('.timer');
+        if (timerEl) {
+          timerEl.textContent =
+            String(minutes).padStart(2, '0') + ':' +
+            String(seconds).padStart(2, '0');
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    // Initialize
+    console.log('✅ Focus Mode Demo loaded');
+    console.log('📝 Note: This is a simulation. In production, MediaPipe Face Mesh would be used for real eye tracking.');
+  </script>
+</body>
+</html>
