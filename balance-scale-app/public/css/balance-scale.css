@@ -1,0 +1,218 @@
+/**
+ * Balance Scale Visualization Styles
+ * 저울 시각화 스타일
+ */
+
+.balance-container {
+    position: relative;
+    height: 300px;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 저울 지지대 (피봇) */
+.balance-pivot {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #444;
+    z-index: 2;
+}
+
+.balance-pivot::after {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: -15px;
+    width: 30px;
+    height: 15px;
+    background: #333;
+    border-radius: 0 0 15px 15px;
+}
+
+/* 저울대 */
+.balance-beam {
+    position: absolute;
+    bottom: 85px;
+    width: 280px;
+    height: 8px;
+    background: linear-gradient(180deg, #555 0%, #333 100%);
+    border-radius: 4px;
+    transform-origin: center center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 저울대 기울기 클래스 */
+.balance-beam.tilt-left {
+    transform: rotate(-8deg);
+}
+
+.balance-beam.tilt-right {
+    transform: rotate(8deg);
+}
+
+.balance-beam.balanced {
+    transform: rotate(0deg);
+}
+
+/* 저울 접시 */
+.balance-pan {
+    position: absolute;
+    top: 8px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-pan {
+    left: -40px;
+}
+
+.right-pan {
+    right: -40px;
+}
+
+/* 접시 내용 */
+.pan-content {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #f0f0f0 0%, #d0d0d0 100%);
+    border: 3px solid #999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pan-content::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 12px;
+    background: #666;
+}
+
+/* 무게 표시 */
+.weight-display {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    user-select: none;
+}
+
+/* 강조 효과 */
+.pan-content.highlight {
+    border-color: #667eea;
+    box-shadow:
+        0 4px 12px rgba(102, 126, 234, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* 균형 상태 표시 */
+.balance-indicator {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.balance-beam.balanced .balance-indicator {
+    opacity: 1;
+}
+
+/* 변수와 숫자를 위한 추가 스타일 */
+.weight-item {
+    display: inline-block;
+    margin: 2px;
+}
+
+.weight-item.variable {
+    color: #667eea;
+    font-weight: bold;
+}
+
+.weight-item.number {
+    color: #333;
+}
+
+/* 애니메이션: 무게 변경 시 */
+@keyframes weight-change {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.weight-display.changing {
+    animation: weight-change 0.4s ease-in-out;
+}
+
+/* 성공 애니메이션 */
+@keyframes success-glow {
+    0%, 100% {
+        box-shadow:
+            0 4px 12px rgba(0, 255, 0, 0.3),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 4px 20px rgba(0, 255, 0, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.pan-content.success {
+    border-color: #28a745;
+    animation: success-glow 1s ease-in-out infinite;
+}
+
+/* 에러 애니메이션 */
+@keyframes error-shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.balance-beam.error {
+    animation: error-shake 0.4s ease-in-out;
+}

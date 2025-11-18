@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Scale - 방정식 균형 학습</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/balance-scale.css">
+</head>
+<body>
+    <!-- 스마트폰 프레임 컨테이너 (우측 하단) -->
+    <div id="phone-frame">
+        <div id="phone-screen">
+            <!-- 앱 헤더 -->
+            <header class="app-header">
+                <h1>⚖️ Balance Scale</h1>
+                <div id="problem-info">
+                    <span id="problem-title">방정식 균형 맞추기</span>
+                </div>
+            </header>
+
+            <!-- 메인 컨텐츠 -->
+            <main class="app-content">
+                <!-- 문제 표시 영역 -->
+                <div class="equation-display">
+                    <h2 id="equation-text">2x + 3 = 11</h2>
+                    <p id="instruction">양쪽의 균형을 맞춰보세요!</p>
+                </div>
+
+                <!-- 저울 시각화 -->
+                <div class="balance-container">
+                    <!-- 저울 지지대 -->
+                    <div class="balance-pivot"></div>
+
+                    <!-- 저울대 -->
+                    <div class="balance-beam" id="balance-beam">
+                        <!-- 왼쪽 접시 -->
+                        <div class="balance-pan left-pan" id="left-pan">
+                            <div class="pan-content" id="left-content">
+                                <div class="weight-display" id="left-weight">0</div>
+                            </div>
+                        </div>
+
+                        <!-- 오른쪽 접시 -->
+                        <div class="balance-pan right-pan" id="right-pan">
+                            <div class="pan-content" id="right-content">
+                                <div class="weight-display" id="right-weight">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 조작 버튼들 -->
+                <div class="controls">
+                    <div class="operation-buttons">
+                        <h3>양쪽에서 동일한 작업 수행:</h3>
+                        <div class="button-group">
+                            <button class="operation-btn" onclick="balanceApp.addToSides(1)">
+                                양쪽에 +1
+                            </button>
+                            <button class="operation-btn" onclick="balanceApp.addToSides(-1)">
+                                양쪽에 -1
+                            </button>
+                            <button class="operation-btn" onclick="balanceApp.multiplyBoth(2)">
+                                양쪽에 ×2
+                            </button>
+                            <button class="operation-btn" onclick="balanceApp.divideBoth(2)">
+                                양쪽에 ÷2
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="balanceApp.checkSolution()">
+                            정답 확인
+                        </button>
+                        <button class="btn-secondary" onclick="balanceApp.reset()">
+                            다시 시작
+                        </button>
+                        <button class="btn-secondary" onclick="balanceApp.getHint()">
+                            힌트
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 피드백 영역 -->
+                <div class="feedback" id="feedback">
+                    <!-- 동적으로 피드백 메시지 표시 -->
+                </div>
+
+                <!-- 진행 상황 -->
+                <div class="progress-info">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="step-info">단계: <span id="step-count">0</span></p>
+                </div>
+            </main>
+
+            <!-- 앱 푸터 -->
+            <footer class="app-footer">
+                <small>KAIST Touch Math Academy</small>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/balance-scale.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
