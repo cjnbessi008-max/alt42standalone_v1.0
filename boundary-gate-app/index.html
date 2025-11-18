@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundary Gate - Math Learning App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/animation.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="info-panel">
+            <h1>Boundary Gate Learning System</h1>
+            <p>우측 스마트폰 화면에서 부등호 문제를 풀어보세요!</p>
+            <div class="problem-info">
+                <h2>현재 문제</h2>
+                <div id="problemDescription"></div>
+            </div>
+        </div>
+
+        <!-- 우측 하단 가상 스마트폰 -->
+        <div class="smartphone-frame">
+            <div class="smartphone-screen">
+                <div class="status-bar">
+                    <span class="time">10:24</span>
+                    <span class="battery">100%</span>
+                </div>
+
+                <div class="app-content">
+                    <div class="problem-header">
+                        <h2>부등호 게이트 문제</h2>
+                        <div class="score">점수: <span id="score">0</span></div>
+                    </div>
+
+                    <!-- Boundary Gate 애니메이션 영역 -->
+                    <div class="gate-container">
+                        <div class="number left-number" id="leftNumber">5</div>
+
+                        <!-- 부등호 게이트 -->
+                        <div class="boundary-gate" id="boundaryGate">
+                            <svg class="gate-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- ≥ (greater than or equal) -->
+                                <g id="gateGreaterEqual" class="gate-symbol">
+                                    <!-- 상단 문짝 (>) -->
+                                    <path class="gate-door gate-door-top"
+                                          d="M 20 30 L 60 50 L 20 70"
+                                          stroke="#2196F3"
+                                          stroke-width="4"
+                                          fill="none"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                    <!-- 하단 문짝 (=) -->
+                                    <line class="gate-door gate-door-bottom"
+                                          x1="20" y1="80"
+                                          x2="60" y2="80"
+                                          stroke="#2196F3"
+                                          stroke-width="4"
+                                          stroke-linecap="round"/>
+                                </g>
+
+                                <!-- ≤ (less than or equal) -->
+                                <g id="gateLessEqual" class="gate-symbol" style="display:none;">
+                                    <!-- 상단 문짝 (<) -->
+                                    <path class="gate-door gate-door-top"
+                                          d="M 60 30 L 20 50 L 60 70"
+                                          stroke="#FF5722"
+                                          stroke-width="4"
+                                          fill="none"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                    <!-- 하단 문짝 (=) -->
+                                    <line class="gate-door gate-door-bottom"
+                                          x1="20" y1="80"
+                                          x2="60" y2="80"
+                                          stroke="#FF5722"
+                                          stroke-width="4"
+                                          stroke-linecap="round"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="number right-number" id="rightNumber">3</div>
+                    </div>
+
+                    <!-- 게이트 상태 표시 -->
+                    <div class="gate-status">
+                        <p id="gateStatusText">게이트가 닫혀있습니다</p>
+                    </div>
+
+                    <!-- 사용자 입력 영역 -->
+                    <div class="answer-section">
+                        <h3>올바른 부등호를 선택하세요:</h3>
+                        <div class="button-group">
+                            <button class="answer-btn" data-answer="ge" onclick="checkAnswer('ge')">
+                                ≥ (크거나 같다)
+                            </button>
+                            <button class="answer-btn" data-answer="le" onclick="checkAnswer('le')">
+                                ≤ (작거나 같다)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 결과 메시지 -->
+                    <div class="result-message" id="resultMessage"></div>
+
+                    <!-- 다음 문제 버튼 -->
+                    <button class="next-btn" id="nextBtn" onclick="loadNextProblem()" style="display:none;">
+                        다음 문제
+                    </button>
+                </div>
+            </div>
+
+            <div class="home-button"></div>
+        </div>
+    </div>
+
+    <script src="js/boundaryGate.js"></script>
+    <script src="js/moodleAPI.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
