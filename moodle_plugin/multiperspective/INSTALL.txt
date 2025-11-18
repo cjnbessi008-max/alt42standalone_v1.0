@@ -1,0 +1,98 @@
+MULTI-PERSPECTIVE PRACTICE MODULE - INSTALLATION GUIDE
+=====================================================
+
+System Requirements:
+- Moodle 3.7 or higher
+- PHP 7.1.9 or higher
+- MySQL 5.7 or higher
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+Installation Steps:
+-------------------
+
+1. UPLOAD THE PLUGIN
+   Copy the entire 'multiperspective' folder to your Moodle installation:
+
+   /path/to/moodle/mod/multiperspective/
+
+2. SET FILE PERMISSIONS
+   Ensure the web server has read access to the plugin files:
+
+   chmod -R 755 mod/multiperspective
+   chown -R www-data:www-data mod/multiperspective
+
+3. INSTALL VIA MOODLE
+   a) Login to Moodle as administrator
+   b) Navigate to: Site administration → Notifications
+   c) Moodle will detect the new plugin
+   d) Click "Upgrade Moodle database now"
+   e) Follow the on-screen instructions
+
+4. VERIFY INSTALLATION
+   After installation completes:
+
+   a) Go to: Site administration → Plugins → Activity modules
+   b) Check that "Multi-Perspective Practice" is listed
+   c) Create a test activity in a course to verify functionality
+
+Database Tables Created:
+------------------------
+The installation will automatically create these tables:
+
+- mdl_multiperspective (main activity instances)
+- mdl_multiperspective_problems (problems in each activity)
+- mdl_multiperspective_persp (different perspectives for problems)
+- mdl_multiperspective_attempts (student answer submissions)
+- mdl_multiperspective_views (tracking perspective views)
+
+Quick Start:
+------------
+
+FOR TEACHERS:
+1. In your course, click "Add an activity or resource"
+2. Select "Multi-Perspective Practice"
+3. Configure activity settings:
+   - Set minimum perspectives students must view
+   - Configure attempt limits
+   - Set grading options
+4. Click "Save and display"
+5. Add problems using "Manage problems"
+6. For each problem, add multiple perspectives
+
+FOR STUDENTS:
+1. Access the Multi-Perspective Practice activity
+2. Select a problem to solve
+3. Click through different perspective tabs
+4. Read each perspective to understand the problem better
+5. Submit your answer when ready
+
+Troubleshooting:
+---------------
+
+PLUGIN NOT APPEARING:
+- Clear Moodle cache: Site administration → Development → Purge all caches
+- Or use CLI: php admin/cli/purge_caches.php
+
+DATABASE ERRORS:
+- Run manual upgrade: php admin/cli/upgrade.php
+- Check MySQL version is 5.7 or higher
+
+PERMISSION ERRORS:
+- Ensure proper file ownership and permissions
+- Web server user needs read/write access
+
+FILE NOT FOUND ERRORS:
+- Verify all plugin files are uploaded correctly
+- Check the folder name is exactly 'multiperspective'
+
+For more detailed documentation, see README.md
+
+Support:
+--------
+For technical support, please contact:
+KAIST Touch Math Academy
+
+License:
+--------
+GNU General Public License v3.0 or later
+Copyright 2025 KAIST Touch Math Academy

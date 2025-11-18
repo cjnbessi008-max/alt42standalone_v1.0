@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/multiperspective/db" VERSION="20251118" COMMENT="XMLDB file for Multi-Perspective Practice module">
+  <TABLES>
+    <!-- Main activity instances -->
+    <TABLE NAME="multiperspective" COMMENT="Main table for multi-perspective practice activities">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Activity name"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Activity description"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="min_perspectives" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="2" SEQUENCE="false" COMMENT="Minimum perspectives student must view"/>
+        <FIELD NAME="require_all_perspectives" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether student must view all perspectives"/>
+        <FIELD NAME="allow_retry" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Allow multiple attempts"/>
+        <FIELD NAME="max_attempts" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Maximum attempts (0 = unlimited)"/>
+        <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false" COMMENT="Maximum grade"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Problems within each activity -->
+    <TABLE NAME="multiperspective_problems" COMMENT="Problems for multi-perspective practice">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="multiperspectiveid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Problem title"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Problem statement"/>
+        <FIELD NAME="problem_type" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="open" SEQUENCE="false" COMMENT="Type: open, multiple_choice, numeric"/>
+        <FIELD NAME="correct_answer" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Correct answer (JSON for complex answers)"/>
+        <FIELD NAME="difficulty_level" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="1-5 difficulty scale"/>
+        <FIELD NAME="sort_order" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="multiperspectiveid" TYPE="foreign" FIELDS="multiperspectiveid" REFTABLE="multiperspective" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sort_order" UNIQUE="false" FIELDS="multiperspectiveid, sort_order"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Different perspectives for each problem -->
+    <TABLE NAME="multiperspective_persp" COMMENT="Different perspectives/viewpoints for each problem">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="problemid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="perspective_name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Name of this perspective"/>
+        <FIELD NAME="perspective_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type: visual, algebraic, geometric, real_world, conceptual"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Content shown from this perspective"/>
+        <FIELD NAME="content_format" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="hints" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Hints specific to this perspective"/>
+        <FIELD NAME="media_url" TYPE="char" LENGTH="500" NOTNULL="false" SEQUENCE="false" COMMENT="Image/video URL for this perspective"/>
+        <FIELD NAME="sort_order" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="problemid" TYPE="foreign" FIELDS="problemid" REFTABLE="multiperspective_problems" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sort_order" UNIQUE="false" FIELDS="problemid, sort_order"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Student attempts -->
+    <TABLE NAME="multiperspective_attempts" COMMENT="Student attempts at solving problems">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="multiperspectiveid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="problemid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="attempt_number" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="answer" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Student's submitted answer"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="5" COMMENT="Score for this attempt"/>
+        <FIELD NAME="perspectives_viewed" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of perspective IDs viewed before submission"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="feedback" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Automated or teacher feedback"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="multiperspectiveid" TYPE="foreign" FIELDS="multiperspectiveid" REFTABLE="multiperspective" REFFIELDS="id"/>
+        <KEY NAME="problemid" TYPE="foreign" FIELDS="problemid" REFTABLE="multiperspective_problems" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_problem" UNIQUE="false" FIELDS="userid, problemid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Track which perspectives students have viewed -->
+    <TABLE NAME="multiperspective_views" COMMENT="Track perspective views by students">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="problemid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="perspectiveid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="view_count" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="time_spent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Total time spent on this perspective in seconds"/>
+        <FIELD NAME="first_viewed" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="last_viewed" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="problemid" TYPE="foreign" FIELDS="problemid" REFTABLE="multiperspective_problems" REFFIELDS="id"/>
+        <KEY NAME="perspectiveid" TYPE="foreign" FIELDS="perspectiveid" REFTABLE="multiperspective_persp" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_perspective" UNIQUE="true" FIELDS="userid, perspectiveid"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>

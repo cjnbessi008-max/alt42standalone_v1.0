@@ -1,0 +1,293 @@
+/**
+ * Styles for Multi-Perspective Practice module
+ *
+ * @package    mod_multiperspective
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Problem list */
+.problem-list {
+    margin: 20px 0;
+}
+
+.problem-item {
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.problem-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.problem-item h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+}
+
+.problem-completed {
+    border-left: 4px solid #5cb85c;
+}
+
+.problem-attempted {
+    border-left: 4px solid #f0ad4e;
+}
+
+.problem-status {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.difficulty-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-left: 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.difficulty-1 { background-color: #c8e6c9; color: #1b5e20; }
+.difficulty-2 { background-color: #fff9c4; color: #827717; }
+.difficulty-3 { background-color: #ffe0b2; color: #e65100; }
+.difficulty-4 { background-color: #ffccbc; color: #bf360c; }
+.difficulty-5 { background-color: #ffcdd2; color: #b71c1c; }
+
+/* Perspective tabs */
+.perspective-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.perspective-tab {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    background-color: #f5f5f5;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    bottom: -2px;
+}
+
+.perspective-tab:hover {
+    background-color: #e3f2fd;
+    text-decoration: none;
+}
+
+.perspective-tab.active {
+    background-color: #2196F3;
+    color: white;
+    border-bottom: 2px solid #2196F3;
+}
+
+.perspective-tab.viewed {
+    background-color: #e8f5e9;
+}
+
+.perspective-tab.active.viewed {
+    background-color: #1976D2;
+}
+
+/* Perspective content */
+.perspective-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin: 20px 0;
+}
+
+.perspective-content h3 {
+    margin-top: 0;
+    color: #1976D2;
+}
+
+.perspective-type-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: #e3f2fd;
+    color: #1565C0;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.perspective-media {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.perspective-text {
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.perspective-hints {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+}
+
+.hint-toggle {
+    cursor: pointer;
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.hint-content {
+    margin-top: 10px;
+}
+
+.hint-content.hidden {
+    display: none;
+}
+
+.perspective-progress {
+    padding: 10px 15px;
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+/* Answer section */
+.answer-section {
+    margin: 30px 0;
+    padding: 20px;
+    border: 2px solid #2196F3;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+}
+
+.answer-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+.answer-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.attempts-info {
+    color: #666;
+    font-style: italic;
+}
+
+/* Previous attempts */
+.previous-attempts {
+    margin-top: 20px;
+}
+
+.attempt-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.attempt-correct {
+    border-left: 4px solid #5cb85c;
+    background-color: #f1f8f4;
+}
+
+.attempt-incorrect {
+    border-left: 4px solid #d9534f;
+    background-color: #fdf7f7;
+}
+
+.attempt-number {
+    font-weight: bold;
+    color: #333;
+}
+
+.attempt-score {
+    color: #666;
+    margin: 5px 0;
+}
+
+.attempt-time {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.attempt-feedback {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    font-style: italic;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Management interface */
+.problem-management-list {
+    margin: 20px 0;
+}
+
+.problem-stats {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.perspective-list {
+    margin-top: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .perspective-tabs {
+        flex-direction: column;
+    }
+
+    .perspective-tab {
+        width: 100%;
+        text-align: center;
+    }
+}
