@@ -1,0 +1,37 @@
+# Apache configuration for Similarity Detector API
+
+# Enable rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect API requests to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^api/(.*)$ src/api/index.php [L,QSA]
+
+    # Redirect mobile app requests
+    RewriteRule ^mobile$ src/mobile/index.html [L]
+    RewriteRule ^mobile/(.*)$ src/mobile/$1 [L]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(sql|md|json|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

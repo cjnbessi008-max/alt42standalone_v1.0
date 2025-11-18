@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>닮음 힌트 도우미</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+
+            <!-- Screen Content -->
+            <div class="phone-screen">
+                <!-- App Header -->
+                <header class="app-header">
+                    <div class="header-title">
+                        <span class="icon">📐</span>
+                        <h1>닮음 힌트 도우미</h1>
+                    </div>
+                    <div class="header-status">
+                        <span class="connection-status" id="connectionStatus">연결됨</span>
+                    </div>
+                </header>
+
+                <!-- Problem Display -->
+                <section class="problem-section">
+                    <div class="problem-card">
+                        <div class="problem-header">
+                            <span class="problem-label">문제</span>
+                            <span class="problem-number" id="problemNumber">-</span>
+                        </div>
+                        <div class="problem-content" id="problemContent">
+                            문제를 불러오는 중...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hints Section -->
+                <section class="hints-section">
+                    <div class="hints-header">
+                        <h2>💡 닮음 힌트</h2>
+                        <span class="hints-count" id="hintsCount">0개</span>
+                    </div>
+
+                    <div class="hints-container" id="hintsContainer">
+                        <!-- Hints will be dynamically loaded here -->
+                        <div class="no-hints">
+                            <p>아직 힌트가 없습니다.</p>
+                            <p class="hint-suggestion">문제를 선택하면 자동으로 닮음 힌트를 찾아드려요!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Action Buttons -->
+                <section class="action-section">
+                    <button class="btn btn-primary" id="detectBtn">
+                        <span class="btn-icon">🔍</span>
+                        힌트 찾기
+                    </button>
+                    <button class="btn btn-secondary" id="refreshBtn">
+                        <span class="btn-icon">🔄</span>
+                        새로고침
+                    </button>
+                </section>
+
+                <!-- Loading Overlay -->
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">힌트를 찾는 중...</p>
+                </div>
+            </div>
+
+            <!-- Phone Home Button -->
+            <div class="phone-home-button"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
