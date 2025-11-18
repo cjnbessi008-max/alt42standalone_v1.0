@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>넓이 재조합기 - Area Recombination App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="main-container">
+        <!-- Desktop View - Instructions Panel -->
+        <div id="desktop-panel" class="desktop-only">
+            <div class="panel-header">
+                <h1>넓이 재조합기</h1>
+                <p class="subtitle">도형을 찢고 다시 붙여보며 넓이 불변을 경험하세요</p>
+            </div>
+
+            <div class="instructions">
+                <h3>사용 방법:</h3>
+                <ol>
+                    <li><strong>도형 선택:</strong> 우측 스마트폰 화면에서 학습할 도형을 선택하세요</li>
+                    <li><strong>도형 찢기:</strong> 도형 위를 드래그하여 자를 선을 그으세요</li>
+                    <li><strong>조각 이동:</strong> 조각을 터치하고 드래그하여 위치를 변경하세요</li>
+                    <li><strong>넓이 확인:</strong> "넓이 확인" 버튼을 눌러 넓이가 보존되었는지 확인하세요</li>
+                </ol>
+
+                <div class="info-box">
+                    <h4>학습 목표:</h4>
+                    <p>도형을 자르고 재배열해도 전체 넓이는 변하지 않는다는 것을 직접 경험을 통해 이해합니다.</p>
+                </div>
+
+                <div id="progress-panel">
+                    <h3>학습 진행 상황</h3>
+                    <div id="progress-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">완료한 도형:</span>
+                            <span class="stat-value" id="completed-shapes">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">평균 점수:</span>
+                            <span class="stat-value" id="average-score">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">최고 난이도:</span>
+                            <span class="stat-value" id="max-difficulty">0</span>
+                        </div>
+                    </div>
+
+                    <div id="achievements-panel">
+                        <h4>획득한 배지:</h4>
+                        <div id="achievements-list" class="achievements"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Smartphone Display (Bottom Right) -->
+        <div id="smartphone-container">
+            <div id="smartphone-frame">
+                <!-- Smartphone Notch -->
+                <div class="smartphone-notch"></div>
+
+                <!-- Smartphone Screen -->
+                <div id="smartphone-screen">
+                    <!-- App Content -->
+                    <div id="app-content">
+                        <!-- Header -->
+                        <header id="app-header">
+                            <button id="back-btn" class="header-btn" style="display: none;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M19 12H5M12 19l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <h2 id="app-title">넓이 재조합기</h2>
+                            <button id="info-btn" class="header-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                    <path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </header>
+
+                        <!-- Main Content Area -->
+                        <main id="app-main">
+                            <!-- Shape Selection Screen -->
+                            <div id="shape-selection-screen" class="screen active">
+                                <div class="screen-title">
+                                    <h3>도형을 선택하세요</h3>
+                                </div>
+
+                                <div id="difficulty-selector">
+                                    <button class="difficulty-btn active" data-level="1">쉬움</button>
+                                    <button class="difficulty-btn" data-level="2">보통</button>
+                                    <button class="difficulty-btn" data-level="3">어려움</button>
+                                </div>
+
+                                <div id="shapes-list" class="shapes-grid">
+                                    <!-- Shapes will be loaded dynamically -->
+                                    <div class="loading">도형을 불러오는 중...</div>
+                                </div>
+                            </div>
+
+                            <!-- Canvas Screen -->
+                            <div id="canvas-screen" class="screen">
+                                <div id="canvas-container">
+                                    <canvas id="shape-canvas" width="340" height="450"></canvas>
+
+                                    <!-- Canvas Controls Overlay -->
+                                    <div id="canvas-controls">
+                                        <div class="control-info">
+                                            <span class="info-label">현재 넓이:</span>
+                                            <span id="current-area" class="info-value">0</span>
+                                        </div>
+                                        <div class="control-info">
+                                            <span class="info-label">시도 횟수:</span>
+                                            <span id="attempt-count" class="info-value">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Tool Buttons -->
+                                <div id="tool-buttons">
+                                    <button id="cut-mode-btn" class="tool-btn active">
+                                        <svg width="20" height="20" viewBox="0 0 24 24">
+                                            <path d="M9 12l-4.5 4.5M4.5 7.5L9 12l6-6" stroke="currentColor" fill="none" stroke-width="2"/>
+                                        </svg>
+                                        <span>자르기</span>
+                                    </button>
+                                    <button id="move-mode-btn" class="tool-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24">
+                                            <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/>
+                                        </svg>
+                                        <span>이동</span>
+                                    </button>
+                                    <button id="reset-btn" class="tool-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24">
+                                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" stroke="currentColor" fill="none" stroke-width="2"/>
+                                            <path d="M21 3v5h-5" stroke="currentColor" fill="none" stroke-width="2"/>
+                                        </svg>
+                                        <span>초기화</span>
+                                    </button>
+                                </div>
+
+                                <!-- Validate Button -->
+                                <button id="validate-btn" class="primary-btn">넓이 확인하기</button>
+                            </div>
+
+                            <!-- Result Screen -->
+                            <div id="result-screen" class="screen">
+                                <div class="result-content">
+                                    <div id="result-icon" class="result-icon"></div>
+                                    <h3 id="result-title">결과</h3>
+                                    <div id="result-details" class="result-details"></div>
+                                    <div id="result-score" class="result-score"></div>
+                                    <div class="result-actions">
+                                        <button id="try-again-btn" class="secondary-btn">다시 시도</button>
+                                        <button id="next-shape-btn" class="primary-btn">다음 도형</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+
+                <!-- Smartphone Home Button -->
+                <div class="smartphone-home-btn"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/shapes.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
