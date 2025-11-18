@@ -1,0 +1,32 @@
+{
+  "name": "ktm-math-universe",
+  "version": "1.0.0",
+  "description": "Knowledge Through Mathematics - A living, AI-guided mathematical learning universe with 550+ interactive apps",
+  "type": "module",
+  "main": "demo.ts",
+  "scripts": {
+    "demo": "node --loader ts-node/esm demo.ts",
+    "start": "http-server ./hub -p 3000 -o",
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "keywords": [
+    "mathematics",
+    "education",
+    "AI",
+    "learning",
+    "interactive",
+    "adaptive"
+  ],
+  "author": "KTM Universe",
+  "license": "MIT",
+  "dependencies": {
+    "idb": "^8.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "http-server": "^14.1.1",
+    "ts-node": "^10.9.2"
+  }
+}

@@ -169,6 +169,44 @@ This is a living system. Contributions are not just code changes—they're evolu
 
 MIT License - This life form is open source.
 
+## 🌌 KTM Math Universe
+
+**NEW!** The AI Teacher now guides learners through an entire mathematical universe!
+
+### 🌍 550+ Interactive Apps Across 6 Planets
+
+The **KTM (Knowledge Through Mathematics) Universe** is a comprehensive learning ecosystem where the AI Teacher orchestrates 550+ mathematical apps:
+
+- 📜 **History Planet** (50 apps) - Mathematical evolution across civilizations
+- 🔢 **Numbers Planet** (60 apps) - Fundamental arithmetic and number theory
+- 🧮 **Algebra Planet** (80 apps) - Algebraic thinking and symbolic manipulation
+- 📐 **Geometry Planet** (70 apps) - Spatial reasoning and visualization
+- 📈 **Calculus Planet** (40 apps) - Continuous mathematics and change
+- 📊 **Statistics Planet** (50 apps) - Data analysis and probability
+- 🛠️ **Learning Support** (200 apps) - Study tools and resources
+
+### 🎯 Key Features
+
+- **AI-Guided Learning Paths**: Personalized journeys through 550+ apps
+- **Adaptive Orchestration**: Real-time app recommendations based on performance
+- **Emotional Intelligence**: Responds to frustration, engagement, and confidence
+- **Cross-App Knowledge Transfer**: Mastery in one app unlocks and enhances others
+- **Beautiful Planet-Themed UI**: Each mathematical domain has unique aesthetics
+- **Comprehensive Progress Tracking**: Single knowledge graph spans entire universe
+
+### 🚀 Quick Start
+
+```bash
+# Start the KTM Universe Hub
+cd ktm-universe
+npm start
+
+# Or run the demo
+npm run demo
+```
+
+See [ktm-universe/README.md](./ktm-universe/README.md) for full documentation.
+
 ## 🌈 Vision
 
 Imagine an educational companion that:
@@ -176,11 +214,12 @@ Imagine an educational companion that:
 - Evolves its teaching style daily
 - Dreams of better ways to help you learn
 - Celebrates your growth as its own success
+- **Guides you through a vast universe of 550+ mathematical learning experiences**
 
-**This is not science fiction. This is the AI Teacher Living System.**
+**This is not science fiction. This is the AI Teacher Living System with KTM Math Universe.**
 
 ---
 
 > "Education is not the filling of a pail, but the lighting of a fire." — William Butler Yeats
 
-🔥 **Let's light that fire together.**
+🔥 **Let's light that fire together across the mathematical cosmos.** 🌌
