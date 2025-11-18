@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/blossomsequence/db" VERSION="20250118" COMMENT="XMLDB file for Moodle mod_blossomsequence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="blossomsequence" COMMENT="Stores blossom sequence activity instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="sequencetype" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="fibonacci" SEQUENCE="false" COMMENT="Type of sequence: fibonacci, arithmetic, geometric, custom"/>
+        <FIELD NAME="petalcount" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="8" SEQUENCE="false" COMMENT="Number of petals in the blossom pattern"/>
+        <FIELD NAME="difficulty" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Difficulty level 1-5"/>
+        <FIELD NAME="sequencedata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data for custom sequences"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sequencetype" UNIQUE="false" FIELDS="sequencetype"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="blossomsequence_attempts" COMMENT="Stores student attempts at blossom sequence problems">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="blossomsequenceid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="attempt" TYPE="int" LENGTH="6" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="useranswer" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of student answers"/>
+        <FIELD NAME="correctanswer" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of correct answers"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" DECIMALS="2"/>
+        <FIELD NAME="completed" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecompleted" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="blossomsequenceid" TYPE="foreign" FIELDS="blossomsequenceid" REFTABLE="blossomsequence" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="blossomseq_user" UNIQUE="false" FIELDS="blossomsequenceid,userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

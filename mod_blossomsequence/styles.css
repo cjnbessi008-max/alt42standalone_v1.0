@@ -1,0 +1,317 @@
+/**
+ * Styles for Blossom Sequence module
+ *
+ * @package    mod_blossomsequence
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Main container layout */
+.blossomsequence-container {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.blossomsequence-main {
+    flex: 1;
+    min-width: 400px;
+}
+
+.blossomsequence-sidebar {
+    flex: 0 0 300px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Instructions */
+.blossomsequence-instructions {
+    background: #e3f2fd;
+    border-left: 4px solid #2196F3;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.blossomsequence-instructions h3 {
+    margin-top: 0;
+    color: #1976D2;
+}
+
+/* Virtual Smartphone Container */
+.smartphone-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 650px;
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    background: #2c3e50;
+    border-radius: 36px;
+    padding: 20px 10px;
+    box-shadow:
+        0 0 0 2px #34495e,
+        0 0 0 6px #2c3e50,
+        0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Top notch/speaker */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 6px;
+    background: #1a252f;
+    border-radius: 3px;
+}
+
+/* Home button area */
+.smartphone-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: #34495e;
+    border-radius: 2px;
+}
+
+/* Smartphone Screen */
+.smartphone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+/* Canvas container for blossom */
+#blossom-canvas-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#blossom-canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+/* Sequence info */
+.sequence-info {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.sequence-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.sequence-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Answer input area */
+#answer-input {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#answer-input label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+#student-answer {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+#student-answer:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+#submit-answer {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#submit-answer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+#submit-answer:active {
+    transform: translateY(0);
+}
+
+/* Feedback area */
+#feedback-area {
+    min-height: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#feedback-area.correct {
+    background: #4CAF50;
+    color: white;
+}
+
+#feedback-area.incorrect {
+    background: #f44336;
+    color: white;
+}
+
+#feedback-area.partial {
+    background: #FF9800;
+    color: white;
+}
+
+/* Attempt history */
+.attempt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.attempt-item {
+    background: white;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #ddd;
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.attempt-item:hover {
+    transform: translateX(4px);
+}
+
+.attempt-item.completed {
+    border-left-color: #4CAF50;
+}
+
+.attempt-item.incomplete {
+    border-left-color: #FF9800;
+}
+
+/* Petal animation classes */
+.petal {
+    animation: petalUnfold 0.8s ease-out forwards;
+    transform-origin: center center;
+}
+
+@keyframes petalUnfold {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.petal-glow {
+    animation: petalGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes petalGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blossomsequence-container {
+        flex-direction: column;
+    }
+
+    .blossomsequence-sidebar {
+        flex: 1;
+        width: 100%;
+    }
+
+    .smartphone-container {
+        padding: 10px;
+    }
+
+    .smartphone-frame {
+        transform: scale(0.85);
+    }
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
