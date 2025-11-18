@@ -1,0 +1,27 @@
+{
+  "name": "convergence-glow-app",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Standalone PWA for visualizing sequence convergence/divergence with color gradients",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "education",
+    "mathematics",
+    "sequence",
+    "convergence",
+    "visualization",
+    "pwa"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "idb": "^8.0.0"
+  }
+}

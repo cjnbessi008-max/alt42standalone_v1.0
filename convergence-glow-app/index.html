@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="수열의 수렴과 발산을 색감으로 시각화하는 교육용 웹 앱">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+    <title>Convergence Glow - 수열 시각화</title>
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" as="style" href="/src/styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading" class="loading-screen">
+            <div class="loader">
+                <div class="glow-circle"></div>
+                <p>Convergence Glow</p>
+                <span class="loading-text">로딩 중...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered:', reg))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+
+    <!-- Main App Module -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
