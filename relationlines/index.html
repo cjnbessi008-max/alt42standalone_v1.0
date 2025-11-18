@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relation Lines - 숫자 관계 연결</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <h1>Relation Lines - 수학 관계 학습</h1>
+
+        <!-- 우측 하단 스마트폰 프레임 -->
+        <div class="smartphone-frame">
+            <!-- 스마트폰 상단바 -->
+            <div class="phone-header">
+                <span class="time">10:30</span>
+                <div class="status-icons">
+                    <span class="signal">📶</span>
+                    <span class="battery">🔋</span>
+                </div>
+            </div>
+
+            <!-- 앱 화면 영역 -->
+            <div class="app-screen">
+                <!-- 문제 영역 -->
+                <div class="question-area">
+                    <h2 id="questionTitle">문제를 불러오는 중...</h2>
+                    <p id="questionDescription"></p>
+                </div>
+
+                <!-- 게임 영역 (Canvas) -->
+                <div class="game-area">
+                    <canvas id="gameCanvas"></canvas>
+
+                    <!-- 좌측 숫자 영역 -->
+                    <div id="leftNumbers" class="number-column left-column"></div>
+
+                    <!-- 우측 숫자 영역 -->
+                    <div id="rightNumbers" class="number-column right-column"></div>
+                </div>
+
+                <!-- 색상 선택 팔레트 -->
+                <div class="color-palette">
+                    <div class="color-option" data-color="#FF6B6B" style="background: #FF6B6B;"></div>
+                    <div class="color-option" data-color="#4ECDC4" style="background: #4ECDC4;"></div>
+                    <div class="color-option" data-color="#45B7D1" style="background: #45B7D1;"></div>
+                    <div class="color-option" data-color="#FFA07A" style="background: #FFA07A;"></div>
+                    <div class="color-option" data-color="#98D8C8" style="background: #98D8C8;"></div>
+                    <div class="color-option active" data-color="#6C5CE7" style="background: #6C5CE7;"></div>
+                </div>
+
+                <!-- 컨트롤 버튼 -->
+                <div class="controls">
+                    <button id="clearBtn" class="btn btn-secondary">초기화</button>
+                    <button id="undoBtn" class="btn btn-secondary">실행취소</button>
+                    <button id="submitBtn" class="btn btn-primary">제출하기</button>
+                </div>
+
+                <!-- 결과 표시 영역 -->
+                <div id="resultArea" class="result-area hidden">
+                    <p id="resultMessage"></p>
+                </div>
+            </div>
+
+            <!-- 스마트폰 하단 네비게이션 바 -->
+            <div class="phone-footer">
+                <div class="nav-button">◀</div>
+                <div class="nav-button home">⚫</div>
+                <div class="nav-button">☰</div>
+            </div>
+        </div>
+
+        <!-- 좌측 정보 패널 (선택사항) -->
+        <div class="info-panel">
+            <h3>사용 방법</h3>
+            <ol>
+                <li>좌측 숫자를 클릭하세요</li>
+                <li>우측 관련 숫자를 클릭하세요</li>
+                <li>색깔 선이 자동으로 연결됩니다</li>
+                <li>다른 색을 선택하려면 팔레트를 클릭하세요</li>
+                <li>완료되면 '제출하기'를 누르세요</li>
+            </ol>
+
+            <div class="stats">
+                <p>문제 번호: <span id="questionId">-</span></p>
+                <p>연결된 선: <span id="lineCount">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/relationlines.js"></script>
+</body>
+</html>
