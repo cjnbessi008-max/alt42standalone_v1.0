@@ -1,0 +1,43 @@
+# Python Dependencies for Emotion Analysis System
+# 감정 분석 시스템 Python 의존성
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# Database
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
+
+# Data Processing
+numpy==1.26.2
+pandas==2.1.3
+scipy==1.11.4
+
+# HTTP Client
+httpx==0.25.2
+aiohttp==3.9.1
+
+# Utilities
+python-dotenv==1.0.0
+python-dateutil==2.8.2
+
+# Logging & Monitoring
+structlog==23.2.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Code Quality
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
+
+# Optional: AI/ML (if emotion inference from behavior)
+# scikit-learn==1.3.2
+# tensorflow==2.15.0
+# torch==2.1.1
