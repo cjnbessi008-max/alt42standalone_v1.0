@@ -1,0 +1,122 @@
+// Prisma Schema for Relaxation Routine System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 사용자 모델 (Moodle 사용자와 연동)
+model User {
+  id            String   @id @default(uuid())
+  moodleUserId  Int      @unique @map("moodle_user_id")
+  username      String   @unique
+  email         String   @unique
+  fullName      String   @map("full_name")
+  role          UserRole @default(STUDENT)
+  preferences   Json?    // 사용자 선호도 설정
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  routineRecords RoutineRecord[]
+  statistics     UserStatistics?
+
+  @@map("users")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+// 정신 완화 루틴 타입
+model RoutineType {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  nameKo      String   @map("name_ko") // 한국어 이름
+  category    String   // breathing, meditation, stretching, break, message
+  description String
+  duration    Int      // 초 단위
+  difficulty  String   // easy, medium, hard
+  content     Json     // 루틴 콘텐츠 (단계별 가이드)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  routineRecords RoutineRecord[]
+
+  @@map("routine_types")
+}
+
+// 루틴 실행 기록
+model RoutineRecord {
+  id              String   @id @default(uuid())
+  userId          String   @map("user_id")
+  routineTypeId   String   @map("routine_type_id")
+  moodleQuizId    Int?     @map("moodle_quiz_id")
+  moodleAttemptId Int?     @map("moodle_attempt_id")
+  triggerReason   String   @map("trigger_reason") // correct_answer, manual, scheduled
+  completed       Boolean  @default(false)
+  completedAt     DateTime? @map("completed_at")
+  rating          Int?     // 1-5 별점
+  feedback        String?
+  duration        Int?     // 실제 소요 시간 (초)
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user        User        @relation(fields: [userId], references: [id])
+  routineType RoutineType @relation(fields: [routineTypeId], references: [id])
+
+  @@index([userId])
+  @@index([moodleQuizId])
+  @@map("routine_records")
+}
+
+// 사용자 통계
+model UserStatistics {
+  id                    String   @id @default(uuid())
+  userId                String   @unique @map("user_id")
+  totalRoutines         Int      @default(0) @map("total_routines")
+  completedRoutines     Int      @default(0) @map("completed_routines")
+  totalDuration         Int      @default(0) @map("total_duration") // 초 단위
+  correctAnswerStreak   Int      @default(0) @map("correct_answer_streak")
+  lastRoutineAt         DateTime? @map("last_routine_at")
+  averageRating         Float?   @map("average_rating")
+  favoriteRoutineTypeId String?  @map("favorite_routine_type_id")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_statistics")
+}
+
+// Moodle 퀴즈 시도 추적 (마지막 확인 시간)
+model MoodleSync {
+  id                String   @id @default(uuid())
+  lastSyncAt        DateTime @default(now()) @map("last_sync_at")
+  lastAttemptId     Int      @default(0) @map("last_attempt_id")
+  syncStatus        String   @default("success") // success, error
+  errorMessage      String?  @map("error_message")
+  processedAttempts Int      @default(0) @map("processed_attempts")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  @@map("moodle_sync")
+}
+
+// 시스템 설정
+model SystemSettings {
+  id                        String   @id @default(uuid())
+  key                       String   @unique
+  value                     String
+  description               String?
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+
+  @@map("system_settings")
+}
