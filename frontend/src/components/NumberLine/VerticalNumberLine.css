@@ -1,0 +1,68 @@
+/* Vertical Number Line Styling */
+
+.vertical-number-line {
+  cursor: crosshair;
+  user-select: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-number-line:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Main vertical line */
+.main-line {
+  transition: stroke-width 0.2s ease;
+}
+
+.vertical-number-line:hover .main-line {
+  stroke-width: 4;
+}
+
+/* Tick marks */
+.tick-mark {
+  transition: all 0.2s ease;
+}
+
+.tick-mark:hover {
+  stroke-width: 3;
+  stroke: #4CAF50;
+}
+
+/* Tick labels */
+.tick-label {
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tick-label:hover {
+  fill: #4CAF50;
+  font-size: 16px;
+}
+
+/* Arrows */
+.arrow-top,
+.arrow-bottom {
+  transition: transform 0.2s ease;
+}
+
+.arrow-top:hover {
+  transform: translateY(-2px);
+}
+
+.arrow-bottom:hover {
+  transform: translateY(2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vertical-number-line {
+    max-width: 100%;
+  }
+
+  .tick-label {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,46 @@
+/* Range Glow Effect Animations */
+
+.range-glow-animated {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Boundary point pulse animation */
+.boundary-pulse {
+  animation: boundary-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes boundary-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Range label styling */
+.range-label {
+  text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  transition: all 0.3s ease;
+}
+
+.range-label:hover {
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+}
+
+/* Smooth transitions */
+.range-glow,
+.range-glow-animated {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
