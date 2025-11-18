@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math App - Extrema Tremor Fix</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Loading Indicator -->
+    <div id="loader" class="loader" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Messages -->
+    <div id="errorMessage" class="message error" style="display: none;"></div>
+    <div id="successMessage" class="message success" style="display: none;"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Panel - Controls -->
+        <div class="left-panel">
+            <h1>Math Problem Viewer</h1>
+            <p class="subtitle">Moodle LMS Integration</p>
+
+            <div class="section">
+                <h3>Problem Information</h3>
+                <div id="problemMeta" class="meta-badges"></div>
+                <h2 id="problemTitle">Loading...</h2>
+                <p id="problemDescription" class="description"></p>
+                <div class="function-display">
+                    <code id="functionExpression"></code>
+                </div>
+            </div>
+
+            <div class="section">
+                <div id="hintsContainer"></div>
+            </div>
+
+            <div class="section">
+                <div id="extremaList"></div>
+            </div>
+
+            <div class="section">
+                <h3>Manual Function Input</h3>
+                <p class="help-text">
+                    Supported: sin, cos, tan, sqrt, abs, pow, exp, log, PI, E<br>
+                    Example: sin(x) + 0.5 * cos(2*x)
+                </p>
+                <input
+                    type="text"
+                    id="functionInput"
+                    class="function-input"
+                    placeholder="Enter function expression"
+                    value="sin(x) + 0.5 * sin(3*x)"
+                />
+                <button id="plotBtn" class="btn btn-primary">Plot Function</button>
+            </div>
+
+            <div class="section">
+                <h3>Controls</h3>
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="tremorToggle" checked />
+                        <span>Enable Anti-Tremor Fix</span>
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button id="refreshBtn" class="btn btn-secondary">Refresh</button>
+                    <button id="exportBtn" class="btn btn-secondary">Export Image</button>
+                </div>
+            </div>
+
+            <div class="section info-box">
+                <h4>About Extrema Tremor Fix</h4>
+                <p>
+                    This application uses advanced algorithms to prevent graph trembling
+                    at extrema points:
+                </p>
+                <ul>
+                    <li><strong>Adaptive Sampling:</strong> More points near extrema</li>
+                    <li><strong>Quadratic Interpolation:</strong> Precise extrema location</li>
+                    <li><strong>Catmull-Rom Splines:</strong> Ultra-smooth curve rendering</li>
+                    <li><strong>Numerical Stability:</strong> Multiple detection criteria</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Panel - Virtual Smartphone -->
+        <div class="right-panel">
+            <div class="smartphone-container">
+                <div class="smartphone">
+                    <!-- Phone Frame -->
+                    <div class="phone-frame">
+                        <!-- Status Bar -->
+                        <div class="status-bar">
+                            <span class="time">9:41</span>
+                            <div class="status-icons">
+                                <span class="signal">📶</span>
+                                <span class="wifi">📡</span>
+                                <span class="battery">🔋</span>
+                            </div>
+                        </div>
+
+                        <!-- App Content -->
+                        <div class="phone-content">
+                            <div class="app-header">
+                                <h2>Graph Analyzer</h2>
+                            </div>
+
+                            <!-- Canvas for Graph -->
+                            <div class="canvas-container">
+                                <canvas id="mathCanvas" width="800" height="600"></canvas>
+                            </div>
+
+                            <div class="app-footer">
+                                <p class="footer-text">Touch Math Academy</p>
+                            </div>
+                        </div>
+
+                        <!-- Home Indicator (iOS style) -->
+                        <div class="home-indicator"></div>
+                    </div>
+
+                    <!-- Phone Shadow -->
+                    <div class="phone-shadow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/js/graphRenderer.js"></script>
+    <script src="../src/js/app.js"></script>
+</body>
+</html>

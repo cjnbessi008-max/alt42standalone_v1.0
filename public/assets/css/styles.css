@@ -1,0 +1,587 @@
+/**
+ * Styles for Math App with Virtual Smartphone Display
+ * Extrema Tremor Fix Application
+ */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Loading Spinner */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loader p {
+    color: #fff;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Messages */
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.message.error {
+    background: #f44336;
+    color: white;
+}
+
+.message.success {
+    background: #4caf50;
+    color: white;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    min-height: 100vh;
+    gap: 30px;
+    padding: 30px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* Left Panel - Controls */
+.left-panel {
+    flex: 0 0 450px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+}
+
+.left-panel h1 {
+    color: #667eea;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.section:last-child {
+    border-bottom: none;
+}
+
+.section h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.section h4 {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Meta Badges */
+.meta-badges {
+    margin-bottom: 15px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #667eea;
+    color: white;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+/* Problem Display */
+#problemTitle {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.function-display {
+    background: #f5f5f5;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+}
+
+.function-display code {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 16px;
+    color: #d63031;
+}
+
+/* Hints */
+#hintsContainer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#hintsContainer li {
+    padding: 8px 0 8px 25px;
+    position: relative;
+    color: #555;
+}
+
+#hintsContainer li::before {
+    content: "💡";
+    position: absolute;
+    left: 0;
+}
+
+/* Extrema List */
+.extrema-list {
+    list-style: none;
+    padding: 0;
+}
+
+.extrema-list li {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.extrema-list li.max {
+    background: #ffebee;
+    border-left: 4px solid #f44336;
+}
+
+.extrema-list li.min {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+}
+
+.extrema-type {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.extrema-coords {
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #666;
+}
+
+/* Input Controls */
+.help-text {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.function-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+.function-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f5f5f5;
+    color: #333;
+    margin-right: 10px;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-group .btn-secondary {
+    flex: 1;
+    margin: 0;
+}
+
+/* Checkbox */
+.control-group {
+    margin-bottom: 15px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label span {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Info Box */
+.info-box {
+    background: #f0f4ff;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.info-box h4 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.info-box ul {
+    padding-left: 20px;
+}
+
+.info-box li {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.info-box strong {
+    color: #667eea;
+}
+
+/* Right Panel - Virtual Smartphone */
+.right-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.smartphone-container {
+    position: relative;
+    perspective: 1000px;
+}
+
+/* Smartphone Frame */
+.smartphone {
+    position: relative;
+    width: 375px;
+    height: 812px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow:
+        0 0 0 2px #2a2a2a,
+        0 0 0 6px #1a1a1a,
+        0 20px 60px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+    animation: phoneFloat 6s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+    0%, 100% {
+        transform: translateY(0) rotateY(-2deg);
+    }
+    50% {
+        transform: translateY(-10px) rotateY(2deg);
+    }
+}
+
+.phone-frame {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Notch (iPhone style) */
+.phone-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* Status Bar */
+.status-bar {
+    background: transparent;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #333;
+    height: 44px;
+    position: relative;
+    z-index: 5;
+}
+
+.time {
+    font-weight: 600;
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.status-icons span {
+    font-size: 14px;
+}
+
+/* Phone Content */
+.phone-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+    overflow: hidden;
+}
+
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Canvas Container */
+.canvas-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    overflow: hidden;
+}
+
+#mathCanvas {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* App Footer */
+.app-footer {
+    background: #f5f5f5;
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+}
+
+.footer-text {
+    font-size: 11px;
+    color: #888;
+}
+
+/* Home Indicator (iOS style) */
+.home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+}
+
+/* Phone Shadow */
+.phone-shadow {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: -1;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        flex: none;
+        max-height: none;
+    }
+
+    .right-panel {
+        min-height: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .left-panel {
+        padding: 20px;
+    }
+
+    .smartphone {
+        transform: scale(0.8);
+    }
+
+    .right-panel {
+        min-height: 700px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+    }
+
+    .left-panel,
+    .smartphone {
+        box-shadow: none;
+    }
+
+    .btn,
+    .control-group {
+        display: none;
+    }
+}

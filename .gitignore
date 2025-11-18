@@ -1,0 +1,69 @@
+# Logs
+logs/*.log
+*.log
+
+# Cache
+cache/*
+!cache/.gitkeep
+
+# Temporary files
+tmp/*
+temp/*
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Configuration (with sensitive data)
+config/config.local.php
+.env
+.env.local
+
+# Database dumps
+*.sql.gz
+backup_*.sql
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Vendor dependencies (if using Composer)
+vendor/
+
+# Node modules (if any)
+node_modules/
+
+# Build files
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# PHP
+*.php~
+.phpunit.result.cache
+
+# Backups
+*.bak
+*.backup
+*~
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Sensitive files
+credentials.json
+secrets.json
+private_key.pem
