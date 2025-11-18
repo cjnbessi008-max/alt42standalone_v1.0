@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Dance - 변수가 춤추는 수학 학습</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 헤더 -->
+        <header class="header">
+            <h1>🎭 Variable Dance</h1>
+            <p class="subtitle">변수가 이동함에 따라 해집합이 춤추듯 바뀌는 수학 학습</p>
+        </header>
+
+        <!-- 문제 선택 영역 -->
+        <section class="problem-selector">
+            <h2>문제 선택</h2>
+            <div class="problem-list" id="problemList">
+                <!-- 동적으로 로드됨 -->
+            </div>
+        </section>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <!-- 스마트폰 상단 노치 -->
+            <div class="smartphone-notch"></div>
+
+            <!-- 스마트폰 화면 -->
+            <div class="smartphone-screen">
+                <!-- 문제 타이틀 -->
+                <div class="problem-header">
+                    <h3 id="problemTitle">문제를 선택하세요</h3>
+                    <button class="close-btn" onclick="closeSmartphone()">×</button>
+                </div>
+
+                <!-- 문제 설명 -->
+                <div class="problem-description" id="problemDescription">
+                    문제를 선택하면 여기에 표시됩니다.
+                </div>
+
+                <!-- 방정식 표시 -->
+                <div class="equation-display" id="equationDisplay">
+                    <div class="equation-text" id="equationText"></div>
+                </div>
+
+                <!-- 변수 컨트롤 영역 -->
+                <div class="variable-controls" id="variableControls">
+                    <!-- 동적으로 생성됨 -->
+                </div>
+
+                <!-- 해집합 시각화 영역 -->
+                <div class="solution-visualization">
+                    <h4>해집합 (Solution Set)</h4>
+                    <canvas id="solutionCanvas" width="300" height="300"></canvas>
+                </div>
+
+                <!-- 해 표시 영역 -->
+                <div class="solution-display" id="solutionDisplay">
+                    <h4>계산된 해</h4>
+                    <div class="solution-text" id="solutionText">
+                        변수를 조정하면 해가 여기에 표시됩니다.
+                    </div>
+                </div>
+
+                <!-- 애니메이션 효과 -->
+                <div class="dance-animation" id="danceAnimation">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 하단 홈 버튼 -->
+            <div class="smartphone-home-btn"></div>
+        </div>
+
+        <!-- 최소화/최대화 버튼 -->
+        <button class="toggle-smartphone" id="toggleSmartphone" onclick="toggleSmartphone()">
+            📱
+        </button>
+    </div>
+
+    <!-- 배경 애니메이션 -->
+    <div class="background-particles">
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+        <div class="bg-particle"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/visualization.js"></script>
+    <script src="js/variable-dance.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
