@@ -1,0 +1,186 @@
+========================================
+Density Compare - Installation Guide
+========================================
+
+QUICK INSTALL
+=============
+
+1. Copy the 'mod_densitycompare' folder to your Moodle's 'mod' directory:
+
+   cp -r mod_densitycompare /path/to/moodle/mod/densitycompare
+
+2. Login to Moodle as administrator
+
+3. Go to Site administration → Notifications
+
+4. Click "Upgrade Moodle database now"
+
+5. Done! The plugin is now installed.
+
+
+DETAILED INSTALLATION
+=====================
+
+Step 1: Upload Plugin Files
+----------------------------
+
+Option A: Manual Upload (Recommended for beginners)
+1. Download the plugin package
+2. Extract the ZIP file
+3. Rename the folder to 'densitycompare' (remove version numbers)
+4. Upload via FTP/SFTP to: /path/to/moodle/mod/densitycompare
+
+Option B: Command Line (Recommended for servers)
+cd /path/to/moodle/mod
+git clone <repository-url> densitycompare
+# OR
+unzip mod_densitycompare.zip
+mv mod_densitycompare-main densitycompare
+
+Step 2: Set Permissions
+------------------------
+
+On Linux/Unix servers:
+cd /path/to/moodle/mod
+chmod -R 755 densitycompare
+chown -R www-data:www-data densitycompare
+
+(Replace 'www-data' with your web server user)
+
+
+Step 3: Complete Installation
+------------------------------
+
+1. Login to Moodle as administrator
+2. Navigate to: Site administration → Notifications
+3. You should see "Density Compare" in the list of plugins to install
+4. Click "Upgrade Moodle database now"
+5. Follow the on-screen instructions
+6. Installation complete!
+
+
+Step 4: Verify Installation
+----------------------------
+
+1. Go to: Site administration → Plugins → Activity modules
+2. Find "Density Compare" in the list
+3. Status should show as "Enabled"
+
+
+REQUIREMENTS
+============
+
+- Moodle 3.7 or higher
+- PHP 7.1.9 or higher
+- MySQL 5.7 or higher (or MariaDB 10.2+)
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+
+DATABASE SETUP
+==============
+
+The plugin will automatically create the following tables:
+
+1. mdl_densitycompare
+   - Main activity instances
+
+2. mdl_densitycompare_problems
+   - Problem definitions
+
+3. mdl_densitycompare_attempts
+   - Student attempts and grades
+
+No manual database configuration required!
+
+
+FIRST USE
+=========
+
+After installation:
+
+1. Go to any course
+2. Turn editing on
+3. Click "Add an activity or resource"
+4. Select "Density Compare"
+5. Fill in the activity name and description
+6. Click "Save and display"
+7. Default problems will be created automatically
+
+
+UPGRADING
+=========
+
+From previous version:
+
+1. Backup your Moodle database
+2. Replace the old plugin files with new ones
+3. Go to Site administration → Notifications
+4. Click "Upgrade Moodle database now"
+5. Database schema will be updated automatically
+
+
+UNINSTALLATION
+==============
+
+Warning: This will delete all Density Compare activities and student data!
+
+1. Login as administrator
+2. Go to: Site administration → Plugins → Activity modules
+3. Find "Density Compare"
+4. Click "Uninstall"
+5. Confirm deletion
+6. All data will be removed from the database
+7. Manually delete the folder: /path/to/moodle/mod/densitycompare
+
+
+TROUBLESHOOTING
+===============
+
+Problem: "Table already exists" error during installation
+Solution: Drop the tables manually:
+  DROP TABLE mdl_densitycompare;
+  DROP TABLE mdl_densitycompare_problems;
+  DROP TABLE mdl_densitycompare_attempts;
+Then retry installation.
+
+Problem: Permission denied errors
+Solution: Check file permissions:
+  chmod -R 755 /path/to/moodle/mod/densitycompare
+  chown -R www-data:www-data /path/to/moodle/mod/densitycompare
+
+Problem: Plugin not appearing in notifications
+Solution:
+  - Clear Moodle cache: Site administration → Development → Purge all caches
+  - Check version.php exists and has correct format
+  - Verify folder name is exactly 'densitycompare'
+
+
+CONFIGURATION
+=============
+
+After installation, you can customize:
+
+1. Default colors (in styles.css)
+2. Default problems (in lib.php)
+3. Language strings (in lang/en/ and lang/ko/)
+
+
+SUPPORT
+=======
+
+For issues, please provide:
+- Moodle version
+- PHP version
+- MySQL/MariaDB version
+- Error messages from Moodle logs
+- Browser console errors (F12)
+
+Check logs at:
+- Site administration → Reports → Logs
+- Site administration → Development → Debugging
+
+
+========================================
+Installation Complete!
+Enjoy teaching with Density Compare!
+========================================

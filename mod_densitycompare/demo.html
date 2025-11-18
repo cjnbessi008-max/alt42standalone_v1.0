@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Density Compare - Standalone Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .demo-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .demo-header p {
+            font-size: 1.2em;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .demo-notice {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .demo-notice h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .demo-notice ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .demo-notice li {
+            margin: 5px 0;
+            color: #34495e;
+        }
+
+        .problem-display {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>🎨 Density Compare</h1>
+        <p>넓이 비교를 색의 밀도로 표현하는 학습 도구</p>
+    </div>
+
+    <div class="demo-notice">
+        <h3>📌 데모 안내</h3>
+        <ul>
+            <li><strong>우측 하단 스마트폰 화면</strong>에 두 도형이 표시됩니다</li>
+            <li><strong>색이 진할수록</strong> 넓이가 큽니다</li>
+            <li>세 가지 선택지 중 정답을 골라보세요</li>
+            <li>이것은 <strong>스탠드얼론 데모</strong>입니다 (실제 Moodle 연동 없음)</li>
+        </ul>
+    </div>
+
+    <div class="densitycompare-container">
+        <div class="main-content">
+            <div class="instructions">
+                <h3>두 도형의 넓이를 비교하세요</h3>
+            </div>
+
+            <div class="problem-display">
+                <div id="question-text" class="question-text">
+                    어느 도형이 더 큰 넓이를 가지고 있나요?
+                </div>
+            </div>
+
+            <div class="answer-section">
+                <button class="answer-btn" data-answer="larger">
+                    도형 1이 더 크다
+                </button>
+                <button class="answer-btn" data-answer="smaller">
+                    도형 1이 더 작다
+                </button>
+                <button class="answer-btn" data-answer="equal">
+                    둘 다 같다
+                </button>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+            <button id="next-problem" class="next-btn" style="display:none;">
+                다음 문제
+            </button>
+        </div>
+
+        <!-- Smartphone Simulator -->
+        <div class="smartphone-container">
+            <div class="smartphone-frame">
+                <div class="smartphone-screen">
+                    <canvas id="density-canvas" width="300" height="500"></canvas>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Standalone Demo for Density Compare
+         * This is a demo version without Moodle backend
+         */
+        (function() {
+            'use strict';
+
+            // Demo problems (no backend required)
+            const demoProblems = [
+                {
+                    id: 1,
+                    question_text: '어느 도형이 더 큰 넓이를 가지고 있나요?',
+                    shape1_data: '{"width": 80, "height": 60}',
+                    shape2_data: '{"width": 70, "height": 50}',
+                    color1: '#FF6B6B',
+                    color2: '#4ECDC4',
+                    correct_answer: 'larger'
+                },
+                {
+                    id: 2,
+                    question_text: '어느 원이 더 큰 넓이를 가지고 있나요?',
+                    shape1_data: '{"radius": 40}',
+                    shape2_data: '{"radius": 50}',
+                    color1: '#FF6B6B',
+                    color2: '#4ECDC4',
+                    correct_answer: 'smaller'
+                },
+                {
+                    id: 3,
+                    question_text: '어느 도형이 더 큰 넓이를 가지고 있나요?',
+                    shape1_data: '{"type": "rectangle", "width": 60, "height": 60}',
+                    shape2_data: '{"type": "circle", "radius": 35}',
+                    color1: '#FF6B6B',
+                    color2: '#4ECDC4',
+                    correct_answer: 'larger'
+                },
+                {
+                    id: 4,
+                    question_text: '두 직사각형의 넓이를 비교하세요',
+                    shape1_data: '{"width": 50, "height": 60}',
+                    shape2_data: '{"width": 60, "height": 50}',
+                    color1: '#9B59B6',
+                    color2: '#3498DB',
+                    correct_answer: 'equal'
+                }
+            ];
+
+            let currentProblem = null;
+            let currentIndex = 0;
+            let canvas = null;
+            let ctx = null;
+
+            function init() {
+                canvas = document.getElementById('density-canvas');
+                if (!canvas) {
+                    console.error('Canvas element not found');
+                    return;
+                }
+
+                ctx = canvas.getContext('2d');
+                setupEventListeners();
+                loadNewProblem();
+            }
+
+            function setupEventListeners() {
+                const answerButtons = document.querySelectorAll('.answer-btn');
+                answerButtons.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        handleAnswer(this.getAttribute('data-answer'));
+                    });
+                });
+
+                const nextBtn = document.getElementById('next-problem');
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', loadNewProblem);
+                }
+            }
+
+            function loadNewProblem() {
+                currentProblem = demoProblems[currentIndex % demoProblems.length];
+                currentIndex++;
+                displayProblem();
+                resetUI();
+            }
+
+            function displayProblem() {
+                if (!currentProblem) return;
+
+                const questionEl = document.getElementById('question-text');
+                if (questionEl) {
+                    questionEl.textContent = currentProblem.question_text;
+                }
+
+                drawShapes();
+            }
+
+            function drawShapes() {
+                if (!ctx || !currentProblem) return;
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const shape1 = JSON.parse(currentProblem.shape1_data);
+                const shape2 = JSON.parse(currentProblem.shape2_data);
+
+                const area1 = calculateArea(shape1);
+                const area2 = calculateArea(shape2);
+                const maxArea = Math.max(area1, area2);
+
+                const density1 = area1 / maxArea;
+                const density2 = area2 / maxArea;
+
+                const y1 = 120;
+                drawShape(shape1, 150, y1, currentProblem.color1, density1, '도형 1');
+
+                const y2 = 350;
+                drawShape(shape2, 150, y2, currentProblem.color2, density2, '도형 2');
+
+                drawInfoText(area1, area2);
+            }
+
+            function calculateArea(shape) {
+                if (shape.type === 'rectangle' || (shape.width && shape.height)) {
+                    return shape.width * shape.height;
+                } else if (shape.type === 'circle' || shape.radius) {
+                    return Math.PI * shape.radius * shape.radius;
+                }
+                return 0;
+            }
+
+            function drawShape(shape, x, y, color, density, label) {
+                ctx.save();
+
+                const rgba = hexToRgba(color, density);
+                ctx.fillStyle = rgba;
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 3;
+
+                if (shape.type === 'rectangle' || (shape.width && shape.height)) {
+                    const rectX = x - shape.width / 2;
+                    const rectY = y - shape.height / 2;
+                    ctx.fillRect(rectX, rectY, shape.width, shape.height);
+                    ctx.strokeRect(rectX, rectY, shape.width, shape.height);
+                } else if (shape.type === 'circle' || shape.radius) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, shape.radius, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 18px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, x, y - 80);
+
+                ctx.restore();
+            }
+
+            function drawInfoText(area1, area2) {
+                ctx.save();
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.fillRect(10, 10, 280, 90);
+
+                ctx.fillStyle = '#2c3e50';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'left';
+
+                ctx.fillText('💡 밀도 비교법', 20, 30);
+
+                ctx.font = '13px Arial';
+                ctx.fillText('진한 색 = 큰 넓이', 20, 52);
+                ctx.fillText('연한 색 = 작은 넓이', 20, 72);
+
+                ctx.restore();
+            }
+
+            function hexToRgba(hex, alpha) {
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+            }
+
+            function handleAnswer(answer) {
+                if (!currentProblem) return;
+
+                disableAnswerButtons();
+
+                const isCorrect = (answer === currentProblem.correct_answer);
+                const message = isCorrect ? '✅ 정답입니다! 잘했어요!' : '❌ 틀렸습니다. 다시 생각해보세요!';
+
+                showFeedback(isCorrect, message);
+            }
+
+            function showFeedback(isCorrect, message) {
+                const feedbackEl = document.getElementById('feedback');
+                if (!feedbackEl) return;
+
+                feedbackEl.textContent = message;
+                feedbackEl.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+
+                const nextBtn = document.getElementById('next-problem');
+                if (nextBtn) {
+                    nextBtn.style.display = 'block';
+                }
+
+                drawFeedbackOnCanvas(isCorrect);
+            }
+
+            function drawFeedbackOnCanvas(isCorrect) {
+                ctx.save();
+
+                ctx.fillStyle = isCorrect ? 'rgba(46, 204, 113, 0.3)' : 'rgba(231, 76, 60, 0.3)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+
+                if (isCorrect) {
+                    ctx.beginPath();
+                    ctx.moveTo(80, 260);
+                    ctx.lineTo(120, 300);
+                    ctx.lineTo(220, 200);
+                    ctx.stroke();
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(100, 220);
+                    ctx.lineTo(200, 320);
+                    ctx.moveTo(200, 220);
+                    ctx.lineTo(100, 320);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+
+            function disableAnswerButtons() {
+                const buttons = document.querySelectorAll('.answer-btn');
+                buttons.forEach(function(btn) {
+                    btn.disabled = true;
+                });
+            }
+
+            function enableAnswerButtons() {
+                const buttons = document.querySelectorAll('.answer-btn');
+                buttons.forEach(function(btn) {
+                    btn.disabled = false;
+                });
+            }
+
+            function resetUI() {
+                const feedbackEl = document.getElementById('feedback');
+                if (feedbackEl) {
+                    feedbackEl.style.display = 'none';
+                    feedbackEl.className = 'feedback';
+                }
+
+                const nextBtn = document.getElementById('next-problem');
+                if (nextBtn) {
+                    nextBtn.style.display = 'none';
+                }
+
+                enableAnswerButtons();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</body>
+</html>
