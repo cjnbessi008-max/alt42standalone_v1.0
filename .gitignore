@@ -1,0 +1,50 @@
+# Stat Story Mode - Git Ignore
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+error_log
+access_log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if used)
+node_modules/
+package-lock.json
+
+# Temporary files
+tmp/
+temp/
+cache/
+*.tmp
+
+# Uploaded files
+uploads/
+public/assets/uploads/
+
+# Database backups
+*.sql.gz
+backup/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# PHP
+*.cache
+opcache/
