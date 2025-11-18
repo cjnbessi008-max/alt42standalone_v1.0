@@ -1,0 +1,140 @@
+/* 스마트폰 시뮬레이터 스타일 */
+
+.smartphone-simulator {
+  position: fixed;
+  z-index: 1000;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* 위치 설정 */
+.smartphone-simulator.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-simulator.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-simulator.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-simulator.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+  width: 375px;
+  height: 667px;
+  background: linear-gradient(145deg, #1e1e1e, #2d2d2d);
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 2px #3d3d3d,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 노치 */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 28px;
+  background: linear-gradient(145deg, #1e1e1e, #2d2d2d);
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.notch-camera {
+  width: 8px;
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.notch-speaker {
+  width: 40px;
+  height: 4px;
+  background: #0a0a0a;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 스크린 영역 */
+.smartphone-screen {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 하단 홈 인디케이터 */
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* 슬라이드 인 애니메이션 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .smartphone-simulator {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 20px 0;
+  }
+
+  .smartphone-frame {
+    width: 320px;
+    height: 568px;
+  }
+}
+
+@media (max-width: 480px) {
+  .smartphone-frame {
+    width: 280px;
+    height: 498px;
+  }
+
+  .smartphone-notch {
+    width: 150px;
+    height: 24px;
+  }
+}
