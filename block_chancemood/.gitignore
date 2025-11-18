@@ -1,0 +1,27 @@
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# IDE Files
+.idea/
+.vscode/
+*.sublime-*
+.project
+.buildpath
+.settings/
+
+# Temporary Files
+*.tmp
+*.bak
+*.log
+
+# Moodle specific
+moodledata/
+config.php
+
+# Development
+node_modules/
+npm-debug.log
+.npm/

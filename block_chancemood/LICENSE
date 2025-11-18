@@ -1,0 +1,50 @@
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
+
+Copyright (C) 2025 KAIST Touch Math Academy
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+==============================================================================
+
+For the full text of the GNU General Public License version 3, visit:
+https://www.gnu.org/licenses/gpl-3.0.html
+
+==============================================================================
+
+ADDITIONAL INFORMATION:
+
+This Moodle plugin is released under the same license as Moodle itself.
+For more information about Moodle licensing, see:
+https://docs.moodle.org/dev/License
+
+==============================================================================
+
+THIRD-PARTY COMPONENTS:
+
+This plugin may include or rely on third-party components with their own
+licenses. All such components are listed here:
+
+- Moodle: GPLv3+ (https://moodle.org/)
+- No additional third-party libraries are included
+
+==============================================================================
+
+CONTACT:
+
+KAIST Touch Math Academy
+Project: Chance Mood Block for Moodle
+Repository: https://github.com/yourusername/moodle-block_chancemood
+
+For questions about licensing, contact: support@example.com

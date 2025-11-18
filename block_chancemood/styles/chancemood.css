@@ -1,0 +1,319 @@
+/**
+ * Chance Mood Block Styles
+ *
+ * Smartphone display positioned at bottom-right of screen
+ * with emotional color themes for probability problem analysis
+ */
+
+/* Main container - fixed position at bottom right */
+#chancemood-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Smartphone frame */
+.smartphone-frame {
+    width: 280px;
+    height: 500px;
+    background: #2c3e50;
+    border-radius: 30px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Smartphone screen */
+.smartphone-screen {
+    width: 100%;
+    height: 450px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Home button */
+.smartphone-button {
+    width: 40px;
+    height: 40px;
+    background: #34495e;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid #576574;
+}
+
+/* Mood header with dynamic color */
+.mood-header {
+    padding: 20px;
+    color: white;
+    text-align: center;
+    background: linear-gradient(135deg, var(--mood-color, #3498db) 0%, var(--mood-color-dark, #2980b9) 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mood-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mood-subtitle {
+    margin: 5px 0 0 0;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Mood content area */
+.mood-content {
+    padding: 15px;
+    overflow-y: auto;
+    height: calc(100% - 90px);
+}
+
+/* Mood emoji display */
+.mood-emoji {
+    text-align: center;
+    font-size: 60px;
+    margin: 10px 0;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Mood message */
+.mood-message {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2c3e50;
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid var(--mood-color, #3498db);
+}
+
+/* Statistics display */
+.mood-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px solid #ecf0f1;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Emotion chart */
+.mood-chart {
+    margin-top: 15px;
+}
+
+.emotion-chart h4 {
+    font-size: 14px;
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.chart-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chart-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-label {
+    font-size: 11px;
+    color: #2c3e50;
+    width: 60px;
+    flex-shrink: 0;
+}
+
+.chart-bar {
+    flex: 1;
+    height: 20px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.chart-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, var(--fill-color, #3498db) 0%, var(--fill-color-light, #5dade2) 100%);
+}
+
+.chart-value {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2c3e50;
+    width: 30px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.no-data {
+    text-align: center;
+    color: #95a5a6;
+    font-size: 12px;
+    padding: 20px;
+}
+
+/* Emotion color variables */
+.mood-joy {
+    --mood-color: #2ecc71;
+    --mood-color-dark: #27ae60;
+}
+
+.mood-confidence {
+    --mood-color: #3498db;
+    --mood-color-dark: #2980b9;
+}
+
+.mood-challenge {
+    --mood-color: #f39c12;
+    --mood-color-dark: #e67e22;
+}
+
+.mood-struggle {
+    --mood-color: #e67e22;
+    --mood-color-dark: #d35400;
+}
+
+.mood-frustration {
+    --mood-color: #e74c3c;
+    --mood-color-dark: #c0392b;
+}
+
+.mood-neutral {
+    --mood-color: #95a5a6;
+    --mood-color-dark: #7f8c8d;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    #chancemood-container {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .smartphone-frame {
+        width: 220px;
+        height: 400px;
+        padding: 12px;
+    }
+
+    .smartphone-screen {
+        height: 360px;
+    }
+
+    .mood-header h3 {
+        font-size: 20px;
+    }
+
+    .mood-emoji {
+        font-size: 48px;
+    }
+
+    .mood-message {
+        font-size: 12px;
+    }
+}
+
+/* Animation for initial load */
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#chancemood-container {
+    animation: slideInUp 0.5s ease-out;
+}
+
+/* Toggle button to show/hide */
+.chancemood-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.chancemood-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chancemood-hidden #chancemood-container {
+    display: none;
+}
+
+.chancemood-hidden .chancemood-toggle::after {
+    content: '📊';
+}
+
+.chancemood-visible .chancemood-toggle::after {
+    content: '✕';
+}
