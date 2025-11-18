@@ -1,0 +1,219 @@
+/**
+ * Similarity Card 스타일
+ * 빛나는 효과와 애니메이션
+ */
+
+.similarity-card {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  min-height: 320px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 20px;
+  padding: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.similarity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--card-color), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+}
+
+/* Glow effect */
+.card-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, var(--card-color) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.similarity-card:hover .card-glow,
+.similarity-card.active .card-glow {
+  opacity: 0.4;
+}
+
+.similarity-card.active .card-glow {
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Card content */
+.card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+}
+
+/* Icon */
+.card-icon {
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--card-color);
+  text-shadow: 0 0 20px var(--card-color);
+  margin-bottom: 8px;
+}
+
+/* Type badge */
+.card-type {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--card-color);
+  color: #1a1a2e;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Titles */
+.card-title-ko {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 8px 0 4px;
+  color: #ffffff;
+}
+
+.card-title-en {
+  font-size: 13px;
+  color: #b0b0b0;
+  text-align: center;
+  margin: 0;
+}
+
+/* Formula */
+.card-formula {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  text-align: center;
+  color: var(--card-color);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  margin: 8px 0;
+  backdrop-filter: blur(10px);
+}
+
+/* Description */
+.card-description {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #d0d0d0;
+  text-align: center;
+  margin: 0;
+}
+
+/* Active indicator */
+.active-indicator {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: var(--card-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a1a2e;
+  box-shadow: 0 0 20px var(--card-color);
+}
+
+/* Shimmer effect */
+.card-shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Active state */
+.similarity-card.active {
+  border-color: var(--card-color);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 40px var(--card-color);
+}
+
+/* Hover state */
+.similarity-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .similarity-card {
+    max-width: 100%;
+    min-height: 280px;
+    padding: 20px;
+  }
+
+  .card-icon {
+    font-size: 40px;
+  }
+
+  .card-type {
+    font-size: 16px;
+    padding: 5px 14px;
+  }
+
+  .card-title-ko {
+    font-size: 16px;
+  }
+
+  .card-formula {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+}

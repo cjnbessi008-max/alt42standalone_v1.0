@@ -1,0 +1,358 @@
+/**
+ * Smartphone Display 스타일
+ * 우측 하단 가상 스마트폰 화면
+ */
+
+.smartphone-display {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Position variations */
+.smartphone-display.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-display.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-display.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-display.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+/* Phone frame */
+.phone-frame {
+  position: relative;
+  width: 380px;
+  max-height: 90vh;
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1e);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 12px #0a0a0f,
+    0 0 0 14px #2a2a3e;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Phone notch */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 30px;
+  background: #0a0a0f;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #1a1a2e;
+  border-radius: 3px;
+}
+
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #1a4d5e, #0a0a0f);
+  border-radius: 50%;
+  border: 1px solid #2a2a3e;
+}
+
+/* Phone header */
+.phone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  margin-top: 30px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.phone-time {
+  font-weight: 600;
+}
+
+.phone-status {
+  display: flex;
+  gap: 8px;
+}
+
+.status-icon {
+  font-size: 12px;
+}
+
+/* Phone screen */
+.phone-screen {
+  flex: 1;
+  background: linear-gradient(180deg, #16213e 0%, #0f1623 100%);
+  border-radius: 28px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 400px;
+  max-height: calc(90vh - 120px);
+  position: relative;
+}
+
+/* Custom scrollbar */
+.phone-screen::-webkit-scrollbar {
+  width: 6px;
+}
+
+.phone-screen::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Screen header */
+.screen-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(22, 33, 62, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.screen-minimize-btn,
+.screen-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-minimize-btn:hover,
+.screen-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.screen-minimize-btn:active,
+.screen-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Screen content */
+.screen-content {
+  padding: 0;
+}
+
+.screen-collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.collapsed-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.collapsed-hint {
+  font-size: 14px;
+  color: #b0b0b0;
+  margin: 0;
+}
+
+/* Phone home indicator */
+.phone-home-indicator {
+  width: 120px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  margin: 8px auto;
+}
+
+/* Phone glow */
+.phone-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(78, 205, 196, 0.15) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Collapsed state */
+.smartphone-display.collapsed .phone-frame {
+  max-height: 200px;
+}
+
+/* Minimized floating button */
+.smartphone-minimized {
+  position: fixed;
+  z-index: 999;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #4ECDC4, #44A08D);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow:
+    0 8px 32px rgba(78, 205, 196, 0.4),
+    0 0 0 4px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+}
+
+.smartphone-minimized.bottom-right {
+  bottom: 30px;
+  right: 30px;
+}
+
+.smartphone-minimized.bottom-left {
+  bottom: 30px;
+  left: 30px;
+}
+
+.smartphone-minimized.top-right {
+  top: 30px;
+  right: 30px;
+}
+
+.smartphone-minimized.top-left {
+  top: 30px;
+  left: 30px;
+}
+
+.minimized-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.minimized-text {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .phone-frame {
+    width: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  .smartphone-display.bottom-right,
+  .smartphone-display.bottom-left {
+    bottom: 10px;
+  }
+
+  .smartphone-display.bottom-right {
+    right: 10px;
+  }
+
+  .smartphone-display.bottom-left {
+    left: 10px;
+  }
+
+  .phone-frame {
+    width: calc(100vw - 20px);
+    max-width: 340px;
+    max-height: 85vh;
+  }
+
+  .phone-screen {
+    max-height: calc(85vh - 120px);
+  }
+}
+
+@media (max-width: 480px) {
+  .phone-frame {
+    border-radius: 32px;
+    padding: 10px;
+  }
+
+  .phone-notch {
+    width: 150px;
+    height: 26px;
+  }
+
+  .smartphone-minimized {
+    width: 70px;
+    height: 70px;
+  }
+
+  .minimized-icon {
+    font-size: 28px;
+  }
+
+  .minimized-text {
+    font-size: 10px;
+  }
+}
+
+/* Animation */
+@keyframes phone-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.smartphone-display {
+  animation: phone-float 3s ease-in-out infinite;
+}
+
+.smartphone-minimized {
+  animation: phone-float 2s ease-in-out infinite;
+}

@@ -1,0 +1,107 @@
+/**
+ * Similarity Card List 스타일
+ */
+
+.similarity-card-list {
+  width: 100%;
+  padding: 20px;
+}
+
+.card-list-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.card-list-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-list-subtitle {
+  font-size: 14px;
+  color: #b0b0b0;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.selected-info {
+  margin-top: 32px;
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.info-text {
+  font-size: 16px;
+  color: #d0d0d0;
+  margin: 0;
+}
+
+.info-text strong {
+  color: #4ECDC4;
+  font-weight: 700;
+}
+
+/* Responsive layouts */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .similarity-card-list {
+    padding: 16px;
+  }
+
+  .card-list-header {
+    margin-bottom: 24px;
+  }
+
+  .card-list-title {
+    font-size: 24px;
+  }
+
+  .card-list-subtitle {
+    font-size: 12px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .selected-info {
+    margin-top: 24px;
+    padding: 12px;
+  }
+
+  .info-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-list-title {
+    font-size: 20px;
+  }
+
+  .card-grid {
+    gap: 12px;
+  }
+}
