@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor Lego - 인수분해 레고</title>
+    <link rel="stylesheet" href="../assets/css/smartphone.css">
+    <link rel="stylesheet" href="../assets/css/lego-styles.css">
+</head>
+<body>
+    <!-- 가상 스마트폰 컨테이너 (우측 하단 고정) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- 스마트폰 상단바 -->
+            <div class="smartphone-header">
+                <div class="status-bar">
+                    <span class="time">10:30</span>
+                    <div class="icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+                <div class="app-header">
+                    <h1 class="app-title">🧱 Factor Lego</h1>
+                    <button class="hint-button" id="hintBtn">💡 힌트</button>
+                </div>
+            </div>
+
+            <!-- 스마트폰 메인 화면 -->
+            <div class="smartphone-screen">
+                <!-- 문제 표시 영역 -->
+                <div class="problem-section">
+                    <div class="problem-label">문제</div>
+                    <div class="problem-expression" id="problemExpression">
+                        x² + 5x + 6
+                    </div>
+                    <div class="problem-instruction">
+                        레고 조각을 끌어다가 인수분해 하세요!
+                    </div>
+                </div>
+
+                <!-- 작업 영역 (레고 조립 공간) -->
+                <div class="workspace-section">
+                    <div class="workspace-label">내 답안</div>
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-hint">여기에 레고 조각을 놓으세요</div>
+                    </div>
+                </div>
+
+                <!-- 레고 조각 팔레트 -->
+                <div class="palette-section">
+                    <div class="palette-label">레고 조각</div>
+                    <div class="lego-palette" id="legoPalette">
+                        <!-- 레고 조각들이 동적으로 추가됨 -->
+                    </div>
+                </div>
+
+                <!-- 액션 버튼 -->
+                <div class="action-buttons">
+                    <button class="btn btn-clear" id="clearBtn">🗑️ 지우기</button>
+                    <button class="btn btn-submit" id="submitBtn">✅ 제출</button>
+                </div>
+
+                <!-- 피드백 영역 -->
+                <div class="feedback-section" id="feedbackSection" style="display: none;">
+                    <div class="feedback-content" id="feedbackContent"></div>
+                </div>
+
+                <!-- 진행 상황 -->
+                <div class="progress-section">
+                    <div class="progress-label">진행 상황</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span id="correctCount">정답: 0</span>
+                        <span id="totalCount">시도: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 하단 네비게이션 -->
+            <div class="smartphone-footer">
+                <button class="nav-btn">◀️</button>
+                <button class="nav-btn">⚫</button>
+                <button class="nav-btn">▶️</button>
+            </div>
+        </div>
+
+        <!-- 최소화/최대화 버튼 -->
+        <button class="toggle-btn" id="toggleBtn">📱</button>
+    </div>
+
+    <!-- 힌트 모달 -->
+    <div class="modal" id="hintModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>💡 힌트</h2>
+                <button class="modal-close" id="closeHintModal">&times;</button>
+            </div>
+            <div class="modal-body" id="hintContent">
+                <!-- 힌트 내용이 동적으로 추가됨 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/lego-engine.js"></script>
+    <script src="../assets/js/drag-drop.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

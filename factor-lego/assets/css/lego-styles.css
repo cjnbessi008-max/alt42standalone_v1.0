@@ -1,0 +1,364 @@
+/**
+ * Factor Lego - Lego Piece Styles
+ * 레고 조각 스타일 (드래그 가능한 인수분해 조각들)
+ */
+
+/* 레고 조각 기본 스타일 */
+.lego-piece {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    margin: 2px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: grab;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    min-width: 40px;
+    text-align: center;
+}
+
+.lego-piece:active {
+    cursor: grabbing;
+}
+
+.lego-piece:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 레고 조각 타입별 색상 */
+.lego-piece.variable {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border: 2px solid #2471a3;
+}
+
+.lego-piece.coefficient {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border: 2px solid #a93226;
+}
+
+.lego-piece.operator {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    border: 2px solid #d68910;
+}
+
+.lego-piece.parenthesis {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    border: 2px solid #1c2833;
+}
+
+.lego-piece.sign {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    border: 2px solid #7d3c98;
+}
+
+.lego-piece.exponent {
+    background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+    border: 2px solid #0e6655;
+    font-size: 14px;
+    padding: 8px 12px;
+}
+
+/* 레고 조각 상단 돌기 효과 */
+.lego-piece::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 8px;
+    background: inherit;
+    border-radius: 50% 50% 0 0;
+    opacity: 0.8;
+}
+
+/* 레고 조각 하단 홈 효과 */
+.lego-piece::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 50% 50%;
+}
+
+/* 드래그 중인 조각 */
+.lego-piece.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg) scale(1.1);
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+/* 조립된 조각 그룹 */
+.assembled-group {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin: 4px;
+    position: relative;
+}
+
+.assembled-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* 조각 연결 표시 */
+.lego-connector {
+    width: 8px;
+    height: 3px;
+    background: #34495e;
+    margin: 0 -4px;
+    border-radius: 2px;
+    z-index: 1;
+}
+
+/* 특수 조각: 괄호 */
+.lego-piece.open-paren {
+    border-radius: 8px 4px 4px 8px;
+    padding-right: 8px;
+}
+
+.lego-piece.close-paren {
+    border-radius: 4px 8px 8px 4px;
+    padding-left: 8px;
+}
+
+/* 특수 조각: 제곱 표시 */
+.lego-piece .superscript {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* 레고 조각 애니메이션 */
+@keyframes lego-pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lego-piece.pop {
+    animation: lego-pop 0.3s ease;
+}
+
+/* 조각 삭제 버튼 */
+.lego-piece .remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background: #e74c3c;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.lego-piece:hover .remove-btn {
+    display: flex;
+}
+
+.lego-piece .remove-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* 정답 효과 */
+@keyframes correct-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(46, 204, 113, 1);
+    }
+}
+
+.lego-piece.correct {
+    animation: correct-glow 1s ease-in-out infinite;
+}
+
+/* 오답 효과 */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+.lego-piece.incorrect {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* 빈 슬롯 (조립 가이드) */
+.lego-slot {
+    display: inline-block;
+    width: 60px;
+    height: 44px;
+    border: 2px dashed #bdc3c7;
+    border-radius: 8px;
+    margin: 2px;
+    background: rgba(189, 195, 199, 0.1);
+    position: relative;
+}
+
+.lego-slot::after {
+    content: attr(data-hint);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 10px;
+    color: #95a5a6;
+    text-align: center;
+}
+
+.lego-slot.filled {
+    border-style: solid;
+    border-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+}
+
+/* 조각 복제 효과 */
+.lego-piece.cloning {
+    animation: clone-effect 0.3s ease;
+}
+
+@keyframes clone-effect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 조각 스냅 효과 */
+@keyframes snap-effect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.lego-piece.snapping {
+    animation: snap-effect 0.2s ease;
+}
+
+/* 힌트 하이라이트 */
+.lego-piece.hint-highlight {
+    animation: hint-pulse 1s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(241, 196, 15, 1);
+        transform: scale(1.05);
+    }
+}
+
+/* 레고 조각 설명 툴팁 */
+.lego-piece .tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.lego-piece:hover .tooltip {
+    opacity: 1;
+}
+
+.lego-piece .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 반응형 조각 크기 */
+@media (max-width: 480px) {
+    .lego-piece {
+        font-size: 16px;
+        padding: 8px 12px;
+        min-width: 36px;
+    }
+
+    .lego-piece::before {
+        width: 10px;
+        height: 6px;
+    }
+
+    .lego-slot {
+        width: 50px;
+        height: 38px;
+    }
+}
