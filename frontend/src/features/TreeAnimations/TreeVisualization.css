@@ -1,0 +1,24 @@
+.tree-visualization-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tree-svg {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.branch-line {
+  cursor: pointer;
+  transition: stroke-width 0.2s;
+}
+
+.branch-line:hover {
+  stroke-width: 15px;
+  filter: brightness(1.2);
+}

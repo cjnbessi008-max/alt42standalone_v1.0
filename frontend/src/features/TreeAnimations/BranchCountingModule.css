@@ -1,0 +1,202 @@
+.branch-counting-module {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* 난이도 선택 */
+.difficulty-selector {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.difficulty-selector label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.difficulty-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  background: #e0e0e0;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.difficulty-btn:hover:not(:disabled) {
+  background: #d0d0d0;
+  transform: scale(1.1);
+}
+
+.difficulty-btn.active {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.15);
+}
+
+.difficulty-btn:disabled {
+  opacity: 0.3;
+}
+
+/* 컨트롤 패널 */
+.control-panel {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.animate-btn,
+.reset-btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 24px;
+}
+
+.reset-btn {
+  background: #ff6b6b;
+}
+
+.reset-btn:hover:not(:disabled) {
+  background: #ff5252;
+}
+
+/* 답변 폼 */
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.answer-form label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.answer-form input {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.answer-form button {
+  margin-top: 0.5rem;
+}
+
+/* 피드백 */
+.feedback {
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.feedback-success {
+  background: #d4edda;
+  border: 2px solid #28a745;
+  color: #155724;
+}
+
+.feedback-error {
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+  color: #721c24;
+}
+
+.feedback-hint {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  color: #856404;
+}
+
+.feedback p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.next-btn {
+  background: #28a745;
+  margin-top: 0.5rem;
+}
+
+.next-btn:hover {
+  background: #218838;
+}
+
+/* 진행 상황 */
+.progress-info {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.progress-info p {
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .branch-counting-module {
+    padding: 0.5rem;
+  }
+
+  .control-panel {
+    flex-direction: column;
+  }
+
+  .animate-btn,
+  .reset-btn {
+    width: 100%;
+  }
+}
