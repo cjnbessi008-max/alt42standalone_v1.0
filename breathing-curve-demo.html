@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathing Curve - 숨쉬는 함수 그래프</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .smartphone-container {
+            position: relative;
+            width: 375px;
+            height: 667px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 8px solid #2a2a2a;
+            overflow: hidden;
+        }
+
+        .smartphone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: #1a1a1a;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        .app-container {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            padding: 40px 20px 20px 20px;
+            overflow: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .problem-info {
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .problem-info h2 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .problem-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .canvas-container {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .info-panel {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .info-panel p {
+            font-size: 13px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .smartphone-container {
+                width: 100%;
+                max-width: 375px;
+                height: auto;
+                min-height: 667px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="smartphone-container">
+        <div class="smartphone-notch"></div>
+        <div class="app-container">
+            <div class="header">
+                <h1>🫁 Breathing Curve</h1>
+                <p>숨쉬는 함수 그래프</p>
+            </div>
+
+            <div class="problem-info">
+                <h2>문제: 2차 함수의 특성</h2>
+                <p>다음 함수의 증가/감소 구간을 관찰하세요:<br>
+                <strong>f(x) = -0.5(x - 3)² + 4</strong></p>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="breathingCanvas"></canvas>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" onclick="changeFunction('quadratic')">2차 함수</button>
+                <button class="control-btn" onclick="changeFunction('sine')">삼각 함수</button>
+                <button class="control-btn" onclick="changeFunction('cubic')">3차 함수</button>
+            </div>
+
+            <div class="info-panel">
+                <p><strong>현재 애니메이션:</strong> <span id="currentFunc">2차 함수</span></p>
+                <p><strong>Breathing 효과:</strong> 증가 구간은 파란색으로 확장, 감소 구간은 빨간색으로 수축</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('breathingCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 캔버스 크기 설정
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth - 30;
+            canvas.height = 300;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // 애니메이션 상태
+        let breathPhase = 0; // 0 ~ 2π
+        let currentFunctionType = 'quadratic';
+
+        // 함수 정의
+        const functions = {
+            quadratic: {
+                name: '2차 함수',
+                func: (x) => -0.5 * Math.pow(x - 3, 2) + 4,
+                derivative: (x) => -(x - 3), // 도함수 (증가/감소 판정)
+                range: { min: -2, max: 8 }
+            },
+            sine: {
+                name: '삼각 함수',
+                func: (x) => 3 * Math.sin(x / 2) + 2,
+                derivative: (x) => 1.5 * Math.cos(x / 2),
+                range: { min: -2, max: 10 }
+            },
+            cubic: {
+                name: '3차 함수',
+                func: (x) => 0.1 * Math.pow(x - 3, 3) - 0.5 * (x - 3) + 2,
+                derivative: (x) => 0.3 * Math.pow(x - 3, 2) - 0.5,
+                range: { min: -2, max: 8 }
+            }
+        };
+
+        // 좌표 변환 함수
+        function toCanvasX(x) {
+            const range = functions[currentFunctionType].range;
+            const xRange = range.max - range.min;
+            return (x - range.min) / xRange * (canvas.width - 80) + 40;
+        }
+
+        function toCanvasY(y) {
+            const yMin = -2, yMax = 6;
+            const yRange = yMax - yMin;
+            return canvas.height - ((y - yMin) / yRange * (canvas.height - 80) + 40);
+        }
+
+        // Breathing 효과 계산
+        function getBreathingScale(phase) {
+            // 부드러운 sine 기반 호흡 효과 (0.85 ~ 1.15)
+            return 1 + 0.15 * Math.sin(phase);
+        }
+
+        // 그래프 그리기
+        function drawGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const currentFunc = functions[currentFunctionType];
+            const range = currentFunc.range;
+
+            // 배경 그리드
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let x = range.min; x <= range.max; x++) {
+                ctx.beginPath();
+                ctx.moveTo(toCanvasX(x), 0);
+                ctx.lineTo(toCanvasX(x), canvas.height);
+                ctx.stroke();
+            }
+
+            // 좌표축
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+
+            // X축
+            ctx.beginPath();
+            ctx.moveTo(toCanvasX(range.min), toCanvasY(0));
+            ctx.lineTo(toCanvasX(range.max), toCanvasY(0));
+            ctx.stroke();
+
+            // Y축
+            ctx.beginPath();
+            ctx.moveTo(toCanvasX(0), toCanvasY(-2));
+            ctx.lineTo(toCanvasX(0), toCanvasY(6));
+            ctx.stroke();
+
+            // 함수 곡선 - Breathing 효과 적용
+            const breathScale = getBreathingScale(breathPhase);
+            const step = 0.05;
+
+            for (let x = range.min; x <= range.max; x += step) {
+                const y = currentFunc.func(x);
+                const derivative = currentFunc.derivative(x);
+                const nextX = x + step;
+                const nextY = currentFunc.func(nextX);
+
+                // 증가/감소에 따라 색상 변경
+                const isIncreasing = derivative > 0;
+
+                // Breathing 효과에 따른 선 두께와 색상 알파값
+                const baseWidth = 3;
+                const lineWidth = baseWidth * breathScale;
+
+                // 증가 구간: 파란색, 감소 구간: 빨간색
+                if (isIncreasing) {
+                    const alpha = 0.5 + 0.3 * Math.sin(breathPhase);
+                    ctx.strokeStyle = `rgba(66, 126, 234, ${alpha})`;
+                } else {
+                    const alpha = 0.5 + 0.3 * Math.sin(breathPhase);
+                    ctx.strokeStyle = `rgba(234, 66, 98, ${alpha})`;
+                }
+
+                ctx.lineWidth = lineWidth;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                ctx.beginPath();
+                ctx.moveTo(toCanvasX(x), toCanvasY(y));
+                ctx.lineTo(toCanvasX(nextX), toCanvasY(nextY));
+                ctx.stroke();
+            }
+
+            // 극값 표시 (Breathing 효과)
+            drawCriticalPoints(breathScale);
+
+            // 축 레이블
+            ctx.fillStyle = '#666';
+            ctx.font = '12px sans-serif';
+            ctx.textAlign = 'center';
+
+            // X축 레이블
+            for (let x = range.min; x <= range.max; x += 2) {
+                ctx.fillText(x.toString(), toCanvasX(x), toCanvasY(0) + 20);
+            }
+
+            // Y축 레이블
+            ctx.textAlign = 'right';
+            for (let y = -2; y <= 6; y += 2) {
+                if (y !== 0) {
+                    ctx.fillText(y.toString(), toCanvasX(0) - 10, toCanvasY(y) + 4);
+                }
+            }
+        }
+
+        // 극값 표시
+        function drawCriticalPoints(breathScale) {
+            const currentFunc = functions[currentFunctionType];
+            const range = currentFunc.range;
+
+            // 극값 찾기 (도함수가 0인 지점)
+            for (let x = range.min; x <= range.max; x += 0.1) {
+                const derivative = currentFunc.derivative(x);
+                const nextDerivative = currentFunc.derivative(x + 0.1);
+
+                // 부호가 바뀌는 지점 (극값)
+                if (derivative * nextDerivative < 0) {
+                    const y = currentFunc.func(x);
+                    const canvasX = toCanvasX(x);
+                    const canvasY = toCanvasY(y);
+
+                    // Breathing 효과가 적용된 점
+                    const radius = 5 * breathScale;
+
+                    ctx.beginPath();
+                    ctx.arc(canvasX, canvasY, radius, 0, 2 * Math.PI);
+                    ctx.fillStyle = derivative > 0 ? 'rgba(66, 234, 126, 0.7)' : 'rgba(234, 198, 66, 0.7)';
+                    ctx.fill();
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // 애니메이션 루프
+        function animate() {
+            breathPhase += 0.03; // 호흡 속도
+            if (breathPhase > 2 * Math.PI) {
+                breathPhase = 0;
+            }
+
+            drawGraph();
+            requestAnimationFrame(animate);
+        }
+
+        // 함수 변경
+        function changeFunction(type) {
+            currentFunctionType = type;
+            document.getElementById('currentFunc').textContent = functions[type].name;
+
+            // 문제 정보 업데이트
+            const problemInfo = document.querySelector('.problem-info');
+            const functionExamples = {
+                quadratic: 'f(x) = -0.5(x - 3)² + 4',
+                sine: 'f(x) = 3sin(x/2) + 2',
+                cubic: 'f(x) = 0.1(x - 3)³ - 0.5(x - 3) + 2'
+            };
+
+            problemInfo.querySelector('p').innerHTML = `다음 함수의 증가/감소 구간을 관찰하세요:<br><strong>${functionExamples[type]}</strong>`;
+        }
+
+        // 초기화 및 애니메이션 시작
+        animate();
+
+        // LMS 연동을 위한 데이터 수신 인터페이스 (예시)
+        window.receiveProblemFromLMS = function(problemData) {
+            // Moodle에서 받은 문제 데이터 처리
+            console.log('Received problem data from LMS:', problemData);
+
+            // 예시: problemData = { type: 'quadratic', equation: '...', description: '...' }
+            if (problemData.type) {
+                changeFunction(problemData.type);
+            }
+        };
+
+        // 테스트용 LMS 데이터 시뮬레이션
+        console.log('Breathing Curve App initialized. Ready to receive data from LMS.');
+        console.log('Test with: receiveProblemFromLMS({type: "sine", description: "삼각함수 문제"})');
+    </script>
+</body>
+</html>
