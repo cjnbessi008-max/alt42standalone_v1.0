@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Configuration files (contain sensitive data)
+config/database.php
+config/moodle_config.php
+
+# Keep example files
+!config/database.example.php
+!config/moodle_config.example.php
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Cache
+cache/
+*.cache
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Backup files
+*.bak
+*.backup
+*~
