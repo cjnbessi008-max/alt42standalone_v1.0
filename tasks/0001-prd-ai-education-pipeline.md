@@ -263,27 +263,73 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - Conversational UI SHOULD use natural language processing
 - System SHOULD provide both text and voice input options
 
-### Phase 6: Integration & Deployment (시스템 완성)
+### Phase 6: Student Session Management (세션 & 이어하기)
 
-**FR-6.1: API Generation**
+**FR-6.1: Session State Tracking**
+- System MUST automatically track student learning session state in real-time
+- System MUST save current problem ID, problem index, and sequence information
+- System MUST record session start time and last activity time
+- System MUST support cross-device session synchronization
+- System MUST auto-save session state every 30 seconds (debounced)
+- Session state MUST be unique per student and module combination
+
+**FR-6.2: Draft Answer Persistence**
+- System MUST automatically save student draft answers before submission
+- System MUST support all input types (text, selections, drawings, etc.)
+- System MUST auto-save draft answers 5 seconds after input changes (debounced)
+- System MUST restore draft answers when student returns to a problem
+- System MUST delete draft answers automatically after submission
+- System MUST support offline draft storage with sync on reconnection
+
+**FR-6.3: Automatic Session Recovery**
+- System MUST detect existing active sessions when student accesses a module
+- System MUST display resume prompt with progress information
+- System MUST allow students to choose between resume or start new
+- System MUST restore exact problem and input state when resuming
+- System MUST expire inactive sessions after 30 days
+- System MUST handle session recovery within 3 seconds of page load
+
+**FR-6.4: Progress Preservation**
+- System MUST preserve completed problems list across sessions
+- System MUST track cumulative time spent on current problem
+- System MUST restore hint usage state (already viewed hints remain visible)
+- System MUST preserve UI settings (font size, dark mode, etc.)
+- System MUST maintain problem sequence for randomized modules
+
+**FR-6.5: Session Lifecycle Management**
+- System MUST manage session states: active, paused, completed, expired
+- System MUST mark sessions as completed when module is finished
+- System MUST archive completed sessions for 1 year (analytics)
+- System MUST cleanup expired session data after 90 days
+- System MUST log all session events for debugging and analytics
+
+**FR-6.6: Concurrent Session Handling**
+- System MUST detect when same module is opened on multiple devices
+- System MUST display warning for concurrent access
+- System MUST use last-write-wins strategy for conflict resolution
+- System MUST show last save time and device information
+
+### Phase 7: Integration & Deployment (시스템 완성)
+
+**FR-7.1: API Generation**
 - System MUST generate RESTful API endpoints
 - System MUST include authentication/authorization
 - System MUST generate API documentation (OpenAPI/Swagger)
 - System MUST include rate limiting and error handling
 
-**FR-6.2: End-to-End Testing**
+**FR-7.2: End-to-End Testing**
 - System MUST generate integration tests
 - System MUST validate complete workflows
 - System MUST test error scenarios and edge cases
 - System MUST include performance testing
 
-**FR-6.3: Deployment Package**
+**FR-7.3: Deployment Package**
 - System MUST generate Docker containers for deployment
 - System MUST include environment configuration
 - System MUST provide deployment scripts
 - System MUST generate monitoring and logging configuration
 
-**FR-6.4: Documentation Generation**
+**FR-7.4: Documentation Generation**
 - System MUST generate user documentation for teachers and students
 - System MUST generate technical documentation for maintainers
 - System MUST include troubleshooting guides
@@ -291,33 +337,35 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 
 ### Cross-Cutting Requirements
 
-**FR-7.1: AI/LLM Integration**
+**FR-8.1: AI/LLM Integration**
 - System MUST use Claude (Anthropic) as primary reasoning engine
 - System MUST maintain conversation context across pipeline stages
 - System MUST use structured prompts for consistency
 - System MUST implement retry logic for API failures
 - System MUST log all AI interactions for audit and debugging
 
-**FR-7.2: Version Control**
+**FR-8.2: Version Control**
 - System MUST version all generated artifacts
 - System MUST support rollback to previous versions
 - System MUST track changes and change reasons
 - System MUST enable comparison between versions
 
-**FR-7.3: Configuration Management**
+**FR-8.3: Configuration Management**
 - System MUST allow configuration of generation parameters
 - System MUST support different profiles (strict, balanced, creative)
 - System MUST enable customization of prompts and templates
 - System MUST provide admin interface for system configuration
 
-**FR-7.4: Security & Privacy**
+**FR-8.4: Security & Privacy**
 - System MUST encrypt sensitive data at rest and in transit
 - System MUST implement role-based access control (RBAC)
 - System MUST audit all system actions
 - System MUST comply with educational data privacy regulations (FERPA, COPPA)
 - System MUST sanitize all generated code to prevent injection attacks
+- System MUST protect session data with proper access controls
+- System MUST use HTTP-only cookies for session tokens
 
-**FR-7.5: Internationalization**
+**FR-8.5: Internationalization**
 - System MUST support Korean as primary language
 - System MUST support English as secondary language
 - System MUST generate UI in user's preferred language
@@ -560,6 +608,37 @@ The following are explicitly **NOT** part of this implementation:
 7. **StudentProgress** (dynamically generated per module)
    - Generated schema varies per module
    - Always includes: student_id, module_id, started_at, completed_at, progress_percentage
+
+8. **StudentSessionState** (session resume feature)
+   - id (UUID)
+   - student_id (foreign key to students)
+   - module_id (foreign key to modules)
+   - current_problem_id (UUID)
+   - problem_index (integer)
+   - total_problems (integer)
+   - session_data (JSONB) - completed_problems, hints_used, problem_sequence, ui_state
+   - is_completed (boolean)
+   - started_at, last_active_at, completed_at (timestamps)
+   - last_device_info (JSONB)
+   - created_at, updated_at
+
+9. **ProblemDrafts** (draft answer storage)
+   - id (UUID)
+   - student_id (foreign key)
+   - problem_id (UUID)
+   - module_id (foreign key)
+   - draft_answer (JSONB) - flexible structure for any input type
+   - time_spent_seconds (integer)
+   - hints_viewed (integer)
+   - saved_at (timestamp)
+
+10. **SessionEvents** (session analytics and debugging)
+    - id (UUID)
+    - session_id (foreign key to student_session_state)
+    - event_type (enum: session_start, session_pause, session_resume, etc.)
+    - event_data (JSONB)
+    - device_info (JSONB)
+    - created_at (timestamp)
 
 ### 6.4 Technology Stack
 
@@ -1042,34 +1121,49 @@ If after 6 months:
 - Accessibility implementation
 - **Deliverable**: Complete UI generation pipeline
 
-### Phase 5: Deployment & Testing (Weeks 23-26)
-**Sprint 12: API & Deployment**
+### Phase 5: Session Management & Student Features (Weeks 23-26)
+**Sprint 12: Session Resume Backend**
+- Session state tracking service
+- Draft answer storage service
+- API endpoints for session management
+- Redis cache integration
+- **Deliverable**: Working session backend
+
+**Sprint 13: Session Resume Frontend**
+- useSessionState and useDraftAnswer hooks
+- ResumeSessionPrompt component
+- AutoSaveIndicator component
+- Integration with module UI
+- **Deliverable**: Complete session resume feature
+
+### Phase 6: Deployment & Testing (Weeks 27-30)
+**Sprint 14: API & Deployment**
 - API endpoint generation
 - Docker containerization
 - Deployment automation
 - **Deliverable**: Deployable modules
 
-**Sprint 13: End-to-End Testing**
+**Sprint 15: End-to-End Testing**
 - Integration testing
 - User acceptance testing (UAT) with teachers
 - Performance optimization
 - Bug fixes
 - **Deliverable**: Production-ready MVP
 
-### Phase 6: Launch & Iteration (Weeks 27-30)
-**Sprint 14: Beta Launch**
+### Phase 7: Launch & Iteration (Weeks 31-34)
+**Sprint 16: Beta Launch**
 - Pilot with 5-10 teachers
 - Monitoring and support
 - Feedback collection
 - **Deliverable**: Beta release
 
-**Sprint 15: Refinement**
+**Sprint 17: Refinement**
 - Incorporate feedback
 - Fix critical issues
 - Improve generation quality
 - **Deliverable**: Improved system
 
-**Sprint 16: General Availability**
+**Sprint 18: General Availability**
 - Full rollout to all teachers
 - Documentation and training
 - Monitoring dashboards
