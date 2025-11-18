@@ -1,0 +1,49 @@
+# Explosion Count .gitignore
+
+# 설정 파일 (민감한 정보 포함)
+config/config.php
+
+# 데이터베이스 백업
+*.sql.backup
+*.sql.gz
+
+# 로그 파일
+*.log
+logs/
+
+# PHP 캐시
+*.cache
+cache/
+
+# 세션 파일
+sessions/
+
+# 업로드 파일
+uploads/
+
+# IDE 설정
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS 파일
+.DS_Store
+Thumbs.db
+
+# Node modules (개발 도구 사용 시)
+node_modules/
+package-lock.json
+
+# 빌드 출력
+dist/
+build/
+
+# 환경 변수
+.env
+.env.local
+
+# 임시 파일
+tmp/
+temp/
