@@ -1,0 +1,78 @@
+.student-practice-view {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 24px;
+}
+
+.practice-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.problem-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-column {
+  position: sticky;
+  top: 24px;
+  height: fit-content;
+}
+
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 100px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h2 {
+  color: #e74c3c;
+  margin-bottom: 16px;
+}
+
+.error-container p {
+  color: #7f8c8d;
+  margin-bottom: 24px;
+}
+
+.error-container button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-container button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .practice-container {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-column {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .student-practice-view {
+    padding: 16px;
+  }
+}

@@ -1,0 +1,127 @@
+.feedback-display {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feedback-display.correct {
+  border-left: 4px solid #27ae60;
+  background: linear-gradient(to right, #f0fff4 0%, white 20%);
+}
+
+.feedback-display.incorrect {
+  border-left: 4px solid #e74c3c;
+  background: linear-gradient(to right, #fff5f5 0%, white 20%);
+}
+
+.feedback-icon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.feedback-content {
+  flex: 1;
+}
+
+.feedback-message {
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+  font-size: 20px;
+}
+
+.feedback-explanation {
+  background: #f8f9fa;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.feedback-explanation p {
+  margin: 0;
+  color: #34495e;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.feedback-hint {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #856404;
+  font-size: 14px;
+}
+
+.feedback-actions {
+  display: flex;
+  align-items: center;
+}
+
+.next-btn,
+.retry-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.next-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.next-btn:hover {
+  background: #229954;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.retry-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.retry-btn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feedback-display {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feedback-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .next-btn,
+  .retry-btn {
+    width: 100%;
+  }
+}

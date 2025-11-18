@@ -1,0 +1,113 @@
+.problem-display {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 300px;
+}
+
+.no-problem {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 16px;
+  padding: 40px 0;
+}
+
+.problem-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.problem-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.difficulty {
+  font-size: 18px;
+  cursor: help;
+}
+
+.estimated-time {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.attempt-number {
+  margin-left: auto;
+  background: #3498db;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.problem-statement h2 {
+  color: #2c3e50;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.statement-content {
+  color: #34495e;
+  font-size: 18px;
+  line-height: 1.8;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.problem-visuals {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.problem-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.problem-svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.problem-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.problem-type-badge {
+  background: #ecf0f1;
+  color: #7f8c8d;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .problem-display {
+    padding: 20px;
+  }
+
+  .statement-content {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .problem-meta {
+    font-size: 13px;
+  }
+}
