@@ -1,0 +1,195 @@
+/* 가상 스마트폰 컨테이너 - 우측 하단 고정 */
+.virtual-phone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+}
+
+/* 스마트폰 본체 */
+.virtual-phone {
+  width: 320px;
+  height: 640px;
+  background: #1a1a1a;
+  border-radius: 35px;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 2px #2a2a2a,
+    0 0 0 1px #000;
+}
+
+/* 노치 (iPhone 스타일) */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.notch-speaker {
+  width: 50px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+}
+
+.notch-camera {
+  width: 10px;
+  height: 10px;
+  background: #111;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+/* 스마트폰 스크린 */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 25px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 상태바 */
+.phone-status-bar {
+  height: 44px;
+  padding: 0 20px;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.status-time {
+  margin-left: 10px;
+}
+
+.status-icons {
+  display: flex;
+  gap: 4px;
+}
+
+.status-icon {
+  font-size: 14px;
+}
+
+/* 앱 헤더 */
+.phone-header {
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.phone-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.heat-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 컨텐츠 영역 */
+.phone-content {
+  flex: 1;
+  background: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+/* 스크롤바 스타일 */
+.phone-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.phone-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.phone-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.phone-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 홈 인디케이터 (iPhone 스타일) */
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+/* 반응형: 모바일에서는 전체 화면으로 */
+@media (max-width: 768px) {
+  .virtual-phone-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: none;
+  }
+
+  .virtual-phone {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .phone-screen {
+    border-radius: 0;
+  }
+
+  .phone-notch {
+    display: none;
+  }
+}
+
+/* 드래그 가능하게 만들기 (선택사항) */
+.virtual-phone-container.draggable {
+  cursor: move;
+}
+
+.virtual-phone-container.draggable:active {
+  cursor: grabbing;
+}
