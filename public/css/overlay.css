@@ -1,0 +1,298 @@
+/**
+ * Overlay Substitute Styles
+ * 치환 전/후 코드 표시 - 겹침 방지 레이아웃
+ */
+
+.overlay-substitute-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+/* Toggle Buttons - 치환 전/후 전환 */
+.overlay-toggle {
+    display: flex;
+    gap: 0;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px 15px;
+    background: #ffffff;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.toggle-btn:first-child {
+    border-radius: 8px 0 0 8px;
+    border-right: 1px solid #ddd;
+}
+
+.toggle-btn:last-child {
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid #ddd;
+}
+
+.toggle-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    z-index: 1;
+}
+
+.toggle-btn:hover:not(.active) {
+    background: #f0f0f0;
+    border-color: #667eea;
+}
+
+/* Code Display Wrapper - 겹침 방지 핵심 */
+.code-display-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+/* Code Panels - 절대 위치로 겹치지 않게 전환 */
+.code-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transform: translateX(20px);
+}
+
+.code-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 10;
+}
+
+/* Panel Label */
+.panel-label {
+    padding: 12px 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 3px solid #5568d3;
+    letter-spacing: 0.5px;
+}
+
+/* Code Block */
+.code-block {
+    flex: 1;
+    margin: 0;
+    padding: 15px;
+    background: #282c34;
+    color: #abb2bf;
+    font-family: 'Courier New', Consolas, Monaco, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Syntax Highlighting */
+.code-block .keyword {
+    color: #c678dd;
+    font-weight: bold;
+}
+
+.code-block .function {
+    color: #61afef;
+}
+
+.code-block .string {
+    color: #98c379;
+}
+
+.code-block .comment {
+    color: #5c6370;
+    font-style: italic;
+}
+
+/* Scrollbar Styling */
+.code-block::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.code-block::-webkit-scrollbar-track {
+    background: #21252b;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+    background: #4b5263;
+    border-radius: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb:hover {
+    background: #5c6370;
+}
+
+/* Slider View - Alternative visualization */
+.slider-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+.slider-container {
+    margin-bottom: 15px;
+}
+
+.overlay-slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.overlay-slider:hover {
+    opacity: 1;
+}
+
+.overlay-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 3px solid #667eea;
+}
+
+.overlay-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 3px solid #667eea;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+}
+
+/* Slider Code Display - 겹침 없는 슬라이더 방식 */
+.slider-code-display {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #282c34;
+}
+
+.slider-before,
+.slider-after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.slider-before {
+    clip-path: inset(0 50% 0 0);
+}
+
+.slider-after {
+    clip-path: inset(0 0 0 50%);
+}
+
+/* Difference Highlighting */
+.code-diff-add {
+    background: rgba(46, 160, 67, 0.2);
+    color: #a6e22e;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.code-diff-remove {
+    background: rgba(249, 38, 114, 0.2);
+    color: #f92672;
+    padding: 2px 4px;
+    border-radius: 3px;
+    text-decoration: line-through;
+}
+
+/* Animation for panel switching */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.code-panel.active {
+    animation: slideIn 0.4s ease;
+}
+
+/* Accessibility - Focus states */
+.toggle-btn:focus {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+.overlay-slider:focus {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Loading State */
+.code-panel.loading .code-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.code-panel.loading .code-block::before {
+    content: '로딩 중...';
+    font-size: 14px;
+}
+
+/* Empty State */
+.code-block:empty::before {
+    content: '// 코드가 없습니다';
+    color: #5c6370;
+    font-style: italic;
+}
