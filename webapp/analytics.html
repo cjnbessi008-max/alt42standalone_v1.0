@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습 분석 대시보드 - Dot Collector</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/dotcollector.css">
+    <link rel="stylesheet" href="css/analytics.css">
+</head>
+<body>
+    <!-- Main Container with Smartphone Frame -->
+    <div class="smartphone-frame">
+        <div class="smartphone-screen">
+            <!-- App Header -->
+            <header class="app-header">
+                <h1>📊 학습 분석</h1>
+                <button id="back-to-quiz-btn" class="header-btn">← 퀴즈로</button>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="app-content">
+                <!-- Student Profile Summary -->
+                <section id="profile-section" class="section">
+                    <div class="analytics-card">
+                        <h2>📌 학습 프로필</h2>
+                        <div id="profile-content" class="loading">프로필을 불러오는 중...</div>
+                    </div>
+                </section>
+
+                <!-- Performance Overview -->
+                <section id="performance-section" class="section">
+                    <div class="analytics-card">
+                        <h2>🎯 성과 요약</h2>
+                        <div id="performance-content" class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">총 문제 수</span>
+                                <span class="stat-value" id="total-attempts">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">정답 수</span>
+                                <span class="stat-value" id="correct-answers">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">정답률</span>
+                                <span class="stat-value" id="accuracy-rate">0%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">평균 시간</span>
+                                <span class="stat-value" id="avg-time">0초</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Skill Progression -->
+                <section id="skills-section" class="section">
+                    <div class="analytics-card">
+                        <h2>📈 기술 진행도</h2>
+                        <div id="skills-content" class="skills-list">
+                            <p class="loading">기술 데이터를 불러오는 중...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Learning Recommendations -->
+                <section id="recommendations-section" class="section">
+                    <div class="analytics-card">
+                        <h2>💡 학습 추천</h2>
+                        <div id="recommendations-content">
+                            <p class="loading">추천 데이터를 불러오는 중...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Learning Preferences -->
+                <section id="preferences-section" class="section">
+                    <div class="analytics-card">
+                        <h2>⚙️ 학습 설정</h2>
+                        <div id="preferences-content">
+                            <div class="preference-item">
+                                <label for="difficulty-pref">선호 난이도:</label>
+                                <select id="difficulty-pref">
+                                    <option value="1">매우 쉬움 (1)</option>
+                                    <option value="2" selected>쉬움 (2)</option>
+                                    <option value="3">보통 (3)</option>
+                                    <option value="4">어려움 (4)</option>
+                                    <option value="5">매우 어려움 (5)</option>
+                                </select>
+                            </div>
+                            <div class="preference-item">
+                                <label for="pace-pref">학습 속도:</label>
+                                <select id="pace-pref">
+                                    <option value="slow">천천히</option>
+                                    <option value="medium" selected>보통</option>
+                                    <option value="fast">빠르게</option>
+                                </select>
+                            </div>
+                            <button id="save-preferences-btn" class="btn btn-primary">설정 저장</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Achievement Badges -->
+                <section id="achievements-section" class="section">
+                    <div class="analytics-card">
+                        <h2>🏆 성취 뱃지</h2>
+                        <div id="achievements-content" class="badges-grid">
+                            <!-- Badges will be dynamically added -->
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- App Footer -->
+            <footer class="app-footer">
+                <p>KAIST Touch Math Academy - Dot Collector v1.0</p>
+            </footer>
+        </div>
+
+        <!-- Smartphone Home Button -->
+        <div class="smartphone-home-btn"></div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/api.js"></script>
+    <script src="js/analytics.js"></script>
+</body>
+</html>

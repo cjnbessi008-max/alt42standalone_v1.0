@@ -93,6 +93,41 @@ class DotCollectorAPI {
     async getProgress() {
         return await this.request('get_progress');
     }
+
+    // Recommendation API Methods
+    async getRecommendedQuestions(count = 5, strategy = 'adaptive') {
+        return await this.request('get_recommended_questions', {
+            count: count,
+            strategy: strategy
+        });
+    }
+
+    async updateAfterAttempt(questionId, isCorrect, timeSpent) {
+        return await this.request('update_after_attempt', {
+            question_id: questionId,
+            is_correct: isCorrect,
+            time_spent: timeSpent
+        });
+    }
+
+    async getAnalytics() {
+        return await this.request('get_analytics');
+    }
+
+    async getStudentProfile() {
+        return await this.request('get_student_profile');
+    }
+
+    async getSkillProgression() {
+        return await this.request('get_skill_progression');
+    }
+
+    async setLearningPreference(difficulty, pace) {
+        return await this.request('set_learning_preference', {
+            preferred_difficulty: difficulty,
+            learning_pace: pace
+        });
+    }
 }
 
 // Export API instance

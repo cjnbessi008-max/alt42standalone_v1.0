@@ -1,0 +1,321 @@
+/* Analytics Dashboard Styling */
+
+.header-btn {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.header-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Analytics Cards */
+.analytics-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.analytics-card h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Skills List */
+.skills-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.skill-item {
+    margin-bottom: 15px;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.skill-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.skill-level {
+    font-size: 14px;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.skill-progress {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.skill-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #999;
+}
+
+/* Profile Content */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.profile-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.profile-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.profile-value.highlight {
+    color: #667eea;
+    font-size: 16px;
+}
+
+/* Recommendations */
+.recommendation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recommendation-item {
+    padding: 12px;
+    background: #f0f4ff;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.recommendation-item h3 {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.recommendation-item p {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+/* Preferences */
+.preference-item {
+    margin-bottom: 15px;
+}
+
+.preference-item label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.preference-item select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background: white;
+}
+
+.preference-item select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Badges Grid */
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.badge-item.earned {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+.badge-icon {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.badge-name {
+    font-size: 11px;
+    color: #333;
+    font-weight: 600;
+}
+
+.badge-item.locked {
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.empty-state-text {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Charts (simple text-based for now) */
+.chart-container {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.chart-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chart-label {
+    min-width: 80px;
+    font-size: 12px;
+    color: #666;
+}
+
+.chart-bar-fill {
+    flex: 1;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.chart-bar-value {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.chart-percentage {
+    margin-left: 10px;
+    font-size: 12px;
+    color: #333;
+    font-weight: 600;
+    min-width: 40px;
+}
+
+/* Responsive */
+@media (max-width: 375px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

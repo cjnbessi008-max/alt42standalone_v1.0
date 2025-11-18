@@ -52,12 +52,29 @@ class DotCollectorApp {
 
     async loadQuestions() {
         try {
-            this.questions = await api.getQuestions();
-            console.log('Loaded questions:', this.questions);
+            // Try to get recommended questions first
+            const profile = await api.getStudentProfile();
+
+            if (profile && !profile.is_new_student) {
+                // Use recommendation system for existing students
+                this.questions = await api.getRecommendedQuestions(10, 'adaptive');
+                console.log('Loaded recommended questions:', this.questions);
+            } else {
+                // Fallback to all questions for new students
+                this.questions = await api.getQuestions();
+                console.log('Loaded all questions:', this.questions);
+            }
+
             this.updateProgress();
         } catch (error) {
             console.error('Error loading questions:', error);
-            this.showMessage('문제를 불러오는 중 오류가 발생했습니다.', 'error');
+            // Fallback to basic questions
+            try {
+                this.questions = await api.getQuestions();
+                this.updateProgress();
+            } catch (fallbackError) {
+                this.showMessage('문제를 불러오는 중 오류가 발생했습니다.', 'error');
+            }
         }
     }
 
@@ -268,6 +285,11 @@ class DotCollectorApp {
         document.getElementById('next-question-btn').addEventListener('click', () => {
             this.loadQuestion(this.currentQuestionIndex + 1);
         });
+
+        // Analytics button
+        document.getElementById('analytics-btn').addEventListener('click', () => {
+            window.location.href = 'analytics.html' + window.location.search;
+        });
     }
 
     async submitAnswer() {
@@ -300,6 +322,19 @@ class DotCollectorApp {
                 dotState.dots,
                 { timestamp: new Date().toISOString() }
             );
+
+            // Update recommendation system with attempt result
+            try {
+                await api.updateAfterAttempt(
+                    this.currentQuestion.id,
+                    result.is_correct,
+                    timeSpent
+                );
+                console.log('Updated student profile with attempt data');
+            } catch (updateError) {
+                console.error('Error updating profile:', updateError);
+                // Non-critical error, continue anyway
+            }
 
             // Show feedback
             this.showFeedback(result.is_correct, result.correct_answer, answer);
