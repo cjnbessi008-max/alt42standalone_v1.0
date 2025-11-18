@@ -1,0 +1,171 @@
+.problem-solver {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.problem-card {
+  border-left: 4px solid #1a73e8;
+}
+
+.problem-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.problem-type {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  padding: 0.3rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.difficulty {
+  color: #f9ab00;
+  font-size: 0.9em;
+}
+
+.problem-card h2 {
+  margin: 0.5rem 0;
+  color: #202124;
+}
+
+.problem-description {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #5f6368;
+}
+
+.answer-card h3,
+.explanation-card h3 {
+  color: #1a73e8;
+  margin-bottom: 1rem;
+}
+
+.answer-card form,
+.explanation-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #202124;
+}
+
+.your-answer {
+  background-color: #fce8e6;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid #d93025;
+}
+
+.instruction {
+  color: #5f6368;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.feedback-card {
+  border-left: 4px solid #0f9d58;
+}
+
+.feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.feedback-header h3 {
+  margin: 0;
+  color: #0f9d58;
+}
+
+.confidence {
+  background-color: #e6f4ea;
+  color: #0f9d58;
+  padding: 0.3rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.feedback-section {
+  margin-bottom: 1.5rem;
+}
+
+.feedback-section h4 {
+  margin-bottom: 0.5rem;
+  color: #5f6368;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.feedback-box {
+  padding: 1rem;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.feedback-box.misconception {
+  background-color: #fef7e0;
+  border-left: 4px solid #f9ab00;
+  color: #5f6368;
+}
+
+.feedback-box.corrective {
+  background-color: #e8f0fe;
+  border-left: 4px solid #1a73e8;
+  color: #202124;
+}
+
+.feedback-box.encouragement {
+  background-color: #e6f4ea;
+  border-left: 4px solid #0f9d58;
+  color: #137333;
+  font-style: italic;
+}
+
+.success-card {
+  text-align: center;
+  border-left: 4px solid #0f9d58;
+}
+
+.next-button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.8em 1.5em;
+  font-size: 1.1em;
+  background-color: #0f9d58;
+}
+
+.next-button:hover {
+  background-color: #0d8546;
+}
+
+@media (max-width: 768px) {
+  .problem-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feedback-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

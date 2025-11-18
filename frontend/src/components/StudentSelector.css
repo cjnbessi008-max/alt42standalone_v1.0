@@ -1,0 +1,39 @@
+.student-selector {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.student-selector h2 {
+  text-align: center;
+  color: #1a73e8;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  text-align: center;
+  color: #5f6368;
+  margin-bottom: 2rem;
+}
+
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #202124;
+}
+
+.student-form button {
+  margin-top: 1rem;
+  padding: 0.8em 1.5em;
+  font-size: 1.1em;
+}

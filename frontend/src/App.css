@@ -1,0 +1,103 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.1em;
+  opacity: 0.95;
+}
+
+.student-info {
+  margin-bottom: 1.5rem;
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.student-header h3 {
+  margin: 0;
+}
+
+.grade {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.student-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+button.active {
+  background-color: #1557b0;
+  border: 2px solid #1a73e8;
+}
+
+button.secondary {
+  background-color: #f1f3f4;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+}
+
+button.secondary:hover {
+  background-color: #e8eaed;
+}
+
+.app-footer {
+  margin-top: auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  color: #5f6368;
+  border-top: 1px solid #e0e0e0;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .student-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .student-actions {
+    width: 100%;
+  }
+
+  .student-actions button {
+    flex: 1;
+  }
+}
