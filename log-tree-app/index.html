@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Tree - 로그 함수 학습 앱</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <h1>🌳 Log Tree</h1>
+            <p class="subtitle">로그 함수의 성장을 나무로 시각화</p>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Student Info Section -->
+            <section class="student-info">
+                <h2>학습자 정보</h2>
+                <div id="studentName">학습자: 로딩 중...</div>
+                <div id="studentProgress">진행률: 0%</div>
+                <div id="currentLevel">현재 레벨: 1</div>
+            </section>
+
+            <!-- Problem Section -->
+            <section class="problem-section">
+                <h2>현재 문제</h2>
+                <div id="currentProblem" class="problem-display">
+                    <p>Moodle에서 문제를 불러오는 중...</p>
+                </div>
+                <div class="answer-input">
+                    <input type="text" id="answerInput" placeholder="답을 입력하세요">
+                    <button id="submitAnswer">제출</button>
+                </div>
+                <div id="feedback" class="feedback"></div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="statistics">
+                <h2>학습 통계</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">해결한 문제</span>
+                        <span class="stat-value" id="solvedProblems">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">정확도</span>
+                        <span class="stat-value" id="accuracy">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">나무 높이</span>
+                        <span class="stat-value" id="treeHeight">0 cm</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">성장 지수</span>
+                        <span class="stat-value" id="growthIndex">log₂(1) = 0</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Smartphone Frame (Bottom Right) -->
+    <div class="smartphone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+            <!-- Tree Visualization Canvas -->
+            <div class="tree-container">
+                <svg id="treeSVG" viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sky Background -->
+                    <defs>
+                        <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+                        </linearGradient>
+
+                        <!-- Tree Shadow -->
+                        <filter id="treeShadow">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                            <feOffset dx="2" dy="2" result="offsetblur"/>
+                            <feComponentTransfer>
+                                <feFuncA type="linear" slope="0.3"/>
+                            </feComponentTransfer>
+                            <feMerge>
+                                <feMergeNode/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Background -->
+                    <rect width="300" height="500" fill="url(#skyGradient)"/>
+
+                    <!-- Ground -->
+                    <rect x="0" y="400" width="300" height="100" fill="#8B7355"/>
+                    <rect x="0" y="390" width="300" height="10" fill="#90EE90"/>
+
+                    <!-- Tree Group (will be dynamically updated) -->
+                    <g id="treeGroup" filter="url(#treeShadow)">
+                        <!-- Trunk -->
+                        <rect id="treeTrunk" x="135" y="350" width="30" height="50" fill="#654321" rx="3"/>
+
+                        <!-- Branches (initially hidden, grow with progress) -->
+                        <g id="branches" opacity="0">
+                            <!-- Left Branch -->
+                            <line x1="145" y1="360" x2="120" y2="340" stroke="#654321" stroke-width="4" stroke-linecap="round"/>
+                            <!-- Right Branch -->
+                            <line x1="155" y1="360" x2="180" y2="340" stroke="#654321" stroke-width="4" stroke-linecap="round"/>
+                        </g>
+
+                        <!-- Leaves (grow with progress) -->
+                        <g id="leaves">
+                            <!-- Initial small leaf cluster -->
+                            <circle cx="150" cy="345" r="15" fill="#228B22" opacity="0.8"/>
+                        </g>
+                    </g>
+
+                    <!-- Growth Indicator -->
+                    <text id="growthText" x="150" y="30" text-anchor="middle" fill="#333" font-size="14" font-weight="bold">
+                        시작하세요!
+                    </text>
+                </svg>
+            </div>
+
+            <!-- Phone UI Elements -->
+            <div class="phone-ui">
+                <div class="phone-message" id="phoneMessage">
+                    문제를 풀면 나무가 자랍니다 🌱
+                </div>
+            </div>
+        </div>
+        <div class="phone-bottom-bar"></div>
+    </div>
+
+    <!-- Moodle Configuration Modal -->
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <h2>Moodle 설정</h2>
+            <form id="moodleConfigForm">
+                <div class="form-group">
+                    <label for="moodleUrl">Moodle URL:</label>
+                    <input type="text" id="moodleUrl" placeholder="https://your-moodle.com" value="http://localhost/moodle">
+                </div>
+                <div class="form-group">
+                    <label for="moodleToken">API Token:</label>
+                    <input type="text" id="moodleToken" placeholder="Your Moodle Web Service Token">
+                </div>
+                <div class="form-group">
+                    <label for="courseId">Course ID:</label>
+                    <input type="number" id="courseId" placeholder="Course ID" value="2">
+                </div>
+                <div class="form-group">
+                    <label for="quizId">Quiz ID:</label>
+                    <input type="number" id="quizId" placeholder="Quiz ID" value="1">
+                </div>
+                <button type="submit">연결</button>
+                <button type="button" id="useDemoMode">데모 모드 사용</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings Button -->
+    <button id="settingsBtn" class="settings-btn" title="Moodle 설정">⚙️</button>
+
+    <!-- Scripts -->
+    <script src="js/moodle-api.js"></script>
+    <script src="js/log-calculator.js"></script>
+    <script src="js/tree-visualizer.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

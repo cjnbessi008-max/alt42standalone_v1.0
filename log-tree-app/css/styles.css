@@ -1,0 +1,457 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2E7D32;
+    --secondary-color: #66BB6A;
+    --accent-color: #FFA726;
+    --bg-color: #F5F5F5;
+    --text-color: #333;
+    --border-color: #DDD;
+    --success-color: #4CAF50;
+    --error-color: #F44336;
+    --phone-bg: #1a1a1a;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #E8F5E9 0%, #FFF9C4 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Dashboard Styles */
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-right: 400px; /* Space for smartphone frame */
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.dashboard-header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1em;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Section Styles */
+section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+section h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+/* Student Info */
+.student-info div {
+    margin: 10px 0;
+    font-size: 1.1em;
+    padding: 10px;
+    background: var(--bg-color);
+    border-radius: 6px;
+}
+
+/* Problem Section */
+.problem-display {
+    background: #FFF9E6;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    min-height: 80px;
+}
+
+.answer-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.answer-input input {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.1em;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.answer-input input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.answer-input button {
+    padding: 12px 30px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.answer-input button:hover {
+    background: #1B5E20;
+}
+
+.answer-input button:active {
+    transform: scale(0.98);
+}
+
+.feedback {
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+}
+
+.feedback.show {
+    display: block;
+    animation: slideIn 0.3s ease;
+}
+
+.feedback.correct {
+    background: #C8E6C9;
+    color: #2E7D32;
+    border: 2px solid var(--success-color);
+}
+
+.feedback.incorrect {
+    background: #FFCDD2;
+    color: #C62828;
+    border: 2px solid var(--error-color);
+}
+
+/* Statistics */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Smartphone Frame */
+.smartphone-frame {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 320px;
+    height: 600px;
+    background: var(--phone-bg);
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    padding: 12px;
+    z-index: 1000;
+    animation: slideInFromRight 0.6s ease;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: var(--phone-bg);
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.phone-bottom-bar {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: #555;
+    border-radius: 2px;
+}
+
+/* Tree Container */
+.tree-container {
+    width: 100%;
+    height: calc(100% - 60px);
+    position: relative;
+}
+
+#treeSVG {
+    width: 100%;
+    height: 100%;
+}
+
+/* Phone UI Elements */
+.phone-ui {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.phone-message {
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Settings Button */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--primary-color);
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s, background 0.3s;
+    z-index: 999;
+}
+
+.settings-btn:hover {
+    transform: rotate(90deg);
+    background: var(--bg-color);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+#moodleConfigForm button {
+    width: 48%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#moodleConfigForm button[type="submit"] {
+    background: var(--primary-color);
+    color: white;
+    margin-right: 4%;
+}
+
+#moodleConfigForm button[type="submit"]:hover {
+    background: #1B5E20;
+}
+
+#useDemoMode {
+    background: var(--accent-color);
+    color: white;
+}
+
+#useDemoMode:hover {
+    background: #F57C00;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Tree Growth Animation */
+.tree-growing {
+    animation: grow 1s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .smartphone-frame {
+        width: 280px;
+        height: 540px;
+    }
+
+    .dashboard {
+        padding-right: 320px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .smartphone-frame {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+    }
+
+    .dashboard {
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2em;
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 320px;
+    }
+}
