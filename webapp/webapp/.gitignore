@@ -1,0 +1,4 @@
+webapp/node_modules/
+webapp/backend/node_modules/
+webapp/frontend/node_modules/
+webapp/backend/data/*.db*
