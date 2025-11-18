@@ -1,0 +1,40 @@
+{
+  "moodle": {
+    "db_host": "localhost",
+    "db_port": 3306,
+    "db_name": "moodle",
+    "db_user": "moodle_readonly",
+    "db_password": "your_password_here",
+    "api_url": "https://your-moodle-site.com/webservice/rest/server.php",
+    "api_token": "your_moodle_api_token_here"
+  },
+  "analysis_db": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "moodle_analysis",
+    "user": "postgres",
+    "password": "your_password_here"
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "password": null
+  },
+  "anthropic": {
+    "api_key": "your_anthropic_api_key_here",
+    "model": "claude-3-5-sonnet-20241022",
+    "max_tokens": 1024
+  },
+  "analysis": {
+    "strength_threshold": 10.0,
+    "min_attempts_for_analysis": 5,
+    "cache_ttl_seconds": 3600,
+    "batch_size": 100
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "json",
+    "file": "logs/moodle_analysis.log"
+  }
+}

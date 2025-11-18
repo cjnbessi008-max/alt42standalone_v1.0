@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # PostgreSQL - 분석 결과 저장용
+  postgres:
+    image: postgres:15-alpine
+    container_name: moodle_analysis_db
+    environment:
+      POSTGRES_DB: moodle_analysis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis - 캐싱 및 세션 관리
+  redis:
+    image: redis:7-alpine
+    container_name: moodle_analysis_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI 백엔드
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: moodle_analysis_backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:changeme@postgres:5432/moodle_analysis
+      - REDIS_URL=redis://redis:6379/0
+      - MOODLE_DB_HOST=${MOODLE_DB_HOST:-localhost}
+      - MOODLE_DB_PORT=${MOODLE_DB_PORT:-3306}
+      - MOODLE_DB_NAME=${MOODLE_DB_NAME:-moodle}
+      - MOODLE_DB_USER=${MOODLE_DB_USER:-moodle}
+      - MOODLE_DB_PASSWORD=${MOODLE_DB_PASSWORD:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # React 프론트엔드
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: moodle_analysis_frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    depends_on:
+      - backend
+    command: npm start
+
+volumes:
+  postgres_data:
+  redis_data:
