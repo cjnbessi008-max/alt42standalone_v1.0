@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Paint - 그래프 넓이 학습</title>
+    <link rel="stylesheet" href="../src/styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 좌측: 문제 정보 영역 -->
+        <div class="problem-section">
+            <h1>그래프 넓이 구하기</h1>
+            <div id="problem-info">
+                <h2>문제</h2>
+                <p id="problem-text">문제를 불러오는 중...</p>
+                <div id="problem-meta"></div>
+            </div>
+            <div id="controls">
+                <button id="start-animation" class="btn btn-primary">애니메이션 시작</button>
+                <button id="reset-animation" class="btn btn-secondary">초기화</button>
+                <button id="next-problem" class="btn btn-success">다음 문제</button>
+            </div>
+            <div id="answer-section">
+                <h3>답안 입력</h3>
+                <input type="number" id="answer-input" placeholder="넓이를 입력하세요" step="0.01">
+                <button id="submit-answer" class="btn btn-primary">제출</button>
+                <div id="feedback"></div>
+            </div>
+        </div>
+
+        <!-- 우측: 가상 스마트폰 화면 -->
+        <div class="phone-container">
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="screen-header">
+                        <span class="app-title">Area Paint</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="graph-canvas" width="320" height="480"></canvas>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <p id="area-value">넓이: 0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../src/services/moodleAPI.js"></script>
+    <script src="../src/components/areaPaint.js"></script>
+    <script src="../src/utils/graph.js"></script>
+    <script src="../src/app.js"></script>
+</body>
+</html>

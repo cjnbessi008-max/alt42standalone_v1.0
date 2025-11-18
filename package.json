@@ -1,0 +1,30 @@
+{
+  "name": "area-paint",
+  "version": "1.0.0",
+  "description": "그래프 넓이를 색감 애니메이션으로 학습하는 웹 애플리케이션",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 --cors",
+    "test": "echo \"No tests specified yet\" && exit 0"
+  },
+  "keywords": [
+    "education",
+    "math",
+    "graph",
+    "animation",
+    "moodle",
+    "lms",
+    "area",
+    "integration"
+  ],
+  "author": "KAIST Touch Math Academy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjnbessi008-max/alt42standalone_v1.0.git"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
