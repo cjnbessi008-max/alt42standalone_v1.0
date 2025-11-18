@@ -1,0 +1,163 @@
+// Prisma Schema for Heavy Term Standalone
+// SQLite database for easy deployment
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Problem model - stores math problems
+model Problem {
+  id            String   @id @default(uuid())
+  title         String
+  questionText  String
+  questionType  String   @default("simplify") // simplify, solve, factor, etc.
+  difficulty    String   @default("medium") // easy, medium, hard, expert
+  category      String?  // algebra, calculus, geometry, etc.
+
+  // Metadata
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  isActive      Boolean  @default(true)
+
+  // Relations
+  terms         Term[]
+  sessions      Session[]
+
+  @@map("problems")
+}
+
+// Term model - individual mathematical terms with physics properties
+model Term {
+  id            String   @id @default(uuid())
+  problemId     String
+
+  // Term content
+  text          String
+  value         Float?   // numerical value if applicable
+
+  // Physics properties
+  size          Int      @default(1) // 1-10 scale
+  weight        Float    @default(1.0)
+  positionX     Float?
+  positionY     Float?
+  velocityX     Float    @default(0)
+  velocityY     Float    @default(0)
+
+  // Metadata
+  isAnswer      Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  // Relations
+  problem       Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  interactions  Interaction[]
+
+  @@map("terms")
+}
+
+// Session model - tracks user interaction sessions
+model Session {
+  id            String   @id @default(uuid())
+  problemId     String
+
+  // Session details
+  userId        String?  // optional user identification
+  deviceType    String   @default("smartphone") // smartphone, tablet, desktop
+
+  // Timestamps
+  startedAt     DateTime @default(now())
+  endedAt       DateTime?
+  isActive      Boolean  @default(true)
+
+  // Performance metrics
+  interactionCount Int   @default(0)
+  timeSpent     Int      @default(0) // seconds
+
+  // Relations
+  problem       Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  interactions  Interaction[]
+  answer        Answer?
+
+  @@map("sessions")
+}
+
+// Interaction model - logs user interactions with terms
+model Interaction {
+  id            String   @id @default(uuid())
+  sessionId     String
+  termId        String
+
+  // Interaction details
+  type          String   // tap, drag, drop, release, collision
+  positionX     Int?
+  positionY     Int?
+
+  // Additional data (JSON)
+  metadata      String?  // JSON string for flexible data
+
+  // Timestamp
+  timestamp     DateTime @default(now())
+
+  // Relations
+  session       Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  term          Term     @relation(fields: [termId], references: [id], onDelete: Cascade)
+
+  @@map("interactions")
+}
+
+// Answer model - stores submitted answers
+model Answer {
+  id            String   @id @default(uuid())
+  sessionId     String   @unique
+
+  // Answer data
+  answerData    String   // JSON string with answer details
+
+  // Evaluation
+  isCorrect     Boolean?
+  score         Float?
+  feedback      String?
+
+  // Timestamp
+  submittedAt   DateTime @default(now())
+
+  // Relations
+  session       Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("answers")
+}
+
+// Settings model - global physics and app settings
+model Setting {
+  id            String   @id @default(uuid())
+  key           String   @unique
+  value         String   // stored as string, parsed by app
+  type          String   @default("string") // string, number, boolean, json
+  description   String?
+
+  // Metadata
+  updatedAt     DateTime @updatedAt
+
+  @@map("settings")
+}
+
+// User model - optional local user profiles
+model User {
+  id            String   @id @default(uuid())
+  username      String?  @unique
+  displayName   String?
+
+  // Settings
+  preferences   String?  // JSON string
+
+  // Timestamps
+  createdAt     DateTime @default(now())
+  lastActiveAt  DateTime @default(now())
+
+  @@map("users")
+}
