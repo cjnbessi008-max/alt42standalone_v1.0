@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Detection & Reset System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>스트레스 감지 & 리셋 시스템</h1>
+            <p class="subtitle">Stress Detection & Reset System</p>
+        </header>
+
+        <main>
+            <section class="status-card">
+                <h2>현재 상태 / Current Status</h2>
+                <div id="status-display">
+                    <div class="status-item">
+                        <span class="label">모니터링:</span>
+                        <span id="monitor-status" class="value inactive">비활성 / Inactive</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">학습 시간:</span>
+                        <span id="study-time" class="value">0분</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">스트레스 점수:</span>
+                        <span id="stress-score" class="value">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">리셋 횟수:</span>
+                        <span id="reset-count" class="value">0회</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="control-card">
+                <h2>Moodle 연동 / Moodle Integration</h2>
+                <form id="moodle-form">
+                    <div class="form-group">
+                        <label for="moodle-user-id">Moodle User ID:</label>
+                        <input type="number" id="moodle-user-id" required placeholder="예: 123">
+                    </div>
+                    <div class="form-group">
+                        <label for="moodle-course-id">Moodle Course ID (선택사항):</label>
+                        <input type="number" id="moodle-course-id" placeholder="예: 456">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" id="start-btn" class="btn btn-primary">
+                            모니터링 시작 / Start Monitoring
+                        </button>
+                        <button type="button" id="stop-btn" class="btn btn-danger" disabled>
+                            중지 / Stop
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="test-card">
+                <h2>테스트 / Testing</h2>
+                <div class="button-group">
+                    <button id="test-effect-btn" class="btn btn-secondary">
+                        광효과 테스트 / Test Light Effect
+                    </button>
+                    <button id="test-stress-btn" class="btn btn-secondary" disabled>
+                        스트레스 체크 / Check Stress
+                    </button>
+                </div>
+            </section>
+
+            <section class="log-card">
+                <h2>활동 로그 / Activity Log</h2>
+                <div id="activity-log" class="log-container"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Moodle 3.7 | MySQL 5.7 | PHP 7.1.9</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/LightEffect.js"></script>
+    <script src="/js/StressMonitor.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

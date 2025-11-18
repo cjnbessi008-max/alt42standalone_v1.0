@@ -1,0 +1,24 @@
+{
+    "name": "stress-reset/moodle-integration",
+    "description": "Stress Detection & Reset System with Moodle LMS Integration",
+    "type": "project",
+    "keywords": ["stress", "moodle", "lms", "education", "wellness"],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.9",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "StressReset\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "echo 'No tests configured yet'",
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    }
+}
