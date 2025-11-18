@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database
+  mysql:
+    image: mysql:5.7
+    container_name: alt42-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: alt42_lms
+      MYSQL_USER: alt42_user
+      MYSQL_PASSWORD: alt42_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../database/migrations:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # PHP 7.1.9 Backend
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: alt42-php
+    ports:
+      - "8080:80"
+    volumes:
+      - ../backend:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_NAME: alt42_lms
+      DB_USER: alt42_user
+      DB_PASS: alt42_pass
+      MOODLE_URL: ${MOODLE_URL:-http://localhost/moodle}
+      MOODLE_TOKEN: ${MOODLE_TOKEN:-your_moodle_token}
+
+  # Frontend Development Server (optional)
+  frontend:
+    image: node:18-alpine
+    container_name: alt42-frontend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm start"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080/api
+
+volumes:
+  mysql_data:

@@ -1,0 +1,84 @@
+.phone-frame {
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.phone-notch {
+  width: 150px;
+  height: 25px;
+  background: #1a1a1a;
+  margin: 0 auto;
+  border-radius: 0 0 20px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.phone-screen {
+  background: #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 667px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-bar {
+  height: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.status-bar .time {
+  font-weight: 600;
+}
+
+.status-bar .icons {
+  display: flex;
+  gap: 8px;
+}
+
+.screen-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.phone-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #333;
+  margin: 12px auto 0;
+  opacity: 0.3;
+}
+
+/* Scrollbar styling */
+.screen-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.screen-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.screen-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.screen-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
