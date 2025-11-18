@@ -1,0 +1,401 @@
+/* Derivative Focus - Virtual Smartphone Display Styles */
+
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #FFC107;
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
+    --text-dark: #212121;
+    --text-light: #757575;
+    --bg-light: #FAFAFA;
+    --border-color: #E0E0E0;
+
+    /* Rule colors */
+    --power-rule-color: #FF6B6B;
+    --chain-rule-color: #4ECDC4;
+    --product-rule-color: #95E1D3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+main {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Control Panel */
+.control-panel {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.control-panel h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.input-group button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 24px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.input-group button:hover {
+    background: #1976D2;
+}
+
+.input-group button:active {
+    transform: scale(0.98);
+}
+
+/* Virtual Smartphone Container (Bottom Right) */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Smartphone Frame */
+.smartphone {
+    width: 380px;
+    height: 750px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 0 2px #2c2c2c,
+                0 0 0 12px #1a1a1a;
+    position: relative;
+}
+
+.smartphone-notch {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 25px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+}
+
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.smartphone-home-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 4px;
+    background: #4a4a4a;
+    border-radius: 2px;
+}
+
+/* App Interface */
+.app-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 40px 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.problem-display {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--bg-light);
+}
+
+.welcome-message {
+    text-align: center;
+    color: var(--text-light);
+    padding: 40px 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.welcome-message p:first-child {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.problem-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.problem-title {
+    color: var(--primary-color);
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.problem-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+/* Highlighted expressions */
+.highlight-power {
+    background-color: rgba(255, 107, 107, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: 2px solid var(--power-rule-color);
+}
+
+.highlight-chain {
+    background-color: rgba(78, 205, 196, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: 2px solid var(--chain-rule-color);
+}
+
+.highlight-product {
+    background-color: rgba(149, 225, 211, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: 2px solid var(--product-rule-color);
+}
+
+/* Rules Panel */
+.rules-panel {
+    background: white;
+    border-top: 1px solid var(--border-color);
+    padding: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.rules-panel h3 {
+    font-size: 1em;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.no-rules {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9em;
+    padding: 20px;
+}
+
+.rule-card {
+    background: var(--bg-light);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.rule-card.power-rule {
+    border-left-color: var(--power-rule-color);
+}
+
+.rule-card.chain-rule {
+    border-left-color: var(--chain-rule-color);
+}
+
+.rule-card.product-rule {
+    border-left-color: var(--product-rule-color);
+}
+
+.rule-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+.rule-formula {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.rule-description {
+    font-size: 0.8em;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+}
+
+.spinner {
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-message {
+    background: #FFEBEE;
+    color: var(--danger-color);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+    margin: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    main {
+        flex-direction: column;
+    }
+
+    .smartphone-container {
+        position: static;
+        margin: 30px auto 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone {
+        width: 100%;
+        max-width: 380px;
+        height: 650px;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+}
+
+/* Scrollbar Styling */
+.problem-display::-webkit-scrollbar,
+.rules-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.problem-display::-webkit-scrollbar-track,
+.rules-panel::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+.problem-display::-webkit-scrollbar-thumb,
+.rules-panel::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.problem-display::-webkit-scrollbar-thumb:hover,
+.rules-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light);
+}
