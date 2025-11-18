@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: lms-focus-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: lms_focus
+      MYSQL_USER: lmsuser
+      MYSQL_PASSWORD: lmspassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
+
+  backend:
+    build: ./backend
+    container_name: lms-focus-backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_USER=lmsuser
+      - DB_PASSWORD=lmspassword
+      - DB_NAME=lms_focus
+      - PORT=3001
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./frontend
+    container_name: lms-focus-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql_data:
