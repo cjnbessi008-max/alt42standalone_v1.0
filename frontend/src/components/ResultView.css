@@ -1,0 +1,275 @@
+.result-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-header {
+  text-align: center;
+  padding: 24px;
+  border-radius: 16px;
+  animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.result-header.correct {
+  background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+  border: 3px solid #4caf50;
+}
+
+.result-header.incorrect {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border: 3px solid #ff9800;
+}
+
+.result-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.result-header h2 {
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.result-message {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.result-candles {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.result-candles h3 {
+  text-align: center;
+  color: #667eea;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.feedback-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #667eea;
+}
+
+.feedback-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+  font-size: 1rem;
+}
+
+.steps-section {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.steps-toggle {
+  width: 100%;
+  padding: 16px;
+  background: #f8f9fa;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #667eea;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.steps-toggle:hover {
+  background: #e9ecef;
+}
+
+.steps-container {
+  padding: 20px;
+  animation: slideDown 0.3s ease;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  margin-bottom: 12px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+.step-number {
+  background: #667eea;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.step-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.step-calculation {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.step-result {
+  font-size: 1.1rem;
+  color: #764ba2;
+  font-weight: bold;
+}
+
+.step-candles {
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+.explanation-box {
+  margin-top: 20px;
+  padding: 16px;
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  border-radius: 12px;
+}
+
+.explanation-box strong {
+  color: #856404;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.explanation-box p {
+  color: #856404;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.attempt-info {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-label {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.info-value {
+  color: #333;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.action-section {
+  margin-top: auto;
+}
+
+.btn-next {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-next:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .result-icon {
+    font-size: 3rem;
+  }
+
+  .result-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .step-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step-content {
+    width: 100%;
+  }
+}
