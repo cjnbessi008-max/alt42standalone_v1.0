@@ -1,0 +1,221 @@
+/**
+ * Mental Care Message Card Styles
+ * Accessible, clean design for mental care messages
+ */
+
+.mental-care-message-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  border-left: 4px solid #6bcf7f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+.mental-care-message-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.message-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.message-type {
+  font-weight: 600;
+  font-size: 14px;
+  color: #555;
+  text-transform: capitalize;
+  flex: 1;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.close-button:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.message-body {
+  margin-bottom: 16px;
+}
+
+.message-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+}
+
+.recommended-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.action-tag {
+  display: inline-block;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.feedback-section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.feedback-prompt {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 12px 0;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.feedback-button {
+  flex: 1;
+  min-width: 90px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.feedback-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-button:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.feedback-button.helpful:hover {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.feedback-button.neutral:hover {
+  background-color: #fff9e6;
+  border-color: #ffc107;
+}
+
+.feedback-button.not-helpful:hover {
+  background-color: #ffebee;
+  border-color: #f44336;
+}
+
+.feedback-submitted {
+  background-color: #e8f5e9;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  color: #2e7d32;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.feedback-submitted p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .mental-care-message-card {
+    padding: 16px;
+  }
+
+  .message-text {
+    font-size: 15px;
+  }
+
+  .feedback-buttons {
+    flex-direction: column;
+  }
+
+  .feedback-button {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mental-care-message-card {
+    border-width: 2px;
+  }
+
+  .close-button:hover,
+  .feedback-button:hover {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .mental-care-message-card {
+    animation: none;
+    transition: none;
+  }
+
+  .mental-care-message-card:hover,
+  .feedback-button:hover {
+    transform: none;
+  }
+}
