@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Memory Pulse - Virtual Smartphone</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container (Bottom Right) -->
+    <div id="virtual-smartphone" class="smartphone-container">
+        <!-- Smartphone Frame -->
+        <div class="smartphone-frame">
+            <!-- Notch -->
+            <div class="smartphone-notch"></div>
+
+            <!-- Screen -->
+            <div class="smartphone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span class="status-time" id="current-time">12:00</span>
+                    <div class="status-icons">
+                        <span class="signal-icon">📶</span>
+                        <span class="battery-icon">🔋</span>
+                    </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="app-container">
+                    <!-- Game Header -->
+                    <div class="game-header">
+                        <h1 class="game-title">Number Memory Pulse</h1>
+                        <div class="game-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">레벨</span>
+                                <span class="stat-value" id="level">1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">점수</span>
+                                <span class="stat-value" id="score">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Game Screen -->
+                    <div class="game-screen">
+                        <!-- Welcome Screen -->
+                        <div id="welcome-screen" class="screen active">
+                            <div class="welcome-content">
+                                <div class="pulse-icon">💡</div>
+                                <h2>숫자 기억력을 키워보세요!</h2>
+                                <p>나타나는 숫자 패턴을 기억하고<br>순서대로 입력하세요.</p>
+                                <button class="btn-primary" id="btn-start">시작하기</button>
+                            </div>
+                        </div>
+
+                        <!-- Pattern Display Screen -->
+                        <div id="pattern-screen" class="screen">
+                            <div class="pattern-display">
+                                <div class="pattern-info">
+                                    <p class="instruction">숫자를 기억하세요...</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="pattern-progress"></div>
+                                    </div>
+                                </div>
+                                <div class="number-display" id="number-display">
+                                    <span class="display-number">5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Screen -->
+                        <div id="input-screen" class="screen">
+                            <div class="input-container">
+                                <p class="instruction">기억한 숫자를 입력하세요</p>
+                                <div class="user-input-display" id="user-input-display"></div>
+                                <div class="number-pad">
+                                    <button class="num-btn" data-num="1">1</button>
+                                    <button class="num-btn" data-num="2">2</button>
+                                    <button class="num-btn" data-num="3">3</button>
+                                    <button class="num-btn" data-num="4">4</button>
+                                    <button class="num-btn" data-num="5">5</button>
+                                    <button class="num-btn" data-num="6">6</button>
+                                    <button class="num-btn" data-num="7">7</button>
+                                    <button class="num-btn" data-num="8">8</button>
+                                    <button class="num-btn" data-num="9">9</button>
+                                    <button class="num-btn btn-clear" data-num="clear">←</button>
+                                    <button class="num-btn" data-num="0">0</button>
+                                    <button class="num-btn btn-submit" data-num="submit">✓</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result Screen -->
+                        <div id="result-screen" class="screen">
+                            <div class="result-container">
+                                <div class="result-icon" id="result-icon">🎉</div>
+                                <h2 class="result-title" id="result-title">정답입니다!</h2>
+                                <div class="result-details">
+                                    <p class="result-pattern">
+                                        <span class="label">정답:</span>
+                                        <span id="correct-pattern">1234</span>
+                                    </p>
+                                    <p class="result-pattern">
+                                        <span class="label">입력:</span>
+                                        <span id="user-pattern">1234</span>
+                                    </p>
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn-secondary" id="btn-retry">다시하기</button>
+                                    <button class="btn-primary" id="btn-next">다음 단계</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div id="loading-overlay" class="loading-overlay">
+                        <div class="spinner"></div>
+                        <p>문제를 불러오는 중...</p>
+                    </div>
+                </div>
+
+                <!-- Home Button -->
+                <div class="smartphone-home-btn"></div>
+            </div>
+        </div>
+
+        <!-- Minimize/Maximize Button -->
+        <button class="toggle-btn" id="toggle-smartphone">
+            <span class="toggle-icon">−</span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/moodle-api.js"></script>
+    <script src="js/game-engine.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
