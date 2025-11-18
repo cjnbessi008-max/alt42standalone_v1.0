@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: dynamic-tree-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dynamic_tree
+      MYSQL_USER: dtuser
+      MYSQL_PASSWORD: dtpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    networks:
+      - dynamic-tree-network
+
+  backend:
+    build: ./backend
+    container_name: dynamic-tree-backend
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: dtuser
+      DB_PASSWORD: dtpassword
+      DB_NAME: dynamic_tree
+      PORT: 3001
+      NODE_ENV: development
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mysql
+    networks:
+      - dynamic-tree-network
+    command: npm run dev
+
+  frontend:
+    build: ./frontend
+    container_name: dynamic-tree-frontend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - dynamic-tree-network
+    command: npm run dev
+
+volumes:
+  mysql_data:
+
+networks:
+  dynamic-tree-network:
+    driver: bridge
