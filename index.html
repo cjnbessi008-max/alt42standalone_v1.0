@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Cross-Section Viewer with Glow Effect</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 좌측: 컨트롤 패널 -->
+        <div class="control-panel">
+            <h2>3D Viewer Controls</h2>
+
+            <div class="section">
+                <h3>Cross-Section Control</h3>
+                <label>
+                    <input type="checkbox" id="enableCrossSection" checked>
+                    Enable Cross-Section
+                </label>
+                <div class="slider-group">
+                    <label>Position</label>
+                    <input type="range" id="clipPosition" min="-5" max="5" step="0.1" value="0">
+                    <span id="clipPositionValue">0.0</span>
+                </div>
+                <div class="slider-group">
+                    <label>Rotation X</label>
+                    <input type="range" id="clipRotationX" min="0" max="360" step="1" value="0">
+                    <span id="clipRotationXValue">0°</span>
+                </div>
+                <div class="slider-group">
+                    <label>Rotation Y</label>
+                    <input type="range" id="clipRotationY" min="0" max="360" step="1" value="0">
+                    <span id="clipRotationYValue">0°</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Glow Effect</h3>
+                <div class="slider-group">
+                    <label>Glow Intensity</label>
+                    <input type="range" id="glowIntensity" min="0" max="5" step="0.1" value="2.0">
+                    <span id="glowIntensityValue">2.0</span>
+                </div>
+                <div class="slider-group">
+                    <label>Glow Color</label>
+                    <input type="color" id="glowColor" value="#00ffff">
+                </div>
+                <div class="slider-group">
+                    <label>Glow Thickness</label>
+                    <input type="range" id="glowThickness" min="0.01" max="0.5" step="0.01" value="0.1">
+                    <span id="glowThicknessValue">0.1</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Model Selection</h3>
+                <select id="modelSelect">
+                    <option value="cube">Cube</option>
+                    <option value="sphere" selected>Sphere</option>
+                    <option value="torus">Torus</option>
+                    <option value="knot">Torus Knot</option>
+                </select>
+                <button id="loadFromMoodle">Load from Moodle</button>
+            </div>
+
+            <div class="section">
+                <h3>LMS Connection</h3>
+                <div class="status" id="moodleStatus">
+                    <span class="status-indicator disconnected"></span>
+                    Disconnected
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측: 스마트폰 화면 -->
+        <div class="phone-container">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div id="viewerContainer"></div>
+                    <div class="phone-controls">
+                        <button id="resetView">Reset View</button>
+                    </div>
+                </div>
+                <div class="phone-home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/examples/js/controls/OrbitControls.js"></script>
+
+    <!-- 애플리케이션 스크립트 -->
+    <script src="js/shaders.js"></script>
+    <script src="js/moodleAPI.js"></script>
+    <script src="js/viewer3d.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
