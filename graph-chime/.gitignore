@@ -1,0 +1,42 @@
+# Graph Chime .gitignore
+
+# Configuration files with sensitive data
+config/config.php
+
+# Log files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Node modules (if using build tools in future)
+node_modules/
+
+# Vendor directory (if using Composer)
+vendor/
+
+# Cache
+cache/
+*.cache
+
+# User uploads
+uploads/
+assets/uploads/
+
+# Database backups
+*.sql.gz
+backup/

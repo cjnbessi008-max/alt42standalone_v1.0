@@ -1,0 +1,250 @@
+/* Graph Chime - Main Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #50C878;
+    --background-color: #F5F7FA;
+    --text-color: #333;
+    --border-color: #DDD;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.main-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: calc(100vh - 40px);
+}
+
+/* 좌측 문제 영역 */
+.problem-section {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto;
+}
+
+.problem-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.problem-header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    color: #666;
+}
+
+.problem-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.problem-info {
+    background: #F8F9FA;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.problem-info h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.equation-display {
+    margin-top: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+.controls {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.control-group input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+}
+
+.control-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 버튼 스타일 */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #3A7BC8;
+}
+
+.btn-sound,
+.btn-sound-both {
+    background: var(--secondary-color);
+    color: white;
+    margin-left: 10px;
+}
+
+.btn-sound:hover:not(:disabled),
+.btn-sound-both:hover:not(:disabled) {
+    background: #40B868;
+}
+
+.btn-sound-both {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+/* 절편 정보 패널 */
+.info-panel {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.info-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.intercept-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.intercept-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #F8F9FA;
+    border-radius: 8px;
+}
+
+.intercept-item .label {
+    font-weight: 600;
+    color: #555;
+    min-width: 80px;
+}
+
+.intercept-item .value {
+    flex: 1;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .problem-section {
+        order: 2;
+    }
+
+    .smartphone-section {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .problem-header h1 {
+        font-size: 2em;
+    }
+
+    .equation-display {
+        font-size: 1.4em;
+    }
+}

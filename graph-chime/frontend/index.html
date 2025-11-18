@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Chime - 그래프 음향 학습</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/smartphone.css">
+</head>
+<body>
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 좌측: 문제 영역 -->
+        <div class="problem-section">
+            <div class="problem-header">
+                <h1>Graph Chime</h1>
+                <p class="subtitle">그래프의 절편을 음악으로 듣는다</p>
+            </div>
+
+            <div class="problem-content">
+                <div id="problemInfo" class="problem-info">
+                    <h2 id="problemTitle">문제를 불러오는 중...</h2>
+                    <p id="problemDescription"></p>
+                    <div class="equation-display">
+                        <span id="equationText">y = mx + b</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="moodleQuestionId">Moodle 문제 ID:</label>
+                        <input type="number" id="moodleQuestionId" value="1" min="1">
+                        <button id="loadProblemBtn" class="btn btn-primary">문제 불러오기</button>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="studentId">학생 ID:</label>
+                        <input type="number" id="studentId" value="1" min="1">
+                    </div>
+                </div>
+
+                <div class="info-panel">
+                    <h3>절편 정보</h3>
+                    <div class="intercept-info">
+                        <div class="intercept-item">
+                            <span class="label">y절편:</span>
+                            <span id="yInterceptValue" class="value">-</span>
+                            <button id="playYInterceptBtn" class="btn btn-sound" disabled>🔊 듣기</button>
+                        </div>
+                        <div class="intercept-item">
+                            <span class="label">x절편:</span>
+                            <span id="xInterceptValue" class="value">-</span>
+                            <button id="playXInterceptBtn" class="btn btn-sound" disabled>🔊 듣기</button>
+                        </div>
+                        <div class="intercept-item">
+                            <button id="playBothBtn" class="btn btn-sound-both" disabled>🎵 둘 다 듣기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측 하단: 가상 스마트폰 화면 -->
+        <div class="smartphone-section">
+            <div class="smartphone-frame">
+                <div class="smartphone-notch"></div>
+                <div class="smartphone-screen">
+                    <!-- 앱 헤더 -->
+                    <div class="app-header">
+                        <div class="status-bar">
+                            <span class="time">12:00</span>
+                            <span class="icons">📶 📡 🔋</span>
+                        </div>
+                        <div class="app-title">Graph Chime</div>
+                    </div>
+
+                    <!-- 그래프 캔버스 -->
+                    <div class="graph-container">
+                        <canvas id="graphCanvas" width="360" height="480"></canvas>
+                    </div>
+
+                    <!-- 음향 시각화 -->
+                    <div class="audio-visualizer">
+                        <div class="visualizer-label">음향 재생 중...</div>
+                        <div class="visualizer-bars" id="visualizerBars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- 앱 하단 정보 -->
+                    <div class="app-footer">
+                        <div class="note-display">
+                            <span id="currentNote">♪ -</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="smartphone-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/audio.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
