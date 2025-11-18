@@ -1,0 +1,249 @@
+/**
+ * Vector Motion Animations
+ * 벡터 모션 애니메이션을 위한 CSS 스타일
+ */
+
+/* 기본 애니메이션 설정 */
+.vector-arrow {
+  transition: all 0.3s ease-out;
+  will-change: transform, opacity;
+}
+
+.vector-arrow-animated {
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* 스케일 인 애니메이션 */
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out;
+}
+
+/* 화살표 그리기 애니메이션 */
+@keyframes drawArrow {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-arrow {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawArrow 1s ease-out forwards;
+}
+
+/* 펄스 애니메이션 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* 글로우 효과 */
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  50% {
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 12px currentColor);
+  }
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 회전 애니메이션 */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotate 2s linear infinite;
+}
+
+/* 흔들림 애니메이션 */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* 바운스 애니메이션 */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce {
+  animation: bounce 1s ease-in-out;
+}
+
+/* 경로 추적 애니메이션 */
+@keyframes tracePath {
+  from {
+    stroke-dashoffset: 100%;
+  }
+  to {
+    stroke-dashoffset: 0%;
+  }
+}
+
+.trace-path {
+  stroke-dasharray: 100%;
+  animation: tracePath 2s ease-out forwards;
+}
+
+/* 벡터 필드 그리드 */
+.vector-grid {
+  stroke: rgba(200, 200, 200, 0.3);
+  stroke-width: 0.5;
+}
+
+.vector-grid-major {
+  stroke: rgba(150, 150, 150, 0.5);
+  stroke-width: 1;
+}
+
+/* 화살표 머리 스타일 */
+.arrow-head {
+  fill: currentColor;
+  transition: fill 0.3s ease;
+}
+
+.arrow-line {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+/* 라벨 스타일 */
+.vector-label {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  fill: currentColor;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 호버 효과 */
+.vector-arrow:hover .arrow-line {
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.vector-arrow:hover .arrow-head {
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* 인터랙티브 요소 */
+.vector-interactive {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vector-interactive:active {
+  transform: scale(0.95);
+}
+
+/* 선택된 상태 */
+.vector-selected {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.vector-selected .arrow-line {
+  stroke-width: 2;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .vector-label {
+    font-size: 12px;
+  }
+
+  .vector-arrow:hover .arrow-line {
+    stroke-width: inherit;
+  }
+}
+
+/* 성능 최적화 */
+.vector-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .vector-grid {
+    stroke: rgba(100, 100, 100, 0.3);
+  }
+
+  .vector-grid-major {
+    stroke: rgba(150, 150, 150, 0.5);
+  }
+}
