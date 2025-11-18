@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/conceptdetection/db" VERSION="20251118" COMMENT="XMLDB file for Moodle local/conceptdetection"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Table for storing concepts to track -->
+    <TABLE NAME="local_conceptdetection_concepts" COMMENT="Stores educational concepts to track">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Concept name"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Concept description"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="moduletype" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="Module type (quiz, assign, etc)"/>
+        <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Module instance ID"/>
+        <FIELD NAME="parentid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Parent concept ID for hierarchy"/>
+        <FIELD NAME="keywords" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Keywords for concept matching"/>
+        <FIELD NAME="difficulty" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Difficulty level 1-5"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+        <INDEX NAME="moduletype_idx" UNIQUE="false" FIELDS="moduletype, moduleid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Table for tracking student behavior per concept -->
+    <TABLE NAME="local_conceptdetection_tracking" COMMENT="Tracks student understanding of concepts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Concept ID"/>
+        <FIELD NAME="attempts" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Number of attempts"/>
+        <FIELD NAME="timespent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="Average score percentage"/>
+        <FIELD NAME="maxscore" TYPE="number" LENGTH="10" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="Maximum score achieved"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="not_started" SEQUENCE="false" COMMENT="Status: not_started, not_understood, partially_understood, understood"/>
+        <FIELD NAME="confidence" TYPE="number" LENGTH="5" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="Confidence score 0-100"/>
+        <FIELD NAME="flags" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON flags for special conditions"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="conceptid" TYPE="foreign" FIELDS="conceptid" REFTABLE="local_conceptdetection_concepts" REFFIELDS="id"/>
+        <KEY NAME="userid_conceptid" TYPE="unique" FIELDS="userid, conceptid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="conceptid_idx" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="status_idx" UNIQUE="false" FIELDS="status"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Table for logging detailed events -->
+    <TABLE NAME="local_conceptdetection_events" COMMENT="Logs detailed student behavior events">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="conceptid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Related concept ID"/>
+        <FIELD NAME="eventtype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Event type (view, attempt, submit, help_request, etc)"/>
+        <FIELD NAME="contextid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Context ID"/>
+        <FIELD NAME="moduletype" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" COMMENT="Module type"/>
+        <FIELD NAME="moduleid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Module instance ID"/>
+        <FIELD NAME="eventdata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON event data"/>
+        <FIELD NAME="duration" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Event duration in seconds"/>
+        <FIELD NAME="result" TYPE="char" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="Event result (success, failure, partial, etc)"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="conceptid" TYPE="foreign" FIELDS="conceptid" REFTABLE="local_conceptdetection_concepts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="conceptid_idx" UNIQUE="false" FIELDS="conceptid"/>
+        <INDEX NAME="eventtype_idx" UNIQUE="false" FIELDS="eventtype"/>
+        <INDEX NAME="timecreated_idx" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Table for storing analysis results -->
+    <TABLE NAME="local_conceptdetection_analysis" COMMENT="Stores analysis results and patterns">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="analysistype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type of analysis"/>
+        <FIELD NAME="patterns" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON detected patterns"/>
+        <FIELD NAME="recommendations" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON recommendations"/>
+        <FIELD NAME="misunderstood_concepts" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON array of concept IDs"/>
+        <FIELD NAME="confidence" TYPE="number" LENGTH="5" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="Overall confidence score"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_courseid_idx" UNIQUE="false" FIELDS="userid, courseid"/>
+        <INDEX NAME="timecreated_idx" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
