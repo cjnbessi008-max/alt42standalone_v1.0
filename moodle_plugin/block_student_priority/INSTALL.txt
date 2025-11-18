@@ -1,0 +1,276 @@
+Student Priority Selection Block - Installation Guide
+=====================================================
+
+SYSTEM REQUIREMENTS
+-------------------
+- Moodle 3.7 or higher
+- MySQL 5.7 or higher
+- PHP 7.1.9 or higher
+
+INSTALLATION STEPS
+------------------
+
+1. UPLOAD PLUGIN FILES
+
+   Copy the block_student_priority folder to your Moodle blocks directory:
+
+   /path/to/moodle/blocks/block_student_priority/
+
+   The directory structure should look like:
+
+   moodle/
+   └── blocks/
+       └── block_student_priority/
+           ├── block_student_priority.php
+           ├── version.php
+           ├── edit_form.php
+           ├── save_priority.php
+           ├── module.js
+           ├── styles.css
+           ├── db/
+           │   ├── install.xml
+           │   └── access.php
+           ├── lang/
+           │   └── en/
+           │       └── block_student_priority.php
+           ├── classes/
+           │   └── event/
+           │       └── priority_selected.php
+           ├── README.md
+           └── INSTALL.txt
+
+2. SET FILE PERMISSIONS
+
+   Ensure the web server has read access to all files:
+
+   chmod -R 755 /path/to/moodle/blocks/block_student_priority/
+
+   For the owner:
+   chown -R www-data:www-data /path/to/moodle/blocks/block_student_priority/
+
+   (Replace www-data with your web server user)
+
+3. RUN MOODLE UPGRADE
+
+   a. Log in to Moodle as an administrator
+
+   b. Navigate to: Site administration → Notifications
+
+   c. Moodle will detect the new plugin
+
+   d. Click "Upgrade Moodle database now"
+
+   e. The installer will create the required database tables:
+      - mdl_block_student_priority
+      - mdl_block_student_priority_log
+
+   f. Click "Continue"
+
+4. VERIFY INSTALLATION
+
+   a. Navigate to: Site administration → Plugins → Blocks → Manage blocks
+
+   b. Verify "Student Priority Selection" appears in the list
+
+   c. Check that the "Settings" link is available
+
+5. CONFIGURE PLUGIN (Optional)
+
+   a. Click "Settings" next to "Student Priority Selection"
+
+   b. Configure global settings if needed
+
+   c. Save changes
+
+6. ADD BLOCK TO A COURSE
+
+   a. Navigate to any course
+
+   b. Turn editing on
+
+   c. Click "Add a block"
+
+   d. Select "Student Priority Selection"
+
+   e. The block will appear on the page
+
+7. TEST THE INSTALLATION
+
+   a. Log in as a student
+
+   b. Navigate to a course with the block installed
+
+   c. Click on a learning step card
+
+   d. Verify the selection is saved
+
+   e. Check that the "Your current priority" message appears
+
+8. CHECK DATABASE TABLES (Optional)
+
+   Run these SQL queries to verify tables were created:
+
+   SELECT * FROM mdl_block_student_priority;
+   SELECT * FROM mdl_block_student_priority_log;
+
+   Both tables should exist (may be empty if no selections yet)
+
+TROUBLESHOOTING
+---------------
+
+Problem: Plugin doesn't appear in notifications
+Solution:
+  - Clear Moodle cache: Site administration → Development → Purge all caches
+  - Verify files are in correct location
+  - Check file permissions
+
+Problem: Database tables not created
+Solution:
+  - Check MySQL user has CREATE TABLE permission
+  - Review Moodle error logs
+  - Manually run db/install.xml through XMLDB editor
+
+Problem: JavaScript not working
+Solution:
+  - Clear browser cache
+  - Check browser console for errors
+  - Verify module.js is accessible
+  - Enable JavaScript debugging in Moodle
+
+Problem: Permission denied errors
+Solution:
+  - Verify web server user owns the files
+  - Check that execute permissions are set on directories
+  - Review Moodle data directory permissions
+
+UNINSTALLATION
+--------------
+
+To remove the plugin:
+
+1. Navigate to: Site administration → Plugins → Blocks → Manage blocks
+
+2. Find "Student Priority Selection" in the list
+
+3. Click "Uninstall"
+
+4. Moodle will remove the database tables and plugin files
+
+5. Confirm the uninstallation
+
+Note: This will permanently delete all student priority selections.
+      Export data first if you need to keep it.
+
+POST-INSTALLATION CONFIGURATION
+-------------------------------
+
+1. DEFINE CUSTOM LEARNING STEPS
+
+   For each course:
+   - Edit block settings
+   - Enter custom steps in "Custom Learning Steps" field
+   - One step per line
+   - Save changes
+
+2. SET PERMISSIONS
+
+   Define who can:
+   - Add block to courses (teachers, managers)
+   - Select priorities (students, teachers)
+   - View reports (teachers, managers)
+
+   Navigate to: Site administration → Users → Permissions → Define roles
+
+3. ENABLE ANALYTICS
+
+   - Edit block settings
+   - Check "Show Analytics"
+   - Teachers will see selection statistics
+
+4. CUSTOMIZE APPEARANCE
+
+   Edit styles.css to match your Moodle theme:
+   - Colors
+   - Fonts
+   - Card layouts
+   - Animations
+
+INTEGRATION WITH EXISTING LMS
+-----------------------------
+
+This plugin integrates with:
+
+1. Moodle Completion Tracking
+   - Link priorities to activity completion
+
+2. Moodle Analytics
+   - Export priority data for analysis
+
+3. Moodle Messaging
+   - Send notifications on priority changes
+
+4. External Systems
+   - Use Moodle Web Services API to access priority data
+
+For API access, enable:
+Site administration → Plugins → Web services → Manage protocols
+
+MAINTENANCE
+-----------
+
+Recommended maintenance tasks:
+
+1. Weekly: Review error logs for issues
+2. Monthly: Check analytics for usage patterns
+3. Quarterly: Archive old priority logs
+4. Annually: Update plugin to latest version
+
+DATABASE MAINTENANCE
+--------------------
+
+To clean up old log entries (older than 1 year):
+
+DELETE FROM mdl_block_student_priority_log
+WHERE timecreated < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 1 YEAR));
+
+BACKUP RECOMMENDATIONS
+---------------------
+
+Include these tables in your Moodle backups:
+- mdl_block_student_priority
+- mdl_block_student_priority_log
+
+Use Moodle's built-in backup:
+Site administration → Courses → Backups → Automated backup setup
+
+SUPPORT
+-------
+
+For additional help:
+- Moodle Docs: https://docs.moodle.org/
+- Moodle Forums: https://moodle.org/forums/
+- Contact: KAIST Touch Math Academy
+
+SECURITY NOTES
+--------------
+
+This plugin:
+- Validates all user input
+- Uses Moodle's sesskey for CSRF protection
+- Checks capabilities before data access
+- Sanitizes output to prevent XSS
+- Uses parameterized database queries
+
+Always keep Moodle and all plugins updated to the latest versions.
+
+VERSION INFORMATION
+-------------------
+
+Plugin Version: 1.0
+Release Date: 2025-01-18
+Requires Moodle: 3.7
+PHP Version: 7.1.9+
+MySQL Version: 5.7+
+
+© 2025 KAIST Touch Math Academy
+Licensed under GNU GPL v3 or later

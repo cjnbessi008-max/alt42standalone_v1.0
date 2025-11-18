@@ -1,0 +1,184 @@
+/**
+ * Styles for Student Priority Selection block
+ *
+ * @package    block_student_priority
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Container */
+.student-priority-container {
+    padding: 15px;
+}
+
+.student-priority-container h3 {
+    color: #333;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.instruction-text {
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Current selection display */
+.current-selection {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 4px;
+    color: #0c5460;
+}
+
+.current-selection strong {
+    font-weight: 600;
+}
+
+/* Priority steps grid */
+.priority-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Priority card */
+.priority-card {
+    background: #fff;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+}
+
+.priority-card:hover {
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.priority-card:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.priority-card.selecting {
+    border-color: #ffc107;
+    background-color: #fff9e6;
+}
+
+.priority-card.selected {
+    border-color: #28a745;
+    background-color: #f0f9f4;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+/* Step name */
+.step-name {
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+/* Step description */
+.step-description {
+    color: #666;
+    font-size: 0.9em;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+/* Selected badge */
+.selected-badge {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+/* Status message */
+.priority-status-message {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    display: none;
+    font-size: 0.95em;
+}
+
+.priority-status-message.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.priority-status-message.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.priority-status-message.alert-info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .priority-steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .priority-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .student-priority-container {
+        padding: 10px;
+    }
+
+    .student-priority-container h3 {
+        font-size: 1.1em;
+    }
+
+    .priority-card {
+        padding: 15px;
+    }
+}
+
+/* Animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+.priority-card.selected {
+    animation: pulse 1.5s ease-out;
+}
