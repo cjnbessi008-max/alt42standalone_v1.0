@@ -1,0 +1,214 @@
+/* Smartphone Simulator Styles */
+
+.smartphone-container {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.smartphone-container.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-container.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-container.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.smartphone-frame {
+  width: 375px;
+  height: 667px;
+  background: #1f1f1f;
+  border-radius: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+              0 0 0 12px #1a1a1a,
+              0 0 0 14px #333;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.smartphone-frame:hover {
+  transform: scale(1.02);
+}
+
+/* Notch */
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 30px;
+  background: #1f1f1f;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #0a0a0a;
+  border-radius: 3px;
+}
+
+.notch-camera {
+  width: 10px;
+  height: 10px;
+  background: #1a2a3a;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+/* Screen */
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Status bar */
+.status-bar {
+  height: 44px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+}
+
+.status-time {
+  font-weight: 600;
+}
+
+.status-icons {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+}
+
+/* App content */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: white;
+  position: relative;
+}
+
+.app-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.app-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.app-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Home indicator */
+.home-indicator {
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.home-indicator::before {
+  content: '';
+  width: 120px;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+/* Side buttons */
+.power-button {
+  position: absolute;
+  right: -4px;
+  top: 120px;
+  width: 4px;
+  height: 80px;
+  background: #1a1a1a;
+  border-radius: 0 2px 2px 0;
+}
+
+.volume-buttons {
+  position: absolute;
+  left: -4px;
+  top: 100px;
+}
+
+.volume-up,
+.volume-down {
+  width: 4px;
+  height: 50px;
+  background: #1a1a1a;
+  border-radius: 2px 0 0 2px;
+  margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-frame {
+    width: 320px;
+    height: 568px;
+    border-radius: 35px;
+  }
+
+  .smartphone-container.bottom-right,
+  .smartphone-container.bottom-left {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-height: 700px) {
+  .smartphone-frame {
+    transform: scale(0.8);
+  }
+
+  .smartphone-container.bottom-right {
+    bottom: -60px;
+    right: -30px;
+  }
+}
+
+/* Animations */
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.smartphone-container {
+  animation: slideInFromBottom 0.5s ease-out;
+}
