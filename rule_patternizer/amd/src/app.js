@@ -42,7 +42,9 @@
     function setupEventListeners() {
         // Welcome screen buttons
         document.getElementById('start-btn')?.addEventListener('click', showRuleSelection);
+        document.getElementById('smart-practice-btn')?.addEventListener('click', startSmartPractice);
         document.getElementById('progress-btn')?.addEventListener('click', showProgress);
+        document.getElementById('insights-btn')?.addEventListener('click', showInsights);
 
         // Back buttons
         document.querySelectorAll('.btn-back').forEach(btn => {
@@ -78,6 +80,7 @@
     function showWelcome() {
         showScreen('welcome-screen');
         updateMasteryDisplay();
+        loadRecommendation();
     }
 
     /**
@@ -396,6 +399,181 @@
             return `\\(${latex}\\)`;
         }
         return latex;
+    }
+
+    /**
+     * Load recommendation for welcome screen
+     */
+    function loadRecommendation() {
+        apiCall('get_next_problem')
+            .then(response => {
+                if (response.success && response.data && !response.data.error) {
+                    displayRecommendation(response.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading recommendation:', error);
+            });
+    }
+
+    /**
+     * Display recommendation on welcome screen
+     */
+    function displayRecommendation(problem) {
+        const recommendationBox = document.getElementById('recommendation-box');
+        const recommendationText = document.getElementById('recommendation-text');
+        const smartPracticeBtn = document.getElementById('smart-practice-btn');
+        const insightsBtn = document.getElementById('insights-btn');
+
+        if (problem.recommendation) {
+            const rec = problem.recommendation;
+            recommendationText.innerHTML = `
+                <strong>${escapeHtml(rec.rule_name)}</strong><br>
+                ${escapeHtml(rec.reason)}<br>
+                <small>Current mastery: <span class="mastery-${getMasteryClass(rec.current_mastery)}">${rec.current_mastery}%</span></small>
+            `;
+            recommendationBox.style.display = 'block';
+            smartPracticeBtn.style.display = 'inline-block';
+            insightsBtn.style.display = 'inline-block';
+        }
+    }
+
+    /**
+     * Get mastery class for styling
+     */
+    function getMasteryClass(mastery) {
+        if (mastery >= 70) return 'high';
+        if (mastery >= 40) return 'medium';
+        return 'low';
+    }
+
+    /**
+     * Start smart practice with recommended problem
+     */
+    function startSmartPractice() {
+        apiCall('get_next_problem')
+            .then(response => {
+                if (response.success && response.data && !response.data.error) {
+                    const problem = response.data;
+
+                    // Get rule information
+                    const rule = App.rules.find(r => r.id === problem.rule_id);
+                    if (rule) {
+                        App.currentRule = rule;
+                        document.getElementById('rule-name').textContent = rule.name;
+                        document.getElementById('rule-formula').innerHTML = formatLatex(rule.formula);
+                    }
+
+                    // Display problem with recommendation info
+                    displayProblemWithRecommendation(problem);
+                    showScreen('practice-screen');
+                }
+            })
+            .catch(error => {
+                console.error('Error starting smart practice:', error);
+                alert('Error loading recommended problem. Please try again.');
+            });
+    }
+
+    /**
+     * Display problem with recommendation information
+     */
+    function displayProblemWithRecommendation(problem) {
+        // Display problem normally
+        displayProblem(problem);
+
+        // Show recommendation badge if available
+        if (problem.recommendation) {
+            const badge = document.getElementById('practice-recommendation');
+            const badgeText = document.getElementById('practice-recommendation-text');
+            badgeText.textContent = `🎯 ${problem.recommendation.reason}`;
+            badge.style.display = 'block';
+        }
+    }
+
+    /**
+     * Show learning insights screen
+     */
+    function showInsights() {
+        apiCall('get_learning_insights')
+            .then(response => {
+                if (response.success && response.data) {
+                    displayInsights(response.data);
+                    showScreen('insights-screen');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading insights:', error);
+                alert('Error loading insights. Please try again.');
+            });
+    }
+
+    /**
+     * Display learning insights
+     */
+    function displayInsights(insights) {
+        const overviewContainer = document.getElementById('insights-overview');
+        const strengthsContainer = document.getElementById('insights-strengths');
+        const weaknessesContainer = document.getElementById('insights-weaknesses');
+        const reviewContainer = document.getElementById('insights-review');
+
+        // Overview
+        overviewContainer.innerHTML = `
+            <h4>📊 Overview</h4>
+            <div class="stat-card">
+                <span class="label">Rules Started</span>
+                <span class="value">${insights.rules_started} / ${insights.total_rules}</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Rules Mastered</span>
+                <span class="value">${insights.rules_mastered}</span>
+            </div>
+            <div class="stat-card">
+                <span class="label">Average Mastery</span>
+                <span class="value class="mastery-${getMasteryClass(insights.average_mastery)}">${insights.average_mastery}%</span>
+            </div>
+        `;
+
+        // Strengths
+        if (insights.strongest_areas && insights.strongest_areas.length > 0) {
+            strengthsContainer.innerHTML = `
+                <h4>💪 Strengths</h4>
+                <ul class="insights-list">
+                    ${insights.strongest_areas.map(area =>
+                        `<li class="strength">${escapeHtml(area)}</li>`
+                    ).join('')}
+                </ul>
+            `;
+            strengthsContainer.style.display = 'block';
+        }
+
+        // Weaknesses
+        if (insights.weakest_areas && insights.weakest_areas.length > 0) {
+            weaknessesContainer.innerHTML = `
+                <h4>🎯 Focus Areas</h4>
+                <p>These areas need more practice:</p>
+                <ul class="insights-list">
+                    ${insights.weakest_areas.map(area =>
+                        `<li class="weakness">${escapeHtml(area)}</li>`
+                    ).join('')}
+                </ul>
+            `;
+            weaknessesContainer.style.display = 'block';
+        }
+
+        // Review needed (spaced repetition)
+        if (insights.needs_review && insights.needs_review.length > 0) {
+            reviewContainer.innerHTML = `
+                <h4>🔄 Review Recommended</h4>
+                <p>Time to review these topics:</p>
+                <ul class="insights-list">
+                    ${insights.needs_review.map(area =>
+                        `<li class="review">${escapeHtml(area)} <span class="spaced-repetition-badge">REVIEW</span></li>`
+                    ).join('')}
+                </ul>
+            `;
+            reviewContainer.style.display = 'block';
+        }
     }
 
     /**

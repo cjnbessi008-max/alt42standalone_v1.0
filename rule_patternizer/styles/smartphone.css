@@ -393,6 +393,201 @@ button {
     60%, 100% { content: '...'; }
 }
 
+/* Recommendation Box Styles */
+#recommendation-box {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px 0;
+    animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.recommendation-content h4 {
+    margin: 0 0 10px 0;
+    color: white;
+    font-size: 16px;
+}
+
+#recommendation-text {
+    color: white;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Recommendation Badge */
+.recommendation-badge {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Smart Practice Button */
+.btn-success {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* Info Button */
+.btn-info {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    font-size: 14px;
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(33, 150, 243, 0.4);
+}
+
+/* Learning Insights Screen */
+.insights-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.insights-section h4 {
+    margin: 0 0 10px 0;
+    color: #667eea;
+    font-size: 16px;
+}
+
+.insights-section p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.insights-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.insights-list li {
+    padding: 8px 12px;
+    margin: 5px 0;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    font-size: 14px;
+    color: #333;
+}
+
+.insights-list li.strength {
+    border-left-color: #4CAF50;
+}
+
+.insights-list li.weakness {
+    border-left-color: #f44336;
+}
+
+.insights-list li.review {
+    border-left-color: #FF9800;
+}
+
+/* Stats Cards */
+.stat-card {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-card .label {
+    font-size: 13px;
+    color: #666;
+}
+
+.stat-card .value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+/* Emoji Icons */
+.emoji-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* Adaptive Difficulty Indicator */
+.difficulty-indicator {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.difficulty-indicator.adaptive {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Spaced Repetition Badge */
+.spaced-repetition-badge {
+    background: #FF9800;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+/* Mastery Level Colors */
+.mastery-high {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+.mastery-medium {
+    color: #FF9800;
+    font-weight: 600;
+}
+
+.mastery-low {
+    color: #f44336;
+    font-weight: 600;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 480px) {
     #rulepatternizer-container {

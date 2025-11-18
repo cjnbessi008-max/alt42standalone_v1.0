@@ -67,8 +67,19 @@ if ($rulepatternizer->intro) {
                 <div id="welcome-screen" class="screen active">
                     <h3><?php echo get_string('welcome', 'rulepatternizer'); ?></h3>
                     <p>Learn differentiation rules through pattern recognition!</p>
+
+                    <!-- Recommendation Box -->
+                    <div id="recommendation-box" style="display: none;">
+                        <div class="recommendation-content">
+                            <h4>📊 Recommended for You</h4>
+                            <p id="recommendation-text"></p>
+                        </div>
+                    </div>
+
                     <button id="start-btn" class="btn-primary"><?php echo get_string('start_learning', 'rulepatternizer'); ?></button>
+                    <button id="smart-practice-btn" class="btn-success" style="display: none;">🎯 Smart Practice</button>
                     <button id="progress-btn" class="btn-secondary"><?php echo get_string('view_progress', 'rulepatternizer'); ?></button>
+                    <button id="insights-btn" class="btn-info" style="display: none;">💡 Learning Insights</button>
                 </div>
 
                 <!-- Rule Selection Screen -->
@@ -80,6 +91,11 @@ if ($rulepatternizer->intro) {
 
                 <!-- Practice Screen -->
                 <div id="practice-screen" class="screen">
+                    <!-- Recommendation Info -->
+                    <div id="practice-recommendation" class="recommendation-badge" style="display: none;">
+                        <span id="practice-recommendation-text"></span>
+                    </div>
+
                     <div id="rule-info">
                         <h3 id="rule-name"></h3>
                         <div id="rule-formula" class="formula-display"></div>
@@ -111,6 +127,18 @@ if ($rulepatternizer->intro) {
                     <h3>Your Progress</h3>
                     <div id="overall-stats"></div>
                     <div id="progress-list"></div>
+                    <button class="btn-back">Back</button>
+                </div>
+
+                <!-- Learning Insights Screen -->
+                <div id="insights-screen" class="screen">
+                    <h3>💡 Learning Insights</h3>
+                    <div id="insights-content">
+                        <div id="insights-overview" class="insights-section"></div>
+                        <div id="insights-strengths" class="insights-section" style="display: none;"></div>
+                        <div id="insights-weaknesses" class="insights-section" style="display: none;"></div>
+                        <div id="insights-review" class="insights-section" style="display: none;"></div>
+                    </div>
                     <button class="btn-back">Back</button>
                 </div>
             </div>

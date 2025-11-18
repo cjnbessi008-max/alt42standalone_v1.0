@@ -53,6 +53,15 @@ try {
             $response['data'] = api::get_next_problem($USER->id, $instanceid);
             break;
 
+        case 'get_learning_insights':
+            $response['data'] = api::get_learning_insights($USER->id, $instanceid);
+            break;
+
+        case 'get_study_plan':
+            $session_length = optional_param('session_length', 5, PARAM_INT);
+            $response['data'] = api::get_study_plan($USER->id, $instanceid, $session_length);
+            break;
+
         default:
             $response['success'] = false;
             $response['error'] = 'Invalid action';

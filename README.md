@@ -15,6 +15,10 @@
 - ✅ **즉각적인 피드백**: 답안 제출 시 즉시 정답 여부 확인
 - ✅ **힌트 시스템**: 문제 해결에 어려움이 있을 때 힌트 제공
 - ✅ **LaTeX 수식 렌더링**: MathJax를 이용한 수학 공식 표시
+- 🆕 **적응형 학습 추천**: AI 기반 개인화 문제 추천 시스템
+- 🆕 **간격 반복 학습**: 과학적 복습 주기 관리 (Spaced Repetition)
+- 🆕 **지능형 난이도 조절**: 마스터리 레벨에 따른 자동 난이도 조정
+- 🆕 **학습 인사이트**: 강점/약점 분석 및 학습 권장 사항 제공
 
 ### English
 - ✅ **Moodle 3.7 Integration**: Fully integrated as a Moodle activity module
@@ -25,6 +29,10 @@
 - ✅ **Instant Feedback**: Immediate verification upon answer submission
 - ✅ **Hint System**: Provides hints when struggling with problems
 - ✅ **LaTeX Math Rendering**: Beautiful formula display using MathJax
+- 🆕 **Adaptive Learning Recommendations**: AI-powered personalized problem suggestions
+- 🆕 **Spaced Repetition**: Scientific review scheduling system
+- 🆕 **Intelligent Difficulty Adjustment**: Automatic difficulty scaling based on mastery
+- 🆕 **Learning Insights**: Strength/weakness analysis with study recommendations
 
 ---
 
