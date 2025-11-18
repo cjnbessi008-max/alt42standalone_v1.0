@@ -1,0 +1,313 @@
+{
+  "problem_types": [
+    {
+      "name": "quadratic_functions",
+      "name_ko": "이차함수",
+      "category": "algebra",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Visualize the parabola",
+          "title_ko": "포물선을 그려보세요",
+          "content": "Graph the quadratic function to see the shape of the parabola. Look for the vertex, axis of symmetry, and y-intercept.",
+          "content_ko": "이차함수를 그래프로 그려서 포물선의 모양을 확인해보세요. 꼭짓점, 대칭축, y절편을 찾아보세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          },
+          "example_problem": {
+            "question": "y = x² - 4x + 3의 그래프를 그리고 꼭짓점을 구하세요",
+            "hint": "x = -b/2a를 이용하여 대칭축을 먼저 구하세요"
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Complete the square",
+          "title_ko": "완전제곱식으로 변형하세요",
+          "content": "Transform the quadratic function into vertex form y = a(x-h)² + k by completing the square. This will directly give you the vertex (h, k).",
+          "content_ko": "이차함수를 완전제곱식 y = a(x-h)² + k 꼴로 변형하세요. 이렇게 하면 꼭짓점 (h, k)를 바로 알 수 있습니다.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 3,
+          "perspective_type": "conceptual",
+          "title": "Understand the relationship between coefficients and shape",
+          "title_ko": "계수와 그래프 모양의 관계 이해하기",
+          "content": "The coefficient 'a' determines if the parabola opens up (a>0) or down (a<0) and how wide it is. The discriminant b²-4ac tells you about the x-intercepts.",
+          "content_ko": "계수 'a'는 포물선이 위로 볼록(a>0)인지 아래로 볼록(a<0)인지, 그리고 얼마나 넓은지를 결정합니다. 판별식 b²-4ac는 x절편에 대한 정보를 줍니다.",
+          "trigger_conditions": {
+            "min_attempts": 3,
+            "max_attempts": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "plane_geometry",
+      "name_ko": "평면도형",
+      "category": "geometry",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Draw and label the diagram",
+          "title_ko": "도형을 그리고 정보를 표시하세요",
+          "content": "Draw a clear diagram and mark all known lengths, angles, and relationships. Visual representation often reveals hidden patterns.",
+          "content_ko": "명확한 도형을 그리고 알고 있는 모든 길이, 각도, 관계를 표시하세요. 시각적 표현은 종종 숨겨진 패턴을 드러냅니다.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          },
+          "example_problem": {
+            "question": "삼각형 ABC에서 AB=5, BC=7, 각B=60°일 때 AC의 길이는?",
+            "hint": "삼각형을 그리고 주어진 정보를 모두 표시한 후, 코사인 법칙을 생각해보세요"
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "geometric",
+          "title": "Look for congruent or similar triangles",
+          "title_ko": "합동 또는 닮음 관계를 찾아보세요",
+          "content": "Many geometry problems can be solved by identifying congruent or similar triangles. Look for parallel lines, equal angles, or proportional sides.",
+          "content_ko": "많은 기하 문제는 합동이나 닮음인 삼각형을 찾아서 풀 수 있습니다. 평행선, 같은 각, 또는 비례하는 변을 찾아보세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 1,
+          "perspective_type": "conceptual",
+          "title": "Apply fundamental geometric properties",
+          "title_ko": "기본 기하학적 성질을 적용하세요",
+          "content": "Recall basic properties: sum of angles in a triangle is 180°, Pythagorean theorem for right triangles, properties of parallel lines and transversals.",
+          "content_ko": "기본 성질을 떠올려보세요: 삼각형 내각의 합 180°, 직각삼각형의 피타고라스 정리, 평행선과 엇각/동위각의 성질 등.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "solid_geometry",
+      "name_ko": "입체도형",
+      "category": "geometry",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Visualize the 3D shape",
+          "title_ko": "입체도형을 머릿속으로 그려보세요",
+          "content": "Try to visualize or sketch the 3D shape from different angles. Draw the cross-sections to understand its structure better.",
+          "content_ko": "입체도형을 여러 각도에서 머릿속으로 그려보거나 스케치해보세요. 단면도를 그려서 구조를 더 잘 이해하세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Break down into 2D components",
+          "title_ko": "2차원 요소로 분해하세요",
+          "content": "Calculate surface area by finding the area of each face. For volume, think about stacking 2D cross-sections.",
+          "content_ko": "겉넓이는 각 면의 넓이를 구해서 더하세요. 부피는 2차원 단면을 쌓는다고 생각해보세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 3,
+          "perspective_type": "conceptual",
+          "title": "Use coordinate system for complex shapes",
+          "title_ko": "복잡한 도형은 좌표계를 이용하세요",
+          "content": "For complex 3D problems, place the shape in a 3D coordinate system. Use vectors and dot products to find angles and distances.",
+          "content_ko": "복잡한 입체 문제는 도형을 3차원 좌표계에 놓고 생각하세요. 벡터와 내적을 이용하여 각도와 거리를 구할 수 있습니다.",
+          "trigger_conditions": {
+            "min_attempts": 3,
+            "max_attempts": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "trigonometry",
+      "name_ko": "삼각함수",
+      "category": "algebra",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Use the unit circle",
+          "title_ko": "단위원을 활용하세요",
+          "content": "Draw the unit circle to visualize sine and cosine values. Remember that sin θ is the y-coordinate and cos θ is the x-coordinate on the unit circle.",
+          "content_ko": "단위원을 그려서 사인과 코사인 값을 시각화하세요. sin θ는 y좌표, cos θ는 x좌표라는 것을 기억하세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Apply trigonometric identities",
+          "title_ko": "삼각함수 항등식을 적용하세요",
+          "content": "Use fundamental identities like sin²θ + cos²θ = 1, or angle addition formulas to simplify expressions.",
+          "content_ko": "sin²θ + cos²θ = 1 같은 기본 항등식이나 덧셈정리를 사용하여 식을 간단히 하세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 1,
+          "perspective_type": "geometric",
+          "title": "Draw a right triangle",
+          "title_ko": "직각삼각형을 그려보세요",
+          "content": "For acute angles, draw a right triangle and label the sides as opposite, adjacent, and hypotenuse. Use SOH-CAH-TOA to find ratios.",
+          "content_ko": "예각의 경우 직각삼각형을 그리고 변을 밑변, 높이, 빗변으로 표시하세요. SOH-CAH-TOA를 이용하여 비율을 구하세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "probability",
+      "name_ko": "확률",
+      "category": "statistics",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Draw a tree diagram or table",
+          "title_ko": "수형도나 표를 그려보세요",
+          "content": "Organize all possible outcomes using a tree diagram or a table. This helps ensure you don't miss any cases.",
+          "content_ko": "모든 가능한 경우를 수형도나 표로 정리하세요. 이렇게 하면 빠뜨리는 경우를 방지할 수 있습니다.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Use counting principles",
+          "title_ko": "경우의 수 공식을 활용하세요",
+          "content": "Apply multiplication principle for sequential events, or use combinations/permutations formulas when appropriate.",
+          "content_ko": "순차적인 사건에는 곱의 법칙을 적용하고, 필요한 경우 조합/순열 공식을 사용하세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "conceptual",
+          "title": "Identify independence and conditional probability",
+          "title_ko": "독립성과 조건부 확률을 파악하세요",
+          "content": "Determine if events are independent. For conditional probability, use P(A|B) = P(A∩B) / P(B).",
+          "content_ko": "사건이 독립인지 판단하세요. 조건부 확률은 P(A|B) = P(A∩B) / P(B)를 사용하세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 6
+          }
+        }
+      ]
+    },
+    {
+      "name": "differential_calculus",
+      "name_ko": "미분",
+      "category": "calculus",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Think about the slope of tangent line",
+          "title_ko": "접선의 기울기로 생각하세요",
+          "content": "The derivative at a point is the slope of the tangent line to the curve at that point. Visualize how the function is changing.",
+          "content_ko": "미분값은 그 점에서 곡선에 그은 접선의 기울기입니다. 함수가 어떻게 변하는지 시각화해보세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Apply differentiation rules",
+          "title_ko": "미분 공식을 적용하세요",
+          "content": "Use power rule, product rule, quotient rule, and chain rule systematically. Break complex functions into simpler parts.",
+          "content_ko": "거듭제곱, 곱셈, 나눗셈, 합성함수 미분법을 체계적으로 사용하세요. 복잡한 함수는 간단한 부분으로 나누세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 3,
+          "perspective_type": "conceptual",
+          "title": "Use derivatives for optimization",
+          "title_ko": "최적화 문제에 미분을 활용하세요",
+          "content": "For max/min problems, find where f'(x) = 0 and check the sign of f''(x). Consider endpoints of the domain too.",
+          "content_ko": "최댓값/최솟값 문제는 f'(x) = 0인 점을 찾고 f''(x)의 부호를 확인하세요. 정의역의 끝점도 확인하세요.",
+          "trigger_conditions": {
+            "min_attempts": 3,
+            "max_attempts": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "integral_calculus",
+      "name_ko": "적분",
+      "category": "calculus",
+      "tips": [
+        {
+          "tip_level": 1,
+          "perspective_type": "visual",
+          "title": "Think of area under the curve",
+          "title_ko": "곡선 아래의 넓이로 생각하세요",
+          "content": "The definite integral represents the area between the function and the x-axis. Sketch the region to understand better.",
+          "content_ko": "정적분은 함수와 x축 사이의 넓이를 나타냅니다. 영역을 그려서 더 잘 이해하세요.",
+          "trigger_conditions": {
+            "min_attempts": 1,
+            "max_attempts": 3
+          }
+        },
+        {
+          "tip_level": 2,
+          "perspective_type": "algebraic",
+          "title": "Find the antiderivative",
+          "title_ko": "역도함수를 구하세요",
+          "content": "Integration is the reverse of differentiation. Find the antiderivative F(x) where F'(x) = f(x), then evaluate F(b) - F(a).",
+          "content_ko": "적분은 미분의 역과정입니다. F'(x) = f(x)인 역도함수 F(x)를 구한 후 F(b) - F(a)를 계산하세요.",
+          "trigger_conditions": {
+            "min_attempts": 2,
+            "max_attempts": 5
+          }
+        },
+        {
+          "tip_level": 3,
+          "perspective_type": "algebraic",
+          "title": "Use substitution or integration by parts",
+          "title_ko": "치환적분이나 부분적분을 사용하세요",
+          "content": "For complex integrals, try u-substitution to simplify. For products of functions, consider integration by parts.",
+          "content_ko": "복잡한 적분은 u-치환으로 간단히 만들어보세요. 함수의 곱은 부분적분을 고려하세요.",
+          "trigger_conditions": {
+            "min_attempts": 3,
+            "max_attempts": 10
+          }
+        }
+      ]
+    }
+  ]
+}
