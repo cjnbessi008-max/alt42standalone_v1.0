@@ -1,0 +1,193 @@
+/* 연기 파티클 효과 - Peak Smoke */
+
+.smoke-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: smokeRise var(--duration) ease-out forwards;
+    opacity: 0;
+}
+
+/* 극대값 연기 - 빨간색 계열 */
+.smoke-particle.maximum {
+    background: radial-gradient(circle,
+        rgba(255, 107, 107, 0.8) 0%,
+        rgba(255, 107, 107, 0.4) 50%,
+        rgba(255, 107, 107, 0) 100%);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+}
+
+/* 극소값 연기 - 청록색 계열 */
+.smoke-particle.minimum {
+    background: radial-gradient(circle,
+        rgba(78, 205, 196, 0.8) 0%,
+        rgba(78, 205, 196, 0.4) 50%,
+        rgba(78, 205, 196, 0) 100%);
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+}
+
+/* 연기가 떠오르는 애니메이션 */
+@keyframes smokeRise {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(var(--rise-distance))
+                   translateX(var(--drift))
+                   scale(var(--final-scale));
+        opacity: 0;
+    }
+}
+
+/* 연기 컨테이너 */
+.smoke-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* 펄스 효과 (극값 표시) */
+.peak-marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: peakPulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.peak-marker.maximum {
+    background: rgba(255, 107, 107, 0.3);
+    border: 2px solid #ff6b6b;
+    box-shadow:
+        0 0 10px rgba(255, 107, 107, 0.6),
+        0 0 20px rgba(255, 107, 107, 0.4);
+}
+
+.peak-marker.minimum {
+    background: rgba(78, 205, 196, 0.3);
+    border: 2px solid #4ecdc4;
+    box-shadow:
+        0 0 10px rgba(78, 205, 196, 0.6),
+        0 0 20px rgba(78, 205, 196, 0.4);
+}
+
+@keyframes peakPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.4;
+    }
+}
+
+/* 극값 라벨 */
+.peak-label {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: labelFadeIn 0.5s ease-out;
+    margin-top: -25px;
+}
+
+.peak-label.maximum {
+    border-top: 2px solid #ff6b6b;
+}
+
+.peak-label.minimum {
+    border-top: 2px solid #4ecdc4;
+}
+
+@keyframes labelFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -90%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -100%);
+    }
+}
+
+/* 연기 효과 강화를 위한 글로우 레이어 */
+.smoke-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(15px);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+.smoke-glow.maximum {
+    background: radial-gradient(circle,
+        rgba(255, 107, 107, 0.4) 0%,
+        rgba(255, 107, 107, 0) 70%);
+}
+
+.smoke-glow.minimum {
+    background: radial-gradient(circle,
+        rgba(78, 205, 196, 0.4) 0%,
+        rgba(78, 205, 196, 0) 70%);
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+/* 캔버스 위 오버레이 */
+#graphCanvas {
+    position: relative;
+}
+
+.canvas-wrapper {
+    position: relative;
+}
+
+/* 로딩 스피너 (데이터 가져올 때) */
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

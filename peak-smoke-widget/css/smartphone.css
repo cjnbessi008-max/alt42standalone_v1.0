@@ -1,0 +1,215 @@
+/* 스마트폰 위젯 - 우측 하단 고정 */
+.smartphone-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    animation: slideInFromRight 0.6s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(150%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 스마트폰 프레임 (iPhone 14 스타일) */
+.smartphone-frame {
+    width: 320px;
+    height: 640px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 2px #333,
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+/* 노치 (상단 카메라 부분) */
+.smartphone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 26px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+.smartphone-notch::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+}
+
+/* 스마트폰 스크린 */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 앱 헤더 */
+.app-header {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 40px 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.connection-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4caf50;
+    animation: pulse 2s infinite;
+    font-size: 0;
+}
+
+.connection-status.disconnected {
+    background: #f44336;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* 그래프 캔버스 */
+#graphCanvas {
+    width: 100%;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+/* 극값 정보 패널 */
+.peak-info {
+    flex: 1;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    color: white;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.peak-info p {
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+    opacity: 0.8;
+}
+
+.peak-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border-left: 3px solid;
+}
+
+.peak-item.maximum {
+    border-left-color: #ff6b6b;
+}
+
+.peak-item.minimum {
+    border-left-color: #4ecdc4;
+}
+
+.peak-item strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.peak-item span {
+    opacity: 0.9;
+    font-size: 12px;
+}
+
+/* 홈 버튼 */
+.smartphone-home-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .smartphone-widget {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .smartphone-frame {
+        width: 280px;
+        height: 560px;
+        border-radius: 35px;
+        padding: 10px;
+    }
+
+    #graphCanvas {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-widget {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 20px auto;
+    }
+
+    .smartphone-frame {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+/* 터치 상호작용 피드백 */
+.smartphone-frame:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+}

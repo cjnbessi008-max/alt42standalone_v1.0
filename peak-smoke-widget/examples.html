@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak Smoke - 예제 모음</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/smoke-effect.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .example-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .example-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .example-card .function {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .example-card .info {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌊 Peak Smoke 예제 모음</h1>
+
+        <div class="examples-grid">
+            <!-- 예제 1: 이차함수 -->
+            <div class="example-card" onclick="loadExampleAndGo(1)">
+                <h3>📐 이차함수</h3>
+                <div class="function">f(x) = x² - 4x + 3</div>
+                <div class="info">
+                    <strong>범위:</strong> [-2, 6]<br>
+                    <strong>극값:</strong> 최소값 1개<br>
+                    <strong>난이도:</strong> ⭐ 쉬움
+                </div>
+            </div>
+
+            <!-- 예제 2: 삼차함수 -->
+            <div class="example-card" onclick="loadExampleAndGo(2)">
+                <h3>📈 삼차함수</h3>
+                <div class="function">f(x) = x³ - 6x² + 9x + 1</div>
+                <div class="info">
+                    <strong>범위:</strong> [-1, 5]<br>
+                    <strong>극값:</strong> 최대 1개, 최소 1개<br>
+                    <strong>난이도:</strong> ⭐⭐ 보통
+                </div>
+            </div>
+
+            <!-- 예제 3: 삼각함수 -->
+            <div class="example-card" onclick="loadExampleAndGo(3)">
+                <h3>🌊 삼각함수</h3>
+                <div class="function">f(x) = sin(x) + cos(x)</div>
+                <div class="info">
+                    <strong>범위:</strong> [0, 2π]<br>
+                    <strong>극값:</strong> 최대 1개, 최소 1개<br>
+                    <strong>난이도:</strong> ⭐⭐ 보통
+                </div>
+            </div>
+
+            <!-- 예제 4: 사차함수 -->
+            <div class="example-card" onclick="loadExampleAndGo(4)">
+                <h3>📊 사차함수</h3>
+                <div class="function">f(x) = -x⁴ + 4x³ - 4x² + 1</div>
+                <div class="info">
+                    <strong>범위:</strong> [-2, 4]<br>
+                    <strong>극값:</strong> 여러 개<br>
+                    <strong>난이도:</strong> ⭐⭐⭐ 어려움
+                </div>
+            </div>
+
+            <!-- 예제 5: 복잡한 다항식 -->
+            <div class="example-card" onclick="loadExampleAndGo(5)">
+                <h3>🎯 복잡한 다항식</h3>
+                <div class="function">f(x) = 0.1x⁴ - x³ + 2x² - x</div>
+                <div class="info">
+                    <strong>범위:</strong> [-3, 10]<br>
+                    <strong>극값:</strong> 3개<br>
+                    <strong>난이도:</strong> ⭐⭐⭐ 어려움
+                </div>
+            </div>
+
+            <!-- 예제 6: 지수함수와 다항식 -->
+            <div class="example-card" onclick="loadExampleAndGo(6)">
+                <h3>🚀 지수와 다항식</h3>
+                <div class="function">f(x) = x² * Math.exp(-x/2)</div>
+                <div class="info">
+                    <strong>범위:</strong> [0, 10]<br>
+                    <strong>극값:</strong> 1개<br>
+                    <strong>난이도:</strong> ⭐⭐⭐⭐ 매우 어려움
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← 메인으로 돌아가기</a>
+    </div>
+
+    <script>
+        const examples = {
+            1: {
+                func: 'x*x - 4*x + 3',
+                min: -2,
+                max: 6
+            },
+            2: {
+                func: 'x*x*x - 6*x*x + 9*x + 1',
+                min: -1,
+                max: 5
+            },
+            3: {
+                func: 'Math.sin(x) + Math.cos(x)',
+                min: 0,
+                max: 2 * Math.PI
+            },
+            4: {
+                func: '-x*x*x*x + 4*x*x*x - 4*x*x + 1',
+                min: -2,
+                max: 4
+            },
+            5: {
+                func: '0.1*x*x*x*x - x*x*x + 2*x*x - x',
+                min: -3,
+                max: 10
+            },
+            6: {
+                func: 'x*x * Math.exp(-x/2)',
+                min: 0,
+                max: 10
+            }
+        };
+
+        function loadExampleAndGo(exampleNumber) {
+            const example = examples[exampleNumber];
+            if (example) {
+                // localStorage에 저장
+                localStorage.setItem('peakSmoke_example', JSON.stringify(example));
+                // 메인 페이지로 이동
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

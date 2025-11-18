@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peak Smoke - LMS 수학 학습 위젯</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/smoke-effect.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .demo-section {
+            margin-bottom: 30px;
+        }
+
+        .control-panel {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .quick-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .quick-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .quick-links a:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1>🌊 Peak Smoke - 수학 학습 위젯</h1>
+        <p class="subtitle">Moodle LMS 연동 · 함수의 극값을 연기 효과로 시각화</p>
+
+        <div class="quick-links">
+            <a href="examples.html">📚 예제 모음 보기</a>
+            <a href="README.md" target="_blank">📖 사용 설명서</a>
+        </div>
+
+        <div class="demo-section">
+            <div class="control-panel">
+                <h2 style="margin-bottom: 20px;">📊 함수 설정</h2>
+
+                <div class="control-group">
+                    <label for="functionInput">수학 함수 입력 (예: x^2 - 4*x + 3)</label>
+                    <input type="text" id="functionInput" value="x^2 - 4*x + 3" placeholder="JavaScript 형식으로 입력 (예: x*x - 4*x + 3)">
+                </div>
+
+                <div class="control-group">
+                    <label for="rangeMin">X 범위 (최소)</label>
+                    <input type="text" id="rangeMin" value="-2" placeholder="-10">
+                </div>
+
+                <div class="control-group">
+                    <label for="rangeMax">X 범위 (최대)</label>
+                    <input type="text" id="rangeMax" value="6" placeholder="10">
+                </div>
+
+                <div class="control-group">
+                    <label for="moodleUrl">Moodle API URL (선택사항)</label>
+                    <input type="text" id="moodleUrl" placeholder="https://your-moodle.com/webservice/rest/server.php">
+                </div>
+
+                <div class="control-group">
+                    <label for="problemId">문제 ID (선택사항)</label>
+                    <input type="text" id="problemId" placeholder="12345">
+                </div>
+
+                <button onclick="updateVisualization()">🚀 그래프 생성 및 극값 찾기</button>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 사용 방법</h3>
+                <ul>
+                    <li><strong>함수 입력:</strong> JavaScript 형식으로 입력 (x*x 또는 Math.pow(x,2))</li>
+                    <li><strong>극대/극소:</strong> 자동으로 탐지되어 연기 효과로 표시됩니다</li>
+                    <li><strong>Moodle 연동:</strong> API URL과 문제 ID를 입력하면 Moodle에서 문제 정보를 가져옵니다</li>
+                    <li><strong>스마트폰 위젯:</strong> 우측 하단에 가상 스마트폰이 표시됩니다</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smartphone Widget (우측 하단 고정) -->
+    <div class="smartphone-widget">
+        <div class="smartphone-frame">
+            <div class="smartphone-notch"></div>
+            <div class="smartphone-screen">
+                <div class="app-header">
+                    <span class="app-title">Peak Smoke</span>
+                    <span class="connection-status" id="connectionStatus">●</span>
+                </div>
+                <canvas id="graphCanvas"></canvas>
+                <div class="peak-info" id="peakInfo">
+                    <p>함수 그래프를 생성하면<br>극값이 여기에 표시됩니다</p>
+                </div>
+            </div>
+            <div class="smartphone-home-button"></div>
+        </div>
+    </div>
+
+    <script src="js/moodle-api.js"></script>
+    <script src="js/peak-detector.js"></script>
+    <script src="js/smoke-animator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
