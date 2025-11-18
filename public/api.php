@@ -16,12 +16,14 @@ $config = require __DIR__ . '/../config/config.php';
 use MoodleIntegration\Database\Connection;
 use MoodleIntegration\Services\CacheService;
 use MoodleIntegration\Services\QuestionService;
+use MoodleIntegration\Services\DuplicateBarrierService;
 
 try {
     // Initialize services
     $db = Connection::getInstance($config);
     $cache = new CacheService($config);
     $questionService = new QuestionService($db, $cache, $config);
+    $barrierService = new DuplicateBarrierService($db, $config);
 
     // Get action from request
     $action = $_GET['action'] ?? '';
@@ -111,6 +113,73 @@ try {
             echo json_encode([
                 'success' => true,
                 'message' => 'Cache cleared successfully',
+            ]);
+            break;
+
+        case 'mark_viewed':
+            // Mark question as viewed (duplicate barrier)
+            $input = json_decode(file_get_contents('php://input'), true);
+            $questionId = isset($input['question_id']) ? (int)$input['question_id'] : 0;
+
+            if ($questionId <= 0) {
+                throw new Exception('Invalid question ID');
+            }
+
+            $success = $barrierService->markAsViewed($questionId);
+
+            echo json_encode([
+                'success' => $success,
+                'message' => 'Question marked as viewed',
+                'question_id' => $questionId,
+            ]);
+            break;
+
+        case 'check_duplicate':
+            // Check if question is duplicate
+            $questionId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+            if ($questionId <= 0) {
+                throw new Exception('Invalid question ID');
+            }
+
+            $duplicateInfo = $barrierService->checkDuplicate($questionId);
+
+            echo json_encode([
+                'success' => true,
+                'data' => $duplicateInfo,
+            ]);
+            break;
+
+        case 'clear_viewed':
+            // Clear viewed questions
+            $clearDb = isset($_GET['clear_db']) ? (bool)$_GET['clear_db'] : false;
+            $success = $barrierService->clearViewed($clearDb);
+
+            echo json_encode([
+                'success' => $success,
+                'message' => 'Viewed questions cleared',
+            ]);
+            break;
+
+        case 'get_statistics':
+            // Get duplicate barrier statistics
+            $stats = $barrierService->getStatistics();
+
+            echo json_encode([
+                'success' => true,
+                'data' => $stats,
+            ]);
+            break;
+
+        case 'cleanup_old_records':
+            // Cleanup old view records (maintenance)
+            $daysOld = isset($_GET['days']) ? (int)$_GET['days'] : 30;
+            $deletedCount = $barrierService->cleanupOldRecords($daysOld);
+
+            echo json_encode([
+                'success' => true,
+                'message' => "Deleted $deletedCount old records",
+                'deleted_count' => $deletedCount,
             ]);
             break;
 
