@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./backend/keyword-extraction
+      dockerfile: Dockerfile
+    container_name: lms-keyword-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:5173
+    volumes:
+      - ./backend/keyword-extraction:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lms-keyword-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # PostgreSQL (for future use)
+  postgres:
+    image: postgres:15-alpine
+    container_name: lms-keyword-postgres
+    environment:
+      - POSTGRES_USER=lmsuser
+      - POSTGRES_PASSWORD=lmspass
+      - POSTGRES_DB=lms_keywords
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Redis (for future use)
+  redis:
+    image: redis:7-alpine
+    container_name: lms-keyword-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
