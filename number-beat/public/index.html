@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Beat - 숫자 리듬 게임</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Side: Instructions/Info Panel -->
+        <div class="info-panel">
+            <div class="logo">
+                <h1>🎵 Number Beat</h1>
+                <p class="subtitle">숫자를 리듬에 맞춰 배열하세요!</p>
+            </div>
+
+            <div class="instructions">
+                <h2>게임 방법</h2>
+                <ol>
+                    <li>화면에 표시되는 숫자들을 확인하세요</li>
+                    <li>리듬 패턴에 맞춰 숫자를 터치하세요</li>
+                    <li>올바른 순서로 배열하면 점수를 획득합니다</li>
+                    <li>리듬 정확도가 높을수록 보너스 점수!</li>
+                </ol>
+
+                <div class="difficulty-selector">
+                    <h3>난이도 선택</h3>
+                    <div class="difficulty-buttons">
+                        <button class="difficulty-btn active" data-difficulty="easy">쉬움</button>
+                        <button class="difficulty-btn" data-difficulty="medium">보통</button>
+                        <button class="difficulty-btn" data-difficulty="hard">어려움</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="student-info">
+                <h3>학생 정보</h3>
+                <div class="info-input">
+                    <label for="studentId">학생 ID:</label>
+                    <input type="number" id="studentId" value="1" min="1">
+                </div>
+                <button id="startBtn" class="start-btn">게임 시작</button>
+            </div>
+
+            <div class="statistics">
+                <h3>내 통계</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">총 점수</span>
+                        <span class="stat-value" id="totalScore">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">정답률</span>
+                        <span class="stat-value" id="successRate">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">리듬 정확도</span>
+                        <span class="stat-value" id="rhythmAccuracy">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">연속 정답</span>
+                        <span class="stat-value" id="currentStreak">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Virtual Smartphone -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <!-- Phone Frame -->
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-speaker"></div>
+
+                    <!-- Phone Screen -->
+                    <div class="phone-screen">
+                        <!-- Game Screen -->
+                        <div id="gameScreen" class="screen active">
+                            <!-- Header -->
+                            <div class="game-header">
+                                <div class="timer">
+                                    <span class="timer-icon">⏱️</span>
+                                    <span id="timeRemaining">60</span>
+                                </div>
+                                <div class="score">
+                                    <span class="score-icon">⭐</span>
+                                    <span id="currentScore">0</span>
+                                </div>
+                            </div>
+
+                            <!-- Problem Display -->
+                            <div class="problem-section">
+                                <h2 id="problemTitle" class="problem-title">문제를 불러오는 중...</h2>
+                                <p id="problemDescription" class="problem-description"></p>
+                            </div>
+
+                            <!-- Rhythm Visualizer -->
+                            <div class="rhythm-section">
+                                <div class="rhythm-title">리듬 패턴</div>
+                                <div id="rhythmPattern" class="rhythm-pattern"></div>
+                                <div class="rhythm-indicator">
+                                    <div id="rhythmProgressBar" class="rhythm-progress"></div>
+                                </div>
+                            </div>
+
+                            <!-- Number Tiles -->
+                            <div class="numbers-section">
+                                <div class="section-title">숫자 선택</div>
+                                <div id="numberTiles" class="number-tiles"></div>
+                            </div>
+
+                            <!-- Selected Numbers Display -->
+                            <div class="selected-section">
+                                <div class="section-title">선택한 순서</div>
+                                <div id="selectedNumbers" class="selected-numbers"></div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="action-buttons">
+                                <button id="clearBtn" class="action-btn clear-btn">초기화</button>
+                                <button id="submitBtn" class="action-btn submit-btn">제출</button>
+                            </div>
+                        </div>
+
+                        <!-- Result Screen -->
+                        <div id="resultScreen" class="screen">
+                            <div class="result-content">
+                                <div id="resultIcon" class="result-icon">🎉</div>
+                                <h2 id="resultTitle" class="result-title">정답입니다!</h2>
+                                <div class="result-stats">
+                                    <div class="result-stat">
+                                        <span class="result-label">획득 점수</span>
+                                        <span id="earnedScore" class="result-value big">0</span>
+                                    </div>
+                                    <div class="result-stat">
+                                        <span class="result-label">리듬 정확도</span>
+                                        <span id="resultRhythm" class="result-value">0%</span>
+                                    </div>
+                                    <div class="result-stat">
+                                        <span class="result-label">소요 시간</span>
+                                        <span id="resultTime" class="result-value">0초</span>
+                                    </div>
+                                </div>
+                                <div id="correctAnswer" class="correct-answer"></div>
+                                <button id="nextBtn" class="next-btn">다음 문제</button>
+                            </div>
+                        </div>
+
+                        <!-- Loading Screen -->
+                        <div id="loadingScreen" class="screen">
+                            <div class="loading-content">
+                                <div class="loader"></div>
+                                <p>문제를 불러오는 중...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone Home Button -->
+                    <div class="phone-home-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="beatSound" preload="auto">
+        <source src="audio/beat.mp3" type="audio/mpeg">
+        <source src="audio/beat.ogg" type="audio/ogg">
+    </audio>
+    <audio id="successSound" preload="auto">
+        <source src="audio/success.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="failSound" preload="auto">
+        <source src="audio/fail.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="tapSound" preload="auto">
+        <source src="audio/tap.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/rhythm.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
