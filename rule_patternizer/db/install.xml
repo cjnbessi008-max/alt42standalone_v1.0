@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/rulepatternizer/db" VERSION="20241118" COMMENT="XMLDB file for Moodle mod_rulepatternizer"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <!-- Main module instance table -->
+    <TABLE NAME="rulepatternizer" COMMENT="Rule Patternizer activity instances">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="course" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Differentiation rules/formulas table -->
+    <TABLE NAME="rulepatternizer_rules" COMMENT="Differentiation formulas and patterns">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="rule_name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="e.g., Power Rule, Chain Rule"/>
+        <FIELD NAME="rule_formula" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="LaTeX formula"/>
+        <FIELD NAME="pattern_type" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="visual, verbal, symbolic"/>
+        <FIELD NAME="difficulty_level" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="1-5"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="example" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="rule_name_idx" UNIQUE="false" FIELDS="rule_name"/>
+        <INDEX NAME="difficulty_idx" UNIQUE="false" FIELDS="difficulty_level"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Problems table -->
+    <TABLE NAME="rulepatternizer_problems" COMMENT="Practice problems for each rule">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="rule_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="rulepatternizer_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_text" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_latex" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="correct_answer" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="hint" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="difficulty_level" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="rule_id_fk" TYPE="foreign" FIELDS="rule_id" REFTABLE="rulepatternizer_rules" REFFIELDS="id"/>
+        <KEY NAME="instance_fk" TYPE="foreign" FIELDS="rulepatternizer_id" REFTABLE="rulepatternizer" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="rule_idx" UNIQUE="false" FIELDS="rule_id"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- User progress tracking -->
+    <TABLE NAME="rulepatternizer_progress" COMMENT="Track user learning progress">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="rulepatternizer_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="rule_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="attempts" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="correct_count" TYPE="int" LENGTH="5" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="mastery_level" TYPE="int" LENGTH="3" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="0-100%"/>
+        <FIELD NAME="last_attempt_time" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="rule_fk" TYPE="foreign" FIELDS="rule_id" REFTABLE="rulepatternizer_rules" REFFIELDS="id"/>
+        <KEY NAME="problem_fk" TYPE="foreign" FIELDS="problem_id" REFTABLE="rulepatternizer_problems" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_rule_idx" UNIQUE="false" FIELDS="userid,rule_id"/>
+        <INDEX NAME="mastery_idx" UNIQUE="false" FIELDS="mastery_level"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- User answers log -->
+    <TABLE NAME="rulepatternizer_answers" COMMENT="Log of all user answers">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="problem_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="user_answer" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="is_correct" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="time_taken" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="seconds"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="userid_fk" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="problem_fk" TYPE="foreign" FIELDS="problem_id" REFTABLE="rulepatternizer_problems" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_problem_idx" UNIQUE="false" FIELDS="userid,problem_id"/>
+        <INDEX NAME="time_idx" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

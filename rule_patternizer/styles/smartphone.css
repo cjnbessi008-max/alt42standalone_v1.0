@@ -1,0 +1,408 @@
+/* Rule Patternizer - Smartphone UI Styles */
+
+#rulepatternizer-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+#smartphone-frame {
+    width: 375px;
+    height: 667px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+#smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+#smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 15px 15px;
+    text-align: center;
+}
+
+#app-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#progress-indicator {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#mastery-display {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+#app-content {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+.screen {
+    display: none;
+    padding: 20px;
+    animation: slideIn 0.3s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Welcome Screen */
+#welcome-screen {
+    text-align: center;
+    padding-top: 50px;
+}
+
+#welcome-screen h3 {
+    color: #667eea;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#welcome-screen p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+/* Buttons */
+button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #667eea;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-back {
+    background: #e0e0e0;
+    color: #666;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+.btn-success {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-danger {
+    background: #f44336;
+    color: white;
+}
+
+/* Rule Selection */
+#rule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.rule-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rule-item:hover {
+    border-color: #667eea;
+    transform: translateX(5px);
+}
+
+.rule-item h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.rule-item .difficulty {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.difficulty-1 { background: #d4edda; color: #155724; }
+.difficulty-2 { background: #cce5ff; color: #004085; }
+.difficulty-3 { background: #fff3cd; color: #856404; }
+.difficulty-4 { background: #f8d7da; color: #721c24; }
+.difficulty-5 { background: #d6d8db; color: #383d41; }
+
+/* Practice Screen */
+#rule-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+#rule-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+.formula-display {
+    background: white;
+    color: #333;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    margin: 10px 0;
+}
+
+#problem-area {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+#problem-area h4 {
+    margin: 0 0 10px 0;
+    color: #667eea;
+}
+
+#answer-area {
+    margin-top: 20px;
+}
+
+#answer-area label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+#user-answer {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#user-answer:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+#feedback-area {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#feedback-area.correct {
+    background: #d4edda;
+    color: #155724;
+}
+
+#feedback-area.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+#hint-area {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #856404;
+}
+
+/* Progress Screen */
+#overall-stats {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+#overall-stats h4 {
+    margin: 0 0 15px 0;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-weight: 600;
+}
+
+.stat-value {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+#progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.progress-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.progress-item h5 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.progress-bar-container {
+    background: #e0e0e0;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
+.progress-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Scrollbar styling */
+#app-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+#app-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#app-content::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+#app-content::-webkit-scrollbar-thumb:hover {
+    background: #764ba2;
+}
+
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #667eea;
+}
+
+.loading::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+    #rulepatternizer-container {
+        position: static;
+        margin: 20px auto;
+    }
+
+    #smartphone-frame {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+}
