@@ -1,0 +1,39 @@
+{
+  "name": "edge-melody-frontend",
+  "version": "1.0.0",
+  "description": "Edge Melody - LMS 연동 3D 학습 웹앱",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.155.0",
+    "@react-three/fiber": "^8.13.5",
+    "@react-three/drei": "^9.80.0",
+    "axios": "^1.4.0",
+    "react-spring": "^9.7.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

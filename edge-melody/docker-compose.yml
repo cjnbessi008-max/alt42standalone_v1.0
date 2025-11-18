@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 for Moodle
+  mysql:
+    image: mysql:5.7
+    container_name: edge-melody-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: moodle
+      MYSQL_USER: moodle_user
+      MYSQL_PASSWORD: moodle_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - edge-melody-network
+
+  # PHP 7.1.9 Backend
+  backend:
+    image: php:7.1.9-apache
+    container_name: edge-melody-backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html
+      - ./config:/var/www/config
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: moodle
+      DB_USER: moodle_user
+      DB_PASS: moodle_pass
+    depends_on:
+      - mysql
+    networks:
+      - edge-melody-network
+    command: >
+      bash -c "docker-php-ext-install pdo pdo_mysql mysqli && apache2-foreground"
+
+  # Frontend (Vite Dev Server)
+  frontend:
+    image: node:18-alpine
+    container_name: edge-melody-frontend
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    networks:
+      - edge-melody-network
+
+volumes:
+  mysql_data:
+
+networks:
+  edge-melody-network:
+    driver: bridge
