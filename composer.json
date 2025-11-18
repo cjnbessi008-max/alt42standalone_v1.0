@@ -1,0 +1,25 @@
+{
+    "name": "kaist/deviation-breeze",
+    "description": "Deviation Breeze - LMS Integration App for Learning Analytics",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "slim/slim": "^3.12",
+        "slim/php-view": "^2.2",
+        "monolog/monolog": "^1.24",
+        "vlucas/phpdotenv": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "DeviationBreeze\\": "backend/src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t backend/public",
+        "test": "phpunit tests"
+    }
+}

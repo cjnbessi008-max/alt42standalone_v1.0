@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # PHP Application
+  app:
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+    container_name: deviation_breeze_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ../backend:/var/www/html/backend
+      - ../frontend:/var/www/html/frontend
+      - ../database:/var/www/html/database
+      - ../.env:/var/www/html/.env
+    ports:
+      - "8080:80"
+    environment:
+      - APP_ENV=development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=deviation_breeze
+      - DB_USERNAME=deviation_user
+      - DB_PASSWORD=deviation_pass_2024
+    depends_on:
+      - mysql
+    networks:
+      - deviation_network
+
+  # MySQL Database
+  mysql:
+    image: mysql:5.7
+    container_name: deviation_breeze_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_2024
+      MYSQL_DATABASE: deviation_breeze
+      MYSQL_USER: deviation_user
+      MYSQL_PASSWORD: deviation_pass_2024
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - deviation_network
+
+  # phpMyAdmin (optional, for database management)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: deviation_breeze_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: deviation_user
+      PMA_PASSWORD: deviation_pass_2024
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - deviation_network
+
+networks:
+  deviation_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

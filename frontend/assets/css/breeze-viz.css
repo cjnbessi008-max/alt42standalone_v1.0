@@ -1,0 +1,322 @@
+/**
+ * Deviation Breeze Visualization Styles
+ */
+
+.breeze-container {
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.breeze-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+#breezeSvg {
+    display: none;
+}
+
+#breezeSvg.active {
+    display: block;
+}
+
+/* Student Nodes (Particles) */
+.student-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.student-node circle {
+    stroke-width: 2px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.student-node:hover circle {
+    stroke-width: 4px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+/* Cluster Colors */
+.cluster-high circle {
+    fill: #28a745;
+    stroke: #1e7e34;
+}
+
+.cluster-medium circle {
+    fill: #ffc107;
+    stroke: #e0a800;
+}
+
+.cluster-low circle {
+    fill: #dc3545;
+    stroke: #c82333;
+}
+
+.cluster-outlier circle {
+    fill: #6f42c1;
+    stroke: #5a32a3;
+}
+
+/* Node Labels */
+.node-label {
+    font-size: 11px;
+    font-weight: 600;
+    fill: white;
+    text-anchor: middle;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Center Point (Average) */
+.center-point {
+    fill: rgba(255, 255, 255, 0.8);
+    stroke: rgba(255, 255, 255, 1);
+    stroke-width: 2px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+}
+
+.center-label {
+    font-size: 14px;
+    font-weight: 700;
+    fill: white;
+    text-anchor: middle;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* Connection Lines */
+.connection-line {
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 1px;
+    stroke-dasharray: 5, 5;
+}
+
+/* Breeze Effect Lines */
+.breeze-line {
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 2px;
+    fill: none;
+    stroke-linecap: round;
+    opacity: 0;
+}
+
+.breeze-line.animating {
+    opacity: 1;
+    animation: breezeFlow 2s ease-in-out infinite;
+}
+
+@keyframes breezeFlow {
+    0% {
+        stroke-dasharray: 0, 100;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 50, 50;
+        stroke-dashoffset: -50;
+    }
+    100% {
+        stroke-dasharray: 0, 100;
+        stroke-dashoffset: -100;
+    }
+}
+
+/* Particles for Breeze Effect */
+.breeze-particle {
+    fill: white;
+    opacity: 0.6;
+}
+
+/* Tooltip */
+.breeze-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    min-width: 200px;
+    display: none;
+}
+
+.breeze-tooltip.active {
+    display: block;
+}
+
+.breeze-tooltip .tooltip-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.breeze-tooltip .tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+}
+
+.breeze-tooltip .tooltip-label {
+    color: #bbb;
+    margin-right: 10px;
+}
+
+.breeze-tooltip .tooltip-value {
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Legend */
+.breeze-legend {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    z-index: 100;
+}
+
+.breeze-legend h6 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+
+.legend-color.high {
+    background: #28a745;
+}
+
+.legend-color.medium {
+    background: #ffc107;
+}
+
+.legend-color.low {
+    background: #dc3545;
+}
+
+.legend-color.outlier {
+    background: #6f42c1;
+}
+
+/* Stats Overlay */
+.stats-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    z-index: 100;
+}
+
+.stats-overlay h6 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.stat-item {
+    margin: 6px 0;
+}
+
+.stat-label {
+    color: #bbb;
+    margin-right: 8px;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.student-node.highlighted circle {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* Zoom Controls */
+.zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.zoom-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+/* Loading State */
+.breeze-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1000;
+}
+
+.breeze-loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}

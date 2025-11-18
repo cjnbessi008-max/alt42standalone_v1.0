@@ -1,0 +1,36 @@
+# Environment
+.env
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+cache/
+*.cache
+
+# Build
+dist/
+build/
+
+# Testing
+coverage/
+.phpunit.result.cache
+
+# Docker
+docker-compose.override.yml
