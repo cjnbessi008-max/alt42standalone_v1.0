@@ -1,0 +1,344 @@
+/**
+ * Reverse Bloom Smartphone UI
+ * 우측 하단에 표시되는 가상 스마트폰 인터페이스
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Smartphone Container - 우측 하단 고정 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 380px;
+    height: 720px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 40px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.smartphone-container.minimized {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.smartphone-container.minimized .phone-screen {
+    display: none;
+}
+
+/* Phone Frame */
+.phone-frame {
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Notch */
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+}
+
+/* Screen */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 28px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 40px 20px 20px 20px;
+}
+
+/* Header */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    margin: -40px -20px 20px -20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.app-header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.app-header .subtitle {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Bloom Level Indicator */
+.bloom-indicator {
+    margin: 0 -20px 20px -20px;
+    padding: 15px 20px;
+    background: linear-gradient(to right, #FFB6C1, #FFA07A, #FF6347, #DC143C, #B22222, #8B0000);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.bloom-level {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bloom-progress {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bloom-progress-bar {
+    height: 100%;
+    background: white;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* Question Card */
+.question-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.question-type {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #667eea;
+    color: white;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.question-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.question-hint {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #856404;
+    border-radius: 5px;
+}
+
+/* Answers */
+.answers-container {
+    margin-top: 20px;
+}
+
+.answer-option {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.answer-option:hover {
+    background: #e9ecef;
+    border-color: #667eea;
+}
+
+.answer-option.selected {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.answer-option.correct {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.answer-option.incorrect {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+/* Navigation Buttons */
+.bloom-navigation {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.bloom-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bloom-btn-down {
+    background: #17a2b8;
+    color: white;
+}
+
+.bloom-btn-down:hover {
+    background: #138496;
+}
+
+.bloom-btn-down:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.bloom-btn-up {
+    background: #28a745;
+    color: white;
+}
+
+.bloom-btn-up:hover {
+    background: #218838;
+}
+
+.bloom-btn-up:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.bloom-btn-next {
+    background: #667eea;
+    color: white;
+}
+
+.bloom-btn-next:hover {
+    background: #5568d3;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid #f5c6cb;
+}
+
+/* Minimize/Maximize Button */
+.toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar Styling */
+.phone-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.phone-screen::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.phone-screen::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .smartphone-container {
+        width: 320px;
+        height: 600px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
