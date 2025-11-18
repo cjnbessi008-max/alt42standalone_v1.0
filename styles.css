@@ -1,0 +1,492 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 메인 패널 */
+.main-panel {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.9em;
+}
+
+.control-section,
+.results-section,
+.debug-section,
+.info-section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #444;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+/* 벡터 입력 */
+.vector-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.vector-input label {
+    font-weight: bold;
+    min-width: 70px;
+    color: #555;
+}
+
+.vector-input input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.vector-input input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* 버튼 */
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+/* 결과 표시 */
+.result-display {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #ddd;
+}
+
+.result-item.highlight {
+    border-left-color: #667eea;
+    background: #f0f4ff;
+    font-weight: bold;
+}
+
+.result-item .label {
+    color: #666;
+    font-weight: 500;
+}
+
+.result-item .value {
+    color: #333;
+    font-weight: bold;
+}
+
+.result-item.status {
+    border-left-color: #28a745;
+}
+
+.status-normal {
+    color: #28a745;
+}
+
+.status-orthogonal {
+    color: #ff9800;
+    animation: pulse 1.5s infinite;
+}
+
+.status-error {
+    color: #dc3545;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* 디버그 로그 */
+.debug-log {
+    background: #1e1e1e;
+    color: #00ff00;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    max-height: 200px;
+    overflow-y: auto;
+    line-height: 1.6;
+}
+
+.debug-log .log-entry {
+    margin-bottom: 5px;
+}
+
+.debug-log .log-time {
+    color: #888;
+}
+
+.debug-log .log-warning {
+    color: #ffaa00;
+}
+
+.debug-log .log-error {
+    color: #ff5555;
+}
+
+.debug-log .log-success {
+    color: #55ff55;
+}
+
+/* 정보 섹션 */
+.info-section {
+    background: #e8f4f8;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #17a2b8;
+}
+
+.info-section ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.info-section li {
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* 스마트폰 컨테이너 (우측 하단) */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.smartphone {
+    width: 360px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    border: 8px solid #2a2a2a;
+}
+
+/* 스마트폰 헤더 */
+.smartphone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    color: white;
+    font-size: 0.85em;
+}
+
+.status-icons {
+    display: flex;
+    gap: 8px;
+}
+
+/* 스마트폰 스크린 */
+.smartphone-screen {
+    background: white;
+    border-radius: 25px;
+    height: 620px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 앱 헤더 */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h2 {
+    color: white;
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+}
+
+.problem-id {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+}
+
+/* 캔버스 컨테이너 */
+.canvas-container {
+    background: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#vectorCanvas {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background: white;
+}
+
+/* 앱 콘텐츠 */
+.app-content {
+    padding: 20px;
+}
+
+.vector-display {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.vector-info {
+    flex: 1;
+    background: #f0f4ff;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.vector-label {
+    display: block;
+    font-weight: bold;
+    color: #667eea;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.vector-coords {
+    color: #333;
+    font-family: 'Courier New', monospace;
+}
+
+/* 내적 표시 */
+.dot-product-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+}
+
+.dot-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.dot-value {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.dot-status {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+/* 답안 섹션 */
+.answer-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.answer-section input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.answer-section input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-submit {
+    background: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #218838;
+}
+
+/* 피드백 섹션 */
+.feedback-section {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.feedback-section.show {
+    display: block;
+}
+
+.feedback-section.correct {
+    background: #d4edda;
+    border: 2px solid #28a745;
+    color: #155724;
+}
+
+.feedback-section.incorrect {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+    color: #721c24;
+}
+
+/* 스마트폰 푸터 */
+.smartphone-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+}
+
+.nav-button {
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.nav-button:hover {
+    transform: scale(1.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .smartphone-container {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 20px;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .main-panel {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* 로딩 애니메이션 */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

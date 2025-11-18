@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>벡터 학습 앱 - Orthogonal Freeze 해결</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 메인 컨트롤 패널 -->
+        <div class="main-panel">
+            <h1>벡터 내적 학습 시스템</h1>
+            <p class="subtitle">Moodle LMS 연동 - 가상 스마트폰 디스플레이</p>
+
+            <div class="control-section">
+                <h2>벡터 입력</h2>
+
+                <div class="vector-input">
+                    <label>벡터 A:</label>
+                    <input type="number" id="ax" placeholder="x" value="1" step="0.1">
+                    <input type="number" id="ay" placeholder="y" value="0" step="0.1">
+                </div>
+
+                <div class="vector-input">
+                    <label>벡터 B:</label>
+                    <input type="number" id="bx" placeholder="x" value="0" step="0.1">
+                    <input type="number" id="by" placeholder="y" value="1" step="0.1">
+                </div>
+
+                <button id="calculateBtn" class="btn-primary">내적 계산하기</button>
+                <button id="loadProblemBtn" class="btn-secondary">Moodle에서 문제 불러오기</button>
+            </div>
+
+            <div class="results-section">
+                <h2>계산 결과</h2>
+                <div class="result-display">
+                    <div class="result-item">
+                        <span class="label">벡터 A:</span>
+                        <span id="vectorA" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">벡터 B:</span>
+                        <span id="vectorB" class="value">-</span>
+                    </div>
+                    <div class="result-item highlight">
+                        <span class="label">내적 (A · B):</span>
+                        <span id="dotProduct" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">각도:</span>
+                        <span id="angle" class="value">-</span>
+                    </div>
+                    <div class="result-item status">
+                        <span class="label">상태:</span>
+                        <span id="status" class="value status-normal">정상</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="debug-section">
+                <h3>디버그 정보</h3>
+                <div id="debugLog" class="debug-log"></div>
+            </div>
+
+            <div class="info-section">
+                <h3>Orthogonal Freeze 문제 해결</h3>
+                <p>
+                    <strong>문제:</strong> 내적이 0일 때 (두 벡터가 수직일 때) 화면이 멈추는 현상<br>
+                    <strong>해결책:</strong>
+                    <ul>
+                        <li>Orthogonal 조건 (내적 = 0) 감지 및 특별 처리</li>
+                        <li>Zero division 방지 로직 추가</li>
+                        <li>상태 기반 렌더링으로 freeze 방지</li>
+                        <li>비동기 계산 처리로 UI blocking 방지</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <!-- 가상 스마트폰 화면 (우측 하단) -->
+        <div class="smartphone-container">
+            <div class="smartphone">
+                <div class="smartphone-header">
+                    <span class="time">10:30</span>
+                    <div class="status-icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+
+                <div class="smartphone-screen" id="smartphoneScreen">
+                    <div class="app-header">
+                        <h2>벡터 학습</h2>
+                        <div class="problem-id">문제 #<span id="problemId">-</span></div>
+                    </div>
+
+                    <div class="canvas-container">
+                        <canvas id="vectorCanvas" width="300" height="300"></canvas>
+                    </div>
+
+                    <div class="app-content">
+                        <div class="vector-display">
+                            <div class="vector-info">
+                                <span class="vector-label">A</span>
+                                <span class="vector-coords" id="phoneVectorA">-</span>
+                            </div>
+                            <div class="vector-info">
+                                <span class="vector-label">B</span>
+                                <span class="vector-coords" id="phoneVectorB">-</span>
+                            </div>
+                        </div>
+
+                        <div class="dot-product-display">
+                            <div class="dot-label">내적 (A · B)</div>
+                            <div class="dot-value" id="phoneDotProduct">0</div>
+                            <div class="dot-status" id="phoneDotStatus">계산 대기 중...</div>
+                        </div>
+
+                        <div class="answer-section" id="answerSection" style="display: none;">
+                            <input type="number" id="answerInput" placeholder="답을 입력하세요" step="0.01">
+                            <button id="submitAnswer" class="btn-submit">제출</button>
+                        </div>
+
+                        <div class="feedback-section" id="feedbackSection"></div>
+                    </div>
+                </div>
+
+                <div class="smartphone-footer">
+                    <div class="nav-button">◀</div>
+                    <div class="nav-button">⬤</div>
+                    <div class="nav-button">☰</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="mock-moodle.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
