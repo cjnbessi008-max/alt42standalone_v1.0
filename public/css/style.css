@@ -1,0 +1,309 @@
+/* AI Personalized Learning System - Custom Styles */
+
+:root {
+    --visual-color: #28a745;
+    --analytical-color: #17a2b8;
+    --experimental-color: #ffc107;
+    --primary-color: #007bff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Pattern Cards */
+.pattern-card {
+    padding: 20px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.pattern-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.visual-pattern {
+    border-left: 4px solid var(--visual-color);
+}
+
+.analytical-pattern {
+    border-left: 4px solid var(--analytical-color);
+}
+
+.experimental-pattern {
+    border-left: 4px solid var(--experimental-color);
+}
+
+.pattern-card i {
+    color: #6c757d;
+}
+
+.visual-pattern i {
+    color: var(--visual-color);
+}
+
+.analytical-pattern i {
+    color: var(--analytical-color);
+}
+
+.experimental-pattern i {
+    color: var(--experimental-color);
+}
+
+/* Progress Bars */
+.progress {
+    height: 25px;
+    border-radius: 15px;
+}
+
+.progress-bar {
+    font-weight: bold;
+    line-height: 25px;
+    transition: width 0.6s ease;
+}
+
+/* Student Cards */
+.student-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    border-color: var(--primary-color);
+}
+
+.student-card .card-body {
+    text-align: center;
+    padding: 30px;
+}
+
+.student-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+/* Problem Display */
+#problemContent {
+    min-height: 200px;
+}
+
+#visualDisplay {
+    min-height: 150px;
+}
+
+.fraction-visual {
+    display: inline-block;
+    margin: 10px;
+}
+
+.fraction-bar {
+    display: flex;
+    border: 2px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 300px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.fraction-segment {
+    flex: 1;
+    border-right: 1px solid #333;
+    transition: background-color 0.3s ease;
+}
+
+.fraction-segment:last-child {
+    border-right: none;
+}
+
+.fraction-segment.filled {
+    background-color: var(--visual-color);
+}
+
+.fraction-segment.empty {
+    background-color: #e9ecef;
+}
+
+.fraction-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    position: relative;
+    margin: 0 auto;
+    background: conic-gradient(
+        var(--visual-color) 0deg,
+        var(--visual-color) var(--fill-angle, 0deg),
+        #e9ecef var(--fill-angle, 0deg),
+        #e9ecef 360deg
+    );
+}
+
+/* Answer Section */
+.answer-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px dashed #dee2e6;
+}
+
+.answer-section input {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Hint Buttons */
+#visualHintBtn:hover {
+    background-color: var(--visual-color);
+    color: white;
+    border-color: var(--visual-color);
+}
+
+#analyticalHintBtn:hover {
+    background-color: var(--analytical-color);
+    color: white;
+    border-color: var(--analytical-color);
+}
+
+#experimentalHintBtn:hover {
+    background-color: var(--experimental-color);
+    color: white;
+    border-color: var(--experimental-color);
+}
+
+/* Feedback Display */
+.feedback-correct {
+    animation: bounceIn 0.5s;
+}
+
+.feedback-incorrect {
+    animation: shake 0.5s;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+/* Stats Cards */
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* Badges */
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5em 0.8em;
+}
+
+.badge-xl {
+    font-size: 1.2rem;
+    padding: 0.7em 1em;
+}
+
+/* Loading Animation */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pattern-card {
+        margin-bottom: 15px;
+    }
+
+    .answer-section input {
+        font-size: 1.2rem;
+    }
+
+    .fraction-bar {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .fraction-circle {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* Utility Classes */
+.text-visual {
+    color: var(--visual-color);
+}
+
+.text-analytical {
+    color: var(--analytical-color);
+}
+
+.text-experimental {
+    color: var(--experimental-color);
+}
+
+.bg-visual {
+    background-color: var(--visual-color);
+    color: white;
+}
+
+.bg-analytical {
+    background-color: var(--analytical-color);
+    color: white;
+}
+
+.bg-experimental {
+    background-color: var(--experimental-color);
+    color: white;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+#currentStudent {
+    font-weight: bold;
+    color: #ffc107 !important;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
