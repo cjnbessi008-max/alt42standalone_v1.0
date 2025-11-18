@@ -1,0 +1,273 @@
+/* Base Switch 컨테이너 */
+.base-switch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 헤더 */
+.base-switch-header {
+  text-align: center;
+}
+
+.base-switch-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+}
+
+.conversion-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.base-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.base-badge.source {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.base-badge.target {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.arrow {
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+/* 진행 표시 */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.step-indicator {
+  text-align: center;
+  font-size: 12px;
+  color: #7f8c8d;
+  font-weight: 600;
+}
+
+/* 애니메이션 영역 */
+.animation-area {
+  flex: 1;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 단계 설명 */
+.step-description {
+  text-align: center;
+}
+
+.step-description h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* 값 표시 */
+.value-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
+.value-box {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.value-label {
+  font-size: 12px;
+  color: #7f8c8d;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.value-text {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+/* 수식 표시 */
+.formula-display {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.formula-label {
+  font-size: 12px;
+  color: #7f8c8d;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.formula-text {
+  font-size: 13px;
+  color: #34495e;
+  font-family: 'Courier New', monospace;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* 컨트롤 버튼 */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.control-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.control-btn.play-pause {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 20px;
+}
+
+/* 단계 네비게이션 */
+.step-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #bdc3c7;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.step-dot:hover {
+  transform: scale(1.2);
+  border-color: #667eea;
+}
+
+.step-dot.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  transform: scale(1.3);
+}
+
+.step-dot.completed {
+  background: #95a5a6;
+  border-color: #95a5a6;
+}
+
+/* 로딩 상태 */
+.base-switch-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+/* 반응형 */
+@media (max-width: 360px) {
+  .value-text {
+    font-size: 24px;
+  }
+
+  .control-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .control-btn.play-pause {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+}
