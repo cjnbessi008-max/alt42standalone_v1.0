@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="description" content="LMS 연동 로그 감성 시각화 - AI 기반 학습 분석">
     <title>Curvy Log - Emotional Log Animation</title>
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Curvy Log">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Curvy Log Viewer</h1>
-            <p>LMS 연동 로그 감성 시각화</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <div>
+                    <h1>Curvy Log Viewer</h1>
+                    <p>LMS 연동 로그 감성 시각화</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="window.location.href='dashboard.html'" class="btn-secondary" style="padding: 10px 20px;">
+                        📊 대시보드
+                    </button>
+                    <button onclick="window.location.href='recommendations.html'" class="btn-secondary" style="padding: 10px 20px;">
+                        🤖 AI 추천
+                    </button>
+                </div>
+            </div>
         </header>
 
         <div class="controls">
@@ -82,5 +105,6 @@
 
     <script src="js/curvy-log.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/pwa-install.js"></script>
 </body>
 </html>
