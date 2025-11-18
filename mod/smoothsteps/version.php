@@ -8,8 +8,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025111800;        // The current module version (Date: YYYYMMDDXX)
+$plugin->version   = 2025111801;        // The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2017051500;        // Requires Moodle 3.7 version
 $plugin->component = 'mod_smoothsteps'; // Full name of the plugin (used for diagnostics)
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = 'v1.0';
+$plugin->release   = 'v2.0';            // Enhanced version with quiz features and analytics

@@ -23,5 +23,44 @@
         <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
       </INDEXES>
     </TABLE>
+    <TABLE NAME="smoothsteps_progress" COMMENT="Stores user progress and attempts">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="smoothstepsid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="attempt" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Attempt number"/>
+        <FIELD NAME="correct" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="1 if correct, 0 if incorrect"/>
+        <FIELD NAME="timespent" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Time spent in seconds"/>
+        <FIELD NAME="problemdata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="JSON data of the problem"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="smoothstepsid" TYPE="foreign" FIELDS="smoothstepsid" REFTABLE="smoothsteps" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="smoothstepsid-userid" UNIQUE="false" FIELDS="smoothstepsid, userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="smoothsteps_interactions" COMMENT="Logs user interactions with the activity">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="smoothstepsid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="interactiontype" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Type of interaction: play, pause, reset, etc"/>
+        <FIELD NAME="interactiondata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Additional data about the interaction"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="smoothstepsid" TYPE="foreign" FIELDS="smoothstepsid" REFTABLE="smoothsteps" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="smoothstepsid-userid" UNIQUE="false" FIELDS="smoothstepsid, userid"/>
+        <INDEX NAME="interactiontype" UNIQUE="false" FIELDS="interactiontype"/>
+      </INDEXES>
+    </TABLE>
   </TABLES>
 </XMLDB>
