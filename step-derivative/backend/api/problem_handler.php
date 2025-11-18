@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/moodle.php';
 require_once __DIR__ . '/../lib/derivative_engine.php';
+require_once __DIR__ . '/../lib/recommendation_engine.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -327,9 +328,33 @@ function handleUpdateAttempt($pdo, $data) {
         ':metadata' => json_encode(['time_spent' => $timeSpent])
     ]);
 
+    // Update skill levels if attempt is completed
+    $updatedSkills = null;
+    if ($completed) {
+        try {
+            $recommendationEngine = new RecommendationEngine($pdo);
+
+            // Get user ID from attempt
+            $stmt = $pdo->prepare("SELECT moodle_user_id FROM student_attempts WHERE id = :id");
+            $stmt->execute([':id' => $data['attempt_id']]);
+            $attempt = $stmt->fetch();
+
+            if ($attempt) {
+                $updatedSkills = $recommendationEngine->updateSkillLevels(
+                    $attempt['moodle_user_id'],
+                    $data['attempt_id']
+                );
+            }
+        } catch (Exception $e) {
+            error_log("Failed to update skills: " . $e->getMessage());
+            // Don't fail the whole request if skill update fails
+        }
+    }
+
     sendResponse([
         'status' => 'success',
-        'message' => 'Attempt updated successfully'
+        'message' => 'Attempt updated successfully',
+        'updated_skills' => $updatedSkills
     ]);
 }
 

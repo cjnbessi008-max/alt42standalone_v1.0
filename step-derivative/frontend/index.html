@@ -6,6 +6,7 @@
     <title>Step Derivative - 단계별 미분 학습</title>
     <link rel="stylesheet" href="css/smartphone.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/recommendations.css">
 </head>
 <body>
     <!-- Virtual Smartphone Container (positioned at bottom-right) -->
@@ -100,6 +101,11 @@
                         <p id="error-message">문제를 불러올 수 없습니다.</p>
                         <button id="retry-btn" class="primary-btn">다시 시도</button>
                     </div>
+
+                    <!-- Recommendations Screen -->
+                    <div id="recommendations-screen" class="section hidden">
+                        <div id="recommendations-container"></div>
+                    </div>
                 </div>
             </div>
 
@@ -136,6 +142,7 @@
     <!-- App Scripts -->
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
+    <script src="js/recommendations.js"></script>
     <script src="js/app.js"></script>
     <script src="js/drag.js"></script>
 </body>

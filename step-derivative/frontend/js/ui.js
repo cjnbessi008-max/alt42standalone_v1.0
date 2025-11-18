@@ -192,6 +192,12 @@ const UI = {
         this.elements.stepsSection.classList.add('hidden');
         this.elements.completionScreen.classList.add('hidden');
         this.elements.errorScreen.classList.add('hidden');
+
+        // Hide recommendations screen if exists
+        const recommendationsScreen = document.getElementById('recommendations-screen');
+        if (recommendationsScreen) {
+            recommendationsScreen.classList.add('hidden');
+        }
     },
 
     /**

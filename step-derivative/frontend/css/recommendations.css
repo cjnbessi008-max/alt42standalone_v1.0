@@ -1,0 +1,516 @@
+/**
+ * Recommendations UI Styles
+ * Personalized learning recommendations display
+ */
+
+/* Recommendations Container */
+.recommendations-container {
+    padding: 15px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+/* Performance Overview */
+.performance-overview {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.performance-overview h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Skill Level Bar */
+.skill-level-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.skill-level-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80 0%, #22c55e 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.difficulty-badge-current {
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+.difficulty-badge-current strong {
+    font-weight: 700;
+}
+
+/* Next Problem Card */
+.next-problem-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #667eea;
+}
+
+.next-problem-card h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.problem-preview {
+    margin-bottom: 15px;
+}
+
+.problem-expression {
+    font-size: 20px;
+    font-family: 'Courier New', monospace;
+    color: #667eea;
+    background: #f8f9ff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.problem-difficulty {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+.start-problem-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-problem-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.start-problem-btn:active {
+    transform: translateY(0);
+}
+
+/* Difficulty Recommendation */
+.difficulty-recommendation {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+}
+
+.difficulty-recommendation h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.difficulty-recommendation p {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.apply-difficulty-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    color: #f59e0b;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.apply-difficulty-btn:hover {
+    transform: translateY(-2px);
+}
+
+.apply-difficulty-btn:active {
+    transform: translateY(0);
+}
+
+/* Suggestions List */
+.suggestions-list {
+    margin-bottom: 15px;
+}
+
+.suggestions-list h3 {
+    color: #333;
+    font-size: 16px;
+    margin: 0 0 15px 0;
+}
+
+/* Suggestion Card */
+.suggestion-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.suggestion-card:hover {
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Priority Colors */
+.suggestion-card.priority-high {
+    border-left-color: #ef4444;
+}
+
+.suggestion-card.priority-medium {
+    border-left-color: #f59e0b;
+}
+
+.suggestion-card.priority-low {
+    border-left-color: #3b82f6;
+}
+
+.suggestion-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.suggestion-content {
+    flex: 1;
+}
+
+.suggestion-content h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.suggestion-content p {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.weak-skills {
+    font-size: 12px;
+    color: #ef4444;
+    background: #fee2e2;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.suggestion-action-btn {
+    padding: 8px 15px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.suggestion-action-btn:hover {
+    background: #5568d3;
+}
+
+.suggestion-action-btn:active {
+    background: #4652b3;
+}
+
+/* Recommendations Dashboard (full screen) */
+.recommendations-dashboard {
+    width: 100%;
+    height: 100%;
+    background: #f8f9ff;
+    overflow-y: auto;
+}
+
+.recommendations-dashboard .recommendations-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Learning Path Section */
+.learning-path-section {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.learning-path-section h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.learning-path-progress {
+    margin-bottom: 15px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.progress-bar-container {
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.5s ease;
+}
+
+.learning-path-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.learning-path-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9ff;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.learning-path-step.completed {
+    opacity: 0.6;
+}
+
+.learning-path-step.current {
+    background: #e0e7ff;
+    border: 2px solid #667eea;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.learning-path-step.completed .step-number {
+    background: #22c55e;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.step-description {
+    font-size: 12px;
+    color: #666;
+}
+
+.step-checkmark {
+    color: #22c55e;
+    font-size: 20px;
+}
+
+/* Skills Analysis View */
+.skills-analysis {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.skills-analysis h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.skill-category {
+    margin-bottom: 20px;
+}
+
+.skill-category h4 {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f8f9ff;
+    border-radius: 8px;
+}
+
+.skill-name {
+    flex: 1;
+    font-size: 13px;
+    color: #333;
+}
+
+.skill-level-indicator {
+    width: 60px;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-level-indicator-fill {
+    height: 100%;
+    background: #667eea;
+    border-radius: 10px;
+}
+
+.skill-percentage {
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Empty State */
+.recommendations-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.recommendations-empty-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.recommendations-empty h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.recommendations-empty p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.start-learning-btn {
+    padding: 12px 30px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.start-learning-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .suggestion-card {
+        flex-direction: column;
+    }
+
+    .suggestion-action-btn {
+        width: 100%;
+    }
+}

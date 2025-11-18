@@ -24,12 +24,20 @@ const App = {
         // Initialize modules
         API.init(this.config);
         UI.init();
+        Recommendations.init(this.config.apiUrl, this.config.moodleUserId);
 
         // Set up event listeners
         this.setupEventListeners();
 
-        // Load problem
-        await this.loadProblem();
+        // Check for recommendations first (for returning users)
+        const showRecommendations = localStorage.getItem('show_recommendations_first');
+        if (showRecommendations === 'true') {
+            await this.showRecommendations();
+            localStorage.removeItem('show_recommendations_first');
+        } else {
+            // Load problem
+            await this.loadProblem();
+        }
     },
 
     /**
@@ -261,25 +269,61 @@ const App = {
     showMenu() {
         // Simple menu implementation
         const menuOptions = [
-            '문제로 돌아가기',
-            '처음부터 다시 시작',
-            '도움말',
-            '닫기'
+            '1. 맞춤 추천 보기 (NEW!)',
+            '2. 문제로 돌아가기',
+            '3. 처음부터 다시 시작',
+            '4. 도움말',
+            '5. 닫기'
         ];
 
         // In a real implementation, this would show a modal
-        const choice = prompt(menuOptions.join('\n') + '\n\n번호를 선택하세요 (1-4):');
+        const choice = prompt(menuOptions.join('\n') + '\n\n번호를 선택하세요 (1-5):');
 
         switch (choice) {
             case '1':
-                UI.showProblem(this.problem);
+                this.showRecommendations();
                 break;
             case '2':
-                this.restart();
+                if (this.problem) {
+                    UI.showProblem(this.problem);
+                } else {
+                    this.loadProblem();
+                }
                 break;
             case '3':
-                alert('Step Derivative는 복잡한 미분을 단계별로 보여주는 학습 도구입니다.\n\n화살표 버튼이나 키보드 방향키로 단계를 이동할 수 있습니다.');
+                this.restart();
                 break;
+            case '4':
+                alert('Step Derivative는 복잡한 미분을 단계별로 보여주는 학습 도구입니다.\n\n화살표 버튼이나 키보드 방향키로 단계를 이동할 수 있습니다.\n\n새 기능: 맞춤형 학습 추천! 메뉴에서 확인하세요.');
+                break;
+        }
+    },
+
+    /**
+     * Show recommendations screen
+     */
+    async showRecommendations() {
+        try {
+            UI.showLoading();
+
+            const container = document.getElementById('recommendations-container');
+            const screen = document.getElementById('recommendations-screen');
+
+            if (!container || !screen) {
+                console.error('Recommendations UI elements not found');
+                return;
+            }
+
+            // Display recommendations
+            await Recommendations.displayRecommendations(container);
+
+            // Show recommendations screen
+            UI.hideAll();
+            screen.classList.remove('hidden');
+
+        } catch (error) {
+            console.error('Failed to show recommendations:', error);
+            UI.showError('추천을 불러오는데 실패했습니다.');
         }
     },
 

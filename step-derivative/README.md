@@ -11,12 +11,21 @@
 
 ## 주요 기능
 
-### 1. Moodle LMS 연동
+### 1. AI 기반 개인화 추천 시스템 ✨ NEW!
+- **적응형 난이도 조정**: 학생 실력에 맞춰 자동으로 문제 난이도 조절
+- **다음 문제 추천**: 학습 진도와 약점을 고려한 최적 문제 선택
+- **약점 분석**: 어려워하는 미분 규칙 파악 및 보강 학습 제안
+- **학습 경로 생성**: 개인별 맞춤 커리큘럼 자동 생성
+- **실시간 성과 추적**: 스킬별 숙련도 실시간 모니터링
+
+[상세 문서](docs/RECOMMENDATIONS.md)
+
+### 2. Moodle LMS 연동
 - Moodle 웹 서비스 API를 통한 문제 동기화
 - 학생 진행 상황 자동 저장
 - 성적 자동 제출
 
-### 2. 단계별 미분 계산
+### 3. 단계별 미분 계산
 다음 미분 규칙을 지원합니다:
 - 상수 규칙 (Constant Rule)
 - 거듭제곱 규칙 (Power Rule)
@@ -45,28 +54,36 @@
 
 ```
 step-derivative/
-├── backend/              # PHP 백엔드
-│   ├── api/             # API 엔드포인트
-│   │   └── problem_handler.php
-│   ├── lib/             # 라이브러리
-│   │   └── derivative_engine.php
-│   └── config/          # 설정 파일
+├── backend/                      # PHP 백엔드
+│   ├── api/                     # API 엔드포인트
+│   │   ├── problem_handler.php
+│   │   └── recommendation_handler.php  # 추천 API ✨
+│   ├── lib/                     # 라이브러리
+│   │   ├── derivative_engine.php
+│   │   └── recommendation_engine.php   # 추천 엔진 ✨
+│   └── config/                  # 설정 파일
 │       ├── database.php
 │       └── moodle.php
-├── frontend/            # 프론트엔드
+├── frontend/                    # 프론트엔드
 │   ├── index.html
 │   ├── css/
 │   │   ├── smartphone.css
-│   │   └── app.css
+│   │   ├── app.css
+│   │   └── recommendations.css  # 추천 UI 스타일 ✨
 │   └── js/
 │       ├── api.js
 │       ├── ui.js
 │       ├── app.js
-│       └── drag.js
-├── database/            # 데이터베이스
-│   └── schema.sql
-├── docs/               # 문서
-└── .env.example        # 환경 설정 예제
+│       ├── drag.js
+│       └── recommendations.js   # 추천 클라이언트 ✨
+├── database/                    # 데이터베이스
+│   ├── schema.sql
+│   └── recommendation_schema.sql  # 추천 스키마 ✨
+├── docs/                       # 문서
+│   ├── API.md
+│   ├── INSTALLATION.md
+│   └── RECOMMENDATIONS.md       # 추천 시스템 문서 ✨
+└── .env.example                # 환경 설정 예제
 ```
 
 ## 설치 방법
@@ -77,8 +94,11 @@ step-derivative/
 # MySQL에 접속
 mysql -u root -p
 
-# 데이터베이스 생성 및 스키마 적용
+# 기본 스키마 적용
 mysql -u root -p < database/schema.sql
+
+# 추천 시스템 스키마 적용 ✨
+mysql -u root -p < database/recommendation_schema.sql
 ```
 
 ### 2. 환경 설정
