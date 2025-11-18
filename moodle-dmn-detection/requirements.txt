@@ -1,0 +1,24 @@
+# DMN Dropout Detection System - Python Dependencies
+# Compatible with Python 3.8+
+
+# Web Framework
+Flask==2.3.0
+Flask-CORS==4.0.0
+
+# Database
+mysql-connector-python==8.0.33
+
+# Moodle API Client
+requests==2.31.0
+
+# Configuration
+PyYAML==6.0
+
+# Utilities
+python-dateutil==2.8.2
+
+# Development (optional)
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.3.0
+flake8==6.0.0
