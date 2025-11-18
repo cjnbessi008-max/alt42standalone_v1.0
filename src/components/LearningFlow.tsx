@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Formula, Question, LearningPhase } from '../types';
+import { Formula, Question, LearningPhase, LearningSession } from '../types';
 import { generateQuestions } from '../utils/formulaParser';
 import { FormulaDisplay } from './FormulaDisplay';
 import { QuestionDisplay } from './QuestionDisplay';
+import { startSession, completeSession, updateSession } from '../utils/stats';
 
 interface LearningFlowProps {
   formula: Formula;
@@ -21,8 +22,10 @@ export const LearningFlow: React.FC<LearningFlowProps> = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showFormula, setShowFormula] = useState(true);
   const [cycleCount, setCycleCount] = useState(0);
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const sessionRef = useRef<LearningSession | null>(null);
 
-  // 공식이 변경되면 질문 생성
+  // 공식이 변경되면 질문 생성 및 세션 시작
   useEffect(() => {
     const generatedQuestions = generateQuestions(formula);
     setQuestions(generatedQuestions);
@@ -30,6 +33,10 @@ export const LearningFlow: React.FC<LearningFlowProps> = ({
     setShowFormula(true);
     setCurrentQuestionIndex(0);
     setCycleCount(0);
+    setQuestionsAnswered(0);
+
+    // 새 세션 시작
+    sessionRef.current = startSession(formula.id, formula.text);
   }, [formula]);
 
   // 초기 공식 표시 후 자동으로 첫 질문으로 이동
@@ -50,6 +57,9 @@ export const LearningFlow: React.FC<LearningFlowProps> = ({
     setShowFormula(true);
     setPhase('reveal');
 
+    // 질문 답변 카운트 증가
+    setQuestionsAnswered(prev => prev + 1);
+
     // 2초 후 다음 단계로
     setTimeout(() => {
       setShowFormula(false);
@@ -58,7 +68,6 @@ export const LearningFlow: React.FC<LearningFlowProps> = ({
           // 다음 질문으로
           setCurrentQuestionIndex(prev => prev + 1);
           setPhase('question');
-          setCycleCount(prev => prev + 1);
         } else {
           // 모든 질문 완료 - 한 번 더 순환할지 완료할지 결정
           if (cycleCount < 2) {
@@ -69,6 +78,17 @@ export const LearningFlow: React.FC<LearningFlowProps> = ({
           } else {
             // 학습 완료
             setPhase('complete');
+
+            // 세션 완료 처리
+            if (sessionRef.current) {
+              const updatedSession = updateSession(
+                sessionRef.current,
+                questionsAnswered + 1,
+                cycleCount + 1
+              );
+              completeSession(updatedSession);
+            }
+
             onComplete?.();
           }
         }

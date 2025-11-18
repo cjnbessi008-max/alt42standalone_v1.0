@@ -1,4 +1,4 @@
-import { Formula, FormulaComponent, Question } from '../types';
+import { Formula, FormulaComponent, Question, CategoryInfo } from '../types';
 
 /**
  * 간단한 수학 공식 파서
@@ -116,25 +116,270 @@ export function generateQuestions(formula: Formula): Question[] {
 }
 
 /**
+ * 카테고리 정보
+ */
+export const categories: CategoryInfo[] = [
+  {
+    id: 'algebra',
+    name: '대수학',
+    icon: '🔢',
+    description: '방정식, 부등식, 다항식 등'
+  },
+  {
+    id: 'geometry',
+    name: '기하학',
+    icon: '📐',
+    description: '도형, 넓이, 부피 등'
+  },
+  {
+    id: 'trigonometry',
+    name: '삼각함수',
+    icon: '📊',
+    description: '사인, 코사인, 탄젠트 등'
+  },
+  {
+    id: 'calculus',
+    name: '미적분',
+    icon: '∫',
+    description: '미분, 적분, 극한 등'
+  },
+  {
+    id: 'physics',
+    name: '물리학',
+    icon: '⚡',
+    description: '운동, 에너지, 전자기학 등'
+  },
+  {
+    id: 'statistics',
+    name: '통계',
+    icon: '📈',
+    description: '평균, 분산, 확률 등'
+  }
+];
+
+/**
  * 예제 공식들
  */
 export const sampleFormulas: Formula[] = [
-  {
-    id: 'pythagorean',
-    imageUrl: '',
-    text: 'a² + b² = c²',
-    components: parseFormula('a² + b² = c²')
-  },
+  // 대수학 (Algebra)
   {
     id: 'quadratic',
-    imageUrl: '',
+    name: '이차방정식 근의 공식',
+    description: '이차방정식 ax² + bx + c = 0의 해',
     text: 'x = (-b ± sqrt(b² - 4ac)) / 2a',
+    imageUrl: '',
+    category: 'algebra',
+    difficulty: 'intermediate',
     components: parseFormula('x = (-b ± sqrt(b² - 4ac)) / 2a')
   },
   {
-    id: 'einstein',
+    id: 'slope',
+    name: '직선의 기울기',
+    description: '두 점을 지나는 직선의 기울기',
+    text: 'm = (y2 - y1) / (x2 - x1)',
     imageUrl: '',
+    category: 'algebra',
+    difficulty: 'beginner',
+    components: parseFormula('m = (y2 - y1) / (x2 - x1)')
+  },
+  {
+    id: 'binomial',
+    name: '이항정리',
+    description: '(a + b)의 거듭제곱 전개',
+    text: '(a + b)² = a² + 2ab + b²',
+    imageUrl: '',
+    category: 'algebra',
+    difficulty: 'beginner',
+    components: parseFormula('(a + b)² = a² + 2ab + b²')
+  },
+  {
+    id: 'difference-squares',
+    name: '제곱의 차',
+    description: '두 수의 제곱의 차 인수분해',
+    text: 'a² - b² = (a + b)(a - b)',
+    imageUrl: '',
+    category: 'algebra',
+    difficulty: 'beginner',
+    components: parseFormula('a² - b² = (a + b)(a - b)')
+  },
+
+  // 기하학 (Geometry)
+  {
+    id: 'pythagorean',
+    name: '피타고라스 정리',
+    description: '직각삼각형의 세 변의 관계',
+    text: 'a² + b² = c²',
+    imageUrl: '',
+    category: 'geometry',
+    difficulty: 'beginner',
+    components: parseFormula('a² + b² = c²')
+  },
+  {
+    id: 'circle-area',
+    name: '원의 넓이',
+    description: '반지름 r인 원의 넓이',
+    text: 'A = πr²',
+    imageUrl: '',
+    category: 'geometry',
+    difficulty: 'beginner',
+    components: parseFormula('A = πr²')
+  },
+  {
+    id: 'circle-circumference',
+    name: '원의 둘레',
+    description: '반지름 r인 원의 둘레',
+    text: 'C = 2πr',
+    imageUrl: '',
+    category: 'geometry',
+    difficulty: 'beginner',
+    components: parseFormula('C = 2πr')
+  },
+  {
+    id: 'sphere-volume',
+    name: '구의 부피',
+    description: '반지름 r인 구의 부피',
+    text: 'V = (4/3)πr³',
+    imageUrl: '',
+    category: 'geometry',
+    difficulty: 'intermediate',
+    components: parseFormula('V = (4/3)πr³')
+  },
+  {
+    id: 'triangle-area',
+    name: '삼각형의 넓이',
+    description: '밑변 b, 높이 h인 삼각형의 넓이',
+    text: 'A = (1/2)bh',
+    imageUrl: '',
+    category: 'geometry',
+    difficulty: 'beginner',
+    components: parseFormula('A = (1/2)bh')
+  },
+
+  // 삼각함수 (Trigonometry)
+  {
+    id: 'sin-cos-identity',
+    name: '삼각함수 항등식',
+    description: '사인과 코사인의 기본 관계',
+    text: 'sin²θ + cos²θ = 1',
+    imageUrl: '',
+    category: 'trigonometry',
+    difficulty: 'intermediate',
+    components: parseFormula('sin²θ + cos²θ = 1')
+  },
+  {
+    id: 'tan-identity',
+    name: '탄젠트 정의',
+    description: '탄젠트와 사인, 코사인의 관계',
+    text: 'tanθ = sinθ / cosθ',
+    imageUrl: '',
+    category: 'trigonometry',
+    difficulty: 'beginner',
+    components: parseFormula('tanθ = sinθ / cosθ')
+  },
+  {
+    id: 'law-of-cosines',
+    name: '코사인 법칙',
+    description: '삼각형의 변과 각의 관계',
+    text: 'c² = a² + b² - 2ab*cosC',
+    imageUrl: '',
+    category: 'trigonometry',
+    difficulty: 'advanced',
+    components: parseFormula('c² = a² + b² - 2ab*cosC')
+  },
+
+  // 미적분 (Calculus)
+  {
+    id: 'power-rule',
+    name: '거듭제곱 미분',
+    description: 'x의 거듭제곱 미분 공식',
+    text: 'd/dx(xⁿ) = nxⁿ⁻¹',
+    imageUrl: '',
+    category: 'calculus',
+    difficulty: 'intermediate',
+    components: parseFormula('d/dx(xⁿ) = nxⁿ⁻¹')
+  },
+  {
+    id: 'integration-power',
+    name: '거듭제곱 적분',
+    description: 'x의 거듭제곱 적분 공식',
+    text: '∫xⁿdx = xⁿ⁺¹/(n+1) + C',
+    imageUrl: '',
+    category: 'calculus',
+    difficulty: 'intermediate',
+    components: parseFormula('∫xⁿdx = xⁿ⁺¹/(n+1) + C')
+  },
+
+  // 물리학 (Physics)
+  {
+    id: 'einstein',
+    name: '질량-에너지 등가원리',
+    description: '아인슈타인의 유명한 공식',
     text: 'E = mc²',
+    imageUrl: '',
+    category: 'physics',
+    difficulty: 'beginner',
     components: parseFormula('E = mc²')
+  },
+  {
+    id: 'newton-second',
+    name: '뉴턴의 제2법칙',
+    description: '힘, 질량, 가속도의 관계',
+    text: 'F = ma',
+    imageUrl: '',
+    category: 'physics',
+    difficulty: 'beginner',
+    components: parseFormula('F = ma')
+  },
+  {
+    id: 'kinetic-energy',
+    name: '운동 에너지',
+    description: '질량 m인 물체의 운동 에너지',
+    text: 'KE = (1/2)mv²',
+    imageUrl: '',
+    category: 'physics',
+    difficulty: 'intermediate',
+    components: parseFormula('KE = (1/2)mv²')
+  },
+  {
+    id: 'gravity',
+    name: '만유인력의 법칙',
+    description: '두 물체 사이의 중력',
+    text: 'F = G(m1*m2)/r²',
+    imageUrl: '',
+    category: 'physics',
+    difficulty: 'advanced',
+    components: parseFormula('F = G(m1*m2)/r²')
+  },
+
+  // 통계 (Statistics)
+  {
+    id: 'mean',
+    name: '산술 평균',
+    description: 'n개 데이터의 평균',
+    text: 'μ = (Σx) / n',
+    imageUrl: '',
+    category: 'statistics',
+    difficulty: 'beginner',
+    components: parseFormula('μ = (Σx) / n')
+  },
+  {
+    id: 'variance',
+    name: '분산',
+    description: '데이터의 퍼진 정도',
+    text: 'σ² = Σ(x - μ)² / n',
+    imageUrl: '',
+    category: 'statistics',
+    difficulty: 'intermediate',
+    components: parseFormula('σ² = Σ(x - μ)² / n')
+  },
+  {
+    id: 'standard-deviation',
+    name: '표준편차',
+    description: '분산의 제곱근',
+    text: 'σ = sqrt(σ²)',
+    imageUrl: '',
+    category: 'statistics',
+    difficulty: 'beginner',
+    components: parseFormula('σ = sqrt(σ²)')
   }
 ];
