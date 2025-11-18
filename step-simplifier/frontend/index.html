@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Simplifier - 방정식 단계별 풀이</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Container -->
+    <div class="smartphone-container">
+        <div class="smartphone">
+            <!-- Phone Frame -->
+            <div class="phone-frame">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span class="time">9:41</span>
+                    <div class="status-icons">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="app-content">
+                    <!-- Header -->
+                    <div class="app-header">
+                        <h1><i class="fas fa-calculator"></i> Step Simplifier</h1>
+                        <p class="subtitle">방정식 단계별 풀이</p>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div id="main-content" class="main-content">
+                        <!-- Loading Screen -->
+                        <div id="loading-screen" class="loading-screen">
+                            <div class="spinner"></div>
+                            <p>문제를 불러오는 중...</p>
+                        </div>
+
+                        <!-- Problem View -->
+                        <div id="problem-view" class="problem-view hidden">
+                            <div class="problem-card">
+                                <div class="problem-header">
+                                    <span class="difficulty-badge" id="difficulty-badge">Medium</span>
+                                    <span class="problem-id">문제 #<span id="problem-number">1</span></span>
+                                </div>
+
+                                <div class="equation-display">
+                                    <div id="equation-text" class="equation-text">3x + 12 = 27</div>
+                                </div>
+
+                                <div class="progress-section">
+                                    <div class="progress-label">
+                                        <span>단계 <span id="current-step">1</span> / <span id="total-steps">5</span></span>
+                                        <span class="score">점수: <span id="score">0</span>%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div id="progress-fill" class="progress-fill" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step Content -->
+                            <div class="step-card">
+                                <div class="step-header">
+                                    <h3 id="step-description">원래 방정식</h3>
+                                    <button class="hint-button" onclick="toggleHint()">
+                                        <i class="fas fa-lightbulb"></i> 힌트
+                                    </button>
+                                </div>
+
+                                <div id="hint-box" class="hint-box hidden">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p id="hint-text">이 방정식을 풀어야 합니다</p>
+                                </div>
+
+                                <div class="step-equation">
+                                    <div id="step-equation-text" class="equation-display-step">
+                                        3x + 12 = 27
+                                    </div>
+                                </div>
+
+                                <div class="answer-section">
+                                    <label for="user-answer">다음 단계를 입력하세요:</label>
+                                    <input
+                                        type="text"
+                                        id="user-answer"
+                                        class="answer-input"
+                                        placeholder="예: 3x = 15"
+                                    >
+
+                                    <button class="submit-button" onclick="submitAnswer()">
+                                        <i class="fas fa-paper-plane"></i> 제출
+                                    </button>
+                                </div>
+
+                                <!-- Feedback Message -->
+                                <div id="feedback-message" class="feedback-message hidden">
+                                    <i class="fas fa-check-circle"></i>
+                                    <p id="feedback-text">정답입니다!</p>
+                                </div>
+
+                                <!-- Attempts History -->
+                                <div class="attempts-section">
+                                    <h4>시도 기록</h4>
+                                    <div id="attempts-list" class="attempts-list">
+                                        <p class="no-attempts">아직 시도가 없습니다</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div class="navigation-buttons">
+                                <button class="nav-button" onclick="previousStep()" id="prev-button" disabled>
+                                    <i class="fas fa-chevron-left"></i> 이전
+                                </button>
+                                <button class="nav-button primary" onclick="nextStep()" id="next-button">
+                                    다음 <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Completion Screen -->
+                        <div id="completion-screen" class="completion-screen hidden">
+                            <div class="completion-content">
+                                <div class="celebration-icon">🎉</div>
+                                <h2>축하합니다!</h2>
+                                <p>문제를 완료했습니다!</p>
+
+                                <div class="final-score">
+                                    <div class="score-circle">
+                                        <span id="final-score">85</span>%
+                                    </div>
+                                    <p>최종 점수</p>
+                                </div>
+
+                                <div class="completion-stats">
+                                    <div class="stat-item">
+                                        <i class="fas fa-check"></i>
+                                        <span id="correct-attempts">4</span> 정답
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-times"></i>
+                                        <span id="wrong-attempts">1</span> 오답
+                                    </div>
+                                    <div class="stat-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span id="total-time">5:32</span> 소요
+                                    </div>
+                                </div>
+
+                                <button class="restart-button" onclick="loadNewProblem()">
+                                    <i class="fas fa-redo"></i> 새 문제 풀기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Navigation -->
+                    <div class="bottom-nav">
+                        <button class="nav-item active">
+                            <i class="fas fa-home"></i>
+                            <span>홈</span>
+                        </button>
+                        <button class="nav-item">
+                            <i class="fas fa-list"></i>
+                            <span>문제</span>
+                        </button>
+                        <button class="nav-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>통계</span>
+                        </button>
+                        <button class="nav-item">
+                            <i class="fas fa-user"></i>
+                            <span>프로필</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Home Button -->
+                <div class="home-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
