@@ -1,0 +1,109 @@
+.smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.smartphone-frame {
+  width: 320px;
+  height: 650px;
+  background: linear-gradient(145deg, #2c3e50, #34495e);
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 28px;
+  background: #000;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.smartphone-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 36px 12px 12px 12px;
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for smartphone screen */
+.smartphone-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.smartphone-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.smartphone-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.smartphone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .smartphone-container {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+  }
+
+  .smartphone-frame {
+    width: 280px;
+    height: 570px;
+  }
+}
+
+/* Animation for initial appearance */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.smartphone-container {
+  animation: slideInRight 0.5s ease-out;
+}
