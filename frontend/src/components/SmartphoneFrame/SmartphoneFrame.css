@@ -1,0 +1,348 @@
+/**
+ * Smartphone Frame Styles
+ * 가상 스마트폰 UI 스타일
+ */
+
+.smartphone-frame {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 위치 설정 */
+.smartphone-frame.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.smartphone-frame.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.smartphone-frame.top-left {
+  top: 20px;
+  left: 20px;
+}
+
+/* 최소화 상태 */
+.smartphone-frame.minimized .phone-shell {
+  height: 80px;
+}
+
+.smartphone-frame.minimized .phone-content {
+  display: none;
+}
+
+/* 스마트폰 외곽 */
+.phone-shell {
+  position: relative;
+  width: 380px;
+  height: 720px;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.phone-shell:hover {
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.6),
+    0 0 0 2px rgba(78, 205, 196, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 노치 (상단 카메라 영역) */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.camera {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1e3a5f 0%, #0f1c2e 100%);
+  border: 1px solid #333;
+}
+
+.speaker {
+  width: 50px;
+  height: 4px;
+  border-radius: 2px;
+  background: #2a2a2a;
+  border: 1px solid #1a1a1a;
+}
+
+/* 헤더 */
+.phone-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+  border-radius: 24px 24px 0 0;
+  color: white;
+  min-height: 56px;
+  margin-top: 20px;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
+}
+
+.status-icon.wifi::before {
+  content: '📶';
+  font-size: 14px;
+}
+
+.status-icon.signal::before {
+  content: '📡';
+  font-size: 14px;
+}
+
+.battery-icon {
+  width: 24px;
+  height: 12px;
+  border: 2px solid white;
+  border-radius: 3px;
+  position: relative;
+  padding: 2px;
+}
+
+.battery-icon::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 6px;
+  background: white;
+  border-radius: 0 2px 2px 0;
+}
+
+.battery-level {
+  width: 80%;
+  height: 100%;
+  background: white;
+  border-radius: 1px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 컨텐츠 영역 */
+.phone-content {
+  position: relative;
+  height: calc(100% - 96px);
+  background: #f5f5f5;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 커스텀 스크롤바 */
+.phone-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.phone-content::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+.phone-content::-webkit-scrollbar-thumb {
+  background: #4ECDC4;
+  border-radius: 3px;
+}
+
+.phone-content::-webkit-scrollbar-thumb:hover {
+  background: #45B7D1;
+}
+
+/* 뷰어 섹션 */
+.viewer-section {
+  width: 100%;
+  height: 400px;
+  background: #1a1a2e;
+}
+
+/* 컨트롤 섹션 */
+.controls-section {
+  padding: 16px;
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+
+/* 컨트롤 토글 버튼 */
+.toggle-controls-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(78, 205, 196, 0.9);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  z-index: 20;
+}
+
+.toggle-controls-btn:hover {
+  background: #4ECDC4;
+  transform: scale(1.1);
+}
+
+.toggle-controls-btn:active {
+  transform: scale(0.95);
+}
+
+/* 제스처 바 (iOS 스타일) */
+.phone-gesture-bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* 최소화 버튼 */
+.minimize-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimize-btn:hover {
+  background: rgba(78, 205, 196, 0.8);
+  border-color: rgba(78, 205, 196, 1);
+  transform: scale(1.1);
+}
+
+/* 그림자 */
+.phone-shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 반응형 - 작은 화면 */
+@media (max-width: 1200px) {
+  .phone-shell {
+    width: 340px;
+    height: 640px;
+  }
+
+  .viewer-section {
+    height: 350px;
+  }
+
+  .app-title {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .smartphone-frame {
+    position: relative;
+    bottom: auto !important;
+    right: auto !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .phone-shell {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .viewer-section {
+    height: 300px;
+  }
+}
+
+/* 애니메이션 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.smartphone-frame {
+  animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # MySQL 5.7 Database (Moodle 3.7 compatible)
+  mysql:
+    image: mysql:5.7
+    container_name: unfoldingnet_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-moodle}
+      MYSQL_USER: ${DB_USER:-unfoldingnet}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password123}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - unfoldingnet_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API (Node.js + Express)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: unfoldingnet_backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      NODE_ENV: ${NODE_ENV:-development}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-unfoldingnet}
+      DB_PASSWORD: ${DB_PASSWORD:-password123}
+      DB_NAME: ${DB_NAME:-moodle}
+      CORS_ORIGIN: http://localhost:5173
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - unfoldingnet_network
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+
+  # Frontend (React + Vite)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: unfoldingnet_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:3001/api
+    depends_on:
+      - backend
+    networks:
+      - unfoldingnet_network
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+
+networks:
+  unfoldingnet_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

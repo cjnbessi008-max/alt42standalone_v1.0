@@ -1,0 +1,321 @@
+/**
+ * Unfolding Net Live - Main App Styles
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  padding: 20px;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+/* 헤더 */
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: white;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 18px;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* 레슨 컨텐츠 */
+.lesson-content {
+  margin-bottom: 40px;
+}
+
+.lesson-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+}
+
+.lesson-card h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #4ECDC4;
+}
+
+.lesson-card > p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* 학습 목표 */
+.lesson-objectives {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.lesson-objectives h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lesson-objectives ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.lesson-objectives li {
+  font-size: 15px;
+  line-height: 2;
+  color: #555;
+  padding-left: 24px;
+  position: relative;
+}
+
+.lesson-objectives li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4ECDC4;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* 사용 방법 */
+.instructions {
+  background: #f9f9f9;
+  padding: 24px;
+  border-radius: 12px;
+  border-left: 4px solid #4ECDC4;
+  margin-bottom: 30px;
+}
+
+.instructions h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.instructions ol {
+  padding-left: 24px;
+}
+
+.instructions li {
+  font-size: 15px;
+  line-height: 2;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* 퀴즈 섹션 */
+.quiz-section {
+  background: linear-gradient(135deg, #FFE5E515 0%, #FFD6D615 100%);
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px dashed #FF6B6B;
+}
+
+.quiz-section h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.quiz-item {
+  margin-bottom: 16px;
+}
+
+.quiz-item p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.quiz-option {
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.quiz-option:hover {
+  border-color: #4ECDC4;
+  background: #4ECDC410;
+  transform: translateY(-2px);
+}
+
+.quiz-option.correct {
+  border-color: #4ECDC4;
+  background: #4ECDC420;
+}
+
+/* 푸터 */
+.app-footer {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+}
+
+.app-footer p {
+  margin: 5px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.version {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .lesson-card {
+    padding: 30px;
+  }
+
+  .lesson-card h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .app-header {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .lesson-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .lesson-card h2 {
+    font-size: 20px;
+  }
+
+  .lesson-objectives,
+  .instructions,
+  .quiz-section {
+    padding: 16px;
+  }
+
+  .quiz-options {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main-content {
+    padding-bottom: 50px;
+  }
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lesson-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* 스크롤바 커스터마이징 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
