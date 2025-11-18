@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratio Spring - 비율 시각화 앱</title>
+    <link rel="stylesheet" href="css/smartphone.css">
+    <link rel="stylesheet" href="css/spring.css">
+</head>
+<body>
+    <!-- 메인 컨트롤 패널 (선택사항) -->
+    <div class="control-panel">
+        <h1>Ratio Spring 시각화</h1>
+        <div class="controls">
+            <label>비율 A: <input type="number" id="ratioA" value="2" min="1" max="10"></label>
+            <label>비율 B: <input type="number" id="ratioB" value="3" min="1" max="10"></label>
+            <button id="updateRatio">비율 업데이트</button>
+            <button id="loadFromMoodle">Moodle에서 불러오기</button>
+        </div>
+        <div class="info">
+            <p>현재 비율: <span id="currentRatio">2:3</span></p>
+            <p>스프링 상태: <span id="springStatus">대기 중</span></p>
+        </div>
+    </div>
+
+    <!-- 우측 하단 가상 스마트폰 화면 -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <!-- 스마트폰 상단 바 -->
+            <div class="phone-header">
+                <div class="time">10:30</div>
+                <div class="status-icons">
+                    <span class="signal">📶</span>
+                    <span class="battery">🔋</span>
+                </div>
+            </div>
+
+            <!-- 앱 화면 -->
+            <div class="phone-screen">
+                <div class="app-header">
+                    <h2>Ratio Spring</h2>
+                    <p class="subtitle">비율을 스프링으로 배우자!</p>
+                </div>
+
+                <!-- 캔버스: 스프링 애니메이션 -->
+                <canvas id="springCanvas" width="300" height="400"></canvas>
+
+                <!-- 비율 정보 표시 -->
+                <div class="ratio-info">
+                    <div class="ratio-box">
+                        <span class="ratio-label">A</span>
+                        <span class="ratio-value" id="valueA">2</span>
+                    </div>
+                    <div class="ratio-separator">:</div>
+                    <div class="ratio-box">
+                        <span class="ratio-label">B</span>
+                        <span class="ratio-value" id="valueB">3</span>
+                    </div>
+                </div>
+
+                <!-- 상호작용 버튼 -->
+                <div class="interaction-buttons">
+                    <button class="btn-primary" id="animateBtn">애니메이션 시작</button>
+                    <button class="btn-secondary" id="resetBtn">초기화</button>
+                </div>
+            </div>
+
+            <!-- 스마트폰 홈 버튼 -->
+            <div class="phone-home-button"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript 모듈 -->
+    <script src="js/spring-physics.js"></script>
+    <script src="js/ratio-visualizer.js"></script>
+    <script src="js/moodle-api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

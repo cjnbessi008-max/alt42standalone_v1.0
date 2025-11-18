@@ -1,0 +1,202 @@
+/* 전체 페이지 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 컨트롤 패널 (선택사항) */
+.control-panel {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.controls input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.controls button {
+    padding: 8px 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.controls button:hover {
+    background: #5568d3;
+}
+
+.info {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.info span {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 스마트폰 컨테이너 - 우측 하단 고정 */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* 스마트폰 프레임 */
+.smartphone-frame {
+    width: 340px;
+    height: 680px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 2px #333,
+        inset 0 0 0 6px #1a1a1a;
+    position: relative;
+}
+
+/* 스마트폰 상단 카메라/센서 영역 */
+.smartphone-frame::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 20px;
+    background: #1a1a1a;
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+/* 스마트폰 헤더 (시간, 상태) */
+.phone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    color: white;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 25px 25px 0 0;
+}
+
+.status-icons {
+    display: flex;
+    gap: 5px;
+}
+
+/* 스마트폰 화면 */
+.phone-screen {
+    width: 100%;
+    height: 600px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 0 0 25px 25px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 앱 헤더 */
+.app-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.app-header .subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* 캔버스 영역 */
+#springCanvas {
+    display: block;
+    margin: 10px auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 홈 버튼 */
+.phone-home-button {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: #2a2a2a;
+    border-radius: 50%;
+    border: 2px solid #444;
+}
+
+/* 반응형 - 작은 화면에서는 크기 축소 */
+@media (max-width: 768px) {
+    .smartphone-container {
+        position: static;
+        margin: 20px auto;
+        width: fit-content;
+    }
+
+    .smartphone-frame {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 480px) {
+    .smartphone-frame {
+        transform: scale(0.6);
+    }
+}
