@@ -1,0 +1,268 @@
+/* Overlap Sync 컨테이너 */
+.overlap-sync-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 헤더 */
+.overlap-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.overlap-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.overlap-instruction {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.difficulty-easy {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+.difficulty-medium {
+  background: rgba(255, 193, 7, 0.3);
+}
+
+.difficulty-hard {
+  background: rgba(244, 67, 54, 0.3);
+}
+
+/* 애니메이션 캔버스 */
+.overlap-canvas {
+  position: relative;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+}
+
+/* 도형 스타일 */
+.shape {
+  border-radius: 0;
+  transition: all 0.1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: multiply;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.shape-circle {
+  border-radius: 50%;
+}
+
+.shape-square {
+  border-radius: 8px;
+}
+
+.shape-rectangle {
+  border-radius: 8px;
+}
+
+.shape-triangle {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 86.6px solid currentColor;
+}
+
+.shape-label {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 진행률 표시 */
+.overlap-progress-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.progress-text {
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 진행바 */
+.overlap-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.overlap-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #8bc34a);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* 통계 정보 */
+.overlap-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 애니메이션 효과 */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.shape:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.overlap-progress-fill {
+  background: linear-gradient(
+    90deg,
+    #4caf50 0%,
+    #8bc34a 50%,
+    #4caf50 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* 완료 효과 */
+@keyframes complete {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.overlap-canvas.completed {
+  animation: complete 0.6s ease-out;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .overlap-sync-container {
+    padding: 15px;
+  }
+
+  .overlap-title {
+    font-size: 16px;
+  }
+
+  .overlap-instruction {
+    font-size: 12px;
+  }
+
+  .shape-label {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+  }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+  .overlap-canvas {
+    background: rgba(30, 30, 30, 0.95);
+  }
+
+  .overlap-progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

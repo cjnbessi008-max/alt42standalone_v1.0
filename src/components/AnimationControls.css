@@ -1,0 +1,173 @@
+/* 애니메이션 컨트롤 패널 */
+.animation-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.controls-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* 컨트롤 버튼 */
+.control-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.control-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+.control-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.control-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 재생/일시정지 버튼 */
+.control-btn.play-pause {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.control-btn.play-pause:hover:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.6);
+}
+
+.control-btn.play-pause.playing {
+  background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+}
+
+.control-btn.play-pause.playing:hover:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.6);
+}
+
+/* 정지 버튼 */
+.control-btn.stop {
+  background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
+.control-btn.stop:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.5);
+}
+
+/* 리셋 버튼 */
+.control-btn.reset {
+  background: linear-gradient(135deg, #9e9e9e 0%, #757575 100%);
+  box-shadow: 0 2px 8px rgba(158, 158, 158, 0.3);
+}
+
+.control-btn.reset:hover:not(:disabled) {
+  box-shadow: 0 4px 12px rgba(158, 158, 158, 0.5);
+}
+
+/* 진행 정보 */
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.progress-percentage {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+}
+
+.paused-indicator {
+  font-size: 12px;
+  color: #ff9800;
+  font-weight: 600;
+  padding: 2px 8px;
+  background: rgba(255, 152, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* 애니메이션 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.control-btn.play-pause.playing svg {
+  animation: pulse 2s infinite;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .animation-controls {
+    padding: 12px 15px;
+  }
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .control-btn.play-pause {
+    width: 50px;
+    height: 50px;
+  }
+
+  .control-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .control-btn.play-pause svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .progress-percentage {
+    font-size: 16px;
+  }
+
+  .paused-indicator {
+    font-size: 10px;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .control-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .control-btn.play-pause {
+    width: 60px;
+    height: 60px;
+  }
+}
