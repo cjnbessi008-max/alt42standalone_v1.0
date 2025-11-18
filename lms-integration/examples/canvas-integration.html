@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas LMS 통합 예시</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .problem-container {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .timer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #667eea;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 24px;
+      font-family: monospace;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .submit-btn {
+      background: #667eea;
+      color: white;
+    }
+    .hint-btn {
+      background: #6c757d;
+      color: white;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .correct {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .incorrect {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer" id="timer">00:00:00</div>
+
+  <h1>Canvas LMS - 수학 문제</h1>
+
+  <div class="problem-container" data-problem-id="canvas_math_001">
+    <div class="question">
+      문제: 15 × 3 = ?
+    </div>
+
+    <input
+      type="text"
+      id="answer"
+      placeholder="답을 입력하세요"
+    />
+
+    <button class="hint-btn" onclick="requestHint()">힌트 요청</button>
+    <button class="submit-btn" onclick="submitAnswer()">제출하기</button>
+
+    <div id="result"></div>
+  </div>
+
+  <!-- LMS Time Tracking SDK -->
+  <script src="../sdk/lms-time-tracking-sdk.js"></script>
+
+  <script>
+    // SDK 초기화
+    const tracker = LMSTimeTracking.init({
+      apiUrl: 'http://localhost:3000/api',
+      studentId: 'canvas_student_001',
+      autoTrack: true,
+      debug: true
+    });
+
+    const PROBLEM_ID = 'canvas_math_001';
+    const CORRECT_ANSWER = '45';
+
+    let timerInterval;
+
+    // 문제 시작
+    async function startProblem() {
+      try {
+        await tracker.startProblem(PROBLEM_ID);
+        console.log('문제 시작됨');
+
+        // 타이머 시작
+        timerInterval = setInterval(updateTimer, 1000);
+      } catch (error) {
+        console.error('문제 시작 실패:', error);
+      }
+    }
+
+    // 타이머 업데이트
+    function updateTimer() {
+      const elapsed = tracker.getElapsedTime(PROBLEM_ID);
+      const hours = Math.floor(elapsed / 3600);
+      const minutes = Math.floor((elapsed % 3600) / 60);
+      const seconds = elapsed % 60;
+
+      document.getElementById('timer').textContent =
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // 힌트 요청
+    async function requestHint() {
+      await tracker.recordHintRequest(PROBLEM_ID, {
+        hint_text: '10 × 3 = 30, 5 × 3 = ?'
+      });
+      alert('힌트: 15를 10과 5로 나누어 계산해보세요!');
+    }
+
+    // 답안 제출
+    async function submitAnswer() {
+      const answer = document.getElementById('answer').value;
+      const isCorrect = answer === CORRECT_ANSWER;
+
+      try {
+        const result = await tracker.submitAnswer(PROBLEM_ID, isCorrect, {
+          question: '15 × 3 = ?',
+          answer: answer,
+          correct_answer: CORRECT_ANSWER
+        });
+
+        // 타이머 정지
+        clearInterval(timerInterval);
+
+        // 결과 표시
+        const resultDiv = document.getElementById('result');
+        if (isCorrect) {
+          resultDiv.className = 'result correct';
+          resultDiv.innerHTML = `
+            정답입니다!<br>
+            소요 시간: ${result.time_spent_seconds}초<br>
+            활동 시간: ${result.active_time_seconds}초
+          `;
+        } else {
+          resultDiv.className = 'result incorrect';
+          resultDiv.innerHTML = `
+            틀렸습니다.<br>
+            정답: ${CORRECT_ANSWER}<br>
+            입력한 답: ${answer}
+          `;
+        }
+
+        // 입력 비활성화
+        document.getElementById('answer').disabled = true;
+      } catch (error) {
+        console.error('제출 실패:', error);
+        alert('제출 중 오류가 발생했습니다.');
+      }
+    }
+
+    // 페이지 로드시 문제 시작
+    window.addEventListener('load', () => {
+      startProblem();
+    });
+
+    // 페이지 이탈 전 경고
+    window.addEventListener('beforeunload', (e) => {
+      if (tracker.getActiveAttempts().length > 0) {
+        e.preventDefault();
+        e.returnValue = '문제 풀이 중입니다. 페이지를 나가시겠습니까?';
+      }
+    });
+  </script>
+</body>
+</html>
