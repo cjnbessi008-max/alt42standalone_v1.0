@@ -1,0 +1,334 @@
+/**
+ * 자신감 회복 진행 상황 위젯 스타일
+ * Recovery Progress Widget Styles
+ */
+
+.recovery-progress-widget {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 로딩 상태 */
+.recovery-widget.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 16px;
+}
+
+.widget-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 헤더 */
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.widget-icon {
+  font-size: 24px;
+}
+
+.widget-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 본문 */
+.widget-body {
+  margin-bottom: 16px;
+}
+
+.current-phase {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* 프로그레스 바 */
+.progress-bar-container {
+  margin: 20px 0;
+}
+
+.progress-bar-track {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.progress-segment {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.progress-segment.filled {
+  background: linear-gradient(90deg, #51cf66 0%, #37b24d 100%);
+  box-shadow: 0 0 8px rgba(81, 207, 102, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.1);
+  }
+}
+
+.progress-percentage {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* 상세 정보 */
+.progress-details {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.detail-value {
+  font-weight: 600;
+}
+
+/* 최근 시도 */
+.recent-attempts {
+  margin: 16px 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.recent-attempts label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.attempts-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.attempt-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.attempt-icon:hover {
+  transform: scale(1.1);
+}
+
+.attempt-icon.correct {
+  background: rgba(81, 207, 102, 0.3);
+  color: #51cf66;
+  border: 2px solid #51cf66;
+}
+
+.attempt-icon.incorrect {
+  background: rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+  border: 2px solid #ff6b6b;
+}
+
+/* 신뢰도 점수 */
+.confidence-score-display {
+  margin: 16px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.confidence-score-display label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.score-value-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.score-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.score-gain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(81, 207, 102, 0.3);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gain-arrow {
+  font-size: 16px;
+  color: #51cf66;
+}
+
+.gain-value {
+  color: #51cf66;
+}
+
+.score-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease, background-color 0.5s ease;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* 푸터 */
+.widget-footer {
+  padding-top: 16px;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.encouragement-message {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .recovery-progress-widget {
+    padding: 16px;
+  }
+
+  .widget-header h3 {
+    font-size: 18px;
+  }
+
+  .current-phase {
+    font-size: 14px;
+  }
+
+  .score-value {
+    font-size: 24px;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-value {
+    text-align: left;
+  }
+}
+
+/* 다크 모드 대응 */
+@media (prefers-color-scheme: dark) {
+  .recovery-progress-widget {
+    background: linear-gradient(135deg, #4c6ef5 0%, #5f3dc4 100%);
+  }
+
+  .progress-segment.filled {
+    background: linear-gradient(90deg, #40c057 0%, #2f9e44 100%);
+  }
+}
