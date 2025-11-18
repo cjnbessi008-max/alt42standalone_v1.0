@@ -1,0 +1,27 @@
+[
+  {
+    "name": "코딩할때",
+    "description": "설계 감각 끌어올릴 때, 집중력이 필요한 프로그래밍 작업",
+    "link": "https://www.youtube.com/playlist?example1"
+  },
+  {
+    "name": "공부할때",
+    "description": "독서, 학습, 암기 작업에 최적화된 음악",
+    "link": "https://www.youtube.com/playlist?example2"
+  },
+  {
+    "name": "운동할때",
+    "description": "활력 넘치는 운동, 조깅, 헬스 트레이닝에 어울리는 음악",
+    "link": "https://www.youtube.com/playlist?example3"
+  },
+  {
+    "name": "명상할때",
+    "description": "마음의 평화, 요가, 명상, 힐링에 좋은 편안한 음악",
+    "link": "https://www.youtube.com/playlist?example4"
+  },
+  {
+    "name": "창작할때",
+    "description": "창의적인 작업, 디자인, 글쓰기에 영감을 주는 음악",
+    "link": "https://www.youtube.com/playlist?example5"
+  }
+]

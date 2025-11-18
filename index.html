@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플레이리스트 매칭 앱</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 플레이리스트 매칭 앱</h1>
+            <p class="subtitle">오늘의 키워드로 완벽한 플레이리스트를 찾아보세요</p>
+        </header>
+
+        <!-- API Key 설정 섹션 -->
+        <div class="api-section" id="apiSection">
+            <h2>⚙️ 설정</h2>
+            <div class="api-key-input">
+                <input type="password" id="apiKeyInput" placeholder="OpenAI API 키를 입력하세요">
+                <button id="saveApiKeyBtn">저장</button>
+            </div>
+            <p class="api-status" id="apiStatus"></p>
+        </div>
+
+        <!-- 플레이리스트 관리 섹션 -->
+        <div class="management-section">
+            <h2>📝 플레이리스트 관리</h2>
+            <div class="playlist-form">
+                <input type="text" id="playlistName" placeholder="플레이리스트 이름 (예: 코딩할때)">
+                <input type="text" id="playlistDesc" placeholder="설명/키워드 (예: 설계 감각 끌어올릴 때)">
+                <input type="text" id="playlistLink" placeholder="링크 URL">
+                <button id="addPlaylistBtn">플레이리스트 추가</button>
+            </div>
+
+            <div class="file-upload">
+                <label for="fileInput" class="file-label">또는 JSON 파일 업로드</label>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+            </div>
+        </div>
+
+        <!-- 키워드 검색 섹션 -->
+        <div class="search-section">
+            <h2>🔍 키워드로 플레이리스트 찾기</h2>
+            <div class="keyword-input">
+                <input type="text" id="keywordInput" placeholder="오늘의 키워드를 입력하세요 (예: 집중력, 창의성, 편안함)">
+                <button id="searchBtn">검색</button>
+            </div>
+            <div class="loading" id="loadingIndicator" style="display: none;">
+                <div class="spinner"></div>
+                <p>AI가 최적의 플레이리스트를 찾는 중...</p>
+            </div>
+        </div>
+
+        <!-- 플레이리스트 목록 섹션 -->
+        <div class="playlists-section">
+            <div class="section-header">
+                <h2>📚 플레이리스트 목록</h2>
+                <button id="toggleHiddenBtn" class="toggle-hidden-btn">숨김 보기</button>
+            </div>
+            <div id="playlistsContainer" class="playlists-container">
+                <!-- 플레이리스트 카드가 동적으로 추가됩니다 -->
+            </div>
+        </div>
+
+        <!-- 매칭 결과 섹션 -->
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>✨ 추천 플레이리스트</h2>
+            <div id="matchedPlaylists" class="matched-playlists">
+                <!-- 매칭된 플레이리스트가 동적으로 추가됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
