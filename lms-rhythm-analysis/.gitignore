@@ -1,0 +1,36 @@
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+error.log
+access.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# PHP
+vendor/
+composer.lock
+
+# Backup files
+*.bak
+*.backup
+*.sql.gz
+
+# Session files
+sessions/
