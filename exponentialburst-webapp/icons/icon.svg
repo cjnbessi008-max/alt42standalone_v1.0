@@ -1,0 +1,59 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+
+  <!-- Exponential curve -->
+  <path d="M 80 420 Q 150 380, 200 320 T 280 180 T 350 80 T 400 40"
+        stroke="#ffffff"
+        stroke-width="12"
+        fill="none"
+        stroke-linecap="round"
+        opacity="0.3"/>
+
+  <!-- Main burst particles -->
+  <circle cx="400" cy="40" r="20" fill="#FFD700" opacity="0.9">
+    <animate attributeName="r" values="20;25;20" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="420" cy="30" r="15" fill="#FFA500" opacity="0.8"/>
+  <circle cx="380" cy="30" r="15" fill="#FFA500" opacity="0.8"/>
+  <circle cx="425" cy="50" r="12" fill="#FF6B6B" opacity="0.8"/>
+  <circle cx="375" cy="50" r="12" fill="#FF6B6B" opacity="0.8"/>
+  <circle cx="430" cy="65" r="10" fill="#4ECDC4" opacity="0.7"/>
+  <circle cx="370" cy="65" r="10" fill="#4ECDC4" opacity="0.7"/>
+  <circle cx="440" cy="40" r="8" fill="#98D8C8" opacity="0.7"/>
+  <circle cx="360" cy="40" r="8" fill="#98D8C8" opacity="0.7"/>
+
+  <!-- Secondary bursts along curve -->
+  <circle cx="350" cy="80" r="12" fill="#F7DC6F" opacity="0.6"/>
+  <circle cx="280" cy="180" r="10" fill="#BB8FCE" opacity="0.6"/>
+  <circle cx="200" cy="320" r="8" fill="#85C1E2" opacity="0.6"/>
+
+  <!-- Sparkle effects -->
+  <g opacity="0.8">
+    <path d="M 410 20 L 410 10 M 405 15 L 415 15" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 450 30 L 450 22 M 446 26 L 454 26" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 440 70 L 440 64 M 437 67 L 443 67" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Exponent notation -->
+  <text x="120" y="460" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ffffff">
+    2
+  </text>
+  <text x="175" y="415" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#ffffff">
+    n
+  </text>
+
+  <!-- Glow effect -->
+  <circle cx="400" cy="40" r="60" fill="url(#glow)" opacity="0.3"/>
+</svg>

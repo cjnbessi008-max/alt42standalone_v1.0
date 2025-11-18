@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="지수 함수의 폭발적 성장을 시각적으로 체험하는 인터랙티브 학습 앱">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- PWA 메타 태그 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Exponential Burst">
+
+    <title>Exponential Burst - 지수 폭발 학습 앱</title>
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-icon">🎆</div>
+            <h1>Exponential Burst</h1>
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container" style="display: none;">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">
+                    <span class="title-icon">🎆</span>
+                    Exponential Burst
+                </h1>
+            </div>
+            <div class="header-right">
+                <button id="menu-btn" class="icon-btn" aria-label="Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-icon">🎯</span>
+                <span class="stat-label">Score</span>
+                <span class="stat-value" id="score-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-label">Streak</span>
+                <span class="stat-value" id="streak-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-label">Level</span>
+                <span class="stat-value" id="level-value">1</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">💥</span>
+                <span class="stat-label">Bursts</span>
+                <span class="stat-value" id="bursts-value">0</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Left Panel: Instructions & Controls -->
+            <div class="left-panel">
+                <div class="panel-card">
+                    <h2 class="panel-title">📚 Instructions</h2>
+                    <div class="instructions">
+                        <p>Solve exponential problems and watch amazing firework bursts!</p>
+                        <ul>
+                            <li>Enter the correct answer for each question</li>
+                            <li>Correct answers create exponential bursts</li>
+                            <li>The burst size grows exponentially: base<sup>exponent</sup></li>
+                            <li>Build your streak for bonus points!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-card">
+                    <h2 class="panel-title">⚙️ Settings</h2>
+                    <div class="settings">
+                        <div class="setting-item">
+                            <label for="difficulty-select">Difficulty</label>
+                            <select id="difficulty-select" class="setting-select">
+                                <option value="1">Easy (2^1 to 2^3)</option>
+                                <option value="2" selected>Medium (2^1 to 3^4)</option>
+                                <option value="3">Hard (2^1 to 5^5)</option>
+                                <option value="4">Expert (2^1 to 5^6)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="sound-toggle">Sound Effects</label>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="sound-toggle" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label for="particles-toggle">Particle Density</label>
+                            <select id="particles-toggle" class="setting-select">
+                                <option value="low">Low (Performance)</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High (Quality)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-card">
+                    <h2 class="panel-title">🏆 Best Scores</h2>
+                    <div id="leaderboard" class="leaderboard">
+                        <div class="leaderboard-item">
+                            <span class="rank">1</span>
+                            <span class="score">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Smartphone Display -->
+            <div class="right-panel">
+                <div class="smartphone-container">
+                    <div class="smartphone-frame">
+                        <!-- Phone Notch -->
+                        <div class="phone-notch"></div>
+
+                        <!-- Phone Screen -->
+                        <div class="phone-screen">
+
+                            <!-- Game UI -->
+                            <div class="game-ui">
+
+                                <!-- Timer Bar -->
+                                <div class="timer-container">
+                                    <div id="timer-bar" class="timer-bar"></div>
+                                </div>
+
+                                <!-- Question Display -->
+                                <div class="question-card">
+                                    <div class="question-label">What is</div>
+                                    <div id="question-display" class="question-display">
+                                        2<sup>3</sup>
+                                    </div>
+                                    <div class="question-hint" id="question-hint"></div>
+                                </div>
+
+                                <!-- Answer Input -->
+                                <div class="answer-section">
+                                    <input
+                                        type="number"
+                                        id="answer-input"
+                                        class="answer-input"
+                                        placeholder="Your answer..."
+                                        autocomplete="off"
+                                        inputmode="numeric"
+                                    >
+                                    <button id="submit-btn" class="submit-btn">
+                                        <span>Submit</span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+
+                                <!-- Canvas for Particle Effects -->
+                                <canvas id="burst-canvas" class="burst-canvas"></canvas>
+
+                                <!-- Feedback Overlay -->
+                                <div id="feedback-overlay" class="feedback-overlay">
+                                    <div class="feedback-content">
+                                        <div id="feedback-icon" class="feedback-icon"></div>
+                                        <div id="feedback-text" class="feedback-text"></div>
+                                        <div id="feedback-detail" class="feedback-detail"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Combo Display -->
+                                <div id="combo-display" class="combo-display">
+                                    <span class="combo-text">COMBO</span>
+                                    <span id="combo-value" class="combo-value">x2</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Phone Home Button -->
+                        <div class="phone-home-button"></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Menu Modal -->
+    <div id="menu-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Menu</h2>
+                <button id="close-menu" class="icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="menu-item" id="new-game-btn">
+                    <span class="menu-icon">🎮</span>
+                    <span>New Game</span>
+                </button>
+                <button class="menu-item" id="reset-progress-btn">
+                    <span class="menu-icon">🔄</span>
+                    <span>Reset Progress</span>
+                </button>
+                <button class="menu-item" id="about-btn">
+                    <span class="menu-icon">ℹ️</span>
+                    <span>About</span>
+                </button>
+                <button class="menu-item" id="install-btn" style="display: none;">
+                    <span class="menu-icon">📲</span>
+                    <span>Install App</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-btn').style.display = 'flex';
+        });
+
+        document.getElementById('install-btn')?.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log('User response:', outcome);
+                deferredPrompt = null;
+            }
+        });
+    </script>
+</body>
+</html>
