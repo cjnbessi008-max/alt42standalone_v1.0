@@ -1,0 +1,373 @@
+/**
+ * Focus Light 웹앱 - Focus Light 강조 효과 스타일
+ * 도형의 핵심 조건을 밝게 빛나게 하는 애니메이션
+ */
+
+/* 기본 Focus Light 효과 */
+.focus-highlighted {
+    stroke-width: 3 !important;
+    transition: all 0.3s ease;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+/* Glow 애니메이션 (부드러운 빛) */
+.focus-glow {
+    animation: focusGlow 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+@keyframes focusGlow {
+    0%, 100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+    50% {
+        opacity: 0.8;
+        filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 24px currentColor);
+    }
+}
+
+/* Pulse 애니메이션 (맥박) */
+.focus-pulse {
+    animation: focusPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+    0%, 100% {
+        stroke-width: 3;
+        opacity: 1;
+    }
+    50% {
+        stroke-width: 6;
+        opacity: 0.7;
+    }
+}
+
+/* Flash 애니메이션 (깜빡임) */
+.focus-flash {
+    animation: focusFlash 1s ease-in-out infinite;
+}
+
+@keyframes focusFlash {
+    0%, 49%, 100% {
+        opacity: 1;
+    }
+    50%, 99% {
+        opacity: 0.3;
+    }
+}
+
+/* Static (정적 강조) */
+.focus-static {
+    stroke-width: 4 !important;
+    filter: drop-shadow(0 0 12px currentColor);
+}
+
+/* 강도별 효과 (1-5) */
+.focus-intensity-1 {
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.focus-intensity-2 {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.focus-intensity-3 {
+    filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 16px currentColor);
+}
+
+.focus-intensity-4 {
+    filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 24px currentColor);
+}
+
+.focus-intensity-5 {
+    filter: drop-shadow(0 0 20px currentColor) drop-shadow(0 0 32px currentColor) drop-shadow(0 0 40px currentColor);
+}
+
+/* 호버 효과 */
+.focus-highlighted:hover {
+    stroke-width: 5 !important;
+    filter: drop-shadow(0 0 20px currentColor) !important;
+    transform: scale(1.05);
+    transform-origin: center;
+}
+
+/* 각도 마커 스타일 */
+.angle-marker {
+    fill: none;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.angle-marker.focus-highlighted {
+    stroke-width: 3;
+}
+
+/* 길이 라벨 스타일 */
+.length-label {
+    font-size: 14px;
+    font-weight: bold;
+    fill: currentColor;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+}
+
+.length-label.focus-highlighted {
+    font-size: 16px;
+    text-shadow: 0 0 8px currentColor;
+}
+
+/* 점(vertex) 마커 */
+.vertex-marker {
+    fill: currentColor;
+    stroke: white;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.vertex-marker.focus-highlighted {
+    r: 6;
+    filter: drop-shadow(0 0 12px currentColor);
+}
+
+/* 보조선 스타일 */
+.guide-line {
+    stroke: currentColor;
+    stroke-width: 1;
+    stroke-dasharray: 5, 5;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.guide-line.focus-highlighted {
+    stroke-width: 2;
+    stroke-dasharray: 8, 4;
+    opacity: 1;
+}
+
+/* 영역(area) 강조 */
+.area-highlight {
+    fill: currentColor;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+}
+
+.area-highlight.focus-highlighted {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 16px currentColor);
+}
+
+/* 라벨 텍스트 강조 */
+.focus-label-text {
+    fill: currentColor;
+    font-size: 13px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.focus-label-text.focus-highlighted {
+    font-size: 15px;
+    font-weight: 700;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+/* 화살표 마커 */
+.arrow-marker {
+    fill: currentColor;
+}
+
+.arrow-marker.focus-highlighted {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* 그룹 호버 효과 */
+.focus-group:hover .focus-highlighted {
+    stroke-width: 4 !important;
+}
+
+/* 비활성 상태 */
+.focus-highlighted.disabled {
+    animation: none;
+    filter: none;
+    stroke-width: 2 !important;
+    opacity: 0.5;
+}
+
+/* 순차적 강조 애니메이션 */
+.focus-sequential {
+    animation: focusSequential 3s ease-in-out infinite;
+}
+
+@keyframes focusSequential {
+    0%, 100% {
+        opacity: 0.3;
+        stroke-width: 2;
+    }
+    33%, 66% {
+        opacity: 1;
+        stroke-width: 5;
+        filter: drop-shadow(0 0 20px currentColor);
+    }
+}
+
+/* 첫 번째 요소 딜레이 */
+.focus-sequential:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.focus-sequential:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.focus-sequential:nth-child(3) {
+    animation-delay: 2s;
+}
+
+/* 모든 강조 동시 활성화 */
+.focus-all-active .focus-highlighted {
+    animation: focusGlow 2s ease-in-out infinite;
+}
+
+/* 색상별 강조 */
+.focus-color-gold {
+    stroke: #FFD700 !important;
+    color: #FFD700;
+}
+
+.focus-color-red {
+    stroke: #FF6B6B !important;
+    color: #FF6B6B;
+}
+
+.focus-color-blue {
+    stroke: #4ECDC4 !important;
+    color: #4ECDC4;
+}
+
+.focus-color-purple {
+    stroke: #9B59B6 !important;
+    color: #9B59B6;
+}
+
+.focus-color-green {
+    stroke: #50C878 !important;
+    color: #50C878;
+}
+
+.focus-color-orange {
+    stroke: #F39C12 !important;
+    color: #F39C12;
+}
+
+/* 반짝이는 효과 */
+.focus-sparkle {
+    animation: focusSparkle 2s ease-in-out infinite;
+}
+
+@keyframes focusSparkle {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px currentColor) brightness(1);
+    }
+    25% {
+        filter: drop-shadow(0 0 16px currentColor) brightness(1.3);
+    }
+    50% {
+        filter: drop-shadow(0 0 24px currentColor) brightness(1.5);
+    }
+    75% {
+        filter: drop-shadow(0 0 16px currentColor) brightness(1.3);
+    }
+}
+
+/* 3D 효과 */
+.focus-3d {
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 12px currentColor);
+}
+
+/* 점선 강조 */
+.focus-dashed {
+    stroke-dasharray: 10, 5;
+    animation: focusDashed 1s linear infinite;
+}
+
+@keyframes focusDashed {
+    to {
+        stroke-dashoffset: -15;
+    }
+}
+
+/* 레이더 효과 */
+.focus-radar {
+    animation: focusRadar 3s ease-in-out infinite;
+}
+
+@keyframes focusRadar {
+    0% {
+        opacity: 1;
+        stroke-width: 2;
+    }
+    50% {
+        opacity: 0.5;
+        stroke-width: 8;
+    }
+    100% {
+        opacity: 1;
+        stroke-width: 2;
+    }
+}
+
+/* 그림자 강조 */
+.focus-shadow {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 16px currentColor);
+}
+
+/* 웨이브 효과 */
+.focus-wave {
+    animation: focusWave 2s ease-in-out infinite;
+}
+
+@keyframes focusWave {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-5px);
+        opacity: 0.8;
+    }
+}
+
+/* 회전 강조 */
+.focus-rotate {
+    animation: focusRotate 4s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes focusRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 진동 효과 */
+.focus-vibrate {
+    animation: focusVibrate 0.3s ease-in-out infinite;
+}
+
+@keyframes focusVibrate {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+}

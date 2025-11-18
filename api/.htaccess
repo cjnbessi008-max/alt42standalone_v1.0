@@ -1,0 +1,35 @@
+# Focus Light API - Apache 설정
+
+# CORS 헤더
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+    Header set Content-Type "application/json; charset=utf-8"
+</IfModule>
+
+# PHP 설정
+<IfModule mod_php7.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log /var/log/apache2/php_errors.log
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 30
+</IfModule>
+
+# 디렉토리 인덱스 비활성화
+Options -Indexes
+
+# UTF-8 인코딩
+AddDefaultCharset UTF-8
+
+# 숨김 파일 접근 차단
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# PHP 파일만 허용
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>

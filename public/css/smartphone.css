@@ -1,0 +1,320 @@
+/**
+ * Focus Light 웹앱 - 가상 스마트폰 스타일
+ * 우측 하단에 고정된 스마트폰 화면
+ */
+
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.smartphone-container.minimized {
+    bottom: 20px;
+    right: 20px;
+}
+
+.smartphone-container.minimized .smartphone {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 스마트폰 디바이스 */
+.smartphone {
+    width: 280px;
+    height: 580px;
+    background: #1a1a1a;
+    border-radius: 35px;
+    padding: 12px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 2px #2a2a2a,
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.smartphone:hover {
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.6),
+        0 0 0 2px #2a2a2a,
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+/* 노치 (상단 센서 영역) */
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 24px;
+    background: #1a1a1a;
+    border-radius: 0 0 16px 16px;
+    z-index: 10;
+}
+
+.notch-speaker {
+    width: 60px;
+    height: 6px;
+    background: #0a0a0a;
+    border-radius: 3px;
+    margin: 9px auto;
+}
+
+/* 스마트폰 화면 */
+.smartphone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 앱 헤더 */
+.app-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 28px 15px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2C3E50;
+}
+
+.app-time {
+    font-size: 0.85rem;
+    color: #7F8C8D;
+    font-weight: 600;
+}
+
+/* 문제 컨텐츠 영역 */
+.problem-content {
+    flex: 1;
+    background: white;
+    padding: 20px 15px;
+    overflow-y: auto;
+}
+
+#problem-title {
+    font-size: 1.1rem;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+#problem-description {
+    font-size: 0.9rem;
+    color: #7F8C8D;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* 도형 컨테이너 */
+.shape-container {
+    width: 100%;
+    min-height: 300px;
+    background: #F8F9FA;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shape-canvas {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+}
+
+/* Focus 라벨 */
+.focus-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.focus-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(74, 144, 226, 0.1);
+    border-left: 3px solid var(--label-color, #4A90E2);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2C3E50;
+    transition: all 0.3s ease;
+}
+
+.focus-label:hover {
+    background: rgba(74, 144, 226, 0.2);
+    transform: translateX(3px);
+}
+
+.focus-label-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--label-color, #4A90E2);
+    box-shadow: 0 0 8px var(--label-color, #4A90E2);
+}
+
+/* 앱 하단 네비게이션 */
+.app-footer {
+    background: white;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(74, 144, 226, 0.1);
+}
+
+.nav-btn.active {
+    background: rgba(74, 144, 226, 0.15);
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+}
+
+.nav-text {
+    font-size: 0.7rem;
+    color: #7F8C8D;
+    font-weight: 600;
+}
+
+.nav-btn.active .nav-text {
+    color: #4A90E2;
+}
+
+/* 홈 버튼 */
+.smartphone-home-btn {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* 토글 버튼 */
+.smartphone-toggle {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.smartphone-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.smartphone-toggle:active {
+    transform: scale(0.95);
+}
+
+/* 스크롤바 스타일 */
+.problem-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.problem-content::-webkit-scrollbar-track {
+    background: #F8F9FA;
+}
+
+.problem-content::-webkit-scrollbar-thumb {
+    background: #BDC3C7;
+    border-radius: 3px;
+}
+
+.problem-content::-webkit-scrollbar-thumb:hover {
+    background: #95A5A6;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .smartphone-container {
+        position: static;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .smartphone {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .smartphone-toggle {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .smartphone {
+        width: 100%;
+        max-width: 320px;
+        height: 600px;
+    }
+}
+
+/* 확대 모드 */
+.smartphone-container.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: auto;
+    right: auto;
+}
+
+.smartphone-container.fullscreen .smartphone {
+    width: 360px;
+    height: 720px;
+}
