@@ -1,0 +1,323 @@
+/**
+ * Styles for StepViewer Component
+ * Part of KAIST Touch Math Academy AI Education System
+ */
+
+.step-viewer {
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.step-viewer-title {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+/* Steps List */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom Scrollbar */
+.steps-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.steps-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.steps-list::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 3px;
+}
+
+.steps-list::-webkit-scrollbar-thumb:hover {
+  background: #5568d3;
+}
+
+/* Step Item */
+.step-item {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  border: 2px solid transparent;
+}
+
+.step-item:hover {
+  background-color: #e9ecef;
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-item:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Step States */
+.step-item.active {
+  background-color: #e3f2fd;
+  border-color: #2196F3;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.step-item.past {
+  background-color: #f1f8e9;
+  border-color: #8BC34A;
+}
+
+.step-item.future {
+  opacity: 0.7;
+}
+
+/* Step Number */
+.step-number {
+  position: relative;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #667eea;
+  color: #ffffff;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.step-item.active .step-number {
+  background-color: #2196F3;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2);
+}
+
+.step-item.past .step-number {
+  background-color: #8BC34A;
+}
+
+.step-item.future .step-number {
+  background-color: #bdbdbd;
+}
+
+.step-number .check-mark {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  font-size: 0.8rem;
+  background-color: #4CAF50;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+}
+
+/* Step Content */
+.step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-equation {
+  margin-bottom: 0.5rem;
+}
+
+.step-equation-inline {
+  padding: 0.25rem 0;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 1rem;
+}
+
+.step-description {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.step-rule {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.rule-label {
+  font-weight: 600;
+  color: #667eea;
+}
+
+/* Active Indicator */
+.active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #2196F3 0%, #667eea 100%);
+  border-radius: 4px 0 0 4px;
+}
+
+/* Summary */
+.step-viewer-summary {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.step-viewer-summary p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.step-viewer-summary strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .step-viewer {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .steps-list {
+    max-height: 400px;
+  }
+
+  .step-item {
+    padding: 0.75rem;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .step-description {
+    font-size: 0.85rem;
+  }
+
+  .step-rule {
+    font-size: 0.8rem;
+  }
+
+  .step-viewer-summary {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .step-viewer {
+    background-color: #2d2d2d;
+  }
+
+  .step-viewer-title {
+    color: #e0e0e0;
+    border-bottom-color: #8b9dc3;
+  }
+
+  .step-item {
+    background-color: #3a3a3a;
+  }
+
+  .step-item:hover {
+    background-color: #454545;
+  }
+
+  .step-item.active {
+    background-color: #1e3a5f;
+    border-color: #64b5f6;
+  }
+
+  .step-item.past {
+    background-color: #2e3b29;
+    border-color: #aed581;
+  }
+
+  .step-description {
+    color: #b0b0b0;
+  }
+
+  .step-rule {
+    color: #999;
+  }
+
+  .rule-label {
+    color: #8b9dc3;
+  }
+
+  .step-viewer-summary {
+    border-top-color: #555;
+  }
+
+  .step-viewer-summary p {
+    color: #b0b0b0;
+  }
+
+  .step-viewer-summary strong {
+    color: #e0e0e0;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-item {
+  animation: slideIn 0.3s ease;
+}
+
+/* Print Styles */
+@media print {
+  .step-viewer {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .step-item {
+    page-break-inside: avoid;
+  }
+
+  .steps-list {
+    max-height: none;
+  }
+}
