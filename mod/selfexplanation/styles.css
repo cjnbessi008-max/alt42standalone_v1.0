@@ -1,0 +1,121 @@
+/**
+ * Styles for mod_selfexplanation
+ *
+ * @package    mod_selfexplanation
+ * @copyright  2025 KAIST Touch Math Academy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Main prompt question styling */
+.prompt-question {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0f6cbf;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f0f8ff;
+    border-left: 4px solid #0f6cbf;
+}
+
+/* Response form */
+.selfexplanation-response-form {
+    margin-top: 1.5rem;
+}
+
+.selfexplanation-response-form textarea {
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: border-color 0.3s;
+}
+
+.selfexplanation-response-form textarea:focus {
+    outline: none;
+    border-color: #0f6cbf;
+    box-shadow: 0 0 0 3px rgba(15, 108, 191, 0.1);
+}
+
+/* Word count display */
+#wordcount {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Response display */
+.response-display {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+/* Feedback box */
+.feedback-box {
+    background-color: #fffbf0;
+    border-left: 4px solid #f0ad4e;
+    margin-top: 1rem;
+}
+
+/* Status badges */
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.badge-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: #28a745;
+}
+
+/* Analytics styling */
+.analytics-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+.analytics-card h4 {
+    color: #333;
+    margin-top: 0;
+}
+
+.quality-score {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f6cbf;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .prompt-question {
+        font-size: 1.25rem;
+        padding: 0.75rem;
+    }
+
+    .selfexplanation-response-form textarea {
+        font-size: 0.9rem;
+    }
+}
