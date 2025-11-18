@@ -1,0 +1,270 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Background decoration */
+.app-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 20s ease-in-out infinite;
+}
+
+.bg-circle-1 {
+  width: 400px;
+  height: 400px;
+  top: -200px;
+  left: -200px;
+  animation-delay: 0s;
+}
+
+.bg-circle-2 {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 5s;
+}
+
+.bg-circle-3 {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  right: -150px;
+  animation-delay: 10s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
+    opacity: 0.15;
+  }
+}
+
+/* Main content */
+.app-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.welcome-section {
+  max-width: 800px;
+  text-align: center;
+  color: white;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.welcome-section h1 {
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 48px;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+/* Info Cards */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.info-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.info-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.info-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.info-card:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.info-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.info-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.info-card p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Instruction */
+.instruction-text {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px 32px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.instruction-text p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Loading state */
+.app-loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  gap: 24px;
+}
+
+.spinner-large {
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.app-loading p {
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .welcome-section h1 {
+    font-size: 48px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    padding: 20px;
+  }
+
+  .welcome-section h1 {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+
+  .info-icon {
+    font-size: 36px;
+  }
+
+  .info-card h3 {
+    font-size: 18px;
+  }
+
+  .info-card p {
+    font-size: 14px;
+  }
+
+  .instruction-text {
+    padding: 16px 24px;
+  }
+
+  .instruction-text p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-section h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .info-cards {
+    gap: 16px;
+  }
+
+  .bg-circle-1,
+  .bg-circle-2,
+  .bg-circle-3 {
+    display: none;
+  }
+}

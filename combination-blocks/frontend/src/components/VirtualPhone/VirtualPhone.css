@@ -1,0 +1,224 @@
+.virtual-phone {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Position variants */
+.virtual-phone.bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.virtual-phone.bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.virtual-phone.top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.virtual-phone.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Phone Frame */
+.phone-frame {
+  width: 360px;
+  height: 720px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top Notch */
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  background: #222;
+  border-radius: 50%;
+  border: 1px solid #444;
+}
+
+/* Screen */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Bar */
+.status-bar {
+  height: 44px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 600;
+  padding-top: 8px;
+}
+
+.status-time {
+  letter-spacing: 0.5px;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.status-icon {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* App Content Area */
+.phone-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f7fafc;
+  position: relative;
+}
+
+/* Custom Scrollbar */
+.phone-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.phone-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.phone-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.phone-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Home Button */
+.phone-home-button {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .phone-frame {
+    width: 320px;
+    height: 640px;
+  }
+
+  .virtual-phone.bottom-right {
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .phone-frame {
+    width: 280px;
+    height: 560px;
+    border-radius: 32px;
+    padding: 10px;
+  }
+
+  .phone-notch {
+    width: 140px;
+    height: 24px;
+  }
+
+  .status-bar {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 11px;
+  }
+
+  .virtual-phone.bottom-right,
+  .virtual-phone.bottom-left {
+    bottom: 5px;
+  }
+
+  .virtual-phone.bottom-right {
+    right: 5px;
+  }
+
+  .virtual-phone.bottom-left {
+    left: 5px;
+  }
+}
+
+/* Animation for phone appearance */
+@keyframes phoneSlideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.virtual-phone {
+  animation: phoneSlideIn 0.5s ease-out;
+}
+
+/* Hover effect */
+.phone-frame:hover {
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}

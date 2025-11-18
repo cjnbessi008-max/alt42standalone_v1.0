@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:5.7
+    container_name: combination-blocks-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - combination-blocks-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # PHP Backend API
+  php-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: combination-blocks-api
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      MOODLE_DB_HOST: ${MOODLE_DB_HOST}
+      MOODLE_DB_NAME: ${MOODLE_DB_NAME}
+      MOODLE_DB_USER: ${MOODLE_DB_USER}
+      MOODLE_DB_PASS: ${MOODLE_DB_PASS}
+      MOODLE_DB_PREFIX: ${MOODLE_DB_PREFIX}
+      MOODLE_PATH: ${MOODLE_PATH}
+      MOODLE_URL: ${MOODLE_URL}
+    ports:
+      - "${API_PORT:-8080}:80"
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - combination-blocks-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend (Vite Dev Server)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: combination-blocks-frontend
+    restart: unless-stopped
+    depends_on:
+      - php-api
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - combination-blocks-network
+    command: npm run dev
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  combination-blocks-network:
+    driver: bridge
