@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인지 회복 모니터링 시스템</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>인지 회복 모니터링 시스템</h1>
+            <p>학습 중 자연스러운 멍때림을 감지하여 최적의 학습 패턴을 분석합니다</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">오늘 학습 시간</span>
+                    <div class="stat-card-icon info">⏱️</div>
+                </div>
+                <div class="stat-card-value" id="learning-time">0</div>
+                <div class="stat-card-label">분</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">인지 회복 횟수</span>
+                    <div class="stat-card-icon success">🧠</div>
+                </div>
+                <div class="stat-card-value" id="recovery-count">0</div>
+                <div class="stat-card-label">회</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">평균 회복 시간</span>
+                    <div class="stat-card-icon warning">⏳</div>
+                </div>
+                <div class="stat-card-value" id="avg-recovery">0</div>
+                <div class="stat-card-label">초</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <span class="stat-card-title">학습 효율성</span>
+                    <div class="stat-card-icon success">📊</div>
+                </div>
+                <div class="stat-card-value" id="efficiency">0</div>
+                <div class="stat-card-label">%</div>
+            </div>
+        </div>
+
+        <!-- Session Status -->
+        <div class="chart-container" id="session-status">
+            <div class="chart-header">
+                <h2>현재 세션 상태</h2>
+                <p id="session-description">학습 세션을 시작하려면 아래 버튼을 클릭하세요</p>
+            </div>
+            <div style="text-align: center; padding: 20px;">
+                <button id="start-session-btn" class="btn-primary" style="padding: 12px 30px; font-size: 16px; background: #4A90E2; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    학습 시작
+                </button>
+                <button id="stop-session-btn" class="btn-danger hidden" style="padding: 12px 30px; font-size: 16px; background: #D9534F; color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">
+                    학습 종료
+                </button>
+            </div>
+        </div>
+
+        <!-- Activity Timeline -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2>활동 타임라인</h2>
+                <p>학습 활동과 인지 회복 구간을 시간순으로 표시합니다</p>
+            </div>
+            <div id="activity-timeline" class="timeline">
+                <div class="text-center" style="color: #999; padding: 40px;">
+                    아직 활동 데이터가 없습니다. 학습을 시작하면 자동으로 추적됩니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="recommendations">
+            <h2>맞춤형 학습 제안</h2>
+            <div id="recommendations-list">
+                <div class="recommendation-item info">
+                    <div class="recommendation-message">
+                        환영합니다!
+                    </div>
+                    <div class="recommendation-suggestion">
+                        학습을 시작하면 여러분의 학습 패턴을 분석하여 맞춤형 제안을 제공해 드립니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/activity-tracker.js"></script>
+    <script src="js/cognitive-detector.js"></script>
+    <script>
+        // Configuration
+        const config = {
+            apiUrl: '/cognitive-recovery-app/backend/api/track.php',
+            dashboardUrl: '/cognitive-recovery-app/backend/api/dashboard.php',
+            userId: 1, // Should be dynamically set from Moodle
+            courseId: null,
+            moduleId: null,
+            enableConsoleLog: true
+        };
+
+        // Global variables
+        let tracker = null;
+        let detector = null;
+        let statsUpdateInterval = null;
+
+        // DOM Elements
+        const startBtn = document.getElementById('start-session-btn');
+        const stopBtn = document.getElementById('stop-session-btn');
+        const sessionDescription = document.getElementById('session-description');
+
+        // Start Session
+        startBtn.addEventListener('click', async () => {
+            try {
+                // Initialize tracker
+                tracker = new ActivityTracker(config);
+                await tracker.start();
+
+                // Initialize detector
+                detector = new CognitiveDetector(tracker, {
+                    showNotifications: true,
+                    showVisualIndicator: true
+                });
+
+                // Update UI
+                startBtn.classList.add('hidden');
+                stopBtn.classList.remove('hidden');
+                sessionDescription.textContent = '학습 세션이 진행 중입니다';
+
+                // Start stats update
+                startStatsUpdate();
+
+                // Show success notification
+                showNotification('학습 세션이 시작되었습니다!', 'success');
+
+            } catch (error) {
+                console.error('Failed to start session:', error);
+                alert('세션 시작에 실패했습니다: ' + error.message);
+            }
+        });
+
+        // Stop Session
+        stopBtn.addEventListener('click', async () => {
+            try {
+                await tracker.stop();
+
+                if (detector) {
+                    detector.destroy();
+                    detector = null;
+                }
+
+                // Update UI
+                startBtn.classList.remove('hidden');
+                stopBtn.classList.add('hidden');
+                sessionDescription.textContent = '학습 세션이 종료되었습니다';
+
+                // Stop stats update
+                stopStatsUpdate();
+
+                // Show final stats
+                await showFinalStats();
+
+            } catch (error) {
+                console.error('Failed to stop session:', error);
+                alert('세션 종료에 실패했습니다: ' + error.message);
+            }
+        });
+
+        // Listen to recovery insights
+        document.addEventListener('recoveryInsightsReceived', (event) => {
+            updateRecommendations(event.detail);
+        });
+
+        // Listen to state changes
+        document.addEventListener('cognitiveStateChange', (event) => {
+            addTimelineItem(event.detail);
+        });
+
+        // Start stats update
+        function startStatsUpdate() {
+            updateStats(); // Initial update
+
+            statsUpdateInterval = setInterval(() => {
+                updateStats();
+            }, 5000); // Update every 5 seconds
+        }
+
+        // Stop stats update
+        function stopStatsUpdate() {
+            if (statsUpdateInterval) {
+                clearInterval(statsUpdateInterval);
+                statsUpdateInterval = null;
+            }
+        }
+
+        // Update stats
+        async function updateStats() {
+            if (!tracker || !tracker.sessionId) return;
+
+            try {
+                const stats = await tracker.getSessionStats();
+
+                if (stats && stats.session) {
+                    // Update learning time
+                    const minutes = Math.floor(stats.session.total_duration / 60);
+                    document.getElementById('learning-time').textContent = minutes;
+
+                    // Update recovery count
+                    document.getElementById('recovery-count').textContent =
+                        stats.session.recovery_periods || 0;
+
+                    // Update average recovery time
+                    if (stats.recovery_stats && stats.recovery_stats.length > 0) {
+                        const cognitiveRecovery = stats.recovery_stats.find(
+                            s => s.recovery_type === 'cognitive_recovery'
+                        );
+                        if (cognitiveRecovery) {
+                            document.getElementById('avg-recovery').textContent =
+                                Math.round(cognitiveRecovery.avg_duration);
+                        }
+                    }
+
+                    // Calculate efficiency (dummy calculation for demo)
+                    const efficiency = Math.min(100, Math.round(
+                        (stats.session.total_events / (stats.session.total_duration / 60)) * 2
+                    ));
+                    document.getElementById('efficiency').textContent = efficiency;
+                }
+            } catch (error) {
+                console.error('Failed to update stats:', error);
+            }
+        }
+
+        // Update recommendations
+        function updateRecommendations(insights) {
+            const container = document.getElementById('recommendations-list');
+            container.innerHTML = '';
+
+            if (insights.recommendations && insights.recommendations.length > 0) {
+                insights.recommendations.forEach(rec => {
+                    const item = document.createElement('div');
+                    item.className = `recommendation-item ${rec.type}`;
+                    item.innerHTML = `
+                        <div class="recommendation-message">${rec.message}</div>
+                        <div class="recommendation-suggestion">${rec.suggestion}</div>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+        }
+
+        // Add timeline item
+        function addTimelineItem(stateChange) {
+            const timeline = document.getElementById('activity-timeline');
+
+            // Clear placeholder
+            if (timeline.querySelector('.text-center')) {
+                timeline.innerHTML = '';
+            }
+
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+
+            let markerClass = 'active';
+            let icon = '●';
+            let title = '';
+
+            switch (stateChange.newState) {
+                case 'active':
+                    markerClass = 'active';
+                    icon = '✓';
+                    title = '활동 재개';
+                    break;
+                case 'cognitive_recovery':
+                    markerClass = 'recovery';
+                    icon = '⏸';
+                    title = '인지 회복 구간';
+                    break;
+                case 'extended_pause':
+                    markerClass = 'pause';
+                    icon = '⏸';
+                    title = '휴식 중';
+                    break;
+                case 'potential_dropout':
+                    markerClass = 'pause';
+                    icon = '✕';
+                    title = '비활성';
+                    break;
+            }
+
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('ko-KR');
+
+            item.innerHTML = `
+                <div class="timeline-marker ${markerClass}">${icon}</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">${timeStr}</div>
+                    <div class="timeline-title">${title}</div>
+                    <div class="timeline-description">
+                        ${stateChange.oldState}에서 ${stateChange.newState}로 상태 변경
+                        (${Math.round(stateChange.timeSinceLastActivity / 1000)}초 경과)
+                    </div>
+                </div>
+            `;
+
+            timeline.insertBefore(item, timeline.firstChild);
+
+            // Keep only last 10 items
+            while (timeline.children.length > 10) {
+                timeline.removeChild(timeline.lastChild);
+            }
+        }
+
+        // Show final stats
+        async function showFinalStats() {
+            if (!tracker || !tracker.sessionId) return;
+
+            try {
+                const stats = await tracker.getSessionStats();
+
+                if (stats && stats.session) {
+                    const minutes = Math.floor(stats.session.total_duration / 60);
+                    const recoveryCount = stats.session.recovery_periods || 0;
+
+                    alert(
+                        `학습 세션 요약\n\n` +
+                        `총 학습 시간: ${minutes}분\n` +
+                        `인지 회복 횟수: ${recoveryCount}회\n` +
+                        `총 활동 이벤트: ${stats.session.total_events}개\n\n` +
+                        `수고하셨습니다!`
+                    );
+                }
+            } catch (error) {
+                console.error('Failed to get final stats:', error);
+            }
+        }
+
+        // Helper: Show notification
+        function showNotification(message, type = 'info') {
+            if (detector) {
+                detector.showNotification(message, type);
+            } else {
+                alert(message);
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            console.log('Cognitive Recovery System loaded');
+        });
+
+        // Cleanup on unload
+        window.addEventListener('beforeunload', async (e) => {
+            if (tracker && tracker.isTracking) {
+                e.preventDefault();
+                e.returnValue = '';
+
+                // Try to end session gracefully
+                try {
+                    await tracker.stop();
+                } catch (error) {
+                    console.error('Failed to end session on unload:', error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
