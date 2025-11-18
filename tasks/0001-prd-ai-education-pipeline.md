@@ -209,9 +209,13 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - System MUST identify what data needs to be collected from students
 - System MUST determine optimal input method for each data type:
   - **Manual input forms**: Direct text, number, or selection inputs
-  - **Behavior tracking**: Click patterns, time spent, interaction sequences
+  - **Behavior tracking**: Click patterns, time spent, interaction sequences, thinking points
   - **Interactive prompts**: Conversational questions that guide learning
 - System MUST prioritize user experience (minimize cognitive load)
+- System MUST track granular interaction data for learning analytics:
+  - **Thinking Points**: Time spent on each problem section/step/concept
+  - **Interaction patterns**: Focus areas, revisit patterns, pause durations
+  - **Engagement metrics**: Active vs. passive time, interaction frequency
 
 **FR-4.2: Input Validation Strategy**
 - System MUST define validation rules for each input
@@ -224,6 +228,30 @@ Empower teachers to create sophisticated educational systems autonomously, reduc
 - System MUST identify data transformations needed
 - System MUST establish data persistence points
 - System MUST define analytics and reporting touchpoints
+
+**FR-4.4: Thinking Points Tracking & Visualization**
+- System MUST automatically identify and track "thinking points" - areas where students spend significant time
+- System MUST capture granular time-tracking data:
+  - **Problem-level**: Total time spent on each problem
+  - **Step-level**: Time spent on each step/section within a problem
+  - **Concept-level**: Time spent interacting with specific concepts or input fields
+  - **Interaction-level**: Pause duration, focus time, revisit counts
+- System MUST classify thinking patterns:
+  - **Productive thinking**: Active problem-solving time (typing, clicking, manipulating)
+  - **Struggle indicators**: Long pauses, multiple attempts, backtracking
+  - **Confusion markers**: Rapid switching between fields, help requests
+- System MUST generate visualizations for thinking points:
+  - **Student view**: Personal heatmap showing where they spent most time
+  - **Teacher view**: Aggregate heatmaps showing common struggle points across students
+  - **Problem analysis**: Identify which problem sections need pedagogical improvement
+- System MUST provide actionable insights:
+  - Suggest review of concepts where students spent excessive time
+  - Highlight problems that may need difficulty adjustment
+  - Identify students who may need additional support
+- System MUST respect privacy and learning context:
+  - Time tracking should be non-intrusive (no visible timers creating pressure)
+  - Data used for learning improvement, not punitive assessment
+  - Students can view their own patterns for metacognitive development
 
 ### Phase 5: UI Auto-Generation (UI 자동 생성)
 
@@ -560,6 +588,33 @@ The following are explicitly **NOT** part of this implementation:
 7. **StudentProgress** (dynamically generated per module)
    - Generated schema varies per module
    - Always includes: student_id, module_id, started_at, completed_at, progress_percentage
+
+8. **ThinkingPoint** (interaction analytics)
+   - id (UUID)
+   - student_id (foreign key)
+   - problem_id (UUID) - references dynamically generated problem tables
+   - module_id (foreign key)
+   - section_identifier (string) - step name, field name, or concept identifier
+   - section_type (enum: problem_level, step_level, concept_level, interaction_level)
+   - time_spent_seconds (integer) - duration of interaction with this section
+   - interaction_count (integer) - number of times student interacted with this section
+   - pause_count (integer) - number of pauses during interaction
+   - longest_pause_seconds (integer) - longest pause duration
+   - thinking_pattern (enum: productive, struggle, confusion, mastery)
+   - events (JSONB) - detailed event log (focus, blur, input, click, etc.)
+   - created_at, updated_at
+
+9. **ThinkingPointSummary** (aggregated analytics)
+   - id (UUID)
+   - problem_id (UUID)
+   - section_identifier (string)
+   - total_students (integer) - number of students who attempted this section
+   - avg_time_spent_seconds (float) - average time across all students
+   - median_time_spent_seconds (float)
+   - struggle_rate (float) - percentage of students showing struggle indicators
+   - common_pattern (enum) - most common thinking pattern for this section
+   - needs_attention (boolean) - flag for sections requiring pedagogical review
+   - last_calculated_at (timestamp)
 
 ### 6.4 Technology Stack
 
@@ -1144,6 +1199,14 @@ GET    /api/modules/{module_id}/problems/{id}     - Get problem details
 POST   /api/modules/{module_id}/submit            - Submit student answer
 GET    /api/modules/{module_id}/progress/{student_id} - Get student progress
 PUT    /api/modules/{module_id}/settings          - Update module settings
+
+# Thinking Points APIs
+POST   /api/modules/{module_id}/thinking-points   - Record thinking point data
+GET    /api/modules/{module_id}/thinking-points/student/{student_id} - Get student's thinking points
+GET    /api/modules/{module_id}/thinking-points/problem/{problem_id} - Get thinking points for a problem
+GET    /api/modules/{module_id}/thinking-points/heatmap/{problem_id} - Get heatmap visualization data
+GET    /api/modules/{module_id}/thinking-points/summary - Get aggregate thinking points summary
+GET    /api/modules/{module_id}/thinking-points/insights/{student_id} - Get personalized insights
 ```
 
 **Database Schema Example (Generated)**:
@@ -1176,6 +1239,44 @@ CREATE TABLE student_attempts (
 
 CREATE INDEX idx_student_attempts_student ON student_attempts(student_id);
 CREATE INDEX idx_student_attempts_problem ON student_attempts(problem_id);
+
+-- Thinking Points Tracking
+CREATE TABLE thinking_points (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    student_id UUID NOT NULL REFERENCES students(id),
+    problem_id UUID NOT NULL REFERENCES fraction_problems(id),
+    module_id UUID NOT NULL REFERENCES modules(id),
+    section_identifier VARCHAR(100) NOT NULL,
+    section_type VARCHAR(50) NOT NULL CHECK (section_type IN ('problem_level', 'step_level', 'concept_level', 'interaction_level')),
+    time_spent_seconds INTEGER NOT NULL DEFAULT 0,
+    interaction_count INTEGER NOT NULL DEFAULT 0,
+    pause_count INTEGER NOT NULL DEFAULT 0,
+    longest_pause_seconds INTEGER NOT NULL DEFAULT 0,
+    thinking_pattern VARCHAR(50) CHECK (thinking_pattern IN ('productive', 'struggle', 'confusion', 'mastery')),
+    events JSONB DEFAULT '[]'::jsonb,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE thinking_point_summaries (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    problem_id UUID NOT NULL REFERENCES fraction_problems(id),
+    section_identifier VARCHAR(100) NOT NULL,
+    total_students INTEGER NOT NULL DEFAULT 0,
+    avg_time_spent_seconds FLOAT NOT NULL DEFAULT 0,
+    median_time_spent_seconds FLOAT NOT NULL DEFAULT 0,
+    struggle_rate FLOAT NOT NULL DEFAULT 0,
+    common_pattern VARCHAR(50),
+    needs_attention BOOLEAN DEFAULT FALSE,
+    last_calculated_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE(problem_id, section_identifier)
+);
+
+CREATE INDEX idx_thinking_points_student ON thinking_points(student_id);
+CREATE INDEX idx_thinking_points_problem ON thinking_points(problem_id);
+CREATE INDEX idx_thinking_points_section ON thinking_points(section_identifier);
+CREATE INDEX idx_thinking_point_summaries_problem ON thinking_point_summaries(problem_id);
+CREATE INDEX idx_thinking_point_summaries_attention ON thinking_point_summaries(needs_attention) WHERE needs_attention = TRUE;
 ```
 
 **Generated React Component Example**:
