@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reflection Pair - 지수-로그 거울 반사</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/smartphone.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-panel {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-panel h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #fff;
+            padding: 10px;
+            border-left: 4px solid #667eea;
+            margin: 10px 0;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #4caf50;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #999;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body data-course-id="1" data-user-id="1">
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <h1>
+            Reflection Pair: 지수-로그 거울 반사
+            <span class="status-indicator">활성화</span>
+        </h1>
+
+        <div class="description">
+            <p>
+                이 시스템은 지수 함수와 로그 함수가 y=x 직선을 기준으로 거울처럼 반사된 관계임을 시각적으로 보여줍니다.
+                우측 하단의 가상 스마트폰 화면에서 실시간으로 함수의 관계를 확인할 수 있습니다.
+            </p>
+        </div>
+
+        <div class="info-panel">
+            <h3>🔍 주요 개념</h3>
+            <div class="formula">
+                <strong>지수 함수:</strong> y = b<sup>x</sup>
+            </div>
+            <div class="formula">
+                <strong>로그 함수:</strong> y = log<sub>b</sub>(x)
+            </div>
+            <div class="formula">
+                <strong>반사선:</strong> y = x (대각선)
+            </div>
+            <p style="margin-top: 15px;">
+                지수 함수의 점 (a, b)는 로그 함수의 점 (b, a)와 대응됩니다.
+                이는 두 함수가 역함수 관계임을 보여줍니다.
+            </p>
+        </div>
+
+        <div class="info-panel">
+            <h3>📱 스마트폰 화면 조작 방법</h3>
+            <ul>
+                <li><strong>드래그:</strong> 그래프 이동</li>
+                <li><strong>마우스 휠:</strong> 확대/축소</li>
+                <li><strong>버튼:</strong> 줌 인/아웃, 뷰 리셋, 반사선 토글</li>
+            </ul>
+        </div>
+
+        <div class="info-panel">
+            <h3>🎯 학습 목표</h3>
+            <ul>
+                <li>지수 함수와 로그 함수의 역함수 관계 이해</li>
+                <li>함수의 대칭성 시각적 파악</li>
+                <li>다양한 밑(base)에 따른 함수 변화 관찰</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Moodle 3.7 | PHP 7.1.9 | MySQL 5.7</p>
+            <p>© 2024 AI Education System</p>
+        </div>
+    </div>
+
+    <!-- Virtual Smartphone Display (Bottom Right) -->
+    <div class="smartphone-container">
+        <div class="smartphone-frame">
+            <div class="smartphone-notch"></div>
+            <div class="smartphone-screen">
+                <div class="screen-header">
+                    Reflection Pair
+                </div>
+
+                <div class="visualization-container">
+                    <canvas id="reflection-canvas"></canvas>
+
+                    <!-- Graph Legend -->
+                    <div class="graph-legend">
+                        <div class="legend-item">
+                            <div class="legend-color exp"></div>
+                            <span>y = e<sup>x</sup></span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color log"></div>
+                            <span>y = ln(x)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color line"></div>
+                            <span>y = x</span>
+                        </div>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div class="loading-indicator" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>로딩 중...</p>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <button class="control-btn" id="zoom-in-btn">+</button>
+                    <button class="control-btn" id="zoom-out-btn">-</button>
+                    <button class="control-btn" id="reset-btn">⟲</button>
+                    <button class="control-btn active" id="toggle-line-btn">y=x</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/reflection-visualizer.js"></script>
+    <script src="../assets/js/moodle-integration.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+/**
+ * Virtual Smartphone Display CSS
+ * Positioned at bottom right of screen
+ */
+
+:root {
+    --smartphone-width: 375px;
+    --smartphone-height: 667px;
+    --smartphone-scale: 0.6;
+    --border-radius: 30px;
+    --screen-bg: #1a1a1a;
+    --phone-frame: #2c2c2c;
+    --reflection-color-exp: #ff6b6b;
+    --reflection-color-log: #4ecdc4;
+    --reflection-line: #ffd93d;
+}
+
+/* Smartphone container - positioned at bottom right */
+.smartphone-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: calc(var(--smartphone-width) * var(--smartphone-scale));
+    height: calc(var(--smartphone-height) * var(--smartphone-scale));
+    z-index: 9999;
+    transform-origin: bottom right;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+}
+
+/* Phone frame */
+.smartphone-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--phone-frame);
+    border-radius: calc(var(--border-radius) * var(--smartphone-scale));
+    padding: calc(15px * var(--smartphone-scale));
+    box-sizing: border-box;
+}
+
+/* Phone notch (modern smartphone style) */
+.smartphone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(140px * var(--smartphone-scale));
+    height: calc(20px * var(--smartphone-scale));
+    background: var(--phone-frame);
+    border-bottom-left-radius: calc(15px * var(--smartphone-scale));
+    border-bottom-right-radius: calc(15px * var(--smartphone-scale));
+    z-index: 10;
+}
+
+/* Phone screen */
+.smartphone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--screen-bg);
+    border-radius: calc(20px * var(--smartphone-scale));
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Screen header */
+.screen-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: calc(15px * var(--smartphone-scale));
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: calc(16px * var(--smartphone-scale));
+    font-weight: 600;
+    margin-top: calc(20px * var(--smartphone-scale));
+}
+
+/* Canvas container for visualization */
+.visualization-container {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 60px * var(--smartphone-scale));
+    background: white;
+    padding: calc(10px * var(--smartphone-scale));
+    box-sizing: border-box;
+}
+
+/* Canvas for drawing graphs */
+#reflection-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Control panel at bottom */
+.control-panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: calc(10px * var(--smartphone-scale));
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: calc(8px * var(--smartphone-scale)) calc(12px * var(--smartphone-scale));
+    border-radius: calc(5px * var(--smartphone-scale));
+    font-size: calc(11px * var(--smartphone-scale));
+    cursor: pointer;
+    transition: background 0.3s;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.active {
+    background: var(--reflection-color-exp);
+}
+
+/* Loading indicator */
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.spinner {
+    border: calc(4px * var(--smartphone-scale)) solid rgba(255, 255, 255, 0.3);
+    border-top: calc(4px * var(--smartphone-scale)) solid white;
+    border-radius: 50%;
+    width: calc(40px * var(--smartphone-scale));
+    height: calc(40px * var(--smartphone-scale));
+    animation: spin 1s linear infinite;
+    margin: 0 auto calc(10px * var(--smartphone-scale));
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --smartphone-scale: 0.4;
+    }
+
+    .smartphone-container {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --smartphone-scale: 0.3;
+    }
+}
+
+/* Legend for graph */
+.graph-legend {
+    position: absolute;
+    top: calc(50px * var(--smartphone-scale));
+    right: calc(15px * var(--smartphone-scale));
+    background: rgba(255, 255, 255, 0.95);
+    padding: calc(8px * var(--smartphone-scale));
+    border-radius: calc(5px * var(--smartphone-scale));
+    font-size: calc(10px * var(--smartphone-scale));
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: calc(3px * var(--smartphone-scale)) 0;
+}
+
+.legend-color {
+    width: calc(20px * var(--smartphone-scale));
+    height: calc(3px * var(--smartphone-scale));
+    margin-right: calc(6px * var(--smartphone-scale));
+    border-radius: calc(2px * var(--smartphone-scale));
+}
+
+.legend-color.exp {
+    background: var(--reflection-color-exp);
+}
+
+.legend-color.log {
+    background: var(--reflection-color-log);
+}
+
+.legend-color.line {
+    background: var(--reflection-line);
+}

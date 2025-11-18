@@ -1,0 +1,23 @@
+; Database Configuration Example
+; Copy this file to db_config.ini and update with your settings
+
+[database]
+host = localhost
+db_name = moodle_reflection_pair
+username = moodle_user
+password = your_password_here
+
+; Connection settings
+charset = utf8mb4
+collation = utf8mb4_unicode_ci
+
+; For Moodle integration
+[moodle]
+; Moodle installation path
+moodle_path = /var/www/html/moodle
+
+; Moodle database prefix (usually mdl_)
+prefix = mdl_
+
+; Moodle version
+version = 3.7
