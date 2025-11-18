@@ -1,0 +1,298 @@
+/**
+ * Substitution Glow CSS Animations
+ * 치환 시각화를 위한 글로우 효과
+ */
+
+/* Base glow effect */
+.glow-base {
+  transition: all 0.3s ease-in-out;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Success Glow - 정답일 때 초록색 */
+.glow-success {
+  animation: glowGreen 1.5s ease-in-out;
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 2px solid #4CAF50;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.6),
+              0 0 40px rgba(76, 175, 80, 0.4),
+              inset 0 0 10px rgba(76, 175, 80, 0.2);
+}
+
+@keyframes glowGreen {
+  0% {
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.8),
+                0 0 60px rgba(76, 175, 80, 0.6),
+                inset 0 0 15px rgba(76, 175, 80, 0.4);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6),
+                0 0 40px rgba(76, 175, 80, 0.4),
+                inset 0 0 10px rgba(76, 175, 80, 0.2);
+  }
+}
+
+/* Error Glow - 오답일 때 빨간색 */
+.glow-error {
+  animation: glowRed 1.5s ease-in-out;
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 2px solid #F44336;
+  box-shadow: 0 0 20px rgba(244, 67, 54, 0.6),
+              0 0 40px rgba(244, 67, 54, 0.4),
+              inset 0 0 10px rgba(244, 67, 54, 0.2);
+}
+
+@keyframes glowRed {
+  0% {
+    box-shadow: 0 0 5px rgba(244, 67, 54, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(244, 67, 54, 0.8),
+                0 0 60px rgba(244, 67, 54, 0.6),
+                inset 0 0 15px rgba(244, 67, 54, 0.4);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(244, 67, 54, 0.6),
+                0 0 40px rgba(244, 67, 54, 0.4),
+                inset 0 0 10px rgba(244, 67, 54, 0.2);
+  }
+}
+
+/* Partial Glow - 부분적으로 맞을 때 오렌지색 */
+.glow-partial {
+  animation: glowOrange 1.5s ease-in-out;
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 2px solid #FF9800;
+  box-shadow: 0 0 20px rgba(255, 152, 0, 0.6),
+              0 0 40px rgba(255, 152, 0, 0.4),
+              inset 0 0 10px rgba(255, 152, 0, 0.2);
+}
+
+@keyframes glowOrange {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 152, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 152, 0, 0.8),
+                0 0 60px rgba(255, 152, 0, 0.6),
+                inset 0 0 15px rgba(255, 152, 0, 0.4);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.6),
+                0 0 40px rgba(255, 152, 0, 0.4),
+                inset 0 0 10px rgba(255, 152, 0, 0.2);
+  }
+}
+
+/* Hint Glow - 힌트나 강조할 때 파란색 */
+.glow-hint {
+  animation: glowBlue 2s ease-in-out infinite;
+  background-color: rgba(33, 150, 243, 0.1);
+  border: 2px solid #2196F3;
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.5),
+              0 0 30px rgba(33, 150, 243, 0.3),
+              inset 0 0 8px rgba(33, 150, 243, 0.2);
+}
+
+@keyframes glowBlue {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.4),
+                0 0 20px rgba(33, 150, 243, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(33, 150, 243, 0.6),
+                0 0 40px rgba(33, 150, 243, 0.4),
+                inset 0 0 12px rgba(33, 150, 243, 0.3);
+  }
+}
+
+/* Pending state - 입력 대기 중 */
+.glow-pending {
+  background-color: rgba(158, 158, 158, 0.05);
+  border: 2px dashed #9E9E9E;
+  box-shadow: none;
+}
+
+/* Step highlight - 현재 단계 강조 */
+.step-highlight {
+  animation: stepPulse 2s ease-in-out infinite;
+  border: 2px solid #673AB7;
+  background: linear-gradient(135deg, rgba(103, 58, 183, 0.05), rgba(103, 58, 183, 0.15));
+}
+
+@keyframes stepPulse {
+  0%, 100% {
+    border-color: #673AB7;
+    box-shadow: 0 0 10px rgba(103, 58, 183, 0.3);
+  }
+  50% {
+    border-color: #9575CD;
+    box-shadow: 0 0 20px rgba(103, 58, 183, 0.5);
+  }
+}
+
+/* Variable highlight - 변수 강조 */
+.variable-highlight {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 0 2px;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: rgba(255, 235, 59, 0.3);
+  border: 1px solid #FDD835;
+  transition: all 0.2s ease;
+}
+
+.variable-highlight:hover {
+  background-color: rgba(255, 235, 59, 0.5);
+  transform: scale(1.05);
+}
+
+/* Substitution arrow animation */
+.substitution-arrow {
+  display: inline-block;
+  margin: 0 12px;
+  font-size: 24px;
+  animation: arrowMove 1.5s ease-in-out infinite;
+  color: #673AB7;
+}
+
+@keyframes arrowMove {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+}
+
+/* Expression container */
+.expression-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Step container */
+.step-container {
+  margin: 24px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.step-container:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Feedback message */
+.feedback-message {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.feedback-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4CAF50;
+  color: #2E7D32;
+}
+
+.feedback-error {
+  background-color: rgba(244, 67, 54, 0.1);
+  border-left: 4px solid #F44336;
+  color: #C62828;
+}
+
+.feedback-hint {
+  background-color: rgba(33, 150, 243, 0.1);
+  border-left: 4px solid #2196F3;
+  color: #1565C0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .glow-base {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  .expression-container {
+    flex-direction: column;
+  }
+
+  .substitution-arrow {
+    transform: rotate(90deg);
+    margin: 8px 0;
+  }
+}
+
+/* Accessibility - High contrast mode */
+@media (prefers-contrast: high) {
+  .glow-success {
+    border-width: 3px;
+    background-color: rgba(76, 175, 80, 0.2);
+  }
+
+  .glow-error {
+    border-width: 3px;
+    background-color: rgba(244, 67, 54, 0.2);
+  }
+
+  .variable-highlight {
+    border-width: 2px;
+    background-color: rgba(255, 235, 59, 0.5);
+  }
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .glow-success,
+  .glow-error,
+  .glow-partial,
+  .glow-hint,
+  .step-highlight,
+  .substitution-arrow {
+    animation: none;
+  }
+
+  .glow-base,
+  .variable-highlight,
+  .step-container {
+    transition: none;
+  }
+}

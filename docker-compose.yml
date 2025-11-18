@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Frontend - React Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - api
+
+  # Backend API - Node.js Gateway
+  api:
+    build:
+      context: ./backend/api
+      dockerfile: ../../docker/Dockerfile.api
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/api:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+
+  # Python Pipeline (Future)
+  # pipeline:
+  #   build:
+  #     context: ./backend/pipeline
+  #     dockerfile: ../../docker/Dockerfile.pipeline
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./backend/pipeline:/app
+  #   environment:
+  #     - PYTHONUNBUFFERED=1
+
+networks:
+  default:
+    name: ai-education-network
