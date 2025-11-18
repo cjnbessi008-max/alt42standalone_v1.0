@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Digest - Smartphone Display</title>
+    <link rel="stylesheet" href="css/smartphone-style.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Display (bottom right) -->
+    <div id="vector-digest-smartphone" class="smartphone-container">
+        <!-- Phone Frame -->
+        <div class="phone-frame">
+            <!-- Notch (iPhone-style) -->
+            <div class="phone-notch"></div>
+
+            <!-- Screen -->
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span class="time">12:34</span>
+                    <div class="status-icons">
+                        <span class="signal">📶</span>
+                        <span class="battery">🔋</span>
+                    </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="app-content">
+                    <!-- Header -->
+                    <div class="app-header">
+                        <div class="header-icon">📐</div>
+                        <h2>Vector Digest</h2>
+                        <button class="minimize-btn" id="minimizeBtn">−</button>
+                    </div>
+
+                    <!-- Digest Content -->
+                    <div class="digest-content" id="digestContent">
+                        <div class="loading" id="loadingIndicator">
+                            <div class="spinner"></div>
+                            <p>분석 중...</p>
+                        </div>
+
+                        <div class="digest-card" id="digestCard" style="display: none;">
+                            <div class="concept-badge" id="conceptBadge">Vector Basics</div>
+
+                            <div class="digest-lines">
+                                <div class="digest-line line-1" id="line1">
+                                    <span class="line-number">1</span>
+                                    <p class="line-text"></p>
+                                </div>
+                                <div class="digest-line line-2" id="line2">
+                                    <span class="line-number">2</span>
+                                    <p class="line-text"></p>
+                                </div>
+                                <div class="digest-line line-3" id="line3">
+                                    <span class="line-number">3</span>
+                                    <p class="line-text"></p>
+                                </div>
+                            </div>
+
+                            <div class="digest-footer">
+                                <div class="confidence" id="confidence">
+                                    <span class="confidence-label">신뢰도:</span>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-fill" id="confidenceFill"></div>
+                                    </div>
+                                    <span class="confidence-value" id="confidenceValue">0%</span>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button class="btn-helpful" id="btnHelpful" title="도움됨">👍</button>
+                                    <button class="btn-refresh" id="btnRefresh" title="새로고침">🔄</button>
+                                    <button class="btn-expand" id="btnExpand" title="확장">⤢</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="no-content" id="noContent" style="display: none;">
+                            <div class="no-content-icon">📭</div>
+                            <p>벡터 개념이 감지되지 않았습니다.</p>
+                        </div>
+
+                        <div class="error-message" id="errorMessage" style="display: none;">
+                            <div class="error-icon">⚠️</div>
+                            <p class="error-text">오류가 발생했습니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Home Indicator (iPhone-style) -->
+                <div class="home-indicator"></div>
+            </div>
+        </div>
+
+        <!-- Minimized State -->
+        <div class="minimized-button" id="minimizedBtn" style="display: none;">
+            <span class="icon">📐</span>
+            <span class="badge" id="notificationBadge">1</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/vector-digest.js"></script>
+    <script>
+        // Initialize Vector Digest
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get question ID from page context or URL
+            const questionId = getQuestionIdFromPage();
+
+            if (questionId) {
+                window.vectorDigest = new VectorDigest({
+                    apiUrl: '/vector-digest/api/VectorDigestAPI.php',
+                    questionId: questionId,
+                    autoLoad: true,
+                    position: 'bottom-right'
+                });
+            }
+        });
+
+        // Extract question ID from Moodle page
+        function getQuestionIdFromPage() {
+            // Try multiple methods to get question ID
+            const urlParams = new URLSearchParams(window.location.search);
+            let qid = urlParams.get('q') || urlParams.get('questionid');
+
+            if (!qid) {
+                // Try to find in page data attributes
+                const questionElement = document.querySelector('[data-question-id]');
+                if (questionElement) {
+                    qid = questionElement.getAttribute('data-question-id');
+                }
+            }
+
+            if (!qid) {
+                // Try to extract from page context (Moodle specific)
+                if (typeof M !== 'undefined' && M.cfg && M.cfg.question) {
+                    qid = M.cfg.question.id;
+                }
+            }
+
+            return qid;
+        }
+    </script>
+</body>
+</html>

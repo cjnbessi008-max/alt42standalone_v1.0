@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Digest - Test Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .question {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .question h3 {
+            margin-top: 0;
+            color: #212529;
+        }
+
+        .controls {
+            margin: 30px 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 5px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .status {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #0d6efd; }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #495057;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📐 Vector Digest - 테스트 페이지</h1>
+
+        <div class="question" data-question-id="1">
+            <h3>예제 문제 1: 벡터의 기본</h3>
+            <p>
+                벡터 <strong>v = (3, 4)</strong>의 크기를 구하시오.
+            </p>
+            <p>
+                벡터는 크기와 방향을 모두 가진 물리량입니다.
+                벡터의 크기는 |v| = √(x² + y²) 공식으로 구할 수 있습니다.
+            </p>
+        </div>
+
+        <div class="question" data-question-id="2">
+            <h3>예제 문제 2: 벡터의 덧셈</h3>
+            <p>
+                두 벡터 <strong>A = (2, 3)</strong>과 <strong>B = (1, -1)</strong>의 합벡터를 구하시오.
+            </p>
+            <p>
+                벡터의 덧셈은 평행사변형 법칙을 따릅니다.
+                성분별로 더하면: A + B = (2+1, 3+(-1)) = (3, 2)
+            </p>
+        </div>
+
+        <div class="question" data-question-id="3">
+            <h3>예제 문제 3: 내적과 외적</h3>
+            <p>
+                벡터 <strong>a = (1, 2, 3)</strong>과 <strong>b = (4, 5, 6)</strong>의 내적을 구하시오.
+            </p>
+            <p>
+                내적(dot product)은 a·b = a₁b₁ + a₂b₂ + a₃b₃로 계산됩니다.
+                외적(cross product)은 두 벡터에 수직인 새로운 벡터를 생성합니다.
+            </p>
+        </div>
+
+        <div class="controls">
+            <h3>테스트 컨트롤</h3>
+
+            <div>
+                <label>문제 ID:</label>
+                <input type="number" id="questionId" value="1" min="1" max="3">
+                <button onclick="loadDigest()">요약 불러오기</button>
+                <button onclick="generateDigest()">새 요약 생성</button>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <button onclick="testAPI()">API 테스트</button>
+                <button onclick="toggleSmartphone()">스마트폰 토글</button>
+                <button onclick="clearCache()">캐시 초기화</button>
+            </div>
+        </div>
+
+        <div class="status" id="status">
+            <div class="info">준비 완료. 버튼을 클릭하여 테스트를 시작하세요.</div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-radius: 8px;">
+            <h4 style="margin-top: 0;">💡 사용 방법</h4>
+            <ol>
+                <li><strong>요약 불러오기</strong>: 캐시된 요약을 불러옵니다</li>
+                <li><strong>새 요약 생성</strong>: 새로운 요약을 강제로 생성합니다</li>
+                <li><strong>API 테스트</strong>: API 엔드포인트 연결을 테스트합니다</li>
+                <li><strong>스마트폰 토글</strong>: 우측 하단 스마트폰 화면을 최소화/복원합니다</li>
+            </ol>
+            <p><strong>우측 하단</strong>을 확인하세요! 가상 스마트폰에 요약이 표시됩니다.</p>
+        </div>
+    </div>
+
+    <!-- Vector Digest Integration -->
+    <link rel="stylesheet" href="../frontend/css/smartphone-style.css">
+    <script src="../frontend/js/vector-digest.js"></script>
+    <div id="vector-digest-container"></div>
+
+    <script>
+        let vectorDigest;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../frontend/smartphone-display.html')
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('vector-digest-container').innerHTML = html;
+
+                    // Initialize Vector Digest with question 1
+                    vectorDigest = new VectorDigest({
+                        apiUrl: '../api/VectorDigestAPI.php',
+                        questionId: 1,
+                        autoLoad: true
+                    });
+
+                    updateStatus('초기화 완료! 문제 1의 요약을 불러오는 중...', 'success');
+                })
+                .catch(err => {
+                    updateStatus('오류: ' + err.message, 'error');
+                    console.error(err);
+                });
+        });
+
+        function loadDigest() {
+            const qid = document.getElementById('questionId').value;
+            updateStatus(`문제 ${qid}의 요약을 불러오는 중...`, 'info');
+
+            if (vectorDigest) {
+                vectorDigest.setQuestionId(qid);
+            }
+        }
+
+        function generateDigest() {
+            const qid = document.getElementById('questionId').value;
+            updateStatus(`문제 ${qid}의 새 요약을 생성하는 중...`, 'info');
+
+            if (vectorDigest) {
+                vectorDigest.generateNewDigest(qid);
+            }
+        }
+
+        async function testAPI() {
+            updateStatus('API 연결 테스트 중...', 'info');
+
+            try {
+                const response = await fetch('../api/VectorDigestAPI.php?action=get_digest&questionid=1');
+                const data = await response.json();
+
+                if (data.success || data.error) {
+                    updateStatus('API 연결 성공!\n' + JSON.stringify(data, null, 2), 'success');
+                } else {
+                    updateStatus('API 응답 형식 오류', 'error');
+                }
+            } catch (err) {
+                updateStatus('API 연결 실패: ' + err.message, 'error');
+            }
+        }
+
+        function toggleSmartphone() {
+            const container = document.getElementById('vector-digest-smartphone');
+            if (container) {
+                container.classList.toggle('minimized');
+                updateStatus('스마트폰 화면 토글', 'info');
+            }
+        }
+
+        function clearCache() {
+            if (confirm('캐시를 초기화하시겠습니까?')) {
+                updateStatus('캐시 초기화 기능은 서버측에서 구현이 필요합니다.', 'info');
+                // TODO: Implement cache clearing API
+            }
+        }
+
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.innerHTML = `<div class="${type}">${message}</div>`;
+        }
+
+        // Highlight active question
+        document.getElementById('questionId').addEventListener('change', function() {
+            document.querySelectorAll('.question').forEach(q => {
+                q.style.opacity = '0.5';
+            });
+
+            const activeQ = document.querySelector(`[data-question-id="${this.value}"]`);
+            if (activeQ) {
+                activeQ.style.opacity = '1';
+                activeQ.style.boxShadow = '0 0 0 3px #667eea';
+            }
+        });
+    </script>
+</body>
+</html>
