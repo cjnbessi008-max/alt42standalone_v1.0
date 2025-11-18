@@ -1,0 +1,88 @@
+.graph-viewer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.graph-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.graph-header h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.4em;
+}
+
+.graph-header .equation {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1em;
+  opacity: 0.95;
+}
+
+.graph-canvas {
+  flex: 1;
+  width: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.graph-info {
+  padding: 15px 20px;
+  background: #f5f5f5;
+  border-top: 2px solid #e0e0e0;
+}
+
+.current-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current-info p {
+  margin: 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.property {
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.95em;
+}
+
+.property.increasing {
+  background: #4caf5022;
+  color: #2e7d32;
+}
+
+.property.decreasing {
+  background: #f4433622;
+  color: #c62828;
+}
+
+.property.stationary {
+  background: #ff980022;
+  color: #f57c00;
+}
+
+@media (max-width: 768px) {
+  .graph-header h2 {
+    font-size: 1.2em;
+  }
+
+  .graph-header .equation {
+    font-size: 1em;
+  }
+
+  .current-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

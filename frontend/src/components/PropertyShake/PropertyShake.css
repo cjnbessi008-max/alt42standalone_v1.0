@@ -1,0 +1,116 @@
+.property-shake {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.shake-notification {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  border-left: 4px solid #667eea;
+  max-width: 300px;
+}
+
+.shake-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.notification-icon {
+  font-size: 1.5em;
+  flex-shrink: 0;
+}
+
+.notification-text {
+  flex: 1;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.vibration-indicator {
+  font-size: 1.2em;
+  animation: vibrate 0.3s infinite;
+}
+
+@keyframes vibrate {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}
+
+.notification-slope {
+  border-left-color: #2196f3;
+}
+
+.notification-extremum {
+  border-left-color: #ff9800;
+}
+
+.notification-inflection {
+  border-left-color: #4caf50;
+}
+
+.vibration-warning {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 152, 0, 0.9);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .property-shake {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+  }
+
+  .shake-notification {
+    max-width: 100%;
+  }
+
+  .vibration-warning {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    transform: none;
+    text-align: center;
+  }
+}
