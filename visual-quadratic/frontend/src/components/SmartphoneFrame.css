@@ -1,0 +1,58 @@
+.smartphone-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.smartphone-frame {
+  width: 320px;
+  height: 640px;
+  background: #1a1a1a;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  position: relative;
+  border: 8px solid #2a2a2a;
+}
+
+.smartphone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 25px;
+  background: #2a2a2a;
+  border-radius: 0 0 15px 15px;
+  z-index: 10;
+}
+
+.smartphone-screen {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 10px 10px 10px;
+}
+
+.smartphone-home-button {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+/* Responsive: hide on small screens */
+@media (max-width: 768px) {
+  .smartphone-container {
+    display: none;
+  }
+}

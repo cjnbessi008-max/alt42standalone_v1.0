@@ -1,0 +1,94 @@
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+}
+
+.app-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid #00ff88;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-header p {
+  margin: 10px 0 0;
+  font-size: 18px;
+  color: #aaa;
+}
+
+.app-main {
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.desktop-view {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.canvas-section {
+  flex: 1;
+  min-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.controls-section {
+  flex: 0 0 auto;
+}
+
+.mobile-content {
+  padding: 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.mobile-content h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .desktop-view {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .canvas-section {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 32px;
+  }
+
+  .app-header p {
+    font-size: 14px;
+  }
+
+  .canvas-section {
+    min-width: 100%;
+  }
+
+  .desktop-view {
+    padding: 20px 10px;
+  }
+}
