@@ -1,0 +1,36 @@
+.game-page {
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+.chapter-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.chapter-complete h1 {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.scene-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.scene-placeholder h2 {
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
