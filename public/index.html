@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Concept Game - Virtual Smartphone Widget</title>
+    <link rel="stylesheet" href="/css/widget.css">
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <!-- Virtual Smartphone Widget (Fixed Bottom-Right) -->
+    <div id="math-spirit-widget" class="smartphone-container minimized">
+        <!-- Smartphone Frame -->
+        <div class="smartphone-frame">
+            <!-- Notch (optional for realism) -->
+            <div class="smartphone-notch"></div>
+
+            <!-- Screen -->
+            <div class="smartphone-screen">
+                <!-- Header -->
+                <div class="widget-header">
+                    <div class="header-left">
+                        <span class="spirit-greeting">🎮 Math Spirits</span>
+                    </div>
+                    <div class="header-right">
+                        <button id="minimize-btn" class="icon-btn" title="Minimize">−</button>
+                        <button id="close-btn" class="icon-btn" title="Close">×</button>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="widget-content">
+                    <!-- Login Screen -->
+                    <div id="login-screen" class="screen active">
+                        <div class="login-container">
+                            <h2>👋 안녕하세요!</h2>
+                            <p>수학 개념 정령들이 기다리고 있어요</p>
+                            <form id="login-form">
+                                <input type="text" id="username" placeholder="사용자 이름" required>
+                                <button type="submit" class="btn-primary">시작하기</button>
+                            </form>
+                            <div class="login-footer">
+                                <a href="#" id="register-link">처음이신가요? 등록하기</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Menu Screen -->
+                    <div id="main-menu" class="screen">
+                        <div class="menu-container">
+                            <div class="student-info">
+                                <div class="student-avatar">👤</div>
+                                <div class="student-details">
+                                    <h3 id="student-name">Loading...</h3>
+                                    <p id="student-stats">⭐ 0 points</p>
+                                </div>
+                            </div>
+
+                            <nav class="main-nav">
+                                <button class="nav-item" data-screen="games">
+                                    <span class="nav-icon">🎮</span>
+                                    <span class="nav-label">게임하기</span>
+                                </button>
+                                <button class="nav-item" data-screen="cards">
+                                    <span class="nav-icon">🎴</span>
+                                    <span class="nav-label">카드 모음</span>
+                                </button>
+                                <button class="nav-item" data-screen="progress">
+                                    <span class="nav-icon">📊</span>
+                                    <span class="nav-label">진행 상황</span>
+                                </button>
+                                <button class="nav-item" data-screen="settings">
+                                    <span class="nav-icon">⚙️</span>
+                                    <span class="nav-label">설정</span>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Games List Screen -->
+                    <div id="games-screen" class="screen">
+                        <div class="screen-header">
+                            <button class="back-btn">←</button>
+                            <h2>게임 선택</h2>
+                        </div>
+                        <div class="games-grid" id="games-list">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Cards Collection Screen -->
+                    <div id="cards-screen" class="screen">
+                        <div class="screen-header">
+                            <button class="back-btn">←</button>
+                            <h2>내 카드 모음</h2>
+                        </div>
+                        <div class="cards-collection" id="cards-collection">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Progress Screen -->
+                    <div id="progress-screen" class="screen">
+                        <div class="screen-header">
+                            <button class="back-btn">←</button>
+                            <h2>진행 상황</h2>
+                        </div>
+                        <div class="progress-content" id="progress-content">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Game Play Screen -->
+                    <div id="game-play-screen" class="screen">
+                        <div class="screen-header">
+                            <button class="back-btn">←</button>
+                            <h2 id="game-title">Loading...</h2>
+                        </div>
+                        <div class="game-container">
+                            <iframe id="game-iframe" src="" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Navigation (always visible when maximized) -->
+                <div class="widget-footer">
+                    <div class="notification-badge" id="notification-badge" style="display: none;">
+                        <span id="notification-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Button -->
+            <div class="smartphone-home-btn"></div>
+        </div>
+
+        <!-- Minimized State Icon -->
+        <div class="minimized-icon" id="minimized-icon">
+            🎮
+            <div class="minimized-badge" style="display: none;">
+                <span>!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/widget.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
